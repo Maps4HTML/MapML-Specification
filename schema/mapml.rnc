@@ -1,0 +1,95 @@
+datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes" 
+start = mapml 
+mapml = element mapml { head?,body }
+head = element head { headContent }
+headContent =  
+    element base { 
+        attribute href {text}
+    }? &
+    element meta {
+        attribute name {text}?,
+        attribute charset {text}?,
+        attribute content {text}?,
+        attribute http-equiv {text}?
+    }* &
+    element title { text }? &
+    element link { 
+        attribute href { text },
+        attribute rel {  "stylesheet" },
+        attribute type { "text/css" }?
+    }*
+
+body = element body { bodyContent }
+bodyContent =  extent & links & (feature | tile)*  
+links = element link { 
+            attribute href { xsd:anyURI },
+            attribute rel { "east" | "west" | "north" | "south" | 
+                            "northeast" | "northwest" | "southeast" | "southwest" | 
+                            "zoomin" | "zoomout" | "panto" | "next" | "license"
+            },
+            attribute title { text }?,
+            attribute type { text }?,
+            attribute hreflang { text }?
+        }*
+extent = element extent {
+  attribute units  { text }?,
+  attribute action { xsd:anyURI },
+  attribute method { "get" }?,
+  attribute enctype { "application/x-www-form-urlencoded" },
+  inputs*
+}
+# allows nested inputs, but doesn't fully control their configuration.  todo
+# for example, the input/@name="bbox" behaves similar to an html input/@type="text"
+# except when the input has nested inputs, the input[child::input]/@value is interpreted as
+# a URI Template, with variable names and values specified by the child::input/@name & @value values
+# Another example: the input/@type="content-type" must contain 
+# an optional projection input and (either a mandatory zoom input or a mandatory scale input)
+inputs = (element input {
+  attribute name { text }?,
+  attribute type { "xmin" | "ymin" | "xmax" | "ymax" | "zoom" | "hidden" | "projection" },
+  attribute value { text }?,
+  attribute required { xsd:boolean }?,
+  attribute min { text }?,
+  attribute max { text }?,
+  attribute step { text }?
+})
+feature = element feature {
+    attribute id { text }?,
+    attribute class { text }?,
+    (bbox? & ( image? | geometry? ) & properties?)
+}
+tile = element tile {
+    attribute x { xsd:integer },
+    attribute y { xsd:integer },
+    ImageResourceMetadataAttributes
+}
+bbox = element bbox { twoCoordinatePairs }
+image =    element image { ImageModel }
+geometry = element geometry { GeometryContent }
+properties = element properties { PropertyContent }
+
+ImageResourceMetadataAttributes =  
+    attribute src { text },
+    attribute type { text }?
+ImageModel =  ImageResourceMetadataAttributes
+# allow any property/value via simple elements with allowed text content
+PropertyContent = any_attribute*, any_content 
+any_content = any_element*
+any_element = element * { any_attribute*, text }
+any_attribute = attribute * { text }
+
+GeometryContent = point | linestring | polygon | multipoint | multilinestring | multipolygon | geometrycollection   
+point = element Point { coordinatePair }
+linestring = element LineString { twoOrMoreCoordinatePairs }
+polygon = element Polygon { threeOrMoreCoordinatePairs+ }
+multipoint = element MultiPoint { coordinatePair+ }
+multilinestring = element MultiLineString { twoOrMoreCoordinatePairs+ }
+multipolygon = element MultiPolygon { polygon+ }
+geometrycollection = element GeometryCollection {
+    (point* & linestring* & polygon* & multipoint* & multilinestring* & multipolygon*)
+}
+coordinatePair = element coordinates  { list  { (xsd:double, xsd:double) } }
+twoOrMoreCoordinatePairs = element coordinates { list { (xsd:double, xsd:double)+ } }
+threeOrMoreCoordinatePairs = element coordinates { list { (xsd:double, xsd:double), (xsd:double, xsd:double), (xsd:double, xsd:double)+ } }
+# for bbox content, omits coordinates element
+twoCoordinatePairs =  list  { (xsd:double, xsd:double, xsd:double, xsd:double) } 
