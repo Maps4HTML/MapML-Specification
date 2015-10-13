@@ -1,6 +1,6 @@
 # MapML
 
-[Map Markup Language](http://maps4html.github.io/mapml/spec/) is hypertext for Web maps, like HTML is hypertext for Web pages
+[Map Markup Language](http://maps4html.github.io/MapML/spec/) is hypertext for Web maps, like HTML is hypertext for Web pages
 
 ## Background
 
