@@ -59,8 +59,8 @@ feature = element feature {
     (bbox? & ( image? | geometry? ) & properties?)
 }
 tile = element tile {
-    attribute x { xsd:integer },
-    attribute y { xsd:integer },
+    attribute col { xsd:integer },
+    attribute row { xsd:integer },
     ImageResourceMetadataAttributes
 }
 bbox = element bbox { twoCoordinatePairs }
