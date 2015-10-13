@@ -380,11 +380,33 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
         <h3 id="semantics">4.1. Semantics</h3>
         <h4 id="projection">4.1.1 Projection</h4>
         <p>A key factor which enables map "mashups" is the shared common coordinate systems and projections of the data used in the integration. On the modern Web, such interoperability is often achieved by using or assuming the use of de facto standard coordinate systems. Either the data being integrated already shares a common coordinate system, or it some or all of it must be transformed into a common coordinate system prior to being integrated. This approach often works, within the limits of operating assumptions. MapML documents are very similar to other spatial information with regard to definition of projection and coordinate system requirements. However, MapML defines a system of communicating projection information across the uniform interface of HTTP in order to eliminate assumptions of shared coordinate systems: the coordinate systems requested by the client and available from the server are represented as simple defined identifiers in markup defined in this specification. </p>
-        <p><strong>All coordinate reference systems' coordinate pairs, where not explicitly marked up or identified by axis (for example, in the <code>&lt;coordinates&gt;</code> element) are defined by this specification to be in "x-y" axis order. Where a conflict of definition exists, this specification must be taken to be correct. In other words, this specification overrides otherwise defined axis orders for coordinates marked up in Map Markup Language. For coordinate reference systems where an axis might not be readily identifiable as "x" or "y", this specification must define the mapping. For example, the mapping of longitude to the MapML "x" axis, and latititude to the MapML "y" axis.</strong></p>
-        <h5 id="WGS84">WGS84</h5>
-        <p>This specification defines the string "WGS84" to be the identifier of a coordinate reference system defined by the EPSG::4326 geodetic coordinate reference system, <strong>with the mandatory provision that the order of positions' axis values when specified in not-otherwise-marked-up coordinate pairs must be longitude followed by latitude (or "x-y")</strong>. This constraint follows the definition of the default coordinate system defintion for the GeoJSON format. This is believed to enhance interoperability, not only with the GeoJSON format, but on the Web.</p>
+        <p>All coordinate reference systems' coordinate pairs, where not explicitly marked up or identified by axis (for example, in the <code>&lt;coordinates&gt;</code> element) are defined by this specification to be in "x,y" axis order. Where an external conflict of definition exists, this specification must be taken to be correct <strong>for MapML only</strong>. In other words, this specification overrides externally defined axis order for coordinates marked up in Map Markup Language.
+            For coordinate reference systems where an axis might not be readily identifiable as "x" or "y" (for example, axes named "Easting" and "Northing"), this specification defines the mapping
+            to the MapML axes.</p>
         <h5 id="OSMTILE">OSMTILE</h5>
-        <p>This specification defines the string "OSMTILE" to be the identifier of a coordinate reference system which defines the coordinates of map 'tiles' according to integer x, y and z ('zoom') values (see below). The 'OSMTILE' coordinate reference system has become a de facto interoperable standard for 'slippy' Web maps, and is not redefined, merely 'named' herein.</p><p>Some of the major defining characteristics of the OSMTILE coordinate reference system include the fact that a large portion of the surface of the earth is represented by a single 256px by 256px tile (image) at zoom level 0, with successive zoom levels' tiles dividing the area represented by the parent tile into four equal quadrants, and 'nesting' perfectly within the parent tile such that each sucessive level of tiles contains 2<sup>zoom</sup> individual tiles. The geo-registration of tiles at different zoom levels is defined by the coordinate system definition, and they can thus be 'mashed up' with other spatial data (for example, WGS84-registered data), in a defined manner.</p>
+        <p>This specification defines the string "OSMTILE" to be the identifier of a tiled coordinate reference system projected (in the Web Mercator system) and scaled
+          into 19 zoom levels (0-18) at defined resolutions. The mapping of EPSG::3857 axes to MapML axes is: Easting &#8594; x, Northing &#8594; y.  The origin of the OSMTILE coordinate system 
+          <strong>and</strong> tile grid is located at 
+          (x = -20037508.342787, y = 20037508.342787) in the Web Mercator projected coordinate system.  The tiles are 256px X 256px in size.
+          The OSMTILE coordinate reference system has become a de facto interoperable standard for 'slippy' Web maps, and is not redefined, merely described herein.
+          The OSMTILE coordinate reference system is suitable for small scale mapping of the Earth, exclusive of north and south polar latitudes, where distortion is extreme.
+        </p>
+        <p>Some of the major defining characteristics of the OSMTILE coordinate reference system include the fact that a large portion of the surface of the earth is represented by a 
+          single 256px by 256px tile (image) at zoom level 0, with successive zoom levels' tiles dividing the area represented by the parent tile into four equal quadrants, 
+          and 'nesting' perfectly within the parent tile such that each sucessive level of tiles contains 2<sup>zoom</sup> individual tiles. The geo-registration of tiles at all 
+          zoom levels is defined by the coordinate system definition, and they can thus be 'mashed up' with other spatial data in a defined manner.</p>
+        <h5 id="CBMTILE">CBMTILE</h5>
+        <p>This specification defines the string "CBMTILE" to be the identifier of a tiled coordinate reference system projected in the Lambert Conformal Conic (LCC) system (EPSG::3978), and scaled into 18
+        zoom levels (0-17) at defined resolutions.  The mapping of EPSG::3978 axes to MapML axes is: Easting &#8594; x, Northing &#8594; y.  The origin of the CBMTILE coordinate system
+        <strong>and</strong> tile grid is located at (x = -34655800, y = 39310000) in the LCC projected coordinate system.  The tiles are 256px X 256px in size.  
+        The CBMTILE tiled coordinate reference system is suitable for small to medium scale mapping of Canada.</p>
+        <h5 id="WGS84">WGS84</h5>
+        <p>This specification defines the string "WGS84" to be the identifier of a coordinate reference system defined by the EPSG::4326 geodetic coordinate reference system, 
+          <strong>with the mandatory provision that the mapping of EPSG::4326 axes to MapML axes is: Longitude &#8594; x, Latitude &#8594; y.</strong>. 
+          This constraint follows the definition of the default coordinate system defintion for the GeoJSON format. This is believed to enhance interoperability, not only with the GeoJSON 
+          format, but on the Web.</p>
+        <p>Although it is not strictly speaking a "projection", the WGS84 tiled coordinate reference system identifier is discussed under the projection rubric because of the related
+        nature of its use.</p>
         <h5 id="OTHERPROJECTIONS">Other projections</h5>
         <p>Many other projections exist, and could in princple be used by MapML clients and servers. As such projections come into common usage, it is expected that their definitions for use in MapML and on the Web will be imported here.</p>
         <h4 id="scale">4.1.2 Scale / Zoom levels</h4>
@@ -393,7 +415,8 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
         <p>Map projections distort the surface of the earth in ways which suit the objectives of the projection definition. As a result of that distortion, the scale of maps in that projection varies as a function of location. "Zoom" levels are integer values chosen to be a simple numeric proxy for a scale at a defined location. For example, the OSMTILE projection, being based internally on the Spherical Web Mercator projection (EPSG::3857), allows us to portray a large portion of the Earth's surface, requiring relatively simple and fast math to convert to and from WGS84. Additionally, it enables the simple tiling system that has become a de facto standard. As such, it was deemed to have the properties for a globally useful projection on the Web.</p>
         <p>Map documents encoded in MapML have a defined scale, indirectly identified by zoom level and extent. Thus, two MapML documents in the same projection and zoom level should be interoperable to the degree that they can be automatically and visually related. The zoom level of a MapML document is often identified as the value of the <code>value</code> attribute of the <code>input[@type=zoom]</code>. It is anticipated that 'zoom' will be a defined media type parameter of the MapML MIME type. In that case, the zoom level of any MapML document should be present in the <code> meta[http-equiv="Content-Type"]/@content</code> value.</p>
         <h4 id="extent-semantics">4.1.3 Extents</h4>
-        <p>A MapML document is a representation of a defined portion of a two dimensional map area. In MapML, this is called an 'extent' (see below), which must be described by the bounding axis values xmin, ymin, xmax and ymax. The reason 'x' and 'y' are chosen as axis names is in recognition of the fact that different coordinate systems use different names for the axes. In MapML, such names are 'mapped' to 'x' and 'y' by the MapML definition of the coordinate system/ projection. The bounds of an extent should be specified in WGS84 projection units, as identified by the <code>extent[@units]</code> value.</p>
+        <p>A MapML document is a representation of a defined portion of a two dimensional map area. In MapML, this is called an 'extent' (see below), which must be described by the bounding axis values xmin, ymin, xmax and ymax. 
+           The bounds of an extent should be specified in MapML projection units, as identified by the <code>extent[@units]</code> value.</p>
         <h4 id="fragments">4.1.4 Fragment identifiers</h4>
         <p>TBD. Thinking of something like bbox={xmin},{ymin},{xmax},{ymax} and (possibly) zoom values, although because a MapML document has a single zoom value, it could likely be omitted.</p>
         <h3 id="structure">4.2 Structure</h3>
@@ -693,8 +716,8 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           <dd><code>type</code> - the type of form control. If no <code>name</code> attribute exists, the <code>type</code> will be used as a variable name in extent form serialization.</dd>
           <dd><code>name</code> - the token to be used in place of the<code>type</code> value for the variable name in form serialization.</dd>
           <dd><code>value</code> - the current value of the name/value pair represented by the <code>input</code></dd>
-          <dd><code>min</code> - the minimum value for the extent parameter</dd>
-          <dd><code>max</code> - the maximum value for the extent parameter</dd>
+          <dd><code>min</code> - the minimum value for the extent parameter acceptable by the server</dd>
+          <dd><code>max</code> - the maximum value for the extent parameter acceptable by the server</dd>
           <dd><code>step</code> - the incremental value that a server can vary the zoom parameter by.  Typically 0 or 1.</dd>
           <dt>DOM interface:</dt>
           <dd>
@@ -727,25 +750,25 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           <tbody>
             <tr>
               <td><code>xmin</code></td>
-              <td> Left-most bounding value of the horizontal map axis </td>
+              <td> Minimum value of the map X axis </td>
               <td> A numerical value </td>
               <td> A derived property of a displayed map </td>
             </tr>
             <tr>
               <td><code>ymin</code></td>
-              <td> Lower-most bounding value of the vertical map axis </td>
+              <td> Minimum value of the map Y axis </td>
               <td> A numerical value </td>
               <td> A derived property of a displayed map </td>
             </tr>
             <tr>
               <td><code>xmax</code></td>
-              <td> Right-most bounding value of the horizontal map axis </td>
+              <td> Maximum value of the map X axis </td>
               <td> A numerical value </td>
               <td> A derived property of a displayed map </td>
             </tr>
             <tr>
               <td><code>ymax</code></td>
-              <td> Upper-most bounding value of the vertical map axis </td>
+              <td> Maximum value of the map Y axis </td>
               <td> A numerical value </td>
               <td> A derived property of a displayed map </td>
             </tr>
@@ -759,7 +782,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
               <td><code>projection</code></td>
               <td> projection </td>
               <td> A string value with no line breaks</td>
-              <td> The projected or tiled coordinate system of a displayed map. </td>
+              <td> The tiled coordinate system name of a displayed map. </td>
             </tr>
             <tr>
               <td><code>hidden</code></td>
@@ -786,31 +809,31 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           <dt>Content model:</dt>
           <dd>Empty.</dd>
           <dt>Content attributes:</dt>
-          <dd><code>x</code> - an integer in the domain of the x axis of the tile coordinate reference system</dd>
-          <dd><code>y</code> - an integer in the range of the y axis of the tile coordinate reference system</dd>
+          <dd><code>row</code> - an integer (a Y axis value / the tile size) in the range of the tile coordinate reference system</dd>
+          <dd><code>col</code> - an integer (a X axis value / the tile size)  in the domain of the tile coordinate reference system</dd>
           <dd><code>src</code> - a URL from which the tile may be obtained</dd>
           <dd><code>type</code> - a hint about the MIME type of the resource obtainable at the <code>src</code> URL.</dd>
           <dt>DOM interface:</dt>
           <dd>
             <dd>
               <pre class="idl">interface <dfn id="mapmlextentelement">MAPMLTileElement</dfn> : MAPMLElement {
-           attribute long x;
-           attribute long y;
+           attribute long row;
+           attribute long col;
            attribute DOMString src;
            attribute DOMString type;
 
 };</pre>
             </dd>
         </dl>
-        <p>The <code>tile</code> element is a type of feature which is associated with a coordinate reference system that subdivides or 'tiles' 2D space in a recursively repeating pattern,
-          starting at coordinates and orientation defined in an underlying projected or geodetic coordinate reference system, and proceeding to define tiles along regular bounds 
-          at defined scales, or "zoom" levels. </p>
-        <p>A defining characteristic of 'tiled' coordinate reference systems is that they rely on integer coordinate and zoom values.  The use of such values in URLs can yield 
-        highly cacheable resources, which can lead to high-performance map services.</p>
+        <p>The <code>tile</code> element is a type of feature which is associated with a tiled coordinate reference system that subdivides or 'tiles' 2D space in a recursively 
+          repeating grid pattern, where the origin of both the tiled coordinate reference system and the grid at all zoom levels is defined in coordinates of an underlying 
+          projected coordinate reference system.</p>
+        <p>A defining characteristic of tiled coordinate reference systems is that they rely on integer grid row/col coordinates and zoom values.  The use of these values in 
+          URLs can yield highly cacheable resources, which can lead to high-performance map services.</p>
         <p>The "zoom" value is a global integer property of a MapML document whose coordinate system is defined by this specification.   All MapML documents have a defined zoom value.
           The "zoom" value is equal to the <code>zoom@value</code> child of the <code>extent</code> element.  Hence the zoom value is not a direct 
         attribute of the <code>tile</code> element.</p>
-        <p>The main example of such a tiled coordinate reference system is <a href="#OSMTILE"><code>OSMTILE</code></a>, although others are possible.</p>
+        <p>The main example of such a tiled coordinate reference system is <a href="#OSMTILE"><code>OSMTILE</code></a>, although others exist.</p>
         <h5 id="the-feature-element">4.2.1.1.7 The <code>&lt;feature&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
