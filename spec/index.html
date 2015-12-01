@@ -113,8 +113,8 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
     mapping in general.  Robust web maps are implemented by a variety of non-standard technologies.  Web maps do not work without script support, making
     their creation a job beyond the realm of beginners' skill sets, while making them inherently inaccessible.
     
-    In order to improve collaboration and integration of the mapping and Web communities, it is desirable to enhance 
-    the functionality of the <map> element in HTML to include the accessible user interface functions of modern web maps (e.g. panning, zooming, searching for, 
+    In order to improve collaboration and integration of the mapping and Web communities, it is desirable to enhance or augment
+    the functionality of the &lt;map> element in HTML to include the accessible user interface functions of modern web maps (e.g. panning, zooming, searching for, 
      and zooming to, styling, identifying features’ properties, etc.), while maintaining a simple, declarative, accessible interface for HTML authors.  At the same time, 
      the HTML interface should provide low-level programmable mapping hooks in the style of the Web.  While we're at it, maybe we can improve the state
     of Web mapping by adopting and incorporating the core values of the Web, namely federation by virtue of hyperlinks and standardized media types.</p>
@@ -169,6 +169,9 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 			</ul>
 		</li>
 		<li>4. <a href="#features">Semantics and Structure of MapML Documents</a></li>
+                <ul class="toc">
+                  <li>4.1.1 <a href="#projections">Projections</a></li>
+                </ul>
 		<li>5. <a href="#examples">Examples</a></li>
 		<li>6. <a href="#security">Security Considerations</a></li>
 		<li>7. <a href="#glossary">Glossary of Terms and Datatypes</a></li>
@@ -356,15 +359,15 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
   <p><strong>Image-based maps</strong>: Web services typically produce a single geo-referenced image which constitutes a map. MapML encodes URL references to such images,
   together with appropriate georeferencing metadata.</p>
   <p><strong>Vector-based maps</strong>: Geospatial databases, for example PostGIS, are able to serve and manipulate vector representations of features which can be symbolized according to their properties. </p>
-  <p><strong>Multi-layer maps</strong>: Maps are often required to overlay information in such a way as to enable both visual and automatated relationship recognition. 
+  <p><strong>Multi-layer maps</strong>: Maps are often required to overlay information in such a way as to enable both visual and automatated spatial relationship processing. 
   MapML will support the layering of information using the 'painters model', wherein elements are drawn in document order overtop of earlier elements, together with CSS styling (transparency) techniques.</p>  
-  <p><strong>Use CSS for map styles</strong>: MapML elements should be subject to styling with CSS by the MapML and HTML authors respectively, subject to 'ownership'.  
-    For example, the MapML author should be able to supply a stylesheet for a MapML response, but the HTML author who designs the page which consumes the response 
-    should have a limited ability to override those styles.  By requiring CSS, it is thought that the relationship between the Mapping and Web communities will
-    be strengthened and extended, to the benefit of both communities.</p>
-  <p><strong>Location search</strong>: A MapML service might want to allow service consumers to search within the contents of a service for a place name or an address, to which the map is automatically repositioned when a selection is made.  MapML should provide (markup) facilities to enable such searches without forcing the client download large amounts of geospatial data.</p>
+  <p><strong>Use CSS for map styles</strong>: MapML elements should be style-able with CSS rules supplied by the MapML author. 
+    For example, the MapML author should be able to link to a stylesheet from a MapML document.</p>
+  <p><strong>Location search</strong>: A MapML service might want to allow service consumers to search within the contents of a service for a place name or an address, over which the map is repositioned when a selection is made.  MapML should provide (markup) facilities to enable such searches without forcing the client download large amounts of geospatial data.</p>
   <p><strong>Hyperlinks between and within services</strong>: MapML should allow service-level links such that service providers can link together / federate to provide apparently seamless spatial coverage.</p>
-  <p><strong>Attribution</strong>: MapML encode citation information on a per-request basis, making it available as markup in the response.</p>
+  <p><strong>Feature identification</strong>: If a MapML document includes features, the MapML author should be able to markup any or all of those features in a way which lends itself to
+  feature identification and property display.</p>
+  <p><strong>Attribution</strong>: MapML documents encode citation information on a per-request basis, making it available as markup in the response.</p>
 
   <h3 id="requirements">3.2. Requirements</h3>
 
@@ -378,11 +381,216 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 
       <div id="sec-features">
         <h2 id="features">4. Semantics and structure of MapML documents</h2>
-        <p>This section is informative.</p>
+        <p>This section is normative.</p>
         <h3 id="semantics">4.1. Semantics</h3>
-        <h4 id="projection">4.1.1 Projection</h4>
-        <p>A key factor which enables map "mashups" is the shared common coordinate systems and projections of the data used in the integration. On the modern Web, such interoperability is often achieved by using or assuming the use of de facto standard coordinate systems. Either the data being integrated already shares a common coordinate system, or it some or all of it must be transformed into a common coordinate system prior to being integrated. This approach often works, within the limits of operating assumptions. MapML documents are very similar to other spatial information with regard to definition of projection and coordinate system requirements. However, MapML defines a system of communicating projection information across the uniform interface of HTTP in order to eliminate assumptions of shared coordinate systems: the coordinate systems requested by the client and available from the server are represented as simple defined identifiers in markup defined in this specification. </p>
-        <p>All coordinate reference systems' coordinate pairs, where not explicitly marked up or identified by axis (for example, in the <code>&lt;coordinates&gt;</code> element) are defined by this specification to be in "x,y" axis order. Where an external conflict of definition exists, this specification must be taken to be correct <strong>for MapML only</strong>. In other words, this specification overrides externally defined axis order for coordinates marked up in Map Markup Language.
+        <h4 id="projections">4.1.1 Projections</h4>
+        <p>A key factor which enables map "mashups" is the shared common coordinate systems and projections of the data used in the integration. On the modern Web, such interoperability is often achieved by using or assuming the use of de facto standard coordinate systems. Either the data being integrated already shares a common coordinate system, or it some or all of it must be transformed into a common coordinate system prior to being integrated. This approach often works, within the limits of operating assumptions. MapML documents are similar to other spatial information with regard to definition of projection and coordinate system requirements. However, MapML defines a system of communicating projection information across the uniform interface of HTTP in order to eliminate assumptions in shared coordinate systems: the coordinate systems requested by the client and available from the server are represented as simple defined identifiers defined in the table below, and exchanged in markup defined by this specification. </p>
+<table>
+   <thead>
+    <tr>
+     <th>Projection value</th>
+     <th>Description</th>
+     <th>Base CRS / Projection system</th>
+     <th>Axis mappings</th>
+     <th>Origin (x,y)</th>
+     <th>Tile row/column size (px)</th>
+     <th>Projected Bounds / LatLng Bounds</th>
+     <th>Zoom level</th>
+     <th>Resolution</th>
+    </tr>
+   </thead>
+   <tbody>
+
+    <tr>
+     <td><code>OSMTILE</code></td>
+     <td>Web Mercator-based tiled coordinate reference system. Applied by many global map applications, for areas excluding polar latitudes.</td>
+     <td>EPSG::3857 / Spherical Mercator</td>
+     <td>Easting → x, Northing → y</td>
+     <td>-20037508.342787, 20037508.342787</td>
+     <td>256/256</td>
+     <td>LatLng(-85.0511287798,-180), LatLng(85.0511287798,180)</td>
+     <td>                  0<br>
+                  1<br>
+                  2<br>
+                  3<br>
+                  4<br>
+                  5<br>
+                  6<br>
+                  7<br>
+                  8<br>
+                  9<br>
+                  10<br>
+                  11<br>
+                  12<br>
+                  13<br>
+                  14<br>
+                  15<br>
+                  16<br>
+                  17<br>
+                  18<br>
+
+</td>
+     <td>            156543.0339<br>
+                     78271.51695<br>
+                     39135.758475<br>
+                     19567.8792375<br>
+                     9783.93961875<br>
+                     4891.969809375<br>
+                     2445.9849046875<br>
+                     1222.9924523438<br>
+                     611.49622617188<br>
+                     305.74811308594<br>
+                     152.87405654297<br>
+                     76.437028271484<br>
+                     38.218514135742<br>
+                     19.109257067871<br>
+                     9.5546285339355<br>
+                     4.7773142669678<br>
+                     2.3886571334839<br>
+                     1.1943285667419<br>
+                     0.59716428337097<br>   
+</td>
+    </tr>
+    <tr>
+     <td><code>CBMTILE</code></td>
+     <td>Lambert Conformal Conic-based tiled coordinate reference system for Canada.</td>
+     <td>EPSG::3978 / Lambert Conformal Conic</td>
+     <td>Easting → x, Northing → y</td>
+     <td>-34655800, 39310000</td>
+     <td>256/256</td>
+     <td>-7786476.885838887, -5153821.09213678, 7148753.233541353, 7928343.534071138</td>
+     <td>0<br>
+                  1<br>
+                  2<br>
+                  3<br>
+                  4<br>
+                  5<br>
+                  6<br>
+                  7<br>
+                  8<br>
+                  9<br>
+                  10<br>
+                  11<br>
+                  12<br>
+                  13<br>
+                  14<br>
+                  15<br>
+                  16<br>
+                  17<br></td>
+     <td>                             38364.660062653464<br> 
+                 22489.62831258996<br> 
+                 13229.193125052918<br> 
+                 7937.5158750317505<br> 
+                 4630.2175937685215<br> 
+                 2645.8386250105837<br>
+                 1587.5031750063501<br>
+                 926.0435187537042<br> 
+                 529.1677250021168<br> 
+                 317.50063500127004<br> 
+                 185.20870375074085<br> 
+                 111.12522225044451<br> 
+                 66.1459656252646<br> 
+                 38.36466006265346<br> 
+                 22.48962831258996<br>
+                 13.229193125052918<br>
+                 7.9375158750317505<br> 
+                 4.6302175937685215<br>    
+
+</td>
+    </tr>
+    <tr>
+     <td><code>APSTILE</code></td>
+     <td>Alaska Polar Stereographic-based tiled coordinate reference system for the Arctic region.</td>
+     <td>EPSG::5936 / Polar Stereographic</td>
+     <td>Easting → x, Northing → y</td>
+     <td>-28567784.109255, 32567784.109255</td>
+     <td>256/256</td>
+     <td>-28567784.109254867, -28567784.109254755, 32567784.109255023, 32567784.10925506</td>
+     <td>         
+                  0<br>
+                  1<br>
+                  2<br>
+                  3<br>
+                  4<br>
+                  5<br>
+                  6<br>
+                  7<br>
+                  8<br>
+                  9<br>
+                  10<br>
+                  11<br>
+                  12<br>
+                  13<br>
+                  14<br>
+                  15<br>
+                  16<br>
+                  17<br>
+                  18<br>
+                  19<br></td>
+     <td>                             238810.813354<br>
+                  119405.406677<br>
+                  59702.7033384999<br>
+                  29851.3516692501<br>
+                  14925.675834625<br>
+                  7462.83791731252<br>
+                  3731.41895865639<br>
+                  1865.70947932806<br>
+                  932.854739664032<br>
+                  466.427369832148<br>
+                  233.213684916074<br>
+                  116.606842458037<br>
+                  58.3034212288862<br>
+                  29.1517106145754<br>
+                  14.5758553072877<br>
+                  7.28792765351156<br>
+                  3.64396382688807<br>
+                  1.82198191331174<br>
+                  0.910990956788164<br>
+                  0.45549547826179<br>    
+
+</td>
+    </tr>
+     <tr>
+     <td><code>WGS84</code></td>
+     <td>World Geodetic System 1984.</td>
+     <td>EPSG::4326</td>
+     <td>Longitude → x, Latitude → y</td>
+     <td>n/a</td>
+     <td>n/a</td>
+     <td>n/a</td>
+     <td>         
+                  0<br>
+                  1<br>
+                  2<br>
+                  3<br>
+                  4<br>
+                  5<br>
+                  6<br>
+                  7<br>
+                  8<br>
+                  9<br>
+                  10<br>
+                  11<br>
+                  12<br>
+                  13<br>
+                  14<br>
+                  15<br>
+                  16<br>
+                  17<br>
+                  18<br>
+                  19<br>
+                  20<br>
+                  21<br>
+                  22<br>
+                  23<br>
+                  24<br>
+                  25<br></td>
+     <td>n/a</td>
+    </tr>
+   </tbody>
+</table>
+
+        <p>All coordinate reference systems' coordinate pairs, where not explicitly marked up or identified by axis (for example, in the <code>&lt;coordinates&gt;</code> element) are defined by this specification to be in "x,y" axis order. Where an external conflict of definition exists, this specification must be taken to be correct <strong>for MapML only</strong>. In other words, this specification overrides externally defined axis order for coordinates marked up in Map Markup Language only.
             For coordinate reference systems where an axis might not be readily identifiable as "x" or "y" (for example, axes named "Easting" and "Northing"), this specification defines the mapping
             to the MapML axes.</p>
         <h5 id="OSMTILE">OSMTILE</h5>
@@ -402,15 +610,19 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
         zoom levels (0-17) at defined resolutions.  The mapping of EPSG::3978 axes to MapML axes is: Easting &#8594; x, Northing &#8594; y.  The origin of the CBMTILE coordinate system
         <strong>and</strong> tile grid is located at (x = -34655800, y = 39310000) in the LCC projected coordinate system.  The tiles are 256px X 256px in size.  
         The CBMTILE tiled coordinate reference system is suitable for small to medium scale mapping of Canada.</p>
+        <h5 id="APSTILE">APSTILE</h5>
+        <p>The APSTILE tiled coordinate reference system is based on the Stereographic family of map projections, with the North polar aspect, per the EPSG::5936 coordinate reference system. This projection system is suitable for displaying
+        areas in (north) polar latitudes.</p>
         <h5 id="WGS84">WGS84</h5>
         <p>This specification defines the string "WGS84" to be the identifier of a coordinate reference system defined by the EPSG::4326 geodetic coordinate reference system, 
           <strong>with the mandatory provision that the mapping of EPSG::4326 axes to MapML axes is: Longitude &#8594; x, Latitude &#8594; y.</strong>. 
           This constraint follows the definition of the default coordinate system defintion for the GeoJSON format. This is believed to enhance interoperability, not only with the GeoJSON 
           format, but on the Web.</p>
-        <p>Although it is not strictly speaking a "projection", the WGS84 tiled coordinate reference system identifier is discussed under the projection rubric because of the related
-        nature of its use.</p>
+        <p>Although it is not strictly speaking a "projection", WGS84 is discussed in this specification as a "tiled coordinate reference system" identifier, and is discussed under the projection rubric because of the related
+        nature of its use. </p>
         <h5 id="OTHERPROJECTIONS">Other projections</h5>
-        <p>Many other projections exist, and could in princple be used by MapML clients and servers. As such projections come into common usage, it is expected that their definitions for use in MapML and on the Web will be imported here.</p>
+        <p>Many other projections exist, and could in princple be used by MapML clients and servers. As such projections come into common usage, it is expected that their definitions for use in MapML and on the Web will be imported here. The
+        contents of this document constitutes a registry of such projections.</p>
         <h4 id="scale">4.1.2 Scale / Zoom levels</h4>
         <p>Scale is an essential characteristic of all geospatial information. The scale at which information is used dictates the model used for its representation. Geospatial information cannot be meaningfully combined without consideration given to its scale. Entire cities are represented on 'small scale' maps as dots, whereas on another large scale map, a single city could have many thousands of individual features in its depiction.</p>
         <p>Not only is scale important in the portrayal of maps, it is also essential when defining the model of underlying feature data.</p>
