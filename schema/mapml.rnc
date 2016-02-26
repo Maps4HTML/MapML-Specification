@@ -15,12 +15,13 @@ headContent =
     element title { text }? &
     element link { 
         attribute href { text },
-        attribute rel {  "stylesheet" },
+        attribute rel {  "stylesheet" | "license" | "projection" },
+        attribute title { text },
         attribute type { "text/css" }?
     }*
 
 body = element body { bodyContent }
-bodyContent =  extent & links & (feature | tile)*  
+bodyContent =  extent & links & (feature | tile | image)*  
 links = element link { 
             attribute href { xsd:anyURI },
             attribute rel { "east" | "west" | "north" | "south" | 
@@ -70,6 +71,9 @@ properties = element properties { PropertyContent }
 
 ImageResourceMetadataAttributes =  
     attribute src { text },
+    imageLocation?,
+    imageSize?,
+    attribute angle { xsd:double }?,
     attribute type { text }?
 ImageModel =  ImageResourceMetadataAttributes
 # allow any property/value via simple elements with allowed text content
@@ -77,6 +81,8 @@ PropertyContent = any_attribute*, any_content
 any_content = any_element*
 any_element = element * { any_attribute*, text }
 any_attribute = attribute * { text }
+imageLocation = attribute x { xsd:double }, attribute y { xsd:double }
+imageSize = attribute width { xsd:integer },attribute height { xsd:integer }
 
 GeometryContent = point | linestring | polygon | multipoint | multilinestring | multipolygon | geometrycollection   
 point = element Point { coordinatePair }
