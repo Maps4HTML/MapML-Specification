@@ -134,9 +134,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
   
   <h3>Changes Since the Previous Draft</h3>
   
-  <p>Added discussion of Tiled Coordinate Reference Systems.  Added CBMTILE coordinate reference system.  Changed name of <code>tile</code> attribute <code>x</code> to
-    <code>col</code>.  Changed name of <code>tile</code> attribute <code>y</code> to <code>row</code>.  Changed the <code>extent</code> element to use tiled coordinate
-  reference system units, not WGS84 units. </p>
+  <p>Changed the brief description of zoomin, zoomout link relations.</p>
 
   
   <h3>Level of Endorsement by the Community</h3>
@@ -842,11 +840,11 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
             </tr>
             <tr>
               <td><code>zoomin</code></td>
-              <td>Indicates a resource that may be used to the zoom at the current zoom level plus 1.</td>
+              <td>Indicates a resource that may be used at a zoom level greater than the maximum zoom of the current extent.</td>
             </tr>
             <tr>
               <td><code>zoomout</code></td>
-              <td>Indicates a resource that may be used to the zoom at the current zoom level minus 1.</td>
+              <td>Indicates a resource that may be used at a zoom level less than the minimum zoom of the current extent.</td>
             </tr>
             <tr>
               <td><code>panto</code></td>
@@ -1032,6 +1030,57 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
             </tr>
           </tbody>
         </table>
+        <h5 id="the-template-element">4.2.1.1.5.1 The <code>&lt;template&gt;</code> element</h5>
+        <dl class="element">
+          <dt>Categories:</dt>
+          <dd></dd>
+          <dt>Contexts in which this element can be used:</dt>
+          <dd>Child of the <code>&lt;extent&gt;</code> element.</dd>
+          <dt>Content model:</dt>
+          <dd>Empty.</dd>
+          <dt>Content attributes:</dt>
+          <dd><code>type</code> - a keyword string</dd>
+          <dd><code>tref</code> - a Level 1 URL template</dd>
+          <dt>DOM interface:</dt>
+          <dd>
+            <dd>
+              <pre class="idl">interface <dfn id="mapmltemplateelement">MAPMLTemplateElement</dfn> : MAPMLElement {
+           attribute DOMString type;
+           attribute DOMString tref;
+
+};</pre>
+            </dd>
+        </dl>
+        <p>The <code>template</code> element represents a URL template for a resource (e.g. tiles) which can be used by the client make requests for resources
+          to fill its extent at zoom levels and bounds indicated by sibling <code>input</code> elements' <code>min</code> and <code>max</code> attributes, or
+          to (partially) identify URL targets suitable to enable query of server resources. The <code>type</code> attribute contains a keyword string which
+          identifies the type of resource for which the template's <code>tref</code> attribute provides a URL template, which may contain zero or
+          more variable references. Such variable references must uniquely match variables identified by sibling <code>input</code> elements' <code>name</code>
+        attribute.  </p>
+        <table id="attr-template-type-keywords">
+          <thead>
+            <tr>
+              <th> Keyword </th>
+              <th> State </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>tile</code></td>
+              <td> The templated reference identifies a tile </td>
+            </tr>
+            <tr>
+              <td><code>image</code></td>
+              <td> The templated reference identifies an image that covers the extent </td>
+            </tr>
+            <tr>
+              <td><code>query</code></td>
+              <td> The templated reference identifies a query resource at a location </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
         <h5 id="the-tile-element">4.2.1.1.6 The <code>&lt;tile&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
@@ -1048,7 +1097,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           <dt>DOM interface:</dt>
           <dd>
             <dd>
-              <pre class="idl">interface <dfn id="mapmlextentelement">MAPMLTileElement</dfn> : MAPMLElement {
+              <pre class="idl">interface <dfn id="mapmltileelement">MAPMLTileElement</dfn> : MAPMLElement {
            attribute long row;
            attribute long col;
            attribute DOMString src;
