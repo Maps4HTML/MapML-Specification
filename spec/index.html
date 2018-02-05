@@ -875,7 +875,12 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           <dt>Contexts in which this element can be used:</dt>
           <dd>Required to be the first child of the <code>&lt;body&gt;</code> element.</dd>
           <dt>Content model:</dt>
-          <dd>A set of multiple <code>input</code> elements</dd>
+          <dd>If the <code>action</code> attribute exists: A set of multiple <code>input</code> and zero or one <code>template</code> element with its
+              <code>type</code> attribute in the "query" state.</dd>
+          <dd>If no <code>action</code> attribute exists: A set of multiple <code>input</code> and one or more <code>template</code> elements with
+            their <code>type</code> attribute in either the "tile" or "image" state, and zero or one <code>template</code> element with its
+              <code>type</code> attribute in the "query" state.</dd>
+          
           <dt>Content attributes:</dt>
           <dd><code>action</code> - URL to use for form (extent) submission</dd>
           <dd><code>enctype</code> - Extent form data set encoding type to use for extent form submission</dd>
@@ -943,26 +948,33 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           <dt>Content model:</dt>
           <dd>Empty.</dd>
           <dt>Content attributes:</dt>
-          <dd><code>type</code> - the type of form control. If no <code>name</code> attribute exists, the <code>type</code> will be used as a variable name in extent form serialization.</dd>
-          <dd><code>name</code> - the token to be used in place of the<code>type</code> value for the variable name in form serialization.</dd>
+          <dd><code>type</code> - the type of input.</dd>
+          <dd><code>name</code> - the token to be used as a variable name in form serialization.</dd>
           <dd><code>value</code> - the current value of the name/value pair represented by the <code>input</code></dd>
           <dd><code>min</code> - the minimum value for the extent parameter acceptable by the server</dd>
           <dd><code>max</code> - the maximum value for the extent parameter acceptable by the server</dd>
           <dd><code>step</code> - the incremental value that a server can vary the zoom parameter by.  Typically 0 or 1.</dd>
+          <dd><code>units</code> - keyword string identifies the associated coordinate system for this input</dd>
+          <dd><code>axis</code> - keyword string identifies the axis of the associated coordinate system from the <code>units</code> attribute</dd>
+          <dd><code>position</code> - keyword string identifies the relative position of a location</dd>
           <dt>DOM interface:</dt>
           <dd>
             <dd>
-              <pre class="idl">interface <dfn id="mapmlextentelement">MAPMLInputElement</dfn> : MAPMLElement {
+              <pre class="idl">interface <dfn id="mapmlinputelement">MAPMLInputElement</dfn> : MAPMLElement {
            attribute DOMString type;
            attribute DOMString name;
            attribute DOMString min;
            attribute DOMString max;
            attribute DOMString step;
+           attribute DOMString units;
+           attribute DOMString axis;
+           attribute DOMString position;
+
 
 };</pre>
             </dd>
         </dl>
-        <p>The <code>input</code> element represents a typed data field, associated with a map extent form, to allow the user agent to request MapML documents 
+        <p>The <code>input</code> element represents a typed data field, associated with a map extent form, to allow the user agent to request documents 
           for a specific map area.  There must be at least four input element children of the extent element, including only one of each of the following 
           <code>type</code> inputs: <code>xmin</code>, <code>ymin</code>,<code>xmax</code> and <code>ymax</code>.</p>
         <p>The <code>type</code> attribute controls the data type (and associated control) of the element. It is an enumerated attribute. The following
@@ -1015,6 +1027,24 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
               <td> The tiled coordinate system name of a displayed map. </td>
             </tr>
             <tr>
+              <td><code>location</code></td>
+              <td> location </td>
+              <td> A string value with no line breaks</td>
+              <td> A location, the units and axis of which are specified by sibling attributes. </td>
+            </tr>
+            <tr>
+              <td><code>width</code></td>
+              <td> width of the extent </td>
+              <td> A string value with no line breaks</td>
+              <td> . </td>
+            </tr>
+            <tr>
+              <td><code>height</code></td>
+              <td> height of the extent </td>
+              <td> A string value with no line breaks</td>
+              <td> . </td>
+            </tr>
+            <tr>
               <td><code>hidden</code></td>
               <td> hidden </td>
               <td> An arbitrary string </td>
@@ -1030,7 +1060,122 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
             </tr>
           </tbody>
         </table>
-        <h5 id="the-template-element">4.2.1.1.5.1 The <code>&lt;template&gt;</code> element</h5>
+        <p>When the <code>type</code> attribute is in the "location" state, the <code>input</code> may have three associated attributes: 
+          <code>units</code>, <code>axis</code> and <code>position</code>. <code>units</code> identifies the associated coordinate system 
+          that the <code>location</code> is referred to.  Each Tiled Coordinate Reference System (TCRS) instance may have one or more associated 
+          coordinate systems that are coordinate reference system by virtue of their defined association to the TCRS.
+          For instance, the OSMTILE TCRS is associated to the underlying coordinate reference system known commonly as Web Mercator,
+          by virtue of an origin location, defined in meters in the EPSG:3857 CRS plus a set of zoom level resolutions, and a transformation.</p>
+        
+        <table id="attr-input-units-keywords">
+          <thead>
+            <tr>
+              <th> Keyword </th>
+              <th> State </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>tcrs</code></td>
+              <td> The location should be serialized in units associated to the TCRS instance, i.e. pixels or in the case of WGS84, decimal degrees </td>
+            </tr>
+            <tr>
+              <td><code>pcrs</code></td>
+              <td> The location should be serialized in units associated to the projected coordinate system associated to the TCRS instance, e.g. meters 
+              for OSMTILE, which has an associated projected coordinate reference system of EPSG:3857.</td>
+            </tr>
+            <tr>
+              <td><code>map</code></td>
+              <td> The location should be serialized in units associated to the local coordinate reference system defined by the extent, i.e. in pixels with the origin
+              at the upper left corner of the extent, with coordinate axes' increasing right and downwards, respectively.
+              </td>
+            </tr>
+            <tr>
+              <td><code>tilematrix</code></td>
+              <td> The location should be serialized in units associated to the tilematrix at the zoom level of the extent. 
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <p>The units of the tilematrix 
+              are the tile, however because tile coordinates are derived from the underlying tcrs units (in pixels), we can specify locations on the
+              tilematrix grid relative to the tile coordinates.  Such locations are identified by the <code>position</code> attribute.  The <code>position</code>
+              attribute is a keyword indicating the location relative to the tile on which the location is desired. </p>
+
+        <table id="attr-input-position-keywords">
+          <thead>
+            <tr>
+              <th> Keyword </th>
+              <th> State </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>top-left</code></td>
+              <td> Identifies a location relative to a tile in a tilematrixset. </td>
+            </tr>
+            <tr>
+              <td><code>top-right</code></td>
+              <td> Identifies a location relative to a tile in a tilematrixset. </td>
+            </tr>
+            <tr>
+              <td><code>bottom-left</code></td>
+              <td> Identifies a location relative to a tile in a tilematrixset. </td>
+            </tr>
+            <tr>
+              <td><code>bottom-right</code></td>
+              <td> Identifies a location relative to a tile in a tilematrixset. </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>The <code>axis</code> keyword identifies the axis of the coordinate that the <code>input</code> variable represents.
+          The coordinate system should be identified by the <code>units</code> attribute.</p>
+        <table id="attr-input-axis-keywords">
+          <thead>
+            <tr>
+              <th> Keyword </th>
+              <th> State </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>x</code></td>
+              <td> TCRS x axis. </td>
+            </tr>
+            <tr>
+              <td><code>y</code></td>
+              <td> TCRS y axis. </td>
+            </tr>
+            <tr>
+              <td><code>row</code></td>
+              <td> TileMatrixSet row axis (parallel to y axis of TCRS). </td>
+            </tr>
+            <tr>
+              <td><code>column</code></td>
+              <td> TileMatrixSet column axis (parallel to x axis of TCRS). </td>
+            </tr>
+            <tr>
+              <td><code>i</code></td>
+              <td> Map extent i axis (parallel to x axis of TCRS). </td>
+            </tr>
+            <tr>
+              <td><code>j</code></td>
+              <td> Map extent j axis (parallel to y axis of TCRS). </td>
+            </tr>
+            <tr>
+              <td><code>easting</code></td>
+              <td> Projected coordinate reference system axis (parallel to x axis of TCRS). </td>
+            </tr>
+            <tr>
+              <td><code>northing</code></td>
+              <td> Projected coordinate reference system axis (parallel to y axis of TCRS). </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <h5 id="the-template-element">4.2.1.1.6 The <code>&lt;template&gt;</code> element</h5>
+
         <dl class="element">
           <dt>Categories:</dt>
           <dd></dd>
@@ -1055,8 +1200,12 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           to fill its extent at zoom levels and bounds indicated by sibling <code>input</code> elements' <code>min</code> and <code>max</code> attributes, or
           to (partially) identify URL targets suitable to enable query of server resources. The <code>type</code> attribute contains a keyword string which
           identifies the type of resource for which the template's <code>tref</code> attribute provides a URL template, which may contain zero or
-          more variable references. Such variable references must uniquely match variables identified by sibling <code>input</code> elements' <code>name</code>
-        attribute.  </p>
+          more variable references. Such variable references must be a case-insensitive match of sibling <code>input</code> elements' <code>name</code>
+        attribute.</p>
+        <p>Use of the <code>template</code> element with the <code>type</code> attribute in the "tile" or "image" state is an alternative to form submission 
+          to the <code>extent@action</code> URL, in that the client understands what tiles must be requested to cover its extent, or how to request and 
+        paint an image to cover that extent.</p>
+        <p><code>template</code> elements' content should be painted in document order.</p>
         <table id="attr-template-type-keywords">
           <thead>
             <tr>
@@ -1081,7 +1230,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
         </table>
         
         
-        <h5 id="the-tile-element">4.2.1.1.6 The <code>&lt;tile&gt;</code> element</h5>
+        <h5 id="the-tile-element">4.2.1.1.7 The <code>&lt;tile&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>
@@ -1115,7 +1264,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           The "zoom" value is equal to the <code>zoom@value</code> child of the <code>extent</code> element.  Hence the zoom value is not a direct 
         attribute of the <code>tile</code> element.</p>
         <p>The main example of such a tiled coordinate reference system is <a href="#OSMTILE"><code>OSMTILE</code></a>, although others exist.</p>
-        <h5 id="the-feature-element">4.2.1.1.7 The <code>&lt;feature&gt;</code> element</h5>
+        <h5 id="the-feature-element">4.2.1.1.8 The <code>&lt;feature&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>
