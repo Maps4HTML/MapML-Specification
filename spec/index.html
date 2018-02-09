@@ -62,7 +62,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 
 <h1>Map Markup Language</h1>
 
-<h2 id="pagesubtitle"><time datetime="2015-10-13">October 13, 2015</time></h2>
+<h2 id="pagesubtitle"><time datetime="2018-02-05">February 5, 2018</time></h2>
 
 <dl>
   <dt>This version:</dt>
@@ -134,9 +134,9 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
   
   <h3>Changes Since the Previous Draft</h3>
   
-  <p>Added discussion of Tiled Coordinate Reference Systems.  Added CBMTILE coordinate reference system.  Changed name of <code>tile</code> attribute <code>x</code> to
-    <code>col</code>.  Changed name of <code>tile</code> attribute <code>y</code> to <code>row</code>.  Changed the <code>extent</code> element to use tiled coordinate
-  reference system units, not WGS84 units. </p>
+  <p>Changed the brief description of zoomin, zoomout link relations.</p>
+  <p>Added location,width,height input types.</p>
+  <p>Added template element</p>
 
   
   <h3>Level of Endorsement by the Community</h3>
@@ -169,10 +169,39 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 				<li>3.2. <a href="#requirements">Requirements</a></li>
 			</ul>
 		</li>
-		<li>4. <a href="#features">Semantics and Structure of MapML Documents</a></li>
-                <ul class="toc">
-                  <li>4.1.1 <a href="#projections">Projections</a></li>
-                </ul>
+		<li>4. <a href="#features">Semantics and Structure of MapML Documents</a>
+    <ul>
+      <li>4.1 <a href="#semantics">Semantics</a>
+                  <ul class="toc">
+                    <li>4.1.1 <a href="#projections">Tiled Coordinate Reference Systems</a></li>
+                    <li>4.1.2 <a href="#scale">Scale / Zoom levels</a></li>
+                    <li>4.1.3 <a href="#extent-semantics">Map extents</a></li>
+                    <li>4.1.4 <a href="#fragments">Fragment identifiers</a></li>
+                  </ul>
+      </li>
+      <li>4.2 <a href="#structure">Structure</a>
+        <ul class="toc">
+          <li>4.2.1 <a href="#documents">The Document object</a></li>
+          <li>4.2.2 <a href="#the-mapml-element">The <code>&lt;mapml&gt;</code> element</a></li>
+          <li>4.2.3 <a href="#the-head-element">The <code>&lt;head&gt;</code> element</a></li>
+          <li>4.2.4 <a href="#the-title-element">The <code>&lt;title&gt;</code> element</a></li>
+          <li>4.2.5 <a href="#the-base-element">The <code>&lt;base&gt;</code> element</a></li>
+          <li>4.2.6 <a href="#the-meta-element">The <code>&lt;meta&gt;</code> element</a></li>
+          <li>4.2.7 <a href="#the-link-element">The <code>&lt;link&gt;</code> element</a></li>
+          <li>4.2.8 <a href="#the-body-element">The <code>&lt;body&gt;</code> element</a></li>
+          <li>4.2.9 <a href="#the-extent-element">The <code>&lt;extent&gt;</code> element</a></li>
+          <li>4.2.10 <a href="#the-input-element">The <code>&lt;input&gt;</code> element</a></li>
+          <li>4.2.11 <a href="#the-template-element">The <code>&lt;template&gt;</code> element</a></li>
+          <li>4.2.12 <a href="#the-tile-element">The <code>&lt;tile&gt;</code> element</a></li>
+          <li>4.2.13 <a href="#the-image-element">The <code>&lt;image&gt;</code> element</a></li>
+          <li>4.2.14 <a href="#the-feature-element">The <code>&lt;feature&gt;</code> element</a></li>
+          <li>4.2.15 <a href="#the-properties-element">The <code>&lt;properties&gt;</code> element</a></li>
+          <li>4.2.16 <a href="#the-geometry-element">The <code>&lt;geometry&gt;</code> element</a></li>
+          <li>4.2.17 <a href="#the-coordinates-element">The <code>&lt;coordinates&gt;</code> element</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
 		<li>5. <a href="#examples">Examples</a></li>
 		<li>6. <a href="#security">Security Considerations</a></li>
 		<li>7. <a href="#glossary">Glossary of Terms and Datatypes</a></li>
@@ -384,12 +413,12 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
         <h2 id="features">4. Semantics and structure of MapML documents</h2>
         <p>This section is normative.</p>
         <h3 id="semantics">4.1. Semantics</h3>
-        <h4 id="projections">4.1.1 Projections</h4>
-        <p>A key factor which enables map "mashups" is the shared common coordinate systems and projections of the data used in the integration. On the modern Web, such interoperability is often achieved by using or assuming the use of de facto standard coordinate systems. Either the data being integrated already shares a common coordinate system, or it some or all of it must be transformed into a common coordinate system prior to being integrated. This approach often works, within the limits of operating assumptions. MapML documents are similar to other spatial information with regard to definition of projection and coordinate system requirements. However, MapML defines a system of communicating projection information across the uniform interface of HTTP in order to eliminate assumptions in shared coordinate systems: the coordinate systems requested by the client and available from the server are represented as simple defined identifiers defined in the table below, and exchanged in markup defined by this specification. </p>
+        <h4 id="projections">4.1.1 Tiled Coordinate Reference Systems</h4>
+        <p>A key factor which enables map "mashups" is the shared common coordinate systems and projections of the data used in the integration. On the modern Web, such interoperability is often achieved by using or assuming the use of de facto standard coordinate systems. Either the data being integrated already shares a common coordinate system, or it must be transformed into a common coordinate system prior to being integrated. This approach often works, within the limits of the assumptions. MapML documents are similar to other spatial information with regard to definition of projection and coordinate system requirements. However, MapML defines a system of communicating coordinate system information across the uniform interface of HTTP in order to eliminate assumptions in shared coordinate systems: the coordinate systems requested by the client and available from the server are represented as simple defined string identifiers defined in the table below, and exchanged in markup defined by this specification. </p>
 <table>
    <thead>
     <tr>
-     <th>Projection value</th>
+     <th>TCRS identifier</th>
      <th>Description</th>
      <th>Base CRS / Projection system</th>
      <th>Axis mappings</th>
@@ -608,9 +637,8 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
    </tbody>
 </table>
 
-        <p>All coordinate reference systems' coordinate pairs, where not explicitly marked up or identified by axis (for example, in the <code>&lt;coordinates&gt;</code> element) are defined by this specification to be in "x,y" axis order. Where an external conflict of definition exists, this specification must be taken to be correct <strong>for MapML only</strong>. In other words, this specification overrides externally defined axis order for coordinates marked up in Map Markup Language only.
-            For coordinate reference systems where an axis might not be readily identifiable as "x" or "y" (for example, axes named "Easting" and "Northing"), this specification defines the mapping
-            to the MapML axes.</p>
+        <p>All coordinate reference systems' coordinate pairs, where not explicitly marked up or identified by axis (for example, in the <code>&lt;coordinates&gt;</code> element) are defined by this specification to be in TCRS "x,y" axis order as specified in the column "Axis mappings" above. Where an external conflict of definition exists, this specification MUST be taken to be correct <strong>for MapML only</strong>. In other words, this specification overrides externally defined axis order for coordinates marked up in Map Markup Language.
+            For coordinate reference systems where an axis might not be readily identifiable as "x" or "y" (for example, axes named "Easting" and "Northing"), this specification defines the mapping to the TCRS x (horizontal) and y (vertical) axes.</p>
         <h5 id="OSMTILE">OSMTILE</h5>
         <p>This specification defines the string "OSMTILE" to be the identifier of a tiled coordinate reference system projected (in the Web Mercator system) and scaled
           into 19 zoom levels (0-18) at defined resolutions. The mapping of EPSG::3857 axes to MapML axes is: Easting &#8594; x, Northing &#8594; y.  The origin of the OSMTILE coordinate system 
@@ -636,27 +664,29 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           <strong>with the mandatory provision that the mapping of EPSG::4326 axes to MapML axes is: Longitude &#8594; x, Latitude &#8594; y.</strong>. 
           This constraint follows the definition of the default coordinate system defintion for the GeoJSON format. This is believed to enhance interoperability, not only with the GeoJSON 
           format, but on the Web.</p>
-        <p>Although it is not strictly speaking a "projection", WGS84 is discussed in this specification as a "tiled coordinate reference system" identifier, and is discussed under the projection rubric because of the related
-        nature of its use. </p>
-        <h5 id="OTHERPROJECTIONS">Other projections</h5>
-        <p>Many other projections exist, and could in princple be used by MapML clients and servers. As such projections come into common usage, it is expected that their definitions for use in MapML and on the Web will be imported here. The
+        <p>Despite having no associated tiling system or zoom level resolutions, WGS84 is discussed in this specification as a "tiled coordinate reference system" identifier because of the related
+        nature of its use.  It is recommended that despite having no defined zoom level resolutions, that map documents ensure that the resolution of
+        feature data served in the WGS84 coordinate reference system is appropriate to the zoom level i.e. the inter-vertex distance should not be
+        less than a single pixel size at a particular zoom level when mashed up with layers in other TCRS.</p>
+        <h5 id="OTHERPROJECTIONS">Other coordinate reference systems</h5>
+        <p>Many other projection systems exist, and could in principle be used by map clients and servers. As such projections and associated defined tiled coordinate reference systems come into common usage, it is expected that their definitions for use in MapML and on the Web will be imported here. The
         contents of this document constitutes a registry of such projections.</p>
         <h4 id="scale">4.1.2 Scale / Zoom levels</h4>
         <p>Scale is an essential characteristic of all geospatial information. The scale at which information is used dictates the model used for its representation. Geospatial information cannot be meaningfully combined without consideration given to its scale. Entire cities are represented on 'small scale' maps as dots, whereas on another large scale map, a single city could have many thousands of individual features in its depiction.</p>
         <p>Not only is scale important in the portrayal of maps, it is also essential when defining the model of underlying feature data.</p>
-        <p>Map projections distort the surface of the earth in ways which suit the objectives of the projection definition. As a result of that distortion, the scale of maps in that projection varies as a function of location. "Zoom" levels are integer values chosen to be a simple numeric proxy for a scale at a defined location. For example, the OSMTILE projection, being based internally on the Spherical Web Mercator projection (EPSG::3857), allows us to portray a large portion of the Earth's surface, requiring relatively simple and fast math to convert to and from WGS84. Additionally, it enables the simple tiling system that has become a de facto standard. As such, it was deemed to have the properties for a globally useful projection on the Web.</p>
-        <p>Map documents encoded in MapML have a defined scale, indirectly identified by zoom level and extent. Thus, two MapML documents in the same projection and zoom level should be interoperable to the degree that they can be automatically and visually related. The zoom level of a MapML document is often identified as the value of the <code>value</code> attribute of the <code>input[@type=zoom]</code>. It is anticipated that 'zoom' will be a defined media type parameter of the MapML MIME type. In that case, the zoom level of any MapML document should be present in the <code> meta[http-equiv="Content-Type"]/@content</code> value.</p>
+        <p>Map projections distort the surface of the earth in ways which suit the objectives of the projection definition. As a result of that distortion, the scale of maps in that projection varies as a function of location. "Zoom" levels are integer values chosen to be a simple numeric proxy for a scale at a defined location. For example, the OSMTILE TCRS, being based internally on the Spherical Web Mercator projection (EPSG::3857), allows us to portray a large portion of the Earth's surface, requiring relatively simple and fast math to convert to and from WGS84. Additionally, it enables the simple tiling system that has become a de facto standard. As such, it was deemed to have the properties for a globally useful projection on the Web.</p>
+        <p>Map documents encoded in MapML have a defined scale, indirectly identified by zoom level and extent. Thus, two MapML documents in the same TCRS and zoom level should be interoperable to the degree that they can be automatically and visually related. The zoom level of a MapML document is often identified as the value of the <code>value</code> attribute of the <code>input[@type=zoom]</code>. It is anticipated that 'zoom' will be a defined media type parameter of the MapML MIME type. In any case, the zoom level of any MapML document SHOULD be present in document metadata as a <code>meta</code> element e.g. &lt;meta name="zoom" content="0"/&gt; .</p>
         <h4 id="extent-semantics">4.1.3 Extents</h4>
-        <p>A MapML document is a representation of a defined portion of a two dimensional map area. In MapML, this is called an 'extent' (see below), which must be described by the bounding axis values xmin, ymin, xmax and ymax. 
-           The bounds of an extent should be specified in MapML projection units, as identified by the <code>extent[@units]</code> value.</p>
+        <p>A MapML document is a representation of a defined portion of a two dimensional map area. In MapML, this is called an 'extent' (see below), which must be described by the bounding axis values xmin, ymin, xmax and ymax in the specified TCRS. 
+           The bounds of an extent should be specified in MapML TCRS units, as identified by the <code>extent[@units]</code> value.</p>
         <h4 id="fragments">4.1.4 Fragment identifiers</h4>
-        <p>TBD. Thinking of something like bbox={xmin},{ymin},{xmax},{ymax} and (possibly) zoom values, although because a MapML document has a single zoom value, it could likely be omitted.</p>
+        <p>TBD</p>
         <h3 id="structure">4.2 Structure</h3>
         <p>This section is normative.</p>
         <h4 id="documents">4.2.1 Elements</h4>
-        <p>A MapML document is a [<a href="#ref-MicroXML">MicroXML</a>] document. As such, it must have a single root element named &lt;mapml&gt;. It must not have a DOCTYPE declaration; attributes named 'xmlns' and names containing a colon character ':' (U+003A) are not permitted. Other restrictions relative to XML syntax are enumerated in [<a href="#ref-MicroXML">MicroXML</a>].</p>
-        <h4 id="the-document-object"><span class="secno">4.1.1.1 </span>The <code><a href="#the-document-object">Document</a></code> object</h4>
-        <h5 id="the-mapml-element">4.2.1.1.1The <code>&lt;mapml&gt;</code> element</h5>
+        <p>A MapML document is a [<a href="#ref-MicroXML">MicroXML</a>] document. As such, it MUST have a single root element named &lt;mapml&gt;. It MUST NOT have a DOCTYPE declaration; attributes named 'xmlns' and names containing a colon character ':' (U+003A) are not permitted. Other restrictions relative to XML syntax are enumerated in [<a href="#ref-MicroXML">MicroXML</a>].</p>
+        <h4 id="the-document-object"><span class="secno">4.2.1 </span>The <code><a href="#the-document-object">Document</a></code> object</h4>
+        <h5 id="the-mapml-element">4.2.2The <code>&lt;mapml&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>n/a</dd>
@@ -672,8 +702,8 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 </pre></dd>
         </dl>
         <p>The <code>&lt;mapml&gt;</code> element is the the root element of a MapML document, and must contain one <code>&lt;head&gt;</code> element followed by one <code>&lt;body&gt;</code> element.</p>
-        <p>The <code>&lt;mapml&gt;</code> element may carry a <code>lang</code> attribute in no namespace, as <a href="https://www.w3.org/TR/html5/single-page.html#attr-lang">defined</a> by [<a href="#ref-HTML">HTML</a>].</p>
-        <h5 id="the-head-element">4.2.1.1.2 The <code>&lt;head&gt;</code> element</h5>
+        <p>The <code>&lt;mapml&gt;</code> element may carry a <code>lang</code> attribute, as <a href="https://www.w3.org/TR/html5/single-page.html#attr-lang">defined</a> by [<a href="#ref-HTML">HTML</a>].</p>
+        <h5 id="the-head-element">4.2.3The <code>&lt;head&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Metadata content</dd>
@@ -688,7 +718,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 </pre></dd>
         </dl>
         <p>The <code>&lt;head&gt;</code> element is for MapML document metadata content. The content may include: one <code>&lt;title&gt;</code> element, one <code>&lt;base&gt;</code> element, zero or more <code>&lt;link&gt;</code> elements, and zero or more <code>&lt;meta&gt;</code> elements.</p>
-        <h5 id="the-title-element">4.2.1.1.2.1 The <code>&lt;title&gt;</code> element</h5>
+        <h5 id="the-title-element">4.2.4 The <code>&lt;title&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Metadata content</dd>
@@ -703,7 +733,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 </pre></dd>
         </dl>
         <p>The <code>&lt;title&gt;</code> element should exist as the one and only <code>&lt;title&gt;</code> element in the <code>&lt;head&gt;</code> element. Its content should be a text string describing the document. It is conceivably used as a bookmark title.</p>
-        <h5 id="the-base-element">4.2.1.1.2.2 The <code>&lt;base&gt;</code> element</h5>
+        <h5 id="the-base-element">4.2.5 The <code>&lt;base&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Metadata content</dd>
@@ -720,7 +750,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
         </dl>
         <p>The <code>&lt;base&gt;</code> element is used to identify a URL to be used to act as a base URL in order to resolve relative URLs later in the document.</p>
         <p>There must be only one <code>&lt;base&gt;</code> element in a MapML document, and it must be in the content of the <code>&lt;head&gt;</code> element, before any MapML elements which potentially carry a URL for resolution, notably the <code>&lt;link&gt;</code> element.</p>
-        <h5 id="the-meta-element">4.2.1.1.2.3 The <code>&lt;meta&gt;</code> element</h5>
+        <h5 id="the-meta-element">4.2.6 The <code>&lt;meta&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Metadata content</dd>
@@ -740,7 +770,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 };
 </pre></dd>
         </dl>
-        <h5 id="the-link-element">4.2.1.1.2.4 The <code>&lt;link&gt;</code> element</h5>
+        <h5 id="the-link-element">4.2.7 The <code>&lt;link&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Metadata content</dd>
@@ -842,11 +872,11 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
             </tr>
             <tr>
               <td><code>zoomin</code></td>
-              <td>Indicates a resource that may be used to the zoom at the current zoom level plus 1.</td>
+              <td>Indicates a resource that may be used at a zoom level greater than the maximum zoom of the current extent.</td>
             </tr>
             <tr>
               <td><code>zoomout</code></td>
-              <td>Indicates a resource that may be used to the zoom at the current zoom level minus 1.</td>
+              <td>Indicates a resource that may be used at a zoom level less than the minimum zoom of the current extent.</td>
             </tr>
             <tr>
               <td><code>panto</code></td>
@@ -854,7 +884,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
             </tr>
           </tbody>
         </table>
-        <h5 id="the-body-element">4.2.1.1.3 The <code>&lt;body&gt;</code> element</h5>
+        <h5 id="the-body-element">4.2.8 The <code>&lt;body&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>n/a</dd>
@@ -870,14 +900,19 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 </pre></dd>
         </dl>
         <p>The <code>&lt;body&gt;</code> element represents the content of the document.</p>
-        <h5 id="the-extent-element">4.2.1.1.4 The <code>&lt;extent&gt;</code> element</h5>
+        <h5 id="the-extent-element">4.2.9 The <code>&lt;extent&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Metadata content</dd>
           <dt>Contexts in which this element can be used:</dt>
           <dd>Required to be the first child of the <code>&lt;body&gt;</code> element.</dd>
           <dt>Content model:</dt>
-          <dd>A set of multiple <code>input</code> elements</dd>
+          <dd>If the <code>action</code> attribute exists: A set of multiple <code>input</code> and zero or one <code>template</code> element with its
+              <code>type</code> attribute in the "query" state.</dd>
+          <dd>If no <code>action</code> attribute exists: A set of multiple <code>input</code> and one or more <code>template</code> elements with
+            their <code>type</code> attribute in either the "tile" or "image" state, and zero or one <code>template</code> element with its
+              <code>type</code> attribute in the "query" state.</dd>
+          
           <dt>Content attributes:</dt>
           <dd><code>action</code> - URL to use for form (extent) submission</dd>
           <dd><code>enctype</code> - Extent form data set encoding type to use for extent form submission</dd>
@@ -936,7 +971,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           </dd>
         </dl>
 
-        <h5 id="the-input-element">4.2.1.1.5 The <code>&lt;input&gt;</code> element</h5>
+        <h5 id="the-input-element">4.2.10 The <code>&lt;input&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>n/a</dd>
@@ -945,26 +980,33 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           <dt>Content model:</dt>
           <dd>Empty.</dd>
           <dt>Content attributes:</dt>
-          <dd><code>type</code> - the type of form control. If no <code>name</code> attribute exists, the <code>type</code> will be used as a variable name in extent form serialization.</dd>
-          <dd><code>name</code> - the token to be used in place of the<code>type</code> value for the variable name in form serialization.</dd>
-          <dd><code>value</code> - the current value of the name/value pair represented by the <code>input</code></dd>
+          <dd><code>type</code> - <a href="#attr-input-type-keywords">enumerated keyword string</a> identifies the type of input</dd>
+          <dd><code>name</code> - the token to be used as a variable name in form serialization.</dd>
+          <dd><code>value</code> - the current or default value of the name/value pair represented by the <code>input</code></dd>
           <dd><code>min</code> - the minimum value for the extent parameter acceptable by the server</dd>
           <dd><code>max</code> - the maximum value for the extent parameter acceptable by the server</dd>
           <dd><code>step</code> - the incremental value that a server can vary the zoom parameter by.  Typically 0 or 1.</dd>
+          <dd><code>units</code> - <a href="#attr-input-units-keywords">enumerated keyword string</a> identifies the associated coordinate system for this input</dd>
+          <dd><code>axis</code> - <a href="#attr-input-axis-keywords">enumerated keyword string</a> identifies the axis of the associated coordinate system from the <code>units</code> attribute</dd>
+          <dd><code>position</code> -  <a href="#attr-input-position-keywords">enumerated keyword string</a> identifies the relative position of a location</dd>
           <dt>DOM interface:</dt>
           <dd>
             <dd>
-              <pre class="idl">interface <dfn id="mapmlextentelement">MAPMLInputElement</dfn> : MAPMLElement {
+              <pre class="idl">interface <dfn id="mapmlinputelement">MAPMLInputElement</dfn> : MAPMLElement {
            attribute DOMString type;
            attribute DOMString name;
            attribute DOMString min;
            attribute DOMString max;
            attribute DOMString step;
+           attribute DOMString units;
+           attribute DOMString axis;
+           attribute DOMString position;
+
 
 };</pre>
             </dd>
         </dl>
-        <p>The <code>input</code> element represents a typed data field, associated with a map extent form, to allow the user agent to request MapML documents 
+        <p>The <code>input</code> element represents a typed data field, associated with a map extent form, to allow the user agent to request documents 
           for a specific map area.  There must be at least four input element children of the extent element, including only one of each of the following 
           <code>type</code> inputs: <code>xmin</code>, <code>ymin</code>,<code>xmax</code> and <code>ymax</code>.</p>
         <p>The <code>type</code> attribute controls the data type (and associated control) of the element. It is an enumerated attribute. The following
@@ -1017,6 +1059,24 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
               <td> The tiled coordinate system name of a displayed map. </td>
             </tr>
             <tr>
+              <td><code>location</code></td>
+              <td> location </td>
+              <td> A string value with no line breaks</td>
+              <td> A location, the units and axis of which are specified by sibling attributes. </td>
+            </tr>
+            <tr>
+              <td><code>width</code></td>
+              <td> width of the extent </td>
+              <td> A string value with no line breaks</td>
+              <td> . </td>
+            </tr>
+            <tr>
+              <td><code>height</code></td>
+              <td> height of the extent </td>
+              <td> A string value with no line breaks</td>
+              <td> . </td>
+            </tr>
+            <tr>
               <td><code>hidden</code></td>
               <td> hidden </td>
               <td> An arbitrary string </td>
@@ -1032,7 +1092,177 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
             </tr>
           </tbody>
         </table>
-        <h5 id="the-tile-element">4.2.1.1.6 The <code>&lt;tile&gt;</code> element</h5>
+        <p>When the <code>type</code> attribute is in the "location" state, the <code>input</code> may have three associated attributes: 
+          <code>units</code>, <code>axis</code> and <code>position</code>. <code>units</code> identifies the associated coordinate system 
+          that the <code>location</code> is referred to.  Each Tiled Coordinate Reference System (TCRS) instance may have one or more associated 
+          coordinate systems that are coordinate reference system by virtue of their defined association to the TCRS.
+          For instance, the OSMTILE TCRS is associated to the underlying coordinate reference system known commonly as Web Mercator,
+          by virtue of an origin location, defined in meters in the EPSG:3857 CRS plus a set of zoom level resolutions, and a transformation.</p>
+        
+        <table id="attr-input-units-keywords">
+          <thead>
+            <tr>
+              <th> Keyword </th>
+              <th> State </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>tcrs</code></td>
+              <td> The location should be serialized in units associated to the TCRS instance, i.e. pixels or in the case of WGS84, decimal degrees </td>
+            </tr>
+            <tr>
+              <td><code>pcrs</code></td>
+              <td> The location should be serialized in units associated to the projected coordinate system associated to the TCRS instance, e.g. meters 
+              for OSMTILE, which has an associated projected coordinate reference system of EPSG:3857.</td>
+            </tr>
+            <tr>
+              <td><code>map</code></td>
+              <td> The location should be serialized in units associated to the local coordinate reference system defined by the extent, i.e. in pixels with the origin
+              at the upper left corner of the extent, with coordinate axes' increasing right and downwards, respectively.
+              </td>
+            </tr>
+            <tr>
+              <td><code>tilematrix</code></td>
+              <td> The location should be serialized in units associated to the tilematrix at the zoom level of the extent. 
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <p>The units of the tilematrix 
+              are the tile, however because tile coordinates are derived from the underlying tcrs units (in pixels), we can specify locations on the
+              tilematrix grid relative to the tile coordinates.  Such locations are identified by the <code>position</code> attribute.  The <code>position</code>
+              attribute is a keyword indicating the location relative to the tile on which the location is desired. </p>
+
+        <table id="attr-input-position-keywords">
+          <thead>
+            <tr>
+              <th> Keyword </th>
+              <th> State </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>top-left</code></td>
+              <td> Identifies a location relative to a tile in a tilematrixset. </td>
+            </tr>
+            <tr>
+              <td><code>top-right</code></td>
+              <td> Identifies a location relative to a tile in a tilematrixset. </td>
+            </tr>
+            <tr>
+              <td><code>bottom-left</code></td>
+              <td> Identifies a location relative to a tile in a tilematrixset. </td>
+            </tr>
+            <tr>
+              <td><code>bottom-right</code></td>
+              <td> Identifies a location relative to a tile in a tilematrixset. </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>The <code>axis</code> keyword identifies the axis of the coordinate that the <code>input</code> variable represents.
+          The coordinate system should be identified by the <code>units</code> attribute.</p>
+        <table id="attr-input-axis-keywords">
+          <thead>
+            <tr>
+              <th> Keyword </th>
+              <th> State </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>x</code></td>
+              <td> TCRS x axis. </td>
+            </tr>
+            <tr>
+              <td><code>y</code></td>
+              <td> TCRS y axis. </td>
+            </tr>
+            <tr>
+              <td><code>row</code></td>
+              <td> TileMatrixSet row axis (parallel to y axis of TCRS). </td>
+            </tr>
+            <tr>
+              <td><code>column</code></td>
+              <td> TileMatrixSet column axis (parallel to x axis of TCRS). </td>
+            </tr>
+            <tr>
+              <td><code>i</code></td>
+              <td> Map extent i axis (parallel to x axis of TCRS). </td>
+            </tr>
+            <tr>
+              <td><code>j</code></td>
+              <td> Map extent j axis (parallel to y axis of TCRS). </td>
+            </tr>
+            <tr>
+              <td><code>easting</code></td>
+              <td> Projected coordinate reference system axis (parallel to x axis of TCRS). </td>
+            </tr>
+            <tr>
+              <td><code>northing</code></td>
+              <td> Projected coordinate reference system axis (parallel to y axis of TCRS). </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <h5 id="the-template-element">4.2.11 The <code>&lt;template&gt;</code> element</h5>
+
+        <dl class="element">
+          <dt>Categories:</dt>
+          <dd></dd>
+          <dt>Contexts in which this element can be used:</dt>
+          <dd>Child of the <code>&lt;extent&gt;</code> element.</dd>
+          <dt>Content model:</dt>
+          <dd>Empty.</dd>
+          <dt>Content attributes:</dt>
+          <dd><code>type</code> -  <a href="#attr-template-type-keywords">enumerated keyword string</a> identifying the type of template</dd>
+          <dd><code>tref</code> - a Level 1 URL template</dd>
+          <dt>DOM interface:</dt>
+          <dd>
+            <dd>
+              <pre class="idl">interface <dfn id="mapmltemplateelement">MAPMLTemplateElement</dfn> : MAPMLElement {
+           attribute DOMString type;
+           attribute DOMString tref;
+
+};</pre>
+            </dd>
+        </dl>
+        <p>The <code>template</code> element represents a URL template for a resource (e.g. tiles) which can be used by the client make requests for resources
+          to fill its extent at zoom levels and bounds indicated by sibling <code>input</code> elements' <code>min</code> and <code>max</code> attributes, or
+          to (partially) identify URL targets suitable to enable query of server resources. The <code>type</code> attribute contains a keyword string which
+          identifies the type of resource for which the template's <code>tref</code> attribute provides a URL template, which may contain zero or
+          more variable references. Such variable references must be a case-insensitive match of sibling <code>input</code> elements' <code>name</code>
+        attribute.</p>
+        <p>Use of the <code>template</code> element with the <code>type</code> attribute in the "tile" or "image" state is an alternative to form submission 
+          to the <code>extent@action</code> URL, in that the client understands what tiles must be requested to cover its extent, or how to request and 
+        paint an image to cover that extent.</p>
+        <p><code>template</code> elements' content should be painted in document order.</p>
+        <table id="attr-template-type-keywords">
+          <thead>
+            <tr>
+              <th> Keyword </th>
+              <th> State </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>tile</code></td>
+              <td> The templated reference identifies a tile </td>
+            </tr>
+            <tr>
+              <td><code>image</code></td>
+              <td> The templated reference identifies an image that covers the extent </td>
+            </tr>
+            <tr>
+              <td><code>query</code></td>
+              <td> The templated reference identifies a query resource at a location </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
+        <h5 id="the-tile-element">4.2.12 The <code>&lt;tile&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>
@@ -1048,7 +1278,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           <dt>DOM interface:</dt>
           <dd>
             <dd>
-              <pre class="idl">interface <dfn id="mapmlextentelement">MAPMLTileElement</dfn> : MAPMLElement {
+              <pre class="idl">interface <dfn id="mapmltileelement">MAPMLTileElement</dfn> : MAPMLElement {
            attribute long row;
            attribute long col;
            attribute DOMString src;
@@ -1066,7 +1296,28 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           The "zoom" value is equal to the <code>zoom@value</code> child of the <code>extent</code> element.  Hence the zoom value is not a direct 
         attribute of the <code>tile</code> element.</p>
         <p>The main example of such a tiled coordinate reference system is <a href="#OSMTILE"><code>OSMTILE</code></a>, although others exist.</p>
-        <h5 id="the-feature-element">4.2.1.1.7 The <code>&lt;feature&gt;</code> element</h5>
+        <h5 id="the-image-element">4.2.13 The <code>&lt;image&gt;</code> element</h5>
+        <dl class="element">
+          <dt>Categories:</dt>
+          <dd>Feature data</dd>
+          <dt>Contexts in which this element can be used:</dt>
+          <dd>A child of the <code>&lt;feature&gt;</code> element, which has a sibling <code>bbox</code> element.</dd>
+          <dt>Content model:</dt>
+          <dd>Empty.</dd>
+          <dt>Content attributes:</dt>
+          <dd><code>src</code> — Address of the hyperlink</dd>
+          <dd><code>type</code> — A hint as to the MIME type of the resource</dd> 
+          <dt>DOM interface:</dt>
+          <dd>
+            <dd>
+              <pre class="idl">interface <dfn id="mapmlfeatureelement">MAPMLImageElement</dfn> : MAPMLElement {
+ 
+};</pre>
+            </dd>
+          </dd>
+        </dl>
+        
+        <h5 id="the-feature-element">4.2.14 The <code>&lt;feature&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>
@@ -1086,29 +1337,31 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           </dd>
         </dl>
           
-        <p>A <code>feature</code> element represents a geographic feature in MapML.  A <code>feature</code> element has an optional <a href="#the-properties-element"><code>properties</code></a> child element,
-          and a required choice of one of: <a href="#the-geometry-element"><code>geometry</code></a> or an <a href="#the-image-element"><code>image</code></a> element. </p>
-        <h5 id="the-bbox-element">The <code>&lt;bbox&gt;</code> element</h5>
+        <p>A <code>feature</code> element represents a geographic feature.  A <code>feature</code> element has an optional <a href="#the-properties-element"><code>properties</code></a> child element, and a required child <a href="#the-geometry-element"><code>geometry</code></a> element. </p>
+        <h5 id="the-properties-element">4.2.15 The <code>&lt;properties&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>
           <dt>Contexts in which this element can be used:</dt>
-          <dd>A child of the <code>&lt;feature&gt;</code> element.  In cases where the <code>feature</code> element has a child <code>image</code> element, this element is required.</dd>
+          <dd>A child of the <code>&lt;feature&gt;</code> element, containing elements representing the properties of the feature.</dd>
           <dt>Content model:</dt>
-          <dd>Two <a href="#position">position</a>s representing the bounding box of the feature, in the following order: xmin,ymin,xmax,ymax, separated by whitespace, </dd>
+          <dd>One or more unknown elements with text values.  TODO allow HTML content. </dd>
           <dt>Content attributes:</dt>
+          <dd>n/a</dd>
           <dt>DOM interface:</dt>
           <dd>
             <dd>
-              <pre class="idl">interface <dfn id="mapmlfeatureelement">MAPMLBboxElement</dfn> : MAPMLElement {
+              <pre class="idl">interface <dfn id="mapmlfeatureelement">MAPMLPropertiesElement</dfn> : MAPMLElement {
  
 };</pre>
             </dd>
           </dd>
         </dl>
-        <p>A feature may have a <code>bbox</code> element describing the bounding coordinates of the feature.  In the case where the feature has a child <code>image</code> element, the <code>bbox</code> element is required.</p>
         
-        <h5 id="the-geometry-element"> The <code>&lt;geometry&gt;</code> element</h5>
+        <p>A <code>feature</code> element can have zero or one <code>properties</code> element, which contains zero or more unknown elements, whose content is text.  Note: it would 
+        be better to a content model of property child elements whose values could be HTML. TODO.</p>
+        
+        <h5 id="the-geometry-element">4.2.16 The <code>&lt;geometry&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>
@@ -1187,7 +1440,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
             </tr>
           </tbody>
         </table>
-        <h5 id="the-coordinates-element"> The <code>&lt;coordinates&gt;</code> element</h5>
+        <h5 id="the-coordinates-element">4.2.17 The <code>&lt;coordinates&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>
@@ -1219,53 +1472,6 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           <code>LineString</code>, <code>MultiPoint</code> or <code>MultiLineString</code>, this specification neither assigns nor requires special ordering or other constraints, apart from
           the axis order described above.  For <code>geometry></code> elements whose value is a <code>Polygon</code> or <code>MultiPolygon</code> element,  the descendant 
           <code>coordinates</code> elements must follow additional constraints.</p>
-        <h5 id="the-properties-element"> The <code>&lt;properties&gt;</code> element</h5>
-        <dl class="element">
-          <dt>Categories:</dt>
-          <dd>Feature data</dd>
-          <dt>Contexts in which this element can be used:</dt>
-          <dd>A child of the <code>&lt;feature&gt;</code> element, containing elements representing the properties of the feature.</dd>
-          <dt>Content model:</dt>
-          <dd>One or more unknown elements with text values.  TODO allow HTML content. </dd>
-          <dt>Content attributes:</dt>
-          <dd>n/a</dd>
-          <dt>DOM interface:</dt>
-          <dd>
-            <dd>
-              <pre class="idl">interface <dfn id="mapmlfeatureelement">MAPMLPropertiesElement</dfn> : MAPMLElement {
- 
-};</pre>
-            </dd>
-          </dd>
-        </dl>
-        
-        <p>A <code>feature</code> element can have zero or one <code>properties</code> element, which contains zero or more unknown elements, whose content is text.  Note: it would 
-        be better to a content model of property child elements whose values could be HTML. TODO.</p>
-        
-        <h5 id="the-image-element">The <code>&lt;image&gt;</code> element</h5>
-        <dl class="element">
-          <dt>Categories:</dt>
-          <dd>Feature data</dd>
-          <dt>Contexts in which this element can be used:</dt>
-          <dd>A child of the <code>&lt;feature&gt;</code> element, which has a sibling <code>bbox</code> element.</dd>
-          <dt>Content model:</dt>
-          <dd>Empty.</dd>
-          <dt>Content attributes:</dt>
-          <dd><code>src</code> — Address of the hyperlink</dd>
-          <dd><code>type</code> — A hint as to the MIME type of the resource</dd> 
-          <dt>DOM interface:</dt>
-          <dd>
-            <dd>
-              <pre class="idl">interface <dfn id="mapmlfeatureelement">MAPMLImageElement</dfn> : MAPMLElement {
- 
-};</pre>
-            </dd>
-          </dd>
-        </dl>
-        
-        <p>A <code>feature</code> element can either contain an <code>geometry</code> element or an <code>image</code> element. If it contains an <code>image</code> element,
-        the referenced image is the feature, and the sibling <code>bbox</code> element gives its bounds.</p>
-        
         <h5 id="styling">4.3 Styling</h5>
         <p>MapML documents can be styled with Cascading Style Sheets.</p>
         <h5 id="search">4.4 Search</h5>
