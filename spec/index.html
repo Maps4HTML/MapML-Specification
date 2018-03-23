@@ -35,6 +35,7 @@
          border-color: #9999FF;
          border-width: 0.25em;
        }
+       .deprecated {text-decoration: line-through;}
     pre.idl { border: solid thin #d3d3d3; background: #FCFCFC; color: black; padding: 0.5em 1em; position: relative; }
        pre.idl :link, pre.idl :visited { color: inherit; background: transparent; }
        pre.idl::before { content: "IDL"; font: bold small sans-serif; padding: 0.5em; background: white; position: absolute; top: 0; margin: -1px 0 0 -4em; width: 1.5em; border: thin solid; border-radius: 0 0 0 0.5em }
@@ -62,17 +63,17 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 
 <h1>Map Markup Language</h1>
 
-<h2 id="pagesubtitle"><time datetime="2018-02-05">February 5, 2018</time></h2>
+<h2 id="pagesubtitle"><time datetime="2018-03-23">March 23, 2018</time></h2>
 
 <dl>
   <dt>This version:</dt>
-  <dd><em>https://github.com/Maps4HTML/MapML/tree/5341da6017979c7afa31cb14643f0175e0630ba2</em></dd>
+  <dd><em>https://github.com/Maps4HTML/MapML/tree/7d3d39449412678e316d89bc9af159fbedc39c6c</em></dd>
   
   <dt>Latest version:</dt>
   <dd><em>https://maps4html.github.io/MapML/spec/</em></dd>
   
   <dt>Previous version:</dt>
-  <dd><em>https://github.com/Maps4HTML/MapML/tree/a1afe0d8c71ce850eaa6822a178b4365fcb9cd4c</em></dd>
+  <dd><em>https://github.com/Maps4HTML/MapML/tree/5341da6017979c7afa31cb14643f0175e0630ba2</em></dd>
   
   <dt>Editors:</dt>
 	<dd><em>Peter Rushforth</em>, Natural Resources Canada</dd>
@@ -90,7 +91,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 <h2 id="abstract">Abstract</h2>
 
   <p>Map Markup Language is a text format for encoding map information for the World Wide Web.</p>
-  <p>The objective of MapML is to allow Web-based user agent software (browsers and others) to interact with web servers by relying only on publicly defined Web standards (URI, HTTP, this specification), and not on URL recipes/templates, with the goal of displaying modern interactive Web maps.</p>
+  <p>The objective of MapML is to allow Web-based user agent software (browsers and others) to display and edit maps and map data without necessary customization.</p>
 
 	
 
@@ -102,8 +103,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
   <p class="disclaimer required"><strong>Although W3C has provided the template for this document for community use, the document is not affiliated with W3C in any way, and is not endorsed or approved by W3C.</strong></p>
 
   <p class="required">This document is a draft of this specification, produced by an independent party.  It is inappropriate to cite this specification as as a publication of the World Wide Web Consortium (W3C), or anything other than a <em>work in progress</em> by an independent entity.</p>
-  <p>In particular, certain aspects of this document are yet to be defined.  Feedback from the community is solicited for accessibility and DOM APIs.  Also, it is the intention of the MapML format to be able to serve and represent WMS requests and responses,
-  without requiring the client to 'understand' WMS, via the <code>image</code> element.  That element only exists on paper / in the schema at the time of writing.</p>
+  <p>In particular, certain aspects of this document are yet to be defined.  Feedback from the community is solicited for accessibility and DOM APIs.  </p>
 
 
   <h3>Intent of this Specification</h3>
@@ -112,33 +112,39 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
     requirements of the broader Web mapping community.  On the one hand, the semantics of maps are quite different from those of Scalable Vector Graphics,
     while on the other hand, the semantics of the HTML <code>map</code> element are incomplete or insufficient relative to modern Web maps and
     mapping in general.  Robust web maps are implemented by a variety of non-standard technologies.  Web maps do not work without script support, making
-    their creation a job beyond the realm of beginners' skill sets, while making them inherently inaccessible.
+    their creation a job beyond the realm of beginners' skill sets, while making them potentially inaccessible due to developer inattention.
     
     In order to improve collaboration and integration of the mapping and Web communities, it is desirable to enhance or augment
-    the functionality of the &lt;map> element in HTML to include the accessible user interface functions of modern web maps (e.g. panning, zooming, searching for, 
-     and zooming to, styling, identifying features’ properties, etc.), while maintaining a simple, declarative, accessible interface for HTML authors.  At the same time, 
-     the HTML interface should provide low-level programmable mapping hooks in the style of the Web.  While we're at it, maybe we can improve the state
-    of Web mapping by adopting and incorporating the core values of the Web, namely federation by virtue of hyperlinks and standardized media types.</p>
-  <p>To achieve this it is necessary to define a new hypertext format (MapML) which encodes map semantics directly.  MapML will provide part of the 
-    ‘contract’ between Web user agents and Web servers when map features are exchanged, in a manner based on the architectural style of the Web, 
-    in a similar way to how HTML provides (part of) the contract for documents.</p>
-  <p>This document is a proposal to the Web and Mapping communities.  The intention is to define a new hypertext format (MapML) which encodes map semantics 
-    directly, but which leverages existing standards where possible and desirable, such as Cascading Style Sheets, for example.  MapML will provide an 
+    the functionality of the &lt;map&gt; (or a similar &lt;new&gt;) element in HTML to include the accessible user interface functions of modern web maps (e.g. panning, zooming, searching for, and zooming to, styling, identifying feature properties, etc.), while maintaining a simple, declarative, accessible interface for HTML authors.  At the same time, 
+     the DOM interface to the new or improved elements should provide low-level programmable mapping hooks in the style of the Web.  </p>
+  <p>To achieve this it is necessary to define a new hypertext format (MapML) and media type which encodes map semantics.  </p>
+  <p>This document is an evolving proposal to the Web and Mapping communities.  Collaborators and implementation experience is requested.  The intention is to define a new hypertext format (MapML) which encodes map layer semantics 
+    directly, but which leverages existing standards where possible and desirable, such as Cascading Style Sheets and OGC Simple Features, for example.  MapML will provide an 
     essential part of the contract between Web user agents and Web servers when map features are exchanged, in a manner based on the architectural 
     style of the Web, in a similar way to how HTML provides (part of) the contract for documents.</p>
 	
   <h3>Implementation Experience</h3>
   
-  <p>MapML has been <a href="#sec-examples">implemented</a> by Natural Resources Canada, which participates in the <a href="https://www.w3.org/community/maps4html/">W3C Maps for HTML Community Group</a>.  
+  <p>MapML has been <a href="#sec-examples">implemented</a> using custom elements by Natural Resources Canada, which participates in the <a href="https://www.w3.org/community/maps4html/">W3C Maps for HTML Community Group</a>, as well as the <a href="https://opengeospatial.org/">Open Geospatial Consortium</a>.  
     It is hoped that other organizations will also implement MapML and contribute their experience back to the community via the Community Group and <a href="https://github.com/Maps4HTML/MapML">Github</a>.</p>
   
   <h3>Changes Since the Previous Draft</h3>
   
-  <p>Changed the brief description of zoomin, zoomout link relations.</p>
-  <p>Added location,width,height input types.</p>
-  <p>Added template element</p>
+  <p>Update schema, such as it is (needs more than 
+a schema language can provide e.g. schematron or something like HTML has)</p>
+  <p>Deprecate input@type= xmin,ymin,xmax,ymax,projection.</p>
+  <p>Remove input@type=search for now (not implemented, nor yet discussed).</p>
+  <p>Add input@units=gcrs keyword.</p>
+  <p>Extend input@type=position keyword list to be based on CSS object-position
+property value domain</p>
+  <p>Add input@axis= latitude,longitude keywords</p>
+  <p>Remove reference to link@rel=search, which is not supported.</p>
+  <p>Add Figure 1 in examples. Change URLs to example services.</p>
+  <p>Update Abstract, stauts, intent, implementation experience,feedback and Change sections</p>
+  <p>Add link@tcrs attribute</p>
+  <p>Add link@rel=style link relation</p>
+    
 
-  
   <h3>Level of Endorsement by the Community</h3>
   
   <p>Please contact the W3C Maps for HTML Community Group if you would like to participate in the development and implementation of this specification.</p>
@@ -151,7 +157,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
   
   <h3>How to provide feedback</h3>
 
-  <p>Please send comments on this specification to <a href="mailto:public-maps4html@w3.org">public-maps4html@w3.org</a>.  Better still, join the group and submit a  <a href="https://github.com/Maps4HTML/MapML">pull request</a>.</p>
+  <p>Please send comments on this specification to <a href="mailto:public-maps4html@w3.org">public-maps4html@w3.org</a> or open an <a href="https://github.com/Maps4HTML/MapML/issues">issue</a>.</p>
   
 </div>
 
@@ -781,6 +787,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           <dt>Content attributes:</dt>
           <dd><code>href</code> — Address of the hyperlink</dd>
           <dd><code>rel</code> — Relationship between the document containing the hyperlink and the destination resource</dd>
+          <dd><code>tcrs</code> — The TCRS of the linked resource.</dd>
           <dd><code>hreflang</code> — Language of the linked resource</dd>
           <dd><code>type</code> — Hint for the type of the referenced resource</dd>
           <dd><code>title</code> — Title of the link</dd>
@@ -789,6 +796,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
             <pre class="idl">interface <dfn id="mapmllinkelement">MAPMLLinkElement</dfn> : MAPMLElement {
            attribute DOMString href;
            attribute DOMString rel;
+           attribute DOMString tcrs;
            attribute DOMString hreflang;
            attribute DOMString type;
            attribute DOMString title;
@@ -800,6 +808,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
         <p>The destination of the link(s) is given by the <dfn id="attr-link-href"><code>href</code></dfn> attribute, which must be present and must contain a valid non-empty URL potentially surrounded by spaces. <span class="impl">If the <code><a href="#attr-link-href">href</a></code> attribute is absent, then the element does not define a link.</span></p>
         <p>A <code><a href="#the-link-element">link</a></code> element must have a <code><a href="#attr-link-rel">rel</a></code> attribute. If the <code>rel</code> attribute is absent, then the element does not define a link.</p>
         <p>The types of link are given by the value of the <dfn id="attr-link-rel"><code>rel</code></dfn> attribute, which must have a value that is a single token. The allowed keywords and their meanings are defined below. If the <code>rel</code> attribute is absent, has no keywords, or if none of the keywords used are allowed according to the definitions in this specification, then the element does not create any links.</p>
+        <p>The <dfn id="attr-link-tcrs"><code>tcrs</code></dfn> attribute value identifies the TCRS of the linked resource, with a value from the defined set of <a href="#projections">TCRS identifiers</a>. When <code>rel=alternate</code> is used together with the <code>tcrs</code> attribute, clients may be able to perform agent-driven content negotiation to provide a better user experience.  For example, if an HTML author mistakenly enters the URL of an OSMTILE resource in their HTML <code>layer@src</code> attribute, but the <code>map</code> in which the layer takes part is declared to be <code>CBMTILE</code>, the MapML author can ease the potential for resultant confusion by providing appropriate <code>rel=alternate</code> links to equivalent MapML resources in other projections.</p>
         <p>The <code>link/@title</code> value is expected to be used in conjunction with <code>link[@rel=license]</code> as a string description of the link to the terms under which the MapML content is made available, while the <code>link/@href</code> value is used to link to an HTML document of the license terms. Note that there may be more than a single contributor to the information presented in a single extent, and it is therefore possible to have serveral licenses terms for a single extent, each of which will have its own <code>&lt;link&gt;</code> element in a single MapML document.</p>
         <h6 id="rel-values"><code>@rel</code> values</h6>
         <table>
@@ -837,6 +846,10 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
             <tr>
               <td><code>stylesheet</code></td>
               <td>Imports a stylesheet.</td>
+            </tr>
+            <tr>
+              <td><code>style</code></td>
+              <td>Indicates a map resource that is equivalent to the current resource, in the same TCRS but with a different map style.</td>
             </tr>
             <tr>
               <td><code>west</a></code></td>
@@ -1023,40 +1036,10 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           </thead>
           <tbody>
             <tr>
-              <td><code>xmin</code></td>
-              <td> Minimum value of the map X axis </td>
-              <td> A numerical value </td>
-              <td> A derived property of a displayed map </td>
-            </tr>
-            <tr>
-              <td><code>ymin</code></td>
-              <td> Minimum value of the map Y axis </td>
-              <td> A numerical value </td>
-              <td> A derived property of a displayed map </td>
-            </tr>
-            <tr>
-              <td><code>xmax</code></td>
-              <td> Maximum value of the map X axis </td>
-              <td> A numerical value </td>
-              <td> A derived property of a displayed map </td>
-            </tr>
-            <tr>
-              <td><code>ymax</code></td>
-              <td> Maximum value of the map Y axis </td>
-              <td> A numerical value </td>
-              <td> A derived property of a displayed map </td>
-            </tr>
-            <tr>
               <td><code>zoom</code></td>
               <td> zoom </td>
               <td> An integer value </td>
               <td> A derived property of a displayed map </td>
-            </tr>
-            <tr>
-              <td><code>projection</code></td>
-              <td> projection </td>
-              <td> A string value with no line breaks</td>
-              <td> The tiled coordinate system name of a displayed map. </td>
             </tr>
             <tr>
               <td><code>location</code></td>
@@ -1082,13 +1065,35 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
               <td> An arbitrary string </td>
               <td> n/a </td>
             </tr>
-            <tr>
-              <td>
-                <code>search</code>
-              </td>
-              <td> Search </td>
-              <td> Text with no line breaks </td>
-              <td> Search field </td>
+            <tr class="deprecated">
+              <td><code>xmin</code></td>
+              <td> Minimum value of the map X axis </td>
+              <td> A numerical value </td>
+              <td> A derived property of a displayed map </td>
+            </tr>
+            <tr class="deprecated">
+              <td><code>ymin</code></td>
+              <td> Minimum value of the map Y axis </td>
+              <td> A numerical value </td>
+              <td> A derived property of a displayed map </td>
+            </tr>
+            <tr class="deprecated">
+              <td><code>xmax</code></td>
+              <td> Maximum value of the map X axis </td>
+              <td> A numerical value </td>
+              <td> A derived property of a displayed map </td>
+            </tr>
+            <tr class="deprecated">
+              <td><code>ymax</code></td>
+              <td> Maximum value of the map Y axis </td>
+              <td> A numerical value </td>
+              <td> A derived property of a displayed map </td>
+            </tr>
+            <tr class="deprecated">
+              <td><code>projection</code></td>
+              <td> projection </td>
+              <td> A string value with no line breaks</td>
+              <td> The tiled coordinate system name of a displayed map. </td>
             </tr>
           </tbody>
         </table>
@@ -1117,8 +1122,14 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
               for OSMTILE, which has an associated projected coordinate reference system of EPSG:3857.</td>
             </tr>
             <tr>
+              <td><code>gcrs</code></td>
+              <td> The location should be serialized in units associated to the geodetic coordinate system associated to the TCRS instance, e.g. decimal degrees 
+              for the OSMTILE TCRS, which has an underlying geodetic coordinate reference system of EPSG:4326. In the case of a TCRS such as WGS84, 
+              the gcrs and tcrs location are the same.</td>
+            </tr>
+            <tr>
               <td><code>map</code></td>
-              <td> The location should be serialized in units associated to the local coordinate reference system defined by the extent, i.e. in pixels with the origin
+              <td> The location should be serialized in units associated to the map coordinate system defined by the extent, i.e. in pixels with the origin
               at the upper left corner of the extent, with coordinate axes' increasing right and downwards, respectively.
               </td>
             </tr>
@@ -1130,10 +1141,9 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           </tbody>
         </table>
         
-        <p>The units of the tilematrix 
-              are the tile, however because tile coordinates are derived from the underlying tcrs units (in pixels), we can specify locations on the
-              tilematrix grid relative to the tile coordinates.  Such locations are identified by the <code>position</code> attribute.  The <code>position</code>
-              attribute is a keyword indicating the location relative to the tile on which the location is desired. </p>
+        <p>The meaning of the position attribute keywords depends on the units attribute value.  When units=tcrs,pcrs,gcrs,map or no units attribute exists,
+        the position attribute refers to a location relative to the extent. When the units=tilematrix, the position attribute refers a location 
+        relative to the tile.</p>
 
         <table id="attr-input-position-keywords">
           <thead>
@@ -1145,19 +1155,39 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           <tbody>
             <tr>
               <td><code>top-left</code></td>
-              <td> Identifies a location relative to a tile in a tilematrixset. </td>
+              <td> Identifies a location relative to a tile or extent. </td>
             </tr>
             <tr>
               <td><code>top-right</code></td>
-              <td> Identifies a location relative to a tile in a tilematrixset. </td>
+              <td> Identifies a location relative to a tile or extent. </td>
             </tr>
             <tr>
               <td><code>bottom-left</code></td>
-              <td> Identifies a location relative to a tile in a tilematrixset. </td>
+              <td> Identifies a location relative to a tile or extent. </td>
             </tr>
             <tr>
               <td><code>bottom-right</code></td>
-              <td> Identifies a location relative to a tile in a tilematrixset. </td>
+              <td> Identifies a location relative to a tile or extent. </td>
+            </tr>
+            <tr>
+              <td><code>center-left</code></td>
+              <td> Identifies a location relative to a tile or extent. </td>
+            </tr>
+            <tr>
+              <td><code>center-right</code></td>
+              <td> Identifies a location relative to a tile or extent. </td>
+            </tr>
+            <tr>
+              <td><code>top-center</code></td>
+              <td> Identifies a location relative to a tile or extent. </td>
+            </tr>
+            <tr>
+              <td><code>bottom-center</code></td>
+              <td> Identifies a location relative to a tile or extent. </td>
+            </tr>
+            <tr>
+              <td><code>center</code></td>
+              <td> Identifies a location relative to a tile or extent. </td>
             </tr>
           </tbody>
         </table>
@@ -1181,19 +1211,19 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
             </tr>
             <tr>
               <td><code>row</code></td>
-              <td> TileMatrixSet row axis (parallel to y axis of TCRS). </td>
+              <td> TileMatrix row axis (parallel to y axis of TCRS). </td>
             </tr>
             <tr>
               <td><code>column</code></td>
-              <td> TileMatrixSet column axis (parallel to x axis of TCRS). </td>
+              <td> TileMatrix column axis (parallel to x axis of TCRS). </td>
             </tr>
             <tr>
               <td><code>i</code></td>
-              <td> Map extent i axis (parallel to x axis of TCRS). </td>
+              <td> Map CS i axis (parallel to x axis of TCRS). </td>
             </tr>
             <tr>
               <td><code>j</code></td>
-              <td> Map extent j axis (parallel to y axis of TCRS). </td>
+              <td> Map CS j axis (parallel to y axis of TCRS). </td>
             </tr>
             <tr>
               <td><code>easting</code></td>
@@ -1202,6 +1232,14 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
             <tr>
               <td><code>northing</code></td>
               <td> Projected coordinate reference system axis (parallel to y axis of TCRS). </td>
+            </tr>
+            <tr>
+              <td><code>latitude</code></td>
+              <td> Geodetic coordinate reference system axis (parallel to y axis of TCRS). </td>
+            </tr>
+            <tr>
+              <td><code>longitude</code></td>
+              <td> Geodetic coordinate reference system axis (parallel to x axis of TCRS). </td>
             </tr>
           </tbody>
         </table>
@@ -1474,8 +1512,6 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
           <code>coordinates</code> elements must follow additional constraints.</p>
         <h5 id="styling">4.3 Styling</h5>
         <p>MapML documents can be styled with Cascading Style Sheets.</p>
-        <h5 id="search">4.4 Search</h5>
-        <p>MapML services can advertise searchability using the <code>search</code> link relation in a <code>link</code> element included in the <code>head</code> element.</p>
         
       </div>
 
@@ -1484,8 +1520,9 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 <div id="sec-examples">
 	<h2 id="examples">5. Examples</h2>
 	<p>This section is informative.</p>
+        <img src="images/figure-1.png" width="100%"></img>
 	
-  <p>Prototype MapML services are available, representing <a href="https://geogratis.gc.ca/mapml/en/osmtile/cbmt/?xmin=-75.73142051696776&ymin=45.38814321988061&xmax=-75.68258285522461&ymax=45.407429184793905&zoom=15&projection=OSMTILE&alt=xml">tiled</a> and <a href="https://geogratis.gc.ca/api/beta/vectors/canvec/50k/features/?entry-type=full&xmin=-75.6088650226593&ymin=45.39715420088217&xmax=-75.59665560722351&ymax=45.401975540403974&zoom=17&projection=WGS84&alt=xml">vector</a> data.</p>
+  <p>Prototype MapML services are available, representing <a href="https://geogratis.gc.ca/mapml/en/osmtile/cbmt/">tiled</a> and <a href="https://geogratis.gc.ca/api/beta/vectors/canvec/50k/features/?entry-type=full&xmin=-75.6088650226593&ymin=45.39715420088217&xmax=-75.59665560722351&ymax=45.401975540403974&zoom=17&projection=WGS84&alt=xml">vector</a> data.</p>
   
 	
 </div>
