@@ -1,9 +1,4 @@
-# MapML [![Chat room][1]][2]
-
-[![Join the chat at https://gitter.im/Maps4HTML/MapML](https://badges.gitter.im/Maps4HTML/MapML.svg)](https://gitter.im/Maps4HTML/MapML?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-   [1]: https://goo.gl/1kHqwI
-   [2]: https://gitter.im/Maps4HTML/
+# MapML [![Join the chat at https://gitter.im/Maps4HTML/MapML](https://badges.gitter.im/Maps4HTML/MapML.svg)](https://gitter.im/Maps4HTML/MapML?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [Map Markup Language](http://maps4html.github.io/MapML/spec/) is hypertext for Web maps, like HTML is hypertext for Web pages
 
