@@ -3,9 +3,11 @@ start = mapml
 mapml = element mapml { head?,body }
 head = element head { headContent }
 link = element link { 
-        attribute href { xsd:anyURI },
+        attribute href { xsd:anyURI }?,
+        # can have a tref or an href, but not both
+        attribute tref { text }?,
         # @rel=alternate + @projection=tcrs-name is proposed as a way of negotiating the tcrs of the service: https://github.com/Maps4HTML/MapML/issues/11
-        attribute rel {  "stylesheet" | "license" | "alternate" | "style" | "legend" | "next" | "zoomin" | "zoomout" },
+        attribute rel {  "stylesheet" | "license" | "alternate" | "style" | "legend" | "next" | "zoomin" | "zoomout" | "image" | "tile" | "query" },
         attribute tcrs { "OSMTILE" | "CBMTILE" | "APSTILE" | "WGS84" }?,
         attribute title { text }?,
         attribute type { "text/css" | "text/mapml" }?,
@@ -32,33 +34,24 @@ extent = element extent {
   attribute action { xsd:anyURI }?, 
   attribute method { "get" | "GET" }?,
   attribute enctype { "application/x-www-form-urlencoded" }?,
-  (inputs* & templates*)?
+  (inputs* & links*)?
 }
-# allows nested inputs, but doesn't fully control their configuration.  todo
-# for example, the input/@name="bbox" behaves similar to an html input/@type="text"
-# except when the input has nested inputs, the input[child::input]/@value is interpreted as
-# a URI Template, with variable names and values specified by the child::input/@name & @value values
-# Another example: the input/@type="content-type" must contain 
-# an optional projection input and (either a mandatory zoom input or a mandatory scale input)
 inputs = (element input {
-  attribute name { text }?,
+  attribute name { text },
   # xmin, ymin, xmax, ymax and projection are deprecated. If you need to transmit a projection, use a hidden input/variable
   # for xmin etc, use a input@type=location with appropriate position, units, axis values.
   attribute type { "zoom" | "hidden" | "location" | "datetime" | "width" | "height" },
   attribute value { text }?,
+  attribute rel { "map" | "tile" }?,
   # position tokens are based on /composed from the set of keywords used for CSS object-position, but they are obviously unique tokesn and not combinable otherwise
   # https://developer.mozilla.org/en-US/docs/Web/CSS/object-position 
   attribute position { "top-left" | "top-right" | "bottom-left" | "bottom-right" | "center-left" | "center-right" | "top-center" | "bottom-center" | "center" }?,
   attribute axis { "latitude" | "longitude" | "easting" | "northing" | "x" | "y" | "row" | "column" | "i" | "j" }?,
   attribute units {"tilematrix" | "pcrs" | "tcrs" | "map" | "gcrs" }?,
   attribute required { xsd:boolean }?,
-  attribute min { text }?,
-  attribute max { text }?,
+  attribute min { xsd:decimal }?,
+  attribute max { xsd:decimal }?,
   attribute step { text }?
-})
-templates = ( element template {
-  attribute type { "image" | "tile" | "query" },
-  attribute tref { xsd:string }
 })
 feature = element feature {
     attribute id { text }?,

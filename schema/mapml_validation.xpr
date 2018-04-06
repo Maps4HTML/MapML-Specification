@@ -1,0 +1,1231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="19.1">
+    <meta>
+        <filters directoryPatterns="" filePatterns="mapml_validation.xpr" positiveFilePatterns="" showHiddenFiles="false"/>
+        <options>
+            <serialized version="19.1" xml:space="preserve">
+                <serializableOrderedMap>
+                    <entry>
+                        <String>files.types.association.v12</String>
+                        <fileTypeAssociation-array>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>ant</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/ant</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>aspx</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>atom</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>bat</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/batch</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>bmml</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>bookmap</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>c</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/c</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>c++</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/cc</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>cc</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/cc</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>cmd</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/batch</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>cml</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>cpp</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/cc</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>css</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/css</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>csv</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/plain</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>dae</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>dita</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>ditacontrol</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>ditamap</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>ditaval</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>dtd</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/dtd</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>ent</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/dtd</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>exsd</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xsd</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>fo</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>framework</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>gradle</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/plain</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>hocr</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>htm</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/html</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>html</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/html</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>icml</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>incx</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>install4j</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>isosch</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/sch</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>java</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/java</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>jj</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/java</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>jnlp</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>js</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/javascript</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>json</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/json</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>jsp</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>jspx</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>kml</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>less</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/less</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>markdown</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/markdown</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>mathml</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>md</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/markdown</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>mf</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/plain</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>mml</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>mod</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/dtd</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>mxliff</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>ncx</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>nvdl</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/nvdl</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>odd</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>opf</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>opt</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>owl</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>php</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/php</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>pl</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/perl</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>plist</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>properties</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/properties</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>props</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/properties</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>py</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/python</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>rdf</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>rnc</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/rnc</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>rng</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/rng</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>rss</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>sass</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/plain</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>scenarios</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>sch</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/sch</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>sef</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>sh</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/shell</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>smi</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>smil</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>sql</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/sql</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>ssml</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>svg</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>tbx</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>text</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/plain</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>txt</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/plain</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>vmoptions</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/plain</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>vxml</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>wml</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>wsdl</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/wsdl</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>wssc</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>wssr</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>x3d</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xconf</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xglass</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xht</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/html</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xhtml</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/html</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xlf</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xliff</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xmi</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xml</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xpl</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xproc</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xproc</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xproc</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xq</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xquery</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xql</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xquery</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xqm</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xquery</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xquery</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xquery</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xqy</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xquery</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xsd</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xsd</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xsl</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xsl</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xslt</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xsl</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xspec</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xspec</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xtm</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>xu</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xquery</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>yaml</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/python</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>yml</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/python</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>true</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>conf</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/plain</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>false</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String></String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>false</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                            <fileTypeAssociation>
+                                <field name="extension">
+                                    <String>mapml</String>
+                                </field>
+                                <field name="contentType">
+                                    <String>text/xml</String>
+                                </field>
+                                <field name="defaultExtension">
+                                    <Boolean>false</Boolean>
+                                </field>
+                            </fileTypeAssociation>
+                        </fileTypeAssociation-array>
+                    </entry>
+                </serializableOrderedMap>
+            </serialized>
+        </options>
+    </meta>
+    <projectTree name="mapml_validation.xpr">
+        <folder path="../../MapML-Leaflet-Plugin/"/>
+        <folder path="../"/>
+    </projectTree>
+</project>

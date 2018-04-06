@@ -63,17 +63,17 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 
 <h1>Map Markup Language</h1>
 
-<h2 id="pagesubtitle"><time datetime="2018-03-23">March 23, 2018</time></h2>
+<h2 id="pagesubtitle"><time datetime="2018-04-06">April 6, 2018</time></h2>
 
 <dl>
   <dt>This version:</dt>
-  <dd><em>https://github.com/Maps4HTML/MapML/tree/7d3d39449412678e316d89bc9af159fbedc39c6c</em></dd>
+  <dd><em>https://github.com/Maps4HTML/MapML/tree/8d27cd82346661bcc0927bba73a3997a0b0bdbb0</em></dd>
   
   <dt>Latest version:</dt>
   <dd><em>https://maps4html.github.io/MapML/spec/</em></dd>
   
   <dt>Previous version:</dt>
-  <dd><em>https://github.com/Maps4HTML/MapML/tree/5341da6017979c7afa31cb14643f0175e0630ba2</em></dd>
+  <dd><em>https://github.com/Maps4HTML/MapML/tree/7d3d39449412678e316d89bc9af159fbedc39c6c</em></dd>
   
   <dt>Editors:</dt>
 	<dd><em>Peter Rushforth</em>, Natural Resources Canada</dd>
@@ -197,13 +197,12 @@ property value domain</p>
           <li>4.2.8 <a href="#the-body-element">The <code>&lt;body&gt;</code> element</a></li>
           <li>4.2.9 <a href="#the-extent-element">The <code>&lt;extent&gt;</code> element</a></li>
           <li>4.2.10 <a href="#the-input-element">The <code>&lt;input&gt;</code> element</a></li>
-          <li>4.2.11 <a href="#the-template-element">The <code>&lt;template&gt;</code> element</a></li>
-          <li>4.2.12 <a href="#the-tile-element">The <code>&lt;tile&gt;</code> element</a></li>
-          <li>4.2.13 <a href="#the-image-element">The <code>&lt;image&gt;</code> element</a></li>
-          <li>4.2.14 <a href="#the-feature-element">The <code>&lt;feature&gt;</code> element</a></li>
-          <li>4.2.15 <a href="#the-properties-element">The <code>&lt;properties&gt;</code> element</a></li>
-          <li>4.2.16 <a href="#the-geometry-element">The <code>&lt;geometry&gt;</code> element</a></li>
-          <li>4.2.17 <a href="#the-coordinates-element">The <code>&lt;coordinates&gt;</code> element</a></li>
+          <li>4.2.11 <a href="#the-tile-element">The <code>&lt;tile&gt;</code> element</a></li>
+          <li>4.2.12 <a href="#the-image-element">The <code>&lt;image&gt;</code> element</a></li>
+          <li>4.2.13 <a href="#the-feature-element">The <code>&lt;feature&gt;</code> element</a></li>
+          <li>4.2.14 <a href="#the-properties-element">The <code>&lt;properties&gt;</code> element</a></li>
+          <li>4.2.15 <a href="#the-geometry-element">The <code>&lt;geometry&gt;</code> element</a></li>
+          <li>4.2.16 <a href="#the-coordinates-element">The <code>&lt;coordinates&gt;</code> element</a></li>
         </ul>
       </li>
     </ul>
@@ -421,7 +420,8 @@ property value domain</p>
         <h3 id="semantics">4.1. Semantics</h3>
         <h4 id="projections">4.1.1 Tiled Coordinate Reference Systems</h4>
         <p>A key factor which enables map "mashups" is the shared common coordinate systems and projections of the data used in the integration. On the modern Web, such interoperability is often achieved by using or assuming the use of de facto standard coordinate systems. Either the data being integrated already shares a common coordinate system, or it must be transformed into a common coordinate system prior to being integrated. This approach often works, within the limits of the assumptions. MapML documents are similar to other spatial information with regard to definition of projection and coordinate system requirements. However, MapML defines a system of communicating coordinate system information across the uniform interface of HTTP in order to eliminate assumptions in shared coordinate systems: the coordinate systems requested by the client and available from the server are represented as simple defined string identifiers defined in the table below, and exchanged in markup defined by this specification. </p>
-<table>
+<table id="tiled-CRS">
+  <caption><h2>Tiled Coordinate Reference Systems</h2></caption>
    <thead>
     <tr>
      <th>TCRS identifier</th>
@@ -781,12 +781,14 @@ property value domain</p>
           <dt>Categories:</dt>
           <dd>Metadata content</dd>
           <dt>Contexts in which this element can be used:</dt>
-          <dd>As a child of the <code>head</code> element.</dd>
+          <dd>If the element represents a hyperlink (has a <code>href</code> attribute): as a child of the <code>head</code> element.   </dd>
+          <dd>If the element represents a link template (has a <code>tref</code> attribute): as a child of the <code>extent</code> element.</dd>
           <dt>Content model:</dt>
           <dd>Empty.</dd>
           <dt>Content attributes:</dt>
           <dd><code>href</code> — Address of the hyperlink</dd>
-          <dd><code>rel</code> — Relationship between the document containing the hyperlink and the destination resource</dd>
+          <dd><code>tref</code> — URL Template</dd>
+          <dd><code>rel</code> — Relationship between the document containing the element and the destination resource</dd>
           <dd><code>tcrs</code> — The TCRS of the linked resource.</dd>
           <dd><code>hreflang</code> — Language of the linked resource</dd>
           <dd><code>type</code> — Hint for the type of the referenced resource</dd>
@@ -795,6 +797,7 @@ property value domain</p>
           <dd>
             <pre class="idl">interface <dfn id="mapmllinkelement">MAPMLLinkElement</dfn> : MAPMLElement {
            attribute DOMString href;
+           attribute DOMString tref;
            attribute DOMString rel;
            attribute DOMString tcrs;
            attribute DOMString hreflang;
@@ -810,8 +813,20 @@ property value domain</p>
         <p>The types of link are given by the value of the <dfn id="attr-link-rel"><code>rel</code></dfn> attribute, which must have a value that is a single token. The allowed keywords and their meanings are defined below. If the <code>rel</code> attribute is absent, has no keywords, or if none of the keywords used are allowed according to the definitions in this specification, then the element does not create any links.</p>
         <p>The <dfn id="attr-link-tcrs"><code>tcrs</code></dfn> attribute value identifies the TCRS of the linked resource, with a value from the defined set of <a href="#projections">TCRS identifiers</a>. When <code>rel=alternate</code> is used together with the <code>tcrs</code> attribute, clients may be able to perform agent-driven content negotiation to provide a better user experience.  For example, if an HTML author mistakenly enters the URL of an OSMTILE resource in their HTML <code>layer@src</code> attribute, but the <code>map</code> in which the layer takes part is declared to be <code>CBMTILE</code>, the MapML author can ease the potential for resultant confusion by providing appropriate <code>rel=alternate</code> links to equivalent MapML resources in other projections.</p>
         <p>The <code>link/@title</code> value is expected to be used in conjunction with <code>link[@rel=license]</code> as a string description of the link to the terms under which the MapML content is made available, while the <code>link/@href</code> value is used to link to an HTML document of the license terms. Note that there may be more than a single contributor to the information presented in a single extent, and it is therefore possible to have serveral licenses terms for a single extent, each of which will have its own <code>&lt;link&gt;</code> element in a single MapML document.</p>
-        <h6 id="rel-values"><code>@rel</code> values</h6>
-        <table>
+        
+        <p>The <code>link[@tref]</code> element represents a URL template for a resource (e.g. tiles) which can be used by the client make requests for resources
+          to fill its extent at zoom levels and bounds indicated by sibling <code>input[/@type=location]</code> elements' <code>min</code> and <code>max</code> attributes, or
+          to (partially) identify URL targets suitable to enable query of server resources. The <code>rel</code> attribute contains a keyword string which
+          identifies the role of the resource(s) for which the <code>tref</code> attribute value represents a URL template, which may contain zero or
+          more <code>input/@name</code> variable references. Such variable references must be a case-insensitive match of sibling <code>input</code> elements' <code>name</code>
+        attribute.</p>
+        <p>Use of the <code>link</code> element with the <code>rel</code> attribute in the "tile" or "image" state is an alternative to extent (form) submission 
+          to the <code>extent@action</code> URL, in that the client is responsible to calculate what tiles must be requested to cover its extent ("tile" state), or how  
+        paint an image to cover the map extent ("image" state).</p>
+        <p>The content represented by <code>link[@tref]</code> elements should be painted in document order of the appearance of the <code>link[@tref]</code> elements.</p>
+        
+        <table id="rel-values">
+          <caption><h2><code>@rel</code> values</h2></caption>
           <thead>
             <tr>
               <th rowspan="2">Link type</th>
@@ -895,6 +910,18 @@ property value domain</p>
               <td><code>panto</code></td>
               <td>Indicates a resource that may be used to the pan at the current zoom level.</td>
             </tr>
+            <tr>
+              <td><code>tile</code></td>
+              <td> The templated resource reference identifies a tile </td>
+            </tr>
+            <tr>
+              <td><code>image</code></td>
+              <td> The templated resource reference identifies an image that covers the map extent </td>
+            </tr>
+            <tr>
+              <td><code>query</code></td>
+              <td> The templated resource reference identifies a query resource at a location </td>
+            </tr>
           </tbody>
         </table>
         <h5 id="the-body-element">4.2.8 The <code>&lt;body&gt;</code> element</h5>
@@ -920,11 +947,11 @@ property value domain</p>
           <dt>Contexts in which this element can be used:</dt>
           <dd>Required to be the first child of the <code>&lt;body&gt;</code> element.</dd>
           <dt>Content model:</dt>
-          <dd>If the <code>action</code> attribute exists: A set of multiple <code>input</code> and zero or one <code>template</code> element with its
-              <code>type</code> attribute in the "query" state.</dd>
-          <dd>If no <code>action</code> attribute exists: A set of multiple <code>input</code> and one or more <code>template</code> elements with
-            their <code>type</code> attribute in either the "tile" or "image" state, and zero or one <code>template</code> element with its
-              <code>type</code> attribute in the "query" state.</dd>
+          <dd>If the <code>action</code> attribute exists: A set of multiple <code>input</code> and zero or one <code>link</code> element with its
+              <code>rel</code> attribute in the "query" state.</dd>
+          <dd>If no <code>action</code> attribute exists: A set of multiple <code>input</code> and one or more <code>link</code> elements with
+            their <code>rel</code> attribute in either the "tile" or "image" state, and zero or one <code>link</code> element with its
+              <code>rel</code> attribute in the "query" state.</dd>
           
           <dt>Content attributes:</dt>
           <dd><code>action</code> - URL to use for form (extent) submission</dd>
@@ -998,10 +1025,11 @@ property value domain</p>
           <dd><code>value</code> - the current or default value of the name/value pair represented by the <code>input</code></dd>
           <dd><code>min</code> - the minimum value for the extent parameter acceptable by the server</dd>
           <dd><code>max</code> - the maximum value for the extent parameter acceptable by the server</dd>
-          <dd><code>step</code> - the incremental value that a server can vary the zoom parameter by.  Typically 0 or 1.</dd>
-          <dd><code>units</code> - <a href="#attr-input-units-keywords">enumerated keyword string</a> identifies the associated coordinate system for this input</dd>
-          <dd><code>axis</code> - <a href="#attr-input-axis-keywords">enumerated keyword string</a> identifies the axis of the associated coordinate system from the <code>units</code> attribute</dd>
-          <dd><code>position</code> -  <a href="#attr-input-position-keywords">enumerated keyword string</a> identifies the relative position of a location</dd>
+          <dd><code>step</code> - the increment by which a value may vary between the <code>min</code> and <code>max</code> values</dd>
+          <dd><code>units</code> - when <code>type</code> attribute is <code>location</code>, <a href="#attr-input-units-keywords">enumerated keyword string</a> identifies the associated coordinate system for this input</dd>
+          <dd><code>axis</code> - when <code>type</code> attribute is <code>location</code>, <a href="#attr-input-axis-keywords">enumerated keyword string</a> identifies the axis of the associated OR related coordinate system from the <code>units</code> attribute, for which an associated axis value will be returned. The <code>min</code> and <code>max</code> attribute values, if present, will be interpreted in the <a href="#tiled-CRS">defined units of this axis</a>.</dd>
+          <dd><code>rel</code> - when <code>type</code> attribute is <code>location</code>, <a href="#rel-values"><code>tile</code> or <code>image</code> (the default if not specified)</a> identifies the relation of this location to either a tile or an image corresponding to the map extent in which the location is found.  Establishes the meaning of the <code>position</code> attribute to identify the location relative to the tile in question or to the map extent (the default).</dd>
+          <dd><code>position</code> - when <code>type</code> attribute is <code>location</code>, <a href="#attr-input-position-keywords">enumerated keyword string</a> identifies the relative position of a location</dd>
           <dt>DOM interface:</dt>
           <dd>
             <dd>
@@ -1013,6 +1041,7 @@ property value domain</p>
            attribute DOMString step;
            attribute DOMString units;
            attribute DOMString axis;
+           attribute DOMString rel;
            attribute DOMString position;
 
 
@@ -1026,6 +1055,7 @@ property value domain</p>
           table lists the keywords and states for the attribute — the keywords in the left column map to the states in the cell in the second column 
           on the same row as the keyword.</p>
         <table id="attr-input-type-keywords">
+          <caption><h2><code>input</code>@<code>type</code> values</h2></caption>
           <thead>
             <tr>
               <th> Keyword </th>
@@ -1105,6 +1135,7 @@ property value domain</p>
           by virtue of an origin location, defined in meters in the EPSG:3857 CRS plus a set of zoom level resolutions, and a transformation.</p>
         
         <table id="attr-input-units-keywords">
+          <caption><h2><code>input</code>@<code>units</code> values</h2></caption>
           <thead>
             <tr>
               <th> Keyword </th>
@@ -1141,11 +1172,15 @@ property value domain</p>
           </tbody>
         </table>
         
-        <p>The meaning of the position attribute keywords depends on the units attribute value.  When units=tcrs,pcrs,gcrs,map or no units attribute exists,
-        the position attribute refers to a location relative to the extent. When the units=tilematrix, the position attribute refers a location 
-        relative to the tile.</p>
+        <p>The meaning of the <code>position</code> attribute value (keyword) depends upon the presence and value of the associated <code>rel</code> attribute.  
+          When the <code>rel</code> attribute is not present or has the value <code>image</code>,
+          the <code>position</code> attribute keyword value describes the input location relative to the ancestor <code>extent</code>. When <code>rel=tile</code> 
+          (only applicable when the <code>units</code> value equals <code>tilematrix</code>), the
+          <code>position</code> attribute values describe the input location relative to the tile at the location in question.  
+        </p>
 
         <table id="attr-input-position-keywords">
+          <caption><h2><code>input</code>@<code>position</code> values</h2></caption>
           <thead>
             <tr>
               <th> Keyword </th>
@@ -1194,6 +1229,7 @@ property value domain</p>
         <p>The <code>axis</code> keyword identifies the axis of the coordinate that the <code>input</code> variable represents.
           The coordinate system should be identified by the <code>units</code> attribute.</p>
         <table id="attr-input-axis-keywords">
+          <caption><h2><code>input</code>@<code>axis</code> values</h2></caption>
           <thead>
             <tr>
               <th> Keyword </th>
@@ -1244,63 +1280,7 @@ property value domain</p>
           </tbody>
         </table>
         
-        <h5 id="the-template-element">4.2.11 The <code>&lt;template&gt;</code> element</h5>
-
-        <dl class="element">
-          <dt>Categories:</dt>
-          <dd></dd>
-          <dt>Contexts in which this element can be used:</dt>
-          <dd>Child of the <code>&lt;extent&gt;</code> element.</dd>
-          <dt>Content model:</dt>
-          <dd>Empty.</dd>
-          <dt>Content attributes:</dt>
-          <dd><code>type</code> -  <a href="#attr-template-type-keywords">enumerated keyword string</a> identifying the type of template</dd>
-          <dd><code>tref</code> - a Level 1 URL template</dd>
-          <dt>DOM interface:</dt>
-          <dd>
-            <dd>
-              <pre class="idl">interface <dfn id="mapmltemplateelement">MAPMLTemplateElement</dfn> : MAPMLElement {
-           attribute DOMString type;
-           attribute DOMString tref;
-
-};</pre>
-            </dd>
-        </dl>
-        <p>The <code>template</code> element represents a URL template for a resource (e.g. tiles) which can be used by the client make requests for resources
-          to fill its extent at zoom levels and bounds indicated by sibling <code>input</code> elements' <code>min</code> and <code>max</code> attributes, or
-          to (partially) identify URL targets suitable to enable query of server resources. The <code>type</code> attribute contains a keyword string which
-          identifies the type of resource for which the template's <code>tref</code> attribute provides a URL template, which may contain zero or
-          more variable references. Such variable references must be a case-insensitive match of sibling <code>input</code> elements' <code>name</code>
-        attribute.</p>
-        <p>Use of the <code>template</code> element with the <code>type</code> attribute in the "tile" or "image" state is an alternative to form submission 
-          to the <code>extent@action</code> URL, in that the client understands what tiles must be requested to cover its extent, or how to request and 
-        paint an image to cover that extent.</p>
-        <p><code>template</code> elements' content should be painted in document order.</p>
-        <table id="attr-template-type-keywords">
-          <thead>
-            <tr>
-              <th> Keyword </th>
-              <th> State </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>tile</code></td>
-              <td> The templated reference identifies a tile </td>
-            </tr>
-            <tr>
-              <td><code>image</code></td>
-              <td> The templated reference identifies an image that covers the extent </td>
-            </tr>
-            <tr>
-              <td><code>query</code></td>
-              <td> The templated reference identifies a query resource at a location </td>
-            </tr>
-          </tbody>
-        </table>
-        
-        
-        <h5 id="the-tile-element">4.2.12 The <code>&lt;tile&gt;</code> element</h5>
+        <h5 id="the-tile-element">4.2.11 The <code>&lt;tile&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>
@@ -1334,7 +1314,7 @@ property value domain</p>
           The "zoom" value is equal to the <code>zoom@value</code> child of the <code>extent</code> element.  Hence the zoom value is not a direct 
         attribute of the <code>tile</code> element.</p>
         <p>The main example of such a tiled coordinate reference system is <a href="#OSMTILE"><code>OSMTILE</code></a>, although others exist.</p>
-        <h5 id="the-image-element">4.2.13 The <code>&lt;image&gt;</code> element</h5>
+        <h5 id="the-image-element">4.2.12 The <code>&lt;image&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>
@@ -1355,7 +1335,7 @@ property value domain</p>
           </dd>
         </dl>
         
-        <h5 id="the-feature-element">4.2.14 The <code>&lt;feature&gt;</code> element</h5>
+        <h5 id="the-feature-element">4.2.13 The <code>&lt;feature&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>
@@ -1376,7 +1356,7 @@ property value domain</p>
         </dl>
           
         <p>A <code>feature</code> element represents a geographic feature.  A <code>feature</code> element has an optional <a href="#the-properties-element"><code>properties</code></a> child element, and a required child <a href="#the-geometry-element"><code>geometry</code></a> element. </p>
-        <h5 id="the-properties-element">4.2.15 The <code>&lt;properties&gt;</code> element</h5>
+        <h5 id="the-properties-element">4.2.14 The <code>&lt;properties&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>
@@ -1399,7 +1379,7 @@ property value domain</p>
         <p>A <code>feature</code> element can have zero or one <code>properties</code> element, which contains zero or more unknown elements, whose content is text.  Note: it would 
         be better to a content model of property child elements whose values could be HTML. TODO.</p>
         
-        <h5 id="the-geometry-element">4.2.16 The <code>&lt;geometry&gt;</code> element</h5>
+        <h5 id="the-geometry-element">4.2.15 The <code>&lt;geometry&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>
@@ -1478,7 +1458,7 @@ property value domain</p>
             </tr>
           </tbody>
         </table>
-        <h5 id="the-coordinates-element">4.2.17 The <code>&lt;coordinates&gt;</code> element</h5>
+        <h5 id="the-coordinates-element">4.2.16 The <code>&lt;coordinates&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>
