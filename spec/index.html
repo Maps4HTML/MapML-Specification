@@ -63,7 +63,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 
 <h1>Map Markup Language</h1>
 
-<h2 id="pagesubtitle"><time datetime="2018-04-06">April 6, 2018</time></h2>
+<h2 id="pagesubtitle"><time datetime="2018-05-26">May 26, 2018</time></h2>
 
 <dl>
   <dt>This version:</dt>
@@ -197,12 +197,14 @@ property value domain</p>
           <li>4.2.8 <a href="#the-body-element">The <code>&lt;body&gt;</code> element</a></li>
           <li>4.2.9 <a href="#the-extent-element">The <code>&lt;extent&gt;</code> element</a></li>
           <li>4.2.10 <a href="#the-input-element">The <code>&lt;input&gt;</code> element</a></li>
-          <li>4.2.11 <a href="#the-tile-element">The <code>&lt;tile&gt;</code> element</a></li>
-          <li>4.2.12 <a href="#the-image-element">The <code>&lt;image&gt;</code> element</a></li>
-          <li>4.2.13 <a href="#the-feature-element">The <code>&lt;feature&gt;</code> element</a></li>
-          <li>4.2.14 <a href="#the-properties-element">The <code>&lt;properties&gt;</code> element</a></li>
-          <li>4.2.15 <a href="#the-geometry-element">The <code>&lt;geometry&gt;</code> element</a></li>
-          <li>4.2.16 <a href="#the-coordinates-element">The <code>&lt;coordinates&gt;</code> element</a></li>
+          <li>4.2.11 <a href="#the-datalist-element">The <code>&lt;datalist&gt;</code> element</a></li>
+          <li>4.2.12 <a href="#the-opotion-element">The <code>&lt;option&gt;</code> element</a></li>
+          <li>4.2.13 <a href="#the-tile-element">The <code>&lt;tile&gt;</code> element</a></li>
+          <li>4.2.14 <a href="#the-image-element">The <code>&lt;image&gt;</code> element</a></li>
+          <li>4.2.15 <a href="#the-feature-element">The <code>&lt;feature&gt;</code> element</a></li>
+          <li>4.2.16 <a href="#the-properties-element">The <code>&lt;properties&gt;</code> element</a></li>
+          <li>4.2.17 <a href="#the-geometry-element">The <code>&lt;geometry&gt;</code> element</a></li>
+          <li>4.2.18 <a href="#the-coordinates-element">The <code>&lt;coordinates&gt;</code> element</a></li>
         </ul>
       </li>
     </ul>
@@ -1024,6 +1026,8 @@ property value domain</p>
           <dd><code>type</code> - <a href="#attr-input-type-keywords">enumerated keyword string</a> identifies the type of input</dd>
           <dd><code>name</code> - the token to be used as a variable name in form serialization.</dd>
           <dd><code>value</code> - the current or default value of the name/value pair represented by the <code>input</code></dd>
+          <dd><code>shard</code> - a boolean attribute indicating associated <a href="#the-datalist-element"><code>datalist</code></a> values be used to shard map tile requests across subdomains (the values)</dd>
+          <dd><code>list</code> - the id of an associated <a href="#the-datalist-element"><code>datalist</code></a> element to supply values for the input. Useful only with <code>shard</code> at this time.</dd>
           <dd><code>min</code> - the minimum value for the extent parameter acceptable by the server</dd>
           <dd><code>max</code> - the maximum value for the extent parameter acceptable by the server</dd>
           <dd><code>step</code> - the increment by which a value may vary between the <code>min</code> and <code>max</code> values</dd>
@@ -1037,6 +1041,8 @@ property value domain</p>
               <pre class="idl">interface <dfn id="mapmlinputelement">MAPMLInputElement</dfn> : MAPMLElement {
            attribute DOMString type;
            attribute DOMString name;
+           attribute boolean shard;
+           readonly attribute MAPMLElement? list;
            attribute DOMString min;
            attribute DOMString max;
            attribute DOMString step;
@@ -1044,7 +1050,7 @@ property value domain</p>
            attribute DOMString axis;
            attribute DOMString rel;
            attribute DOMString position;
-
+           attribute DOMString value;
 
 };</pre>
             </dd>
@@ -1280,8 +1286,50 @@ property value domain</p>
             </tr>
           </tbody>
         </table>
+        <h5 id="the-datalist-element">4.2.11 The <code>&lt;datalist&gt;</code> element</h5>
+        <dl class="element">
+          <dt>Categories:</dt>
+          <dd>n/a</dd>
+          <dt>Contexts in which this element can be used:</dt>
+          <dd>Required to be a child of the <a href="#the-extent-element"><code>extent</code></a> element, associated to an <a href="#the-input-element"><code>input</code></a> element via that element's <code>list</code> attribute.</dd>
+          <dt>Content model:</dt>
+          <dd>One or more <a href="#the-option-element"><code>option</code></a> elements.</dd>
+          <dt>Content attributes:</dt>
+          <dd><code>id</code> - identifies the list within the current document</dd>
+          <dt>DOM interface:</dt>
+          <dd>
+            <dd>
+              <pre class="idl">interface <dfn id="mapmldatalistelement">MAPMLDatalistElement</dfn> : MAPMLElement {
+           attribute DOMString id;
+
+
+};</pre>
+            </dd>
+        </dl>
+        <h5 id="the-option-element">4.2.12 The <code>&lt;option&gt;</code> element</h5>
+        <dl class="element">
+          <dt>Categories:</dt>
+          <dd>n/a</dd>
+          <dt>Contexts in which this element can be used:</dt>
+          <dd>As a child of the <a href="#the-datalist-element"><code>datalist</code></a> element.</dd>
+          <dt>Content model:</dt>
+          <dd>Nothing</dd>
+          <dt>Content attributes:</dt>
+          <dd><code>value</code> - the value to be used in form submission</dd>
+          <dd><code>label</code> - the label to be presented to the user, if applicable</dd>
+          <dt>DOM interface:</dt>
+          <dd>
+            <dd>
+              <pre class="idl">interface <dfn id="mapmloptionelement">MAPMLOptionElement</dfn> : MAPMLElement {
+           attribute DOMString value;
+           attribute DOMString label;
+
+
+};</pre>
+            </dd>
+        </dl>
         
-        <h5 id="the-tile-element">4.2.11 The <code>&lt;tile&gt;</code> element</h5>
+        <h5 id="the-tile-element">4.2.13 The <code>&lt;tile&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>
@@ -1315,7 +1363,7 @@ property value domain</p>
           The "zoom" value is equal to the <code>zoom@value</code> child of the <code>extent</code> element.  Hence the zoom value is not a direct 
         attribute of the <code>tile</code> element.</p>
         <p>The main example of such a tiled coordinate reference system is <a href="#OSMTILE"><code>OSMTILE</code></a>, although others exist.</p>
-        <h5 id="the-image-element">4.2.12 The <code>&lt;image&gt;</code> element</h5>
+        <h5 id="the-image-element">4.2.14 The <code>&lt;image&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>
@@ -1336,7 +1384,7 @@ property value domain</p>
           </dd>
         </dl>
         
-        <h5 id="the-feature-element">4.2.13 The <code>&lt;feature&gt;</code> element</h5>
+        <h5 id="the-feature-element">4.2.15 The <code>&lt;feature&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>
@@ -1357,7 +1405,7 @@ property value domain</p>
         </dl>
           
         <p>A <code>feature</code> element represents a geographic feature.  A <code>feature</code> element has an optional <a href="#the-properties-element"><code>properties</code></a> child element, and a required child <a href="#the-geometry-element"><code>geometry</code></a> element. </p>
-        <h5 id="the-properties-element">4.2.14 The <code>&lt;properties&gt;</code> element</h5>
+        <h5 id="the-properties-element">4.2.16 The <code>&lt;properties&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>
@@ -1380,7 +1428,7 @@ property value domain</p>
         <p>A <code>feature</code> element can have zero or one <code>properties</code> element, which contains zero or more unknown elements, whose content is text.  Note: it would 
         be better to a content model of property child elements whose values could be HTML. TODO.</p>
         
-        <h5 id="the-geometry-element">4.2.15 The <code>&lt;geometry&gt;</code> element</h5>
+        <h5 id="the-geometry-element">4.2.17 The <code>&lt;geometry&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>
@@ -1459,7 +1507,7 @@ property value domain</p>
             </tr>
           </tbody>
         </table>
-        <h5 id="the-coordinates-element">4.2.16 The <code>&lt;coordinates&gt;</code> element</h5>
+        <h5 id="the-coordinates-element">4.2.18 The <code>&lt;coordinates&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
           <dd>Feature data</dd>

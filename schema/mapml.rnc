@@ -34,7 +34,7 @@ extent = element extent {
   attribute action { xsd:anyURI }?, 
   attribute method { "get" | "GET" }?,
   attribute enctype { "application/x-www-form-urlencoded" }?,
-  (inputs* & links*)?
+  (inputs* & datalist* & links*)?
 }
 inputs = (element input {
   attribute name { text },
@@ -43,6 +43,8 @@ inputs = (element input {
   attribute type { "zoom" | "hidden" | "location" | "datetime" | "width" | "height" },
   attribute value { text }?,
   attribute rel { "map" | "tile" }?,
+  attribute shard { text }?,
+  attribute list { text }?,
   # position tokens are based on /composed from the set of keywords used for CSS object-position, but they are obviously unique tokesn and not combinable otherwise
   # https://developer.mozilla.org/en-US/docs/Web/CSS/object-position 
   attribute position { "top-left" | "top-right" | "bottom-left" | "bottom-right" | "center-left" | "center-right" | "top-center" | "bottom-center" | "center" }?,
@@ -53,6 +55,14 @@ inputs = (element input {
   attribute max { xsd:decimal }?,
   attribute step { text }?
 })
+datalist = element datalist {
+  attribute id { text }?,
+  (option*)
+}
+option = element option {
+  attribute value { text },
+  attribute label { text }?
+}
 feature = element feature {
     attribute id { text }?,
     attribute class { text }?,

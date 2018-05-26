@@ -14,7 +14,15 @@
         <sch:rule context="input[@type='location'][@axis eq 'northing']">
             <sch:assert test="exists(preceding-sibling::input[@axis eq 'easting']) or exists(following-sibling::input[@axis eq 'easting'])">Northing axis reference must have paired easting axis reference</sch:assert>
         </sch:rule>
-        
+        <sch:rule context="input[@type='hidden'][@shard]">
+            <sch:assert test="exists(./@list)">A shard-type input must have a @list attribute</sch:assert>
+            <sch:let name="listid" value="./@list"></sch:let>
+            <sch:assert test="exists(//datalist[@id eq $listid])">A datalist must be associated to a shard-type input</sch:assert>
+            <sch:report test="exists(./@value)">A shard-type input must not have a @value</sch:report>
+        </sch:rule>
+        <sch:rule context="input[@shard]">
+            <sch:assert test=".[@type eq 'hidden']">A shard-type input must have @type="hidden"</sch:assert>
+        </sch:rule>
         <sch:rule context="extent">
             <sch:assert test="input[@type eq 'zoom']">Extent must have a zoom input</sch:assert>
             <sch:assert test="(count((input[@type='location'][@axis eq 'i'] union input[@type='location'][@axis eq 'j'])) mod 2) eq 0">location inputs with axis=i or j must come in pairs</sch:assert>
