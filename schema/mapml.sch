@@ -31,6 +31,8 @@
             <sch:assert test="(count(input[@type='location'][@axis eq 'row' or @axis eq 'column']) mod 2) eq 0">location inputs with axis=row or column must come in pairs</sch:assert>
             <sch:assert test="(count(input[@type='location'][@axis eq 'x' or @axis eq 'y']) mod 2) eq 0">location inputs with axis=x or y must come in pairs</sch:assert>
         </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
         <sch:rule context="link">
             <sch:assert test="(exists(@tref) and not(exists(@href))) or (exists(@href) and not(exists(@tref)))">@tref or @href should exist, but not both</sch:assert>
         </sch:rule>
@@ -45,6 +47,11 @@
         </sch:rule>
         <sch:rule context="link[@href]">
             <sch:assert test="local-name(parent::node()) ne 'extent'">regular links must not be in the extent element</sch:assert>
+        </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+        <sch:rule context="link[normalize-space(@rel) = 'self style' or normalize-space(@rel) = 'style self']">
+            <sch:assert test="count(//link[normalize-space(@rel) = 'self style' or normalize-space(@rel) = 'style self']) eq 1">More than one self style or style self link found</sch:assert>
         </sch:rule>
     </sch:pattern>
 </sch:schema>

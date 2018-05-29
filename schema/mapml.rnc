@@ -7,7 +7,7 @@ link = element link {
         # can have a tref or an href, but not both
         attribute tref { text }?,
         # @rel=alternate + @projection=tcrs-name is proposed as a way of negotiating the tcrs of the service: https://github.com/Maps4HTML/MapML/issues/11
-        attribute rel {  "stylesheet" | "license" | "alternate" | "style" | "legend" | "next" | "zoomin" | "zoomout" | "image" | "tile" | "query" },
+        attribute rel {  "stylesheet" | "license" | "alternate" | "style" | "self" | "self style" | "style self" | "legend" | "next" | "zoomin" | "zoomout" | "image" | "tile" | "query" },
         attribute tcrs { "OSMTILE" | "CBMTILE" | "APSTILE" | "WGS84" }?,
         attribute title { text }?,
         attribute type { "text/css" | "text/mapml" }?,

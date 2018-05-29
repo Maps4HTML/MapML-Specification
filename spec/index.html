@@ -63,7 +63,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 
 <h1>Map Markup Language</h1>
 
-<h2 id="pagesubtitle"><time datetime="2018-05-26">May 26, 2018</time></h2>
+<h2 id="pagesubtitle"><time datetime="2018-05-29">May 29, 2018</time></h2>
 
 <dl>
   <dt>This version:</dt>
@@ -813,9 +813,11 @@ property value domain</p>
         <p>The <code><a href="#the-link-element">link</a></code> element allows authors to link their document to other resources.</p>
         <p>The destination of the link(s) is given by the <dfn id="attr-link-href"><code>href</code></dfn> attribute, which must be present and must contain a valid non-empty URL potentially surrounded by spaces. <span class="impl">If the <code><a href="#attr-link-href">href</a></code> attribute is absent, then the element does not define a link.</span></p>
         <p>A <code><a href="#the-link-element">link</a></code> element must have a <code><a href="#attr-link-rel">rel</a></code> attribute. If the <code>rel</code> attribute is absent, then the element does not define a link.</p>
-        <p>The types of link are given by the value of the <dfn id="attr-link-rel"><code>rel</code></dfn> attribute, which must have a value that is a single token. The allowed keywords and their meanings are defined below. If the <code>rel</code> attribute is absent, has no keywords, or if none of the keywords used are allowed according to the definitions in this specification, then the element does not create any links.</p>
+        <p>The types of link are given by the value of the <dfn id="attr-link-rel"><code>rel</code></dfn> attribute, which generally has a value that is a single token, except in the case of the link@rel='self style' value described below. The allowed keywords and their meanings are defined below. If the <code>rel</code> attribute is absent, has no keywords, or if none of the keywords used are allowed according to the definitions in this specification, then the element does not create any links.</p>
         <p>The <dfn id="attr-link-tcrs"><code>tcrs</code></dfn> attribute value identifies the TCRS of the linked resource, with a value from the defined set of <a href="#projections">TCRS identifiers</a>. When <code>rel=alternate</code> is used together with the <code>tcrs</code> attribute, clients may be able to perform agent-driven content negotiation to provide a better user experience.  For example, if an HTML author mistakenly enters the URL of an OSMTILE resource in their HTML <code>layer@src</code> attribute, but the <code>map</code> in which the layer takes part is declared to be <code>CBMTILE</code>, the MapML author can ease the potential for resultant confusion by providing appropriate <code>rel=alternate</code> links to equivalent MapML resources in other projections.</p>
-        <p>The <code>link/@title</code> value is expected to be used in conjunction with <code>link[@rel=license]</code> as a string description of the link to the terms under which the MapML content is made available, while the <code>link/@href</code> value is used to link to an HTML document of the license terms. Note that there may be more than a single contributor to the information presented in a single extent, and it is therefore possible to have serveral licenses terms for a single extent, each of which will have its own <code>&lt;link&gt;</code> element in a single MapML document.</p>
+        <p>The <code>link/@title</code> value can be used in conjunction with <code>link[@rel=license]</code> as a string description of the link to the terms under which the MapML content is made available, while the <code>link/@href</code> value is used to link to an HTML document of the license terms. Note that there may be more than a single contributor to the information presented in a single extent, and it is therefore possible to have several licenses terms for a single extent, each of which will have its own <code>&lt;link&gt;</code> element in a single MapML document.</p>
+        
+        <p>The <code>link@rel='self style'</code> rel value can be used to designate one of a set of alternative named style links as being the style of the current document.  As such, the value of the <code>link@title</code> attribute will be used by the user agent to label the current style from among the list of alternate styles.</p>
         
         <p>The <code>link[@tref]</code> element represents a URL template for a resource (e.g. tiles) which can be used by the client make requests for resources
           to fill its extent at zoom levels and bounds indicated by sibling <code>input[/@type=location]</code> elements' <code>min</code> and <code>max</code> attributes, or
@@ -868,6 +870,10 @@ property value domain</p>
             <tr>
               <td><code>style</code></td>
               <td>Indicates a map resource that is equivalent to the current resource, in the same TCRS but with a different map style.</td>
+            </tr>
+            <tr>
+              <td><code>self</code></td>
+              <td>Indicates that the linked resource is the current resource. When used in combination with the style rel value, indicates that the linked resource is the current selected style from a group of alternative styles for the current layer. There should only be one such link that has both rel values 'self' and 'style' in a document.</td>
             </tr>
             <tr>
               <td><code>west</a></code></td>
