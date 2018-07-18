@@ -54,4 +54,17 @@
             <sch:assert test="count(//link[normalize-space(@rel) = 'self style' or normalize-space(@rel) = 'style self']) eq 1">More than one self style or style self link found</sch:assert>
         </sch:rule>
     </sch:pattern>
+    <sch:pattern>
+        <sch:rule context="label">
+            <sch:assert test="exists(./@for)">A label must have a @for attribute</sch:assert>
+            <sch:let name="forid" value="./@for"></sch:let>
+            <sch:assert test="exists(//*[@id eq $forid])">A label must be associated to another element by label@for == element@id</sch:assert>
+        </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+        <sch:rule context="select[@id]">
+            <sch:let name="forid" value="./@id"></sch:let>
+            <sch:assert test="count(//label[@for eq $forid]) eq 1">There must be only one label per labelled (select) element. Duplicated label for id="<sch:value-of select="$forid"/>".</sch:assert>
+        </sch:rule>
+    </sch:pattern>
 </sch:schema>

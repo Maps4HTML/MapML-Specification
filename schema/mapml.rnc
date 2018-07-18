@@ -28,13 +28,13 @@ headContent =
     links
 
 body = element body { bodyContent }
-bodyContent =  extent & links & (feature | tile | image)*  
+bodyContent =  extent? & links & (feature | tile | image)*  
 extent = element extent {
   attribute units  { "OSMTILE" | "CBMTILE" | "APSTILE" | "WGS84" }?,
   attribute action { xsd:anyURI }?, 
   attribute method { "get" | "GET" }?,
   attribute enctype { "application/x-www-form-urlencoded" }?,
-  (inputs* & datalist* & links*)?
+  (inputs* & datalist* & links* & select* & label*)?
 }
 inputs = (element input {
   attribute name { text },
@@ -57,11 +57,21 @@ inputs = (element input {
 })
 datalist = element datalist {
   attribute id { text }?,
-  (option*)
+  option+
+}
+label = element label {
+  attribute for { text },
+  text
+}
+select = element select {
+  attribute id { text },
+  attribute name { text },
+  option+
 }
 option = element option {
-  attribute value { text },
-  attribute label { text }?
+  attribute value { text }?,
+  attribute label { text }?,
+  text
 }
 feature = element feature {
     attribute id { text }?,
