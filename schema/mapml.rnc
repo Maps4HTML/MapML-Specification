@@ -10,7 +10,7 @@ link = element link {
         attribute rel {  "stylesheet" | "license" | "alternate" | "style" | "self" | "self style" | "style self" | "legend" | "next" | "zoomin" | "zoomout" | "image" | "tile" | "query" },
         attribute tcrs { "OSMTILE" | "CBMTILE" | "APSTILE" | "WGS84" }?,
         attribute title { text }?,
-        attribute type { "text/css" | "text/mapml" }?,
+        attribute type { "text/css" | "text/mapml" | "image/png" | "image/jpeg" }?,
         attribute hreflang { text }?
     }
 links = link*

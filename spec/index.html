@@ -862,6 +862,10 @@ property value domain</p>
               <td>Gives the permalink for the current extent.</td>
             </tr>
             <tr>
+              <td><code><a href="#link-type-legend">legend</a></code></td>
+              <td>Indicates the link to a legend resource.</td>
+            </tr>
+            <tr>
               <td><code data-anolis-xref="rel-license"><a href="#link-type-license">license</a></code></td>
               <td>Indicates that some or all of the content of the current document is covered by the copyright license described by the referenced document.</td>
             </tr>
@@ -1192,6 +1196,11 @@ property value domain</p>
               <td> The location should be serialized in units associated to the tilematrix at the zoom level of the extent. 
               </td>
             </tr>
+            <tr>
+              <td><code>tile</code></td>
+              <td> The location should be serialized in units associated to a tile at the zoom level of the extent. 
+              </td>
+            </tr>
           </tbody>
         </table>
         
@@ -1278,11 +1287,11 @@ property value domain</p>
             </tr>
             <tr>
               <td><code>i</code></td>
-              <td> Map CS i axis (parallel to x axis of TCRS). </td>
+              <td> Map or tile CS i axis (parallel to x axis of TCRS). </td>
             </tr>
             <tr>
               <td><code>j</code></td>
-              <td> Map CS j axis (parallel to y axis of TCRS). </td>
+              <td> Map or tile CS j axis (parallel to y axis of TCRS). </td>
             </tr>
             <tr>
               <td><code>easting</code></td>
