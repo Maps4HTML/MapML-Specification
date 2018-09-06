@@ -30,6 +30,15 @@
             <sch:assert test="(count(input[@type='location'][@axis eq 'latitude' or @axis eq 'longitude']) mod 2) eq 0">location inputs with axis=latitude or longitude must come in pairs</sch:assert>
             <sch:assert test="(count(input[@type='location'][@axis eq 'row' or @axis eq 'column']) mod 2) eq 0">location inputs with axis=row or column must come in pairs</sch:assert>
             <sch:assert test="(count(input[@type='location'][@axis eq 'x' or @axis eq 'y']) mod 2) eq 0">location inputs with axis=x or y must come in pairs</sch:assert>
+            <sch:report test="(exists(@method) and not(exists(@action)))">An extent with a method attribute must have an action attribute</sch:report>
+        </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+        <sch:rule context="extent[@action]">
+            <sch:assert test="input and (count(link[@rel='query']) eq 1 or not(exists(link[@rel='query'])))"> Extent Content model: If the action attribute exists: A set of multiple input and zero or one link element with its rel attribute in the "query" state.</sch:assert>
+        </sch:rule>
+        <sch:rule context="extent[not(@action)]">
+            <sch:assert test="input and link[@rel=('tile','image','features')] and count(link[@rel eq 'query']) &lt;= 1"> Extent Content model:  If no action attribute exists: A set of multiple input and one or more link elements with their rel attribute in either the "tile", "image" or "features" state, and zero or one link element with its rel attribute in the "query" state.</sch:assert>     
         </sch:rule>
     </sch:pattern>
     <sch:pattern>

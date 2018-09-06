@@ -63,17 +63,17 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 
 <h1>Map Markup Language</h1>
 
-<h2 id="pagesubtitle"><time datetime="2018-07-19">July 19, 2018</time></h2>
+<h2 id="pagesubtitle"><time datetime="2018-09-06">September 6, 2018</time></h2>
 
 <dl>
   <dt>This version:</dt>
-  <dd><em>https://github.com/Maps4HTML/MapML/tree/8d27cd82346661bcc0927bba73a3997a0b0bdbb0</em></dd>
+  <dd><em>https://github.com/Maps4HTML/MapML/</em></dd>
   
   <dt>Latest version:</dt>
   <dd><em>https://maps4html.github.io/MapML/spec/</em></dd>
   
   <dt>Previous version:</dt>
-  <dd><em>https://github.com/Maps4HTML/MapML/tree/7d3d39449412678e316d89bc9af159fbedc39c6c</em></dd>
+  <dd><em>https://github.com/Maps4HTML/MapML/</em></dd>
   
   <dt>Editors:</dt>
 	<dd><em>Peter Rushforth</em>, Natural Resources Canada</dd>
@@ -151,6 +151,7 @@ property value domain</p>
   <p>Add link@rel=style link relation</p>
   <p>Add select element</p>
   <p>Add label element</p>
+  <p>Add features link relation</p>
     
 
   <h3>Level of Endorsement by the Community</h3>
@@ -942,6 +943,10 @@ property value domain</p>
               <td> The templated resource reference identifies an image that covers the map extent </td>
             </tr>
             <tr>
+              <td><code>features</code></td>
+              <td> The templated resource reference identifies a feature collection  </td>
+            </tr>
+            <tr>
               <td><code>query</code></td>
               <td> The templated resource reference identifies a query resource at a location </td>
             </tr>
@@ -973,7 +978,7 @@ property value domain</p>
           <dd>If the <code>action</code> attribute exists: A set of multiple <code>input</code> and zero or one <code>link</code> element with its
               <code>rel</code> attribute in the "query" state.</dd>
           <dd>If no <code>action</code> attribute exists: A set of multiple <code>input</code> and one or more <code>link</code> elements with
-            their <code>rel</code> attribute in either the "tile" or "image" state, and zero or one <code>link</code> element with its
+            their <code>rel</code> attribute in either the "tile", "image" or "features" state, and zero or one <code>link</code> element with its
               <code>rel</code> attribute in the "query" state.</dd>
           
           <dt>Content attributes:</dt>
