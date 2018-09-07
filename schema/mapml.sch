@@ -44,6 +44,7 @@
     <sch:pattern>
         <sch:rule context="link">
             <sch:assert test="(exists(@tref) and not(exists(@href))) or (exists(@href) and not(exists(@tref)))">@tref or @href should exist, but not both</sch:assert>
+            <sch:report test="exists(@projection) and @rel ne 'alternate'">projection links must be rel="alternate"</sch:report>
         </sch:rule>
         <sch:rule context="input[@name = preceding-sibling::input/@name]">
             <sch:assert test="false()">Duplicate input/@name detected</sch:assert>
@@ -54,11 +55,13 @@
         <sch:rule context="link[@tref]">
             <sch:assert test="local-name(parent::node()) eq 'extent'">templated links can only be in the extent element</sch:assert>
         </sch:rule>
+        <sch:rule context="link[@projection]">
+            <!-- this rule doesn't work. don't know why. <sch:assert test="./@rel eq 'alternate'">For alternate projection links, @rel must equal 'alternate'</sch:assert>-->
+            <sch:assert test="local-name(parent::node()) eq 'head'">Alternate projection links can only be in the head element</sch:assert>
+        </sch:rule>
         <sch:rule context="link[@href]">
             <sch:assert test="local-name(parent::node()) ne 'extent'">regular links must not be in the extent element</sch:assert>
         </sch:rule>
-    </sch:pattern>
-    <sch:pattern>
         <sch:rule context="link[normalize-space(@rel) = 'self style' or normalize-space(@rel) = 'style self']">
             <sch:assert test="count(//link[normalize-space(@rel) = 'self style' or normalize-space(@rel) = 'style self']) eq 1">More than one self style or style self link found</sch:assert>
         </sch:rule>

@@ -63,7 +63,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 
 <h1>Map Markup Language</h1>
 
-<h2 id="pagesubtitle"><time datetime="2018-09-06">September 6, 2018</time></h2>
+<h2 id="pagesubtitle"><time datetime="2018-09-07">September 7, 2018</time></h2>
 
 <dl>
   <dt>This version:</dt>
@@ -147,7 +147,7 @@ property value domain</p>
   <p>Remove reference to link@rel=search, which is not supported.</p>
   <p>Add Figure 1 in examples. Change URLs to example services.</p>
   <p>Update Abstract, stauts, intent, implementation experience,feedback and Change sections</p>
-  <p>Add link@tcrs attribute</p>
+  <p>Rename link@tcrs to link@projection </p>
   <p>Add link@rel=style link relation</p>
   <p>Add select element</p>
   <p>Add label element</p>
@@ -803,7 +803,7 @@ property value domain</p>
           <dd><code>href</code> — Address of the hyperlink</dd>
           <dd><code>tref</code> — URL Template</dd>
           <dd><code>rel</code> — Relationship between the document containing the element and the destination resource</dd>
-          <dd><code>tcrs</code> — The TCRS of the linked resource.</dd>
+          <dd><code>projection</code> — The <a href="#projections">TCRS</a> of the linked resource.</dd>
           <dd><code>hreflang</code> — Language of the linked resource</dd>
           <dd><code>type</code> — Hint for the type of the referenced resource</dd>
           <dd><code>title</code> — Title of the link</dd>
@@ -813,7 +813,7 @@ property value domain</p>
            attribute DOMString href;
            attribute DOMString tref;
            attribute DOMString rel;
-           attribute DOMString tcrs;
+           attribute DOMString projection;
            attribute DOMString hreflang;
            attribute DOMString type;
            attribute DOMString title;
@@ -825,7 +825,7 @@ property value domain</p>
         <p>The destination of the link(s) is given by the <dfn id="attr-link-href"><code>href</code></dfn> attribute, which must be present and must contain a valid non-empty URL potentially surrounded by spaces. <span class="impl">If the <code><a href="#attr-link-href">href</a></code> attribute is absent, then the element does not define a link.</span></p>
         <p>A <code><a href="#the-link-element">link</a></code> element must have a <code><a href="#attr-link-rel">rel</a></code> attribute. If the <code>rel</code> attribute is absent, then the element does not define a link.</p>
         <p>The types of link are given by the value of the <dfn id="attr-link-rel"><code>rel</code></dfn> attribute, which generally has a value that is a single token, except in the case of the link@rel='self style' value described below. The allowed keywords and their meanings are defined below. If the <code>rel</code> attribute is absent, has no keywords, or if none of the keywords used are allowed according to the definitions in this specification, then the element does not create any links.</p>
-        <p>The <dfn id="attr-link-tcrs"><code>tcrs</code></dfn> attribute value identifies the TCRS of the linked resource, with a value from the defined set of <a href="#projections">TCRS identifiers</a>. When <code>rel=alternate</code> is used together with the <code>tcrs</code> attribute, clients may be able to perform agent-driven content negotiation to provide a better user experience.  For example, if an HTML author mistakenly enters the URL of an OSMTILE resource in their HTML <code>layer@src</code> attribute, but the <code>map</code> in which the layer takes part is declared to be <code>CBMTILE</code>, the MapML author can ease the potential for resultant confusion by providing appropriate <code>rel=alternate</code> links to equivalent MapML resources in other projections.</p>
+        <p>The <dfn id="attr-link-projection"><code>projection</code></dfn> attribute value identifies the TCRS of the linked resource, with a value from the defined set of <a href="#projections">TCRS identifiers</a>. When <code>rel=alternate</code> is used together with the <code>projection</code> attribute, clients may be able to perform agent-driven content negotiation to provide a better user experience.  For example, if an HTML author mistakenly enters the URL of an OSMTILE resource in their HTML <code>layer@src</code> attribute, but the <code>map</code> in which the layer takes part is declared to be <code>CBMTILE</code>, the MapML author can ease the potential for resultant confusion by providing appropriate <code>rel=alternate</code> links to equivalent MapML resources in other projections.</p>
         <p>The <code>link/@title</code> value can be used in conjunction with <code>link[@rel=license]</code> as a string description of the link to the terms under which the MapML content is made available, while the <code>link/@href</code> value is used to link to an HTML document of the license terms. Note that there may be more than a single contributor to the information presented in a single extent, and it is therefore possible to have several licenses terms for a single extent, each of which will have its own <code>&lt;link&gt;</code> element in a single MapML document.</p>
         
         <p>The <code>link@rel='self style'</code> rel value can be used to designate one of a set of alternative named style links as being the style of the current document.  As such, the value of the <code>link@title</code> attribute will be used by the user agent to label the current style from among the list of alternate styles.</p>
