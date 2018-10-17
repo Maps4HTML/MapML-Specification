@@ -63,7 +63,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 
 <h1>Map Markup Language</h1>
 
-<h2 id="pagesubtitle"><time datetime="2018-09-07">September 7, 2018</time></h2>
+<h2 id="pagesubtitle"><time datetime="2018-09-07">October 17, 2018</time></h2>
 
 <dl>
   <dt>This version:</dt>
@@ -135,7 +135,10 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
     It is hoped that other organizations will also implement MapML and contribute their experience back to the community via the Community Group and <a href="https://github.com/Maps4HTML/MapML">Github</a>.</p>
   
   <h3>Changes Since the Previous Draft</h3>
-  
+  <p>Changes in input@units descriptions about WGS84</p>
+  <p>Added an equirectangular tiling schema for WGS84</p>
+  <p>Added a table of the different Coordinate System used</p>
+  <p>Better connecting TCRS table with input@units values</p>
   <p>Update schema, such as it is (needs more than 
 a schema language can provide e.g. schematron or something like HTML has)</p>
   <p>Deprecate input@type= xmin,ymin,xmax,ymax,projection.</p>
@@ -189,7 +192,7 @@ property value domain</p>
       <li>4.1 <a href="#semantics">Semantics</a>
                   <ul class="toc">
                     <li>4.1.1 <a href="#projections">Tiled Coordinate Reference Systems</a></li>
-                    <li>4.1.2 <a href="#scale">Scale / Zoom levels</a></li>
+                    <li>4.1.2 <a href="#scale">Scale / Resolution / Zoom levels</a></li>
                     <li>4.1.3 <a href="#extent-semantics">Map extents</a></li>
                     <li>4.1.4 <a href="#fragments">Fragment identifiers</a></li>
                   </ul>
@@ -432,15 +435,65 @@ property value domain</p>
         <p>This section is normative.</p>
         <h3 id="semantics">4.1. Semantics</h3>
         <h4 id="projections">4.1.1 Tiled Coordinate Reference Systems</h4>
-        <p>A key factor which enables map "mashups" is the shared common coordinate systems and projections of the data used in the integration. On the modern Web, such interoperability is often achieved by using or assuming the use of de facto standard coordinate systems. Either the data being integrated already shares a common coordinate system, or it must be transformed into a common coordinate system prior to being integrated. This approach often works, within the limits of the assumptions. MapML documents are similar to other spatial information with regard to definition of projection and coordinate system requirements. However, MapML defines a system of communicating coordinate system information across the uniform interface of HTTP in order to eliminate assumptions in shared coordinate systems: the coordinate systems requested by the client and available from the server are represented as simple defined string identifiers defined in the table below, and exchanged in markup defined by this specification. </p>
+        <p>A key factor which enables map "mashups" is the shared common coordinate systems (CS) and projections of the data used in the integration. On the modern Web, such interoperability is often achieved by using or assuming the use of de facto standard coordinate systems. Either the data being integrated already shares a common coordinate system, or it must be transformed into a common coordinate system prior to being integrated. This approach often works, within the limits of the assumptions.</p>
+
+        <p>Implementations of this document uses following reference systems types:</p>
+<table id="CS-defs">
+  <caption><h2>Coordinate System types</h2></caption>
+   <thead>
+    <tr>
+     <th>Code</th>
+     <th>Name</th>
+     <th>Description</th>
+    </tr>
+   </thead>
+   <tbody>
+
+    <tr>
+     <td><code>gcrs</code></td>
+     <td>Geodetic CRS</td>
+     <td>A CRS that models the Earth as an ellipsoid or a sphere and expresses positions in 	latitude and longitude. Origin or latitudes is in the equator and origin of longitudes is at the the primer meridian of Greenwich.</td>
+</tr>
+<tr>
+     <td><code>pcrs</code></td>
+     <td>Projected Coordinate</td>
+     <td>A CRS that transforms the GCRS into a flat system using a geometric projection and expresses positions in Easting → x, Northing → y coordinates. The PCRS is generated on top of a GCRS and both together are commonly identified with a CRS code(being the most commmon CRS codes the EPSG codes)</td>
+</tr>
+<tr>
+     <td><code>tcrs</code></td>
+     <td>Tiled CRS</td>
+     <td>A CS that assocates pixel coordinates in a set of resolutions and counts pixels with the origin at the upper left corner of the tiled space and increasing right and downwards, respectively.</td>
+</tr>
+<tr>
+     <td><code>tilematrix</code></td>
+     <td>Tile matrix CS</td>
+     <td>In a TCRS it groups pixels in squared tiles for each resolution and counts tiles with the origin at the upper left corner of the tiled space and increasing right and downwards, respectively
+.</td>
+</tr>
+<tr>
+     <td><code>tile</code></td>
+     <td>Tile CS</td>
+     <td>In a TCRS it is a CS associated to each tile that counts pixels with the origin at the upper left corner of the tile and increasing right and downwards, respectively.</td>
+</tr>
+<tr>
+     <td><code>map</code></td>
+     <td>Map CS</td>
+     <td>A CS that dynamically associated to a map (the actual view port in the computer screen) that counts pixels with the origin at the upper left corner of the map and increasing right and downwards, respectively.</td>
+</tr>
+   </tbody>
+</table>
+
+<p>MapML documents are similar to other spatial information with regard to definition of projection and coordinate system requirements. However, MapML defines a system of communicating coordinate system information across the uniform interface of HTTP in order to eliminate assumptions in shared coordinate systems: the coordinate systems requested by the client and available from the server are represented as simple defined string identifiers defined in the table below, and exchanged in markup defined by this specification.</p>
+
 <table id="tiled-CRS">
   <caption><h2>Tiled Coordinate Reference Systems</h2></caption>
    <thead>
     <tr>
      <th>TCRS identifier</th>
      <th>Description</th>
-     <th>Base CRS / Projection system</th>
-     <th>Axis mappings</th>
+     <th>PCRS</th>
+     <th>GCRS</th>
+     <th>Projection</th>
      <th>Origin (x,y)</th>
      <th>Tile row/column size (px)</th>
      <th>Projected Bounds / LatLng Bounds</th>
@@ -453,8 +506,9 @@ property value domain</p>
     <tr>
      <td><code>OSMTILE</code></td>
      <td>Web Mercator-based tiled coordinate reference system. Applied by many global map applications, for areas excluding polar latitudes.</td>
-     <td>EPSG::3857 / Spherical Mercator</td>
-     <td>Easting → x, Northing → y</td>
+     <td>EPSG::3857 / WGS 84 - Pseudo-Mercator</td>
+     <td>EPSG::4326 / WGS 84</td>
+     <td>Spherical Mercator</td>
      <td>-20037508.342787, 20037508.342787</td>
      <td>256/256</td>
      <td>LatLng(-85.0511287798,-180), LatLng(85.0511287798,180)</td>
@@ -503,8 +557,9 @@ property value domain</p>
     <tr>
      <td><code>CBMTILE</code></td>
      <td>Lambert Conformal Conic-based tiled coordinate reference system for Canada.</td>
-     <td>EPSG::3978 / Lambert Conformal Conic</td>
-     <td>Easting → x, Northing → y</td>
+     <td>EPSG::3978 / NAD83 - Canada Atlas Lambert</td>
+     <td>EPSG::4269 / NAD83</td>
+     <td>Lambert Conic Conformal (2SP)</td>
      <td>-34655800, 39310000</td>
      <td>256/256</td>
      <td>-7786476.885838887, -5153821.09213678, 7148753.233541353, 7928343.534071138</td>
@@ -567,8 +622,9 @@ property value domain</p>
     <tr>
      <td><code>APSTILE</code></td>
      <td>Alaska Polar Stereographic-based tiled coordinate reference system for the Arctic region.</td>
-     <td>EPSG::5936 / Polar Stereographic</td>
-     <td>Easting → x, Northing → y</td>
+     <td>EPSG::5936 / WGS 84 - EPSG Alaska Polar Stereographic</td>
+     <td>EPSG::4326 / WGS 84</td>
+     <td>Polar Stereographic (variant A)</td>
      <td>-28567784.109255, 32567784.109255</td>
      <td>256/256</td>
      <td>-28567784.109254867, -28567784.109254755, 32567784.109255023, 32567784.10925506</td>
@@ -619,11 +675,12 @@ property value domain</p>
      <tr>
      <td><code>WGS84</code></td>
      <td>World Geodetic System 1984.</td>
-     <td>EPSG::4326</td>
-     <td>Longitude → x, Latitude → y</td>
-     <td>n/a</td>
-     <td>n/a</td>
-     <td>n/a</td>
+     <td>CRS:84</td>
+     <td>EPSG::4326 / WGS 84</td>
+     <td>Equirectangular, Plate carr&eacute;e</td>
+     <td>LatLng(-180,90)</td>
+     <td>256/256</td>
+     <td>LatLng(-180,-90), LatLng(180,90)</td>
      <td>         
                   0<br>
                   1<br>
@@ -642,16 +699,26 @@ property value domain</p>
                   14<br>
                   15<br>
                   16<br>
-                  17<br>
-                  18<br>
-                  19<br>
-                  20<br>
-                  21<br>
-                  22<br>
-                  23<br>
-                  24<br>
-                  25<br></td>
-     <td>n/a</td>
+                  17</td>
+     <td>
+                  0.703125000000000<br>
+                  0.351562500000000<br>
+                  0.175781250000000<br>
+                  8.78906250000000&nbsp;10^-2<br>
+                  4.39453125000000&nbsp;10^-2<br>
+                  2.19726562500000&nbsp;10^-2<br>
+                  1.09863281250000&nbsp;10^-2<br>
+                  5.49316406250000&nbsp;10^-3<br>
+                  2.74658203125000&nbsp;10^-3<br>
+                  1.37329101562500&nbsp;10^-3<br>
+                  6.86645507812500&nbsp;10^-4<br>
+                  3.43322753906250&nbsp;10^-4<br>
+                  1.71661376953125&nbsp;10^-4<br>
+                  8.58306884765625&nbsp;10^-5<br>
+                  4.29153442382812&nbsp;10^-5<br>
+                  2.14576721191406&nbsp;10^-5<br>
+                  1.07288360595703&nbsp;10^-5<br>
+                  5.36441802978516&nbsp;10^-6</td>
     </tr>
    </tbody>
 </table>
@@ -679,21 +746,19 @@ property value domain</p>
         <p>The APSTILE tiled coordinate reference system is based on the Stereographic family of map projections, with the North polar aspect, per the EPSG::5936 coordinate reference system. This projection system is suitable for displaying
         areas in (north) polar latitudes.</p>
         <h5 id="WGS84">WGS84</h5>
-        <p>This specification defines the string "WGS84" to be the identifier of a coordinate reference system defined by the EPSG::4326 geodetic coordinate reference system, 
-          <strong>with the mandatory provision that the mapping of EPSG::4326 axes to MapML axes is: Longitude &#8594; x, Latitude &#8594; y.</strong>. 
-          This constraint follows the definition of the default coordinate system defintion for the GeoJSON format. This is believed to enhance interoperability, not only with the GeoJSON 
+        <p>This specification defines the string "WGS84" to be the identifier of a tiled coordinate reference system projected in the Equirectangular, Plate carr&eacute;e system (EPSG::4326), and scaled into 18
+        zoom levels (0-17) at defined resolutions.  The mapping of EPSG::4326 axes to MapML axes is done <strong>with the mandatory provision that the mapping of EPSG::4326 axes to MapML axes is: Longitude </strong>&#8594;<strong> x, Latitude </strong>&#8594;</strong> y.</strong>. This constraint follows the definition of the default coordinate system defintion for the GeoJSON format and the CRS:84 code defined by the OGC. This is believed to enhance interoperability, not only with the GeoJSON 
           format, but on the Web.</p>
-        <p>Despite having no associated tiling system or zoom level resolutions, WGS84 is discussed in this specification as a "tiled coordinate reference system" identifier because of the related
-        nature of its use.  It is recommended that despite having no defined zoom level resolutions, that map documents ensure that the resolution of
-        feature data served in the WGS84 coordinate reference system is appropriate to the zoom level i.e. the inter-vertex distance should not be
-        less than a single pixel size at a particular zoom level when mashed up with layers in other TCRS.</p>
+        The tile grid starts at the located at (longitude = -180, latitude = 90) geodetic coordinate system.  The tiles are 256px X 256px in size.  
+        The WGS84 tiled coordinate reference system is suitable for small to medium scale mapping of the entere world. It is also useful for vector data provided that the inter-vertex distance is
+        less than a single pixel size at a particular zoom level.</p>
         <h5 id="OTHERPROJECTIONS">Other coordinate reference systems</h5>
         <p>Many other projection systems exist, and could in principle be used by map clients and servers. As such projections and associated defined tiled coordinate reference systems come into common usage, it is expected that their definitions for use in MapML and on the Web will be imported here. The
         contents of this document constitutes a registry of such projections.</p>
-        <h4 id="scale">4.1.2 Scale / Zoom levels</h4>
+        <h4 id="scale">4.1.2 Scale / Resolution / Zoom levels</h4>
         <p>Scale is an essential characteristic of all geospatial information. The scale at which information is used dictates the model used for its representation. Geospatial information cannot be meaningfully combined without consideration given to its scale. Entire cities are represented on 'small scale' maps as dots, whereas on another large scale map, a single city could have many thousands of individual features in its depiction.</p>
         <p>Not only is scale important in the portrayal of maps, it is also essential when defining the model of underlying feature data.</p>
-        <p>Map projections distort the surface of the earth in ways which suit the objectives of the projection definition. As a result of that distortion, the scale of maps in that projection varies as a function of location. "Zoom" levels are integer values chosen to be a simple numeric proxy for a scale at a defined location. For example, the OSMTILE TCRS, being based internally on the Spherical Web Mercator projection (EPSG::3857), allows us to portray a large portion of the Earth's surface, requiring relatively simple and fast math to convert to and from WGS84. Additionally, it enables the simple tiling system that has become a de facto standard. As such, it was deemed to have the properties for a globally useful projection on the Web.</p>
+        <p>Map projections distort the surface of the earth in ways which suit the objectives of the projection definition. As a result of that distortion, the scale and the resolution of maps in that projection might vary as a function of location. The indicated resolutions might be only true in some locations. E.g in WGS84 and OSMTILE the given resolutions are only true in the equator. "Zoom" levels are integer values chosen to be a simple numeric proxy for a scale at a defined location. For example, the OSMTILE TCRS, being based internally on the Spherical Web Mercator projection (EPSG::3857), allows us to portray a large portion of the Earth's surface, requiring relatively simple and fast math to convert to and from WGS84. Additionally, it enables the simple tiling system that has become a <i>de facto</i> standard. As such, it was deemed to have the properties for a globally useful projection on the Web.</p>
         <p>Map documents encoded in MapML have a defined scale, indirectly identified by zoom level and extent. Thus, two MapML documents in the same TCRS and zoom level should be interoperable to the degree that they can be automatically and visually related. The zoom level of a MapML document is often identified as the value of the <code>value</code> attribute of the <code>input[@type=zoom]</code>. In any case, the zoom level of any MapML document SHOULD be present in document metadata as a <code>meta</code> element e.g. &lt;meta name="zoom" content="0"/&gt;.  In the case where a MapML document contains an <code>extent</code> element, an <code>input@type=zoom</code> MUST be present which controls how the zoom is transmitted from client to server. Where that input has a non-empty <code>input@value</code> attribute, in case of discrepancy between  the <code>meta[@name=zoom]/@content</code> and the <code>input[@type=zoom]/@value</code>, the latter zoom value SHALL be taken to be correct, EXCEPT in the case where there may exist more than one <code>input[@type=zoom]</code> and their <code>value</code> attributes do not agree, in which case the value of <code>meta[@name=zoom]/@content</code> shall be taken to be correct.</p>
         <h4 id="extent-semantics">4.1.3 Extents</h4>
         <p>A MapML document is a representation of a defined portion of a two dimensional map area. In MapML, this is called an 'extent' (see below), the dimensions of which can be described by the bounding axis minimum and maximum values of the specified TCRS, or in one of its associated coordinate reference systems (PCRS,GCRS,Tilematrix,etc.). 
@@ -1172,39 +1237,45 @@ property value domain</p>
             <tr>
               <th> Keyword </th>
               <th> State </th>
+              <th> OGC equivalent </th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><code>tcrs</code></td>
-              <td> The location should be serialized in units associated to the TCRS instance, i.e. pixels or in the case of WGS84, decimal degrees </td>
+              <td>For a give zoom level (that defines a pixel size), the location is expressed in pixel coordinates with the origin at the top-left corner of the tiled space</td>
+              <td>OGC Tile Matrix Set "tile matrix (i',j')".</td>
+            <tr>
+
             </tr>
             <tr>
               <td><code>pcrs</code></td>
-              <td> The location should be serialized in units associated to the projected coordinate system associated to the TCRS instance, e.g. meters 
-              for OSMTILE, which has an associated projected coordinate reference system of EPSG:3857.</td>
+              <td>The location is expressed in projected coordinates. Units are meters except for the WGS84 where are in longitude-latitude. E.g. meters for OSMTILE, which has an associated projected coordinate reference system of EPSG:3857</td>
+              <td>Commonly represented as (x,y)</td>
+            <tr>
             </tr>
             <tr>
               <td><code>gcrs</code></td>
-              <td> The location should be serialized in units associated to the geodetic coordinate system associated to the TCRS instance, e.g. decimal degrees 
-              for the OSMTILE TCRS, which has an underlying geodetic coordinate reference system of EPSG:4326. In the case of a TCRS such as WGS84, 
-              the gcrs and tcrs location are the same.</td>
+              <td>The location is expressed in the geodetic coordinate system associated to the projection, e.g. decimal degrees for the OSMTILE TCRS, which has an underlying geodetic coordinate reference system of EPSG:4326. In the case of extent/@units=WGS84, the gcrs and pcrs location are the same.</td>
+              <td>Commonly represented as (long,lat)</td>
             </tr>
             <tr>
               <td><code>map</code></td>
-              <td> The location should be serialized in units associated to the map coordinate system defined by the extent, i.e. in pixels with the origin
-              at the upper left corner of the extent, with coordinate axes' increasing right and downwards, respectively.
+              <td>For a give zoom level and a give extend, the location is expressed in pixel coordinates with the origin starting at the upper left corner of the extent increasing right and downwards, respectively.
+              <td>WMS GetFeatureInfo (i,j)</td>
               </td>
             </tr>
             <tr>
               <td><code>tilematrix</code></td>
-              <td> The location should be serialized in units associated to the tilematrix at the zoom level of the extent. 
+              <td>For a give zoom level, the location should be expressed in number of tiles starting to count tiles at the top-left corner of the tiled space increasing right and downwards.
               </td>
+              <td>WMTS GetMap (TileCol, TileRow).</td>
             </tr>
             <tr>
               <td><code>tile</code></td>
-              <td> The location should be serialized in units associated to a tile at the zoom level of the extent. 
+              <td>For a give zoom level and a give tile, the location is expressed in pixel coordinates with the origin starting at the upper left corner of the tile increasing right and downwards, respectively and ending at 256. The combination of tilematrix and tile coordinates give as a location with a precision of pixel size.
               </td>
+              <td>WMTS GetFeatureInfo (i,j)</td>
             </tr>
           </tbody>
         </table>
