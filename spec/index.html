@@ -680,7 +680,7 @@ property value domain</p>
      <tr>
      <td><code>WGS84</code></td>
      <td>World Geodetic System 1984.</td>
-     <td>EPSG::9825</td>
+     <td>EPSG::4326*</td>
      <td>EPSG::4326 / WGS 84</td>
      <td>Pseudo Plate carr&eacute;e</td>
      <td>LatLng(-180,90)</td>
@@ -727,6 +727,7 @@ property value domain</p>
     </tr>
    </tbody>
 </table>
+<p>* EPSG::4326 is not strictly a "projected coordinate reference system", but the coordinate values for this TCRS' pcrs use the identity transformation (EPSG::9825) from the EPSG::4326 gcrs coordinates, and so is more easily described this way.</p>
 
         <p>All coordinate reference systems' coordinate pairs, where not explicitly marked up or identified by axis (for example, in the <code>&lt;coordinates&gt;</code> element) are defined by this specification to be in "horizontal axis followed by vertical axis" order. Where an external conflict of definition exists, this specification MUST be taken to be correct <strong>for MapML only</strong>. In other words, this specification overrides externally defined axis order for coordinates serialized in Map Markup Language.</p>
         <h5 id="OSMTILE">OSMTILE</h5>
