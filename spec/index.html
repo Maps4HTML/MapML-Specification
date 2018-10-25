@@ -55,6 +55,11 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 
 </head>
 <body>
+  <div id="google_translate_element"></div><script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL}, 'google_translate_element');
+}
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <div class="content">
 
 <div class="head">
@@ -135,6 +140,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
     It is hoped that other organizations will also implement MapML and contribute their experience back to the community via the Community Group and <a href="https://github.com/Maps4HTML/MapML">Github</a>.</p>
   
   <h3>Changes Since the Previous Draft</h3>
+  
   <p>Update schema, such as it is (needs more than 
 a schema language can provide e.g. schematron or something like HTML has)</p>
   <p>Deprecate input@type= xmin,ymin,xmax,ymax,projection.</p>
@@ -145,12 +151,15 @@ property value domain</p>
   <p>Add input@axis= latitude,longitude keywords</p>
   <p>Remove reference to link@rel=search, which is not supported.</p>
   <p>Add Figure 1 in examples. Change URLs to example services.</p>
-  <p>Update Abstract, stauts, intent, implementation experience,feedback and Change sections</p>
+  <p>Update Abstract, status, intent, implementation experience,feedback and Change sections</p>
   <p>Rename link@tcrs to link@projection </p>
   <p>Add link@rel=style link relation</p>
   <p>Add select element</p>
   <p>Add label element</p>
   <p>Add features link relation</p>
+  <p>Add Google Translate widget</p>
+  <p>Update links to schema directory on github.</p>
+  <p>Add WICG link</p>
   <p>Changes in input@units descriptions about WGS84</p>
   <p>Added an equirectangular tiling schema for WGS84</p>
   <p>Added a table of the different Coordinate System used</p>
@@ -169,7 +178,7 @@ property value domain</p>
   
   <h3>How to provide feedback</h3>
 
-  <p>Please send comments on this specification to <a href="mailto:public-maps4html@w3.org">public-maps4html@w3.org</a> or open an <a href="https://github.com/Maps4HTML/MapML/issues">issue</a>.</p>
+  <p>Please send comments on this specification to <a href="mailto:public-maps4html@w3.org">public-maps4html@w3.org</a>, or <a href="https://discourse.wicg.io/t/map-markup-language/1267">WICG</a>, or open an <a href="https://github.com/Maps4HTML/MapML/issues">issue</a>.</p>
   
 </div>
 
@@ -1733,10 +1742,12 @@ property value domain</p>
 	<h2 id="rng">8.1. RelaxNG Schema</h2>
 
 	<p>Map Markup Language provides a schema written in <a href="http://www.y12.doe.gov/sgml/sc34/document/0362_files/relaxng-is.pdf">RelaxNG compact syntax</a> [<a href="#ref-RNG">RelaxNG</a>], a namespace-aware schema language that uses the datatypes from <a href="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/">XML Schema Part 2</a> [<a href="#ref-Schema2">Schema2</a>]. </p>
+ 
+ <p>Further map document validation can be done with Schematron. Please see the MapML schema directory for further information.</p>
 
-	<p>Unlike a DTD, the schema used for validation is not hardcoded into the document instance. There is no equivalent to the DOCTYPE declaration. Simply point your editor or other validation tool to the IRI of the schema (or your local cached copy, as you prefer).</p>
+	<p>Unlike a DTD, the schema used for validation is not hardcoded into the document instance. There is no equivalent to the DOCTYPE declaration. Simply point your editor or other validation tools to the URL of the schema (or your local cached copy, as you prefer).</p>
 
-  <p><a href="https://github.com/Maps4HTML/MapML/tree/master/schema">MapML schema (under development).</a>
+  <p><a href="https://github.com/Maps4HTML/MapML/tree/gh-pages/schema">MapML schema (under development).</a>
 	</p>
 	
 </div>
