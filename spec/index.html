@@ -446,7 +446,15 @@ property value domain</p>
         <p>This section is normative.</p>
         <h3 id="semantics">4.1 Semantics</h3>
         <h4 id="coordinate-systems">4.1.1 Coordinate Systems</h4>
-        <p>In this document, all Coordinate Systems (CR) are 2D. A 2D CS was two axes, one horizontal (commonly related to west-east direction) and one vertical (commonly related to north-south direction; do not confuse it with "elevation"). In documents conforming to this specification, we overwrite any externally defined axes order and locations in a coordinate system are listed as content of a <code>coordinates</code> element or its descendent, they are serialized as <i>horizontal axis followed by vertical axis</i>, separated by whitespace. Where applicable, coordinate pairs are separated by whitespace. The axis names of a coordinate system are identified by this document.</p>
+        <p>In this document, all Coordinate Systems (CS) are 2D. 
+		A 2D CS has two axes, one horizontal (commonly related to west-east direction),
+		and one vertical (commonly related to north-south direction; do not confuse it with "elevation"). 
+		This document defines the axis order of coordinate pairs serialized in MapML documents which the axis-specific 
+		values are not distinguished by markup, such as within the <code>coordinates</code> element. 
+		In documents conforming to this specification, we override any externally defined axis order.
+		Coordinates are serialized as <i>horizontal axis followed by vertical axis</i>, separated by whitespace. 
+		Where applicable, coordinate pairs are separated by whitespace. 
+		The axis names of a coordinate system are identified by this document.</p>
         <h4 id="coordinate-reference-systems">4.1.2 Coordinate Reference Systems</h4>
         <p>A Coordinate Reference System (CRS) is a Coordinate System that is referenced to locations on the Earth.  Maps are graphics which follow mathematical rules (called projections) established to transform locations on Earth to locations on a plane (formerly paper, more recently a device screen). Projections are mathematical equations designed to conserve particular properties of the source location, and often have parameters that can be used to induce desired properties for particular locations.</p>
 	<p>To facilitate the sharing of CRS definitions, the International Association of Oil ans Gas Producers (formerly know as the European Petroleum Survey Group, EPSG) mantains a list of CRS definitions and codes in the Geodetic Parameter Dataset. Some EPSG codes are used in the following table. In an effort to bring some clarity about the axis order for the longitude-latitude based CRSs, the OGC defined some "CRS codes". CRS:83 is defined equivalent to EPSG:4269 but with the horizontal-vertical axis order and CRS:84 is defined equivalen to EPSG:4326 except in the axes order.</p>
@@ -741,7 +749,11 @@ property value domain</p>
     </tr>
    </tbody>
 </table>
-        <p>* All coordinate reference systems' coordinate pairs, where not explicitly marked up or identified by axis (for example, in the <code>coordinates</code> element) are defined by this specification to be in "horizontal axis followed by vertical axis" order. Where a axes order is defined differently by external definition, this specification for MapML documents overwrites it.</p>
+        <p>* All coordinate reference systems' coordinate pairs, where not explicitly marked up or identified by axis 
+		(for example, in the <code>coordinates</code> element) are defined by this specification to be in 
+		"horizontal axis followed by vertical axis" order. 
+		Where axes order is defined differently by external definition, 
+		this specification MUST be taken to be correct <strong>for MapML documents</strong>.</p>
 
         <h5 id="OSMTILE">OSMTILE</h5>
         <p>This specification defines the string "OSMTILE" to be the identifier of a tiled coordinate reference system projected (in the Web Mercator system) and scaled
