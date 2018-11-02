@@ -201,7 +201,7 @@ property value domain</p>
       <li>4.1 <a href="#semantics">Semantics</a>
         <ul class="toc">
           <li>4.1.1 <a href="#coordinate-systems">Coordinate Systems</a></li>
-          <li>4.1.2 <a href="#coordinate-reference-systems">Tiled Coordinate Reference Systems</a></li>
+          <li>4.1.2 <a href="#coordinate-reference-systems">Coordinate Reference Systems</a></li>
           <li>4.1.3 <a href="#tiled-coordinate-reference-systems">Tiled Coordinate Reference Systems</a></li>
           <li>4.1.4 <a href="#scale">Scale / Resolution / Zoom levels</a></li>
           <li>4.1.5 <a href="#extent-semantics">Map extents</a></li>
@@ -445,11 +445,20 @@ property value domain</p>
         <h2 id="features">4. Semantics and structure of MapML documents</h2>
         <p>This section is normative.</p>
         <h3 id="semantics">4.1 Semantics</h3>
-        <h4 id="CS">4.1.1 Coordinate Systems</h4>
-        <p>A Coordinate System (CS) has horizontal and vertical axes. In documents conforming to this specification, where locations in a coordinate system are listed as content of a <code>coordinates</code> element or its descendent, they are serialized as <i>horizontal axis followed by vertical axis</i>, separated by whitespace.  Where applicable, coordinate pairs are separated by whitespace. The axis names of a coordinate system are identified by this document.</p>
-        <h4 id="CRS">4.1.2 Coordinate Reference Systems</h4>
+        <h4 id="coordinate-systems">4.1.1 Coordinate Systems</h4>
+        <p>In this document, all Coordinate Systems (CS) are 2D. 
+		A 2D CS has two axes, one horizontal (commonly related to west-east direction),
+		and one vertical (commonly related to north-south direction; do not confuse it with "elevation"). 
+		This document defines the axis order of coordinate pairs serialized in MapML documents which the axis-specific 
+		values are not distinguished by markup, such as within the <code>coordinates</code> element. 
+		In documents conforming to this specification, we override any externally defined axis order.
+		Coordinates are serialized as <i>horizontal axis followed by vertical axis</i>, separated by whitespace. 
+		Where applicable, coordinate pairs are separated by whitespace. 
+		The axis names of a coordinate system are identified by this document.</p>
+        <h4 id="coordinate-reference-systems">4.1.2 Coordinate Reference Systems</h4>
         <p>A Coordinate Reference System (CRS) is a Coordinate System that is referenced to locations on the Earth.  Maps are graphics which follow mathematical rules (called projections) established to transform locations on Earth to locations on a plane (formerly paper, more recently a device screen). Projections are mathematical equations designed to conserve particular properties of the source location, and often have parameters that can be used to induce desired properties for particular locations.</p>
-        <h4 id="projections">4.1.3 Tiled Coordinate Reference Systems</h4>
+	<p>To facilitate the sharing of CRS definitions, the International Association of Oil ans Gas Producers (formerly know as the European Petroleum Survey Group, EPSG) mantains a list of CRS definitions and codes in the Geodetic Parameter Dataset. Some EPSG codes are used in the following table. In an effort to bring some clarity about the axis order for the longitude-latitude based CRSs, the OGC defined some "CRS codes". CRS:83 is defined equivalent to EPSG:4269 but with the horizontal-vertical axis order and CRS:84 is defined equivalen to EPSG:4326 except in the axes order.</p>
+        <h4 id="tiled-coordinate-reference-systems">4.1.3 Tiled Coordinate Reference Systems</h4>
         <p>A tiled coordinate reference system is a set of coordinate reference systems,
         which share a common origin in space, but which differ by the
         size of their smallest unit at defined locations,
@@ -740,7 +749,11 @@ property value domain</p>
     </tr>
    </tbody>
 </table>
-        <p>* All coordinate reference systems' coordinate pairs, where not explicitly marked up or identified by axis (for example, in the <code>coordinates</code> element) are defined by this specification to be in "horizontal axis followed by vertical axis" order. Where an external conflict of definition exists, this specification MUST be taken to be correct <strong>for MapML documents</strong>.</p>
+        <p>* All coordinate reference systems' coordinate pairs, where not explicitly marked up or identified by axis 
+		(for example, in the <code>coordinates</code> element) are defined by this specification to be in 
+		"horizontal axis followed by vertical axis" order. 
+		Where axes order is defined differently by external definition, 
+		this specification MUST be taken to be correct <strong>for MapML documents</strong>.</p>
 
         <h5 id="OSMTILE">OSMTILE</h5>
         <p>This specification defines the string "OSMTILE" to be the identifier of a tiled coordinate reference system projected (in the Web Mercator system) and scaled
@@ -1284,7 +1297,7 @@ property value domain</p>
               <td><code>tilematrix</code></td>
               <td>For each zoom level, locations are expressed in tile row and column index (0-based) values, with the origin at the top-left corner of the tiled space, with column index values increasing right and row index values increasing downwards.
               </td>
-              <td>WMTS GetMap (TileCol, TileRow).</td>
+              <td>WMTS GetTile (TileCol, TileRow).</td>
             </tr>
             <tr>
               <td><code>tile</code></td>
