@@ -1,10 +1,10 @@
 datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes" 
 start = mapml 
-mapml = element mapml { head?,body }
+mapml = element mapml { head?, attribute lang {text}?, body }
 head = element head { headContent }
 link = element link { 
         attribute href { xsd:anyURI }?,
-        # can have a tref or an href, but not both
+        # can have a tref (when in extent) or an href (but not both)
         attribute tref { text }?,
         # @rel=alternate + @projection=tcrs-name is proposed as a way of negotiating the tcrs of the service: https://github.com/Maps4HTML/MapML/issues/11
         attribute rel {  "stylesheet" | "license" | "alternate" | "style" | "self" | "self style" | "style self" | "legend" | "next" | "zoomin" | "zoomout" | "image" | "tile" | "query" | "features" },
@@ -24,6 +24,7 @@ headContent =
         attribute content {text}?,
         attribute http-equiv {text}?
     }* &
+    element style { text }? &
     element title { text }? &
     links
 
