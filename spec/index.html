@@ -1,14 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 
-  <meta content="text/html; charset=UTF-8" http-equiv="content-type"></meta>
+  <meta charset="UTF-8">
   <title>Map Markup Language</title>
   
   <!-- <link class="required" rel="stylesheet" href="w3c-unofficial.css" type="text/css"/> -->
-  <link class="required" rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/w3c-unofficial.css" type="text/css"/>
-  <link rel="stylesheet" type="text/css" href="https://www.w3.org/StyleSheets/TR/w3c-tr.css" />
+  <link class="required" rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/w3c-unofficial.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="https://www.w3.org/StyleSheets/TR/w3c-tr.css" >
   <style>
         .content { background-image: none; }
         h5 { position: relative; z-index: 3; }
@@ -55,11 +54,11 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
 
 </head>
 <body>
-  <div id="google_translate_element"></div><script type="text/javascript">
+  <div id="google_translate_element"></div><script>
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL}, 'google_translate_element');
 }
-</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</script><script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <div class="content">
 
 <div class="head">
@@ -97,7 +96,7 @@ function googleTranslateElementInit() {
 
 </div>
 
-<hr title="Separator from Header"></hr>
+<hr title="Separator from Header">
 
 <h2 id="abstract">Abstract</h2>
 
@@ -249,7 +248,6 @@ property value domain</p>
 				<li>9.2. <a href="#informrefs">Informative References</a></li>
 			</ul>
 		</li>
-		<li>10. <a href="#Acknowledgments">Acknowledgments</a></li>
 	</ol>
 </div>
 
@@ -520,7 +518,7 @@ property value domain</p>
 
 <p>MapML documents are similar to other spatial information with regard to definition of projection and coordinate system requirements. However, MapML defines a system of communicating coordinate system information across the uniform interface of HTTP in order to eliminate assumptions in shared coordinate systems: the coordinate systems requested by the client and available from the server are represented as simple defined string identifiers defined in the table below, and exchanged in markup defined by this specification.</p>
 
-<table id="tiled-coordinate-reference-systems">
+<table id="tiled-coordinate-reference-systems-table">
   <caption><h2>Tiled Coordinate Reference Systems</h2></caption>
    <thead>
     <tr>
@@ -834,7 +832,7 @@ property value domain</p>
           <dd>One or more elements of metadata content, of which exactly one is a <code>title</code> element and no more than one is a <code>base</code> element.</dd>
           <dt>Content attributes:</dt>
           <dt>DOM interface:</dt>
-          <dd><pre class="idl">interface <dfn id="mapmllinkelement">MAPMLHeadElement</dfn> : MAPMLElement {
+          <dd><pre class="idl">interface <dfn id="mapmlheadelement">MAPMLHeadElement</dfn> : MAPMLElement {
 };
 </pre></dd>
         </dl>
@@ -884,7 +882,7 @@ property value domain</p>
           <dd><code>http-equiv</code> — Pragma directive</dd>
           <dd><code>content</code> — Value of the element</dd>
           <dt>DOM interface:</dt>
-          <dd><pre class="idl">interface <dfn id="mapmllinkelement">MAPMLMetaElement</dfn> : MAPMLElement {
+          <dd><pre class="idl">interface <dfn id="mapmlmetaelement">MAPMLMetaElement</dfn> : MAPMLElement {
            attribute DOMString name;
            attribute DOMString httpEquiv;
            attribute DOMString content;
@@ -946,8 +944,8 @@ property value domain</p>
           <caption><h2><code>@rel</code> values</h2></caption>
           <thead>
             <tr>
-              <th rowspan="2">Link type</th>
-              <th rowspan="2">Brief description</th>
+              <th>Link type</th>
+              <th>Brief description</th>
             </tr>
           </thead>
           <tbody>
@@ -992,7 +990,7 @@ property value domain</p>
               <td>Indicates that the linked resource is the current resource. When used in combination with the style rel value, indicates that the linked resource is the current selected style from a group of alternative styles for the current layer. There should only be one such link that has both rel values 'self' and 'style' in a document.</td>
             </tr>
             <tr>
-              <td><code>west</a></code></td>
+              <td><code>west</code></td>
               <td>Indicates a resource that may be used to the west of the maximum extent of the current resource, at the current zoom level.</td>
             </tr>
             <tr>
@@ -1281,25 +1279,20 @@ property value domain</p>
               <td><code>tcrs</code></td>
               <td>For each zoom level, locations are expressed in pixel coordinates with the origin at the top-left corner of the pixel space</td>
               <td>OGC Tile Matrix Set "tile matrix (i',j')".</td>
-            <tr>
-
             </tr>
             <tr>
               <td><code>pcrs</code></td>
               <td>The location is expressed in projected coordinates. Units are meters except for WGS84 where pcrs AND gcrs coordinates are in longitude-latitude. E.g. meters for OSMTILE, which has an associated projected coordinate reference system of EPSG:3857</td>
               <td>Commonly represented as (x,y)</td>
-            <tr>
             </tr>
             <tr>
               <td><code>gcrs</code></td>
               <td>The location is expressed in the geodetic coordinate system associated to the TCRS, e.g. decimal degrees for the OSMTILE TCRS.</td>
               <td>Commonly represented as (long,lat)</td>
-            </tr>
             <tr>
               <td><code>map</code></td>
               <td>The map coordinate system is defined by the state of the map system. At each pan and / or zoom, the map coordinate origin is reset within the Location is expressed in pixel coordinates with the origin starting at the upper left corner of the extent increasing right and downwards, respectively.
               <td>WMS GetFeatureInfo (i,j)</td>
-              </td>
             </tr>
             <tr>
               <td><code>tilematrix</code></td>
@@ -1554,13 +1547,11 @@ property value domain</p>
           <dd><code>src</code> — Address of the hyperlink</dd>
           <dd><code>type</code> — A hint as to the MIME type of the resource</dd> 
           <dt>DOM interface:</dt>
-          <dd>
             <dd>
-              <pre class="idl">interface <dfn id="mapmlfeatureelement">MAPMLImageElement</dfn> : MAPMLElement {
+              <pre class="idl">interface <dfn id="mapmlimageelement">MAPMLImageElement</dfn> : MAPMLElement {
  
 };</pre>
             </dd>
-          </dd>
         </dl>
         
         <h5 id="the-feature-element">4.2.17 The <code>&lt;feature&gt;</code> element</h5>
@@ -1574,13 +1565,11 @@ property value domain</p>
           <dt>Content attributes:</dt>
           <dd>Global attributes</dd>
           <dt>DOM interface:</dt>
-          <dd>
             <dd>
               <pre class="idl">interface <dfn id="mapmlfeatureelement">MAPMLFeatureElement</dfn> : MAPMLElement {
                   readonly attribute type
 };</pre>
             </dd>
-          </dd>
         </dl>
           
         <p>A <code>feature</code> element represents a geographic feature.  A <code>feature</code> element has an optional <a href="#the-properties-element"><code>properties</code></a> child element, and a required child <a href="#the-geometry-element"><code>geometry</code></a> element. </p>
@@ -1595,13 +1584,11 @@ property value domain</p>
           <dt>Content attributes:</dt>
           <dd>n/a</dd>
           <dt>DOM interface:</dt>
-          <dd>
             <dd>
-              <pre class="idl">interface <dfn id="mapmlfeatureelement">MAPMLPropertiesElement</dfn> : MAPMLElement {
+              <pre class="idl">interface <dfn id="mapmlpropertieselement">MAPMLPropertiesElement</dfn> : MAPMLElement {
  
 };</pre>
             </dd>
-          </dd>
         </dl>
         
         <p>A <code>feature</code> element can have zero or one <code>properties</code> element, which contains zero or more unknown elements, whose content is text.  Note: it would 
@@ -1618,13 +1605,11 @@ property value domain</p>
           <dt>Content attributes:</dt>
           <dd>Global attributes</dd>
           <dt>DOM interface:</dt>
-          <dd>
             <dd>
-              <pre class="idl">interface <dfn id="mapmlfeatureelement">MAPMLGeometryElement</dfn> : MAPMLElement {
+              <pre class="idl">interface <dfn id="mapmlgeometryelement">MAPMLGeometryElement</dfn> : MAPMLElement {
                   readonly attribute type
 };</pre>
             </dd>
-          </dd>
         </dl>
         
         <p>A <code>geometry</code> element has <a href="#the-geometry-element">one child element</a>, which can be a <code>Point</code>, 
@@ -1697,13 +1682,11 @@ property value domain</p>
           <dt>Content attributes:</dt>
           <dd>n/a</dd>
           <dt>DOM interface:</dt>
-          <dd>
             <dd>
-              <pre class="idl">interface <dfn id="mapmlfeatureelement">MAPMLCoordinatesElement</dfn> : MAPMLElement {
+              <pre class="idl">interface <dfn id="mapmlcoordinateselement">MAPMLCoordinatesElement</dfn> : MAPMLElement {
  
 };</pre>
             </dd>
-          </dd>
         </dl>
         
           <p id="position">In MapML, features have positions in 2D space.  A position is sometimes marked up with coordinate data explicitly identified by axis, for example in the
@@ -1728,7 +1711,7 @@ property value domain</p>
 <div id="sec-examples">
 	<h2 id="examples">5. Examples</h2>
 	<p>This section is informative.</p>
-        <img src="images/figure-1.png" width="100%"></img>
+        <img alt="Origins, orientations and axis names of tcrs, pcrs, gcrs, tilematrix, map, and tile coordinate systems" src="images/figure-1.png" style="width: 100%">
 	
   <p>Prototype MapML services are available, representing <a href="https://geogratis.gc.ca/mapml/en/osmtile/cbmt/">tiled</a> and <a href="https://geogratis.gc.ca/api/beta/vectors/canvec/50k/features/?entry-type=full&xmin=-75.6088650226593&ymin=45.39715420088217&xmax=-75.59665560722351&ymax=45.401975540403974&zoom=17&projection=WGS84&alt=xml">vector</a> data.</p>
   
@@ -1792,7 +1775,7 @@ property value domain</p>
     <dt id="ref-RNG"><strong class="normref">[RELAXNG]</strong></dt>
 	  <dd>
 	    <cite><a href="http://www.y12.doe.gov/sgml/sc34/document/0362_files/relaxng-is.pdf">Document Schema Definition Languages (DSDL) — Part 2: Regular grammar-based validation — RELAX NG, ISO/IEC FDIS 19757-2:2002(E)</a></cite>,
-	    J. Clark, <ruby><rb xml:lang="ja">村田 真</rb> <rp>(</rp><rt><span class="familyname">Murata</span> M.</rt><rp>)</rp></ruby>, eds.
+	    J. Clark, <ruby><rb xml:lang="ja" lang="ja">村田 真</rb> <rp>(</rp><rt><span class="familyname">Murata</span> M.</rt><rp>)</rp></ruby>, eds.
 	    International Organization for Standardization, 12 December 2002.
 	    <br/>Available at http://www.y12.doe.gov/sgml/sc34/document/0362_files/relaxng-is.pdf.
 	  </dd>
@@ -1845,17 +1828,6 @@ property value domain</p>
 	</dl>
 	
 </div>
-
-
-<div>
-  <h3 id="Acknowledgments">10. Acknowledgments</h3>
-
-  <p>
-    The editors would like to acknowledge and thank the following people for substantive aid with this specification: 
-    <em></em>.
-  </p>
-</div>
-
 </div>
 </body>
 </html>
