@@ -84,7 +84,7 @@ tile = element tile {
     attribute row { xsd:integer },
     ImageResourceMetadataAttributes
 }
-bbox = element bbox { twoCoordinatePairs }
+bbox = element bbox { twoPositions }
 image =    element image { ImageModel }
 geometry = element geometry { GeometryContent }
 properties = element properties { PropertyContent }
@@ -105,17 +105,17 @@ imageLocation = attribute x { xsd:double }, attribute y { xsd:double }
 imageSize = attribute width { xsd:integer },attribute height { xsd:integer }
 
 GeometryContent = point | linestring | polygon | multipoint | multilinestring | multipolygon | geometrycollection   
-point = element point { coordinatePair }
-linestring = element linestring { twoOrMoreCoordinatePairs }
-polygon = element polygon { threeOrMoreCoordinatePairs+ }
-multipoint = element multipoint { coordinatePair+ }
-multilinestring = element multilinestring { twoOrMoreCoordinatePairs+ }
+point = element point { coordinatesWithOnePosition }
+linestring = element linestring { coordinatesWithTwoOrMorePositions }
+polygon = element polygon { coordinatesWithThreeOrMorePositions+ }
+multipoint = element multipoint { coordinatesWithTwoOrMorePositions }
+multilinestring = element multilinestring { coordinatesWithTwoOrMorePositions+ }
 multipolygon = element multipolygon { polygon+ }
 geometrycollection = element geometrycollection {
     (point* & linestring* & polygon* & multipoint* & multilinestring* & multipolygon*)
 }
-coordinatePair = element coordinates  { list  { (xsd:double, xsd:double) } }
-twoOrMoreCoordinatePairs = element coordinates { list { (xsd:double, xsd:double)+ } }
-threeOrMoreCoordinatePairs = element coordinates { list { (xsd:double, xsd:double), (xsd:double, xsd:double), (xsd:double, xsd:double)+ } }
+coordinatesWithOnePosition = element coordinates  { list  { (xsd:double, xsd:double) } }
+coordinatesWithTwoOrMorePositions = element coordinates { list { (xsd:double, xsd:double), (xsd:double, xsd:double)+ } }
+coordinatesWithThreeOrMorePositions = element coordinates { list { (xsd:double, xsd:double), (xsd:double, xsd:double), (xsd:double, xsd:double)+ } }
 # for bbox content, omits coordinates element
-twoCoordinatePairs =  list  { (xsd:double, xsd:double, xsd:double, xsd:double) } 
+twoPositions =  list  { (xsd:double, xsd:double, xsd:double, xsd:double) } 

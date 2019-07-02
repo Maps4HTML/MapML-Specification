@@ -67,7 +67,7 @@ function googleTranslateElementInit() {
 
 <h1>Map Markup Language</h1>
 
-<h2 id="pagesubtitle"><time datetime="2018-09-07">October 17, 2018</time></h2>
+<h2 id="pagesubtitle"><time datetime="2019-07-02">July 2, 2019</time></h2>
 
 <dl>
   <dt>This version:</dt>
@@ -165,6 +165,9 @@ property value domain</p>
   <p>Added a table of the different Coordinate System used</p>
   <p>Better connecting TCRS table with input@units values</p>
   <p>Align prose for allowed link@href context with schema.</p>
+  <p>Fix <a href="https://github.com/Maps4HTML/MapML/issues/43#issuecomment-507018476">issue</a> with description of multi-geometries as being 'two or more', replace with 'One or more'</p>
+  <p>Fix <a href="https://github.com/Maps4HTML/MapML/issues/43#issue-428889785">issue</a> with  CamelCase of geometry types, replace with lowercase</p>
+  <p>Fix <a href="https://github.com/Maps4HTML/MapML/issues/44">issue</a> with inconsistency with GeoJSON multipoint coordinate encoding</p>
     
 
   <h3>Level of Endorsement by the Community</h3>
@@ -1613,8 +1616,8 @@ property value domain</p>
             </dd>
         </dl>
         
-        <p>A <code>geometry</code> element has <a href="#the-geometry-element">one child element</a>, which can be a <code>Point</code>, 
-        <code>LineString</code>, <code>Polygon</code>, <code>MultiPoint</code>, <code>MultiLineString</code>, <code>MultiPolygon</code>, or <code>GeometryCollection</code>.</p>
+        <p>A <code>geometry</code> element has <a href="#the-geometry-element">one child element</a>, which can be a <code>point</code>, 
+        <code>linestring</code>, <code>polygon</code>, <code>multipoint</code>, <code>multilinestring</code>, <code>multipolygon</code>, or <code>geometrycollection</code>.</p>
         
         <table id="geometry-values">
           <thead>
@@ -1626,19 +1629,19 @@ property value domain</p>
           </thead>
           <tbody>
             <tr>
-              <td><code>Point</code></td>
+              <td><code>point</code></td>
               <td> A <a href="#the-coordinates-element"><code>coordinates</code></a> element containing a single position </td>
-              <td> Axis order - x, y</td>
+              <td> Axis order - x followed by y, separated by whitespace</td>
             </tr>
             <tr>
-              <td><code>LineString</code></td>
+              <td><code>linestring</code></td>
               <td> A <a href="#the-coordinates-element"><code>coordinates</code></a> element containing two or more positions </td>
-              <td> Axis order - x, y</td>
+              <td> Axis order - x followed by y, separated by whitespace</td>
             </tr>
             <tr>
-              <td><code>Polygon</code></td>
+              <td><code>polygon</code></td>
               <td> One or more <a href="#the-coordinates-element"><code>coordinates</code></a> elements, each containing three or more positions.</td>
-              <td> <p>Axis order - x, y</p>
+              <td> <p>Axis order - x followed by y, separated by whitespace</p>
                 <p>The first and last positions in every child <code>coordinates</code> element are equal / at the same position. </p><p>The first 
                   <a href="#the-coordinates-element"><code>coordinates</code></a> element represents the outside of the polygon, and 
                   subsequent <code>coordinates</code> elements represent holes.</p>
@@ -1648,26 +1651,26 @@ property value domain</p>
               </td>
             </tr>
             <tr>
-              <td><code>MultiPoint</code></td>
-              <td> Two or more <a href="#the-coordinates-element"><code>coordinates</code></a> elements, each containing a single position </td>
-              <td> Axis order - x, y</td>
+              <td><code>multipoint</code></td>
+              <td> One <a href="#the-coordinates-element"><code>coordinates</code></a> element, containing one or more positions. </td>
+              <td> Axis order - x followed by y, separated by whitespace</td>
             </tr>
             <tr>
-              <td><code>MultiLineString</code></td>
-              <td> Two or more <a href="#the-coordinates-element"><code>coordinates</code></a> elements, each containing two or more positions. </td>
-              <td> Axis order - x, y</td>
+              <td><code>multilinestring</code></td>
+              <td> One or more <a href="#the-coordinates-element"><code>coordinates</code></a> elements, each containing two or more positions. </td>
+              <td> Axis order - x followed by y, separated by whitespace</td>
             </tr>
             <tr>
-              <td><code>MultiPolygon</code></td>
-              <td> Two or more <a href="#the-coordinates-element"><code>coordinates</code></a> elements</td>
-              <td> <p>Axis order - x, y</p>
-              <p>For each member Polygon, the same non-schema constraints apply to MulitPolygon descendant <code>coordinates</code> elements, as
-              for Polygon <code>coordinates</code> descendant elements.</p></td>
+              <td><code>multipolygon</code></td>
+              <td> One or more <a href="#the-polygon-element"><code>polygon</code></a> elements</td>
+              <td> <p>Axis order - x followed by y, separated by whitespace</p>
+              <p>For each member polygon, the same non-schema constraints apply to multipolygon descendant <code>coordinates</code> elements, as
+              for polygon <code>coordinates</code> descendant elements.</p></td>
             </tr>
             <tr>
-              <td><code>GeometryCollection</code></td>
-              <td> One or more <code><code>Point</code>, 
-                <code>LineString</code>, <code>Polygon</code>, <code>MultiPoint</code>, <code>MultiLineString</code>, <code>MultiPolygon</code></code> elements</td>
+              <td><code>geometrycollection</code></td>
+              <td> One or more <code><code>point</code>, 
+                <code>linestring</code>, <code>polygon</code>, <code>multipoint</code>, <code>multilinestring</code>, <code>multipolygon</code></code> elements</td>
               <td>For each member geometry, the same non-schema constraints apply as to the unique geometry type above.</td>
             </tr>
           </tbody>
@@ -1679,7 +1682,7 @@ property value domain</p>
           <dt>Contexts in which this element can be used:</dt>
           <dd>A descendant of the <code>&lt;geometry&gt;</code> element, as the coordinate data which defines a feature geometry.</dd>
           <dt>Content model:</dt>
-          <dd>One or more <a href="#position">position</a>s in x,y coordinate order, separated by whitespace.</dd>
+          <dd>One or more <a href="#position">position</a>s in x followed by y, separated by whitespace, with each position separated from the adjacent position by whitespace.</dd>
           <dt>Content attributes:</dt>
           <dd>n/a</dd>
           <dt>DOM interface:</dt>
@@ -1699,8 +1702,8 @@ property value domain</p>
             schema for MapML is provided below, however schema validation is not able to fully validate the context and content of the <code>coordinates</code> element.  Such 
           requirements are listed under the column "Non-schema constraints"</p>
         <p>The positions in the <code>coordinates</code> element define the location of the feature.  For <code>geometry</code> elements whose value is ,
-          <code>LineString</code>, <code>MultiPoint</code> or <code>MultiLineString</code>, this specification neither assigns nor requires special ordering or other constraints, apart from
-          the axis order described above.  For <code>geometry></code> elements whose value is a <code>Polygon</code> or <code>MultiPolygon</code> element,  the descendant 
+          <code>linestring</code>, <code>multipoint</code> or <code>multilinestring</code>, this specification neither assigns nor requires special ordering or other constraints, apart from
+          the axis order described above.  For <code>geometry></code> elements whose value is a <code>polygon</code> or <code>multipolygon</code> element,  the descendant 
           <code>coordinates</code> elements must follow additional constraints.</p>
         <h5 id="styling">4.3 Styling</h5>
         <p>MapML documents can be styled with Cascading Style Sheets.</p>
