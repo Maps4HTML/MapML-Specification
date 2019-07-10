@@ -67,7 +67,7 @@ function googleTranslateElementInit() {
 
 <h1>Map Markup Language</h1>
 
-<h2 id="pagesubtitle"><time datetime="2019-07-02">July 2, 2019</time></h2>
+<h2 id="pagesubtitle"><time datetime="2019-07-10">July 10, 2019</time></h2>
 
 <dl>
   <dt>This version:</dt>
@@ -168,6 +168,7 @@ property value domain</p>
   <p>Fix <a href="https://github.com/Maps4HTML/MapML/issues/43#issuecomment-507018476">issue</a> with description of multi-geometries as being 'two or more', replace with 'One or more'</p>
   <p>Fix <a href="https://github.com/Maps4HTML/MapML/issues/43#issue-428889785">issue</a> with  CamelCase of geometry types, replace with lowercase</p>
   <p>Fix <a href="https://github.com/Maps4HTML/MapML/issues/44">issue</a> with inconsistency with GeoJSON multipoint coordinate encoding</p>
+  <p>Fix the order of parameters to the LatLng(lat,lng) pseudofunction in the definition of WGS84</p>
     
 
   <h3>Level of Endorsement by the Community</h3>
@@ -715,9 +716,9 @@ property value domain</p>
      <td>CRS:84</td>
      <td>CRS:84</td>
      <td>Pseudo Plate carr&eacute;e</td>
-     <td>LatLng(-180,90)</td>
+     <td>LatLng(90,-180)</td>
      <td>256/256</td>
-     <td>LatLng(-180,-90), LatLng(180,90)</td>
+     <td>LatLng(-90,-180), LatLng(90,180)</td>
      <td>         
                   0<br>
                   1<br>
