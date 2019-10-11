@@ -114,6 +114,13 @@ multipolygon = element multipolygon { polygon+ }
 geometrycollection = element geometrycollection {
     (point* & linestring* & polygon* & multipoint* & multilinestring* & multipolygon*)
 }
-coordinates_mixed = element coordinates  { mixed { element span { any_attribute*, text }? } } 
+# TODO: allow either span OR a, and possibly others.
+span_element = element span { 
+                  mixed {
+                    attribute * { text }*&
+                    span_element* 
+                  }
+               }
+coordinates_mixed = element coordinates  { mixed { span_element* } } 
 # for bbox content, omits coordinates element
 twoPositions =  list  { (xsd:double, xsd:double, xsd:double, xsd:double) } 

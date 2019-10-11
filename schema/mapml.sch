@@ -130,9 +130,10 @@
         </sch:rule>
     </sch:pattern>
     <sch:pattern>
-        <sch:rule context="coordinates/span">
+        <sch:rule context="coordinates//span">
             <sch:let name="cs" value="tokenize(normalize-space(string-join((descendant::text()),' ')),' ')"></sch:let>
             <sch:assert test="(count($cs) mod 2) eq 0">A span in coordinates should wrap coordinate pairs.</sch:assert>
+            <!-- TODO: a test that the first number in a span is an odd number of positions into the overall set of tokens i.e. 1,3,5, etc -->
         </sch:rule>
     </sch:pattern>
 </sch:schema>
