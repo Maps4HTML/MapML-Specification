@@ -7,10 +7,10 @@ link = element link {
         # can have a tref (when in extent) or an href (but not both)
         attribute tref { text }?,
         # @rel=alternate + @projection=tcrs-name is proposed as a way of negotiating the tcrs of the service: https://github.com/Maps4HTML/MapML/issues/11
-        attribute rel {  "stylesheet" | "license" | "alternate" | "style" | "self" | "self style" | "style self" | "legend" | "next" | "zoomin" | "zoomout" | "image" | "tile" | "query" | "features" },
+        attribute rel {  text },
         attribute projection { "OSMTILE" | "CBMTILE" | "APSTILE" | "WGS84" }?,
         attribute title { text }?,
-        attribute type { "text/css" | "text/mapml" | "image/png" | "image/jpeg" | "text/html" }?,
+        attribute type { text }?,
         attribute hreflang { text }?
     }
 links = link*
@@ -97,25 +97,23 @@ ImageResourceMetadataAttributes =
     attribute type { text }?
 ImageModel =  ImageResourceMetadataAttributes
 # allow any property/value via simple elements with allowed text content
-PropertyContent = any_attribute*, any_content 
-any_content = any_element*
-any_element = element * { any_attribute*, text }
+# see https://www.oreilly.com/library/view/xml-pocket-reference/9780596100506/re92.html
+PropertyContent = any_element 
+any_element = element *  { (attribute * { text } | text | any_element)* }
 any_attribute = attribute * { text }
 imageLocation = attribute x { xsd:double }, attribute y { xsd:double }
 imageSize = attribute width { xsd:integer },attribute height { xsd:integer }
 
 GeometryContent = point | linestring | polygon | multipoint | multilinestring | multipolygon | geometrycollection   
-point = element point { coordinatesWithOnePosition }
-linestring = element linestring { coordinatesWithTwoOrMorePositions }
-polygon = element polygon { coordinatesWithThreeOrMorePositions+ }
-multipoint = element multipoint { coordinatesWithTwoOrMorePositions }
-multilinestring = element multilinestring { coordinatesWithTwoOrMorePositions+ }
+point = element point { coordinates_mixed }
+linestring = element linestring { coordinates_mixed }
+polygon = element polygon { coordinates_mixed+ }
+multipoint = element multipoint { coordinates_mixed }
+multilinestring = element multilinestring { coordinates_mixed+ }
 multipolygon = element multipolygon { polygon+ }
 geometrycollection = element geometrycollection {
     (point* & linestring* & polygon* & multipoint* & multilinestring* & multipolygon*)
 }
-coordinatesWithOnePosition = element coordinates  { list  { (xsd:double, xsd:double) } }
-coordinatesWithTwoOrMorePositions = element coordinates { list { (xsd:double, xsd:double), (xsd:double, xsd:double)+ } }
-coordinatesWithThreeOrMorePositions = element coordinates { list { (xsd:double, xsd:double), (xsd:double, xsd:double), (xsd:double, xsd:double)+ } }
+coordinates_mixed = element coordinates  { mixed { element span { any_attribute*, text }? } } 
 # for bbox content, omits coordinates element
 twoPositions =  list  { (xsd:double, xsd:double, xsd:double, xsd:double) } 

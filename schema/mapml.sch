@@ -42,9 +42,31 @@
         </sch:rule>
     </sch:pattern>
     <sch:pattern>
-        <sch:rule context="link">
-            <sch:assert test="(exists(@tref) and not(exists(@href))) or (exists(@href) and not(exists(@tref)))">@tref or @href should exist, but not both</sch:assert>
-            <sch:report test="exists(@projection) and @rel ne 'alternate'">projection links must be rel="alternate"</sch:report>
+        <sch:rule context="head/link">
+            <sch:assert test="exists(@href)">Links in head should have a href attribute (head links should not be templated).</sch:assert>
+            <sch:report test="exists(@tref)">Links in head should not have a tref attribute (head links should not be templated).</sch:report>
+            <sch:let name="recognizedRels" value="'alternate' , 'stylesheet' , 'license' , 'self' , 'style' , 'self style', 'style self', 'legend', 'next', 'zoomin', 'zoomout'"></sch:let>
+            <sch:assert test="exists(@rel) and @rel = $recognizedRels">Unrecognized link@rel value (for head link): <sch:value-of select="@rel"/>. Recognized rel values are: <sch:value-of select="$recognizedRels"/></sch:assert>
+        </sch:rule>
+        <sch:rule context="head/link[@type]">
+            <sch:let name="recognizedTypes" value="'text/html','text/css','text/mapml'"></sch:let>
+            <sch:report test="@type = $recognizedTypes">Unrecognized link@type value (for head link): <sch:value-of select="@type"/>. Recognized types are: <sch:value-of select="$recognizedTypes"/></sch:report>
+        </sch:rule>
+        <sch:rule context="head/link[@projection]">
+            <sch:report test="@rel ne 'alternate'">projection links must be rel="alternate"</sch:report>
+            <sch:report test="exists(@type) and @type ne 'text/mapml'">If alternate projections are provided, the @type must be 'text/mapml', or be unspecified</sch:report>
+            <sch:let name="recognizedProjections" value="'OSMTILE' , 'WGS84', 'CBMTILE', 'APSTILE'"></sch:let>
+            <sch:report test="upper-case(@projection) = $recognizedProjections">Unrecognized link@projection value:  <sch:value-of select="@projection"/></sch:report>
+        </sch:rule>
+        <sch:rule context="extent/link">
+            <sch:assert test="exists(@tref)">Links in extent should have a tref attribute (extent links must be templated).</sch:assert>
+            <sch:report test="exists(@href)">Links in extent should not have a href attribute (extent links must be templated).</sch:report>
+            <sch:let name="recognizedRels" value="'image' , 'tile' , 'query' , 'features'"></sch:let>
+            <sch:assert test="exists(@rel) and @rel = $recognizedRels">Unrecognized link@rel value (for templated link): <sch:value-of select="@rel"/>. Recognized rel values are: <sch:value-of select="$recognizedRels"/></sch:assert>
+        </sch:rule>
+        <sch:rule context="extent/link[@type]">
+            <sch:let name="recognizedTypes" value="'text/mapml','image/png','image/jpeg'"></sch:let>
+            <sch:assert test="@type = $recognizedTypes">Unrecognized link@type value (for templated link): <sch:value-of select="@type"/>. Recognized types are: <sch:value-of select="$recognizedTypes"/></sch:assert>
         </sch:rule>
         <sch:rule context="input[@name = preceding-sibling::input/@name]">
             <sch:assert test="false()">Duplicate input/@name detected</sch:assert>
@@ -77,6 +99,40 @@
         <sch:rule context="select[@id]">
             <sch:let name="forid" value="./@id"></sch:let>
             <sch:assert test="count(//label[@for eq $forid]) eq 1">There must be only one label per labelled (select) element. Duplicated label for id="<sch:value-of select="$forid"/>".</sch:assert>
+        </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+        <sch:rule context="coordinates">
+            <sch:let name="cs" value="tokenize(normalize-space(string-join((descendant::text()),' ')),' ')"></sch:let>
+            <sch:assert test="(count($cs) mod 2) eq 0">Coordinates must be a sequence of number pairs</sch:assert>
+            <sch:assert test="every $c in $cs satisfies ($c castable as xs:double)">Coordinates must all be numeric</sch:assert>
+        </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+        <sch:rule context="polygon/coordinates">
+            <sch:let name="cs" value="tokenize(normalize-space(string-join((descendant::text()),' ')),' ')"></sch:let>
+            <sch:assert test="(count($cs) idiv 2) ge 3">A polygon's coordinates must be a sequence of three or more pairs of numbers</sch:assert>
+            <sch:let name="first" value="subsequence($cs,1,2)"></sch:let>
+            <sch:let name="last" value="subsequence($cs,count($cs)-1,2)"></sch:let>
+            <sch:assert test="$first[1] eq $last[1] and $first[2] eq $last[2]">A polygon's coordinates must close<sch:value-of select="$first,$last"/></sch:assert>
+        </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+        <sch:rule context="(multilinestring|linestring)/coordinates ">
+            <sch:let name="cs" value="tokenize(normalize-space(string-join((descendant::text()),' ')),' ')"></sch:let>
+            <sch:assert test="(count($cs) idiv 2) ge 2">A linestring's coordinates must be a sequence of two or more pairs of numbers</sch:assert>
+        </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+        <sch:rule context="multipoint/coordinates ">
+            <sch:let name="cs" value="tokenize(normalize-space(string-join((descendant::text()),' ')),' ')"></sch:let>
+            <sch:assert test="(count($cs) idiv 2) ge 2">A multipoint's coordinates should be a sequence of two or more pairs of numbers. Should you use a point, instead?</sch:assert>
+        </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+        <sch:rule context="coordinates/span">
+            <sch:let name="cs" value="tokenize(normalize-space(string-join((descendant::text()),' ')),' ')"></sch:let>
+            <sch:assert test="(count($cs) mod 2) eq 0">A span in coordinates should wrap coordinate pairs.</sch:assert>
         </sch:rule>
     </sch:pattern>
 </sch:schema>
