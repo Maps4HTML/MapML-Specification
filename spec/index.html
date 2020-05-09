@@ -4,10 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Map Markup Language</title>
-  
   <!-- <link class="required" rel="stylesheet" href="w3c-unofficial.css" type="text/css"/> -->
-  <link class="required" rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/w3c-unofficial.css" type="text/css">
-  <link rel="stylesheet" type="text/css" href="https://www.w3.org/StyleSheets/TR/w3c-tr.css" >
+  <link class="required" rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/w3c-unofficial.css">
+  <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/w3c-tr.css">
   <style>
         .content { background-image: none; }
         h5 { position: relative; z-index: 3; }
@@ -74,13 +73,13 @@ function googleTranslateElementInit() {
 <dl>
   <dt>This version:</dt>
   <dd><a href="https://github.com/Maps4HTML/MapML/" target="_blank">https://github.com/Maps4HTML/MapML/</a></dd>
-  
+
   <dt>Latest version:</dt>
   <dd><a href="https://maps4html.github.io/MapML/spec/" target="_blank">https://maps4html.github.io/MapML/spec/</a></dd>
-  
+
   <dt>Previous version:</dt>
   <dd><a href="https://github.com/Maps4HTML/MapML/" target="_blank">https://github.com/Maps4HTML/MapML/</a></dd>
-  
+
   <dt>Editors:</dt>
 	<dd><em>Peter Rushforth</em>, Natural Resources Canada</dd>
   <dt>Authors:</dt>
@@ -99,14 +98,14 @@ function googleTranslateElementInit() {
 
 </div>
 
-<hr title="Separator from Header">
+<hr>
 
 <h2 id="abstract">Abstract</h2>
 
   <p>Map Markup Language is a text format for encoding map information for the World Wide Web.</p>
   <p>The objective of MapML is to allow Web-based user agent software (browsers and others) to display and edit maps and map data without necessary customization.</p>
 
-	
+
 
 <div id="sotd">
   <h2 id="status">Status of This Document</h2>
@@ -120,30 +119,30 @@ function googleTranslateElementInit() {
 
 
   <h3>Intent of this Specification</h3>
-  
-  <p>MapML is needed because while Web browsers implement HTML and SVG, including the <code>&lt;map&gt;</code> element, those implementations do not meet the 
+
+  <p>MapML is needed because while Web browsers implement HTML and SVG, including the <code>&lt;map&gt;</code> element, those implementations do not meet the
     requirements of the broader Web mapping community.  On the one hand, the semantics of maps are quite different from those of Scalable Vector Graphics,
     while on the other hand, the semantics of the HTML <code>map</code> element are incomplete or insufficient relative to modern Web maps and
     mapping in general.  Robust web maps are implemented by a variety of non-standard technologies.  Web maps do not work without script support, making
     their creation a job beyond the realm of beginners' skill sets, while making them potentially inaccessible due to developer inattention.
-    
+
     In order to improve collaboration and integration of the mapping and Web communities, it is desirable to enhance or augment
-    the functionality of the &lt;map&gt; (or a similar &lt;new&gt;) element in HTML to include the accessible user interface functions of modern web maps (e.g. panning, zooming, searching for, and zooming to, styling, identifying feature properties, etc.), while maintaining a simple, declarative, accessible interface for HTML authors.  At the same time, 
+    the functionality of the &lt;map&gt; (or a similar &lt;new&gt;) element in HTML to include the accessible user interface functions of modern web maps (e.g. panning, zooming, searching for, and zooming to, styling, identifying feature properties, etc.), while maintaining a simple, declarative, accessible interface for HTML authors.  At the same time,
      the DOM interface to the new or improved elements should provide low-level programmable mapping hooks in the style of the Web.  </p>
   <p>To achieve this it is necessary to define a new hypertext format (MapML) and media type which encodes map semantics.  </p>
-  <p>This document is an evolving proposal to the Web and Mapping communities.  Collaborators and implementation experience is requested.  The intention is to define a new hypertext format (MapML) which encodes map layer semantics 
-    directly, but which leverages existing standards where possible and desirable, such as Cascading Style Sheets and OGC Simple Features, for example.  MapML will provide an 
-    essential part of the contract between Web user agents and Web servers when map features are exchanged, in a manner based on the architectural 
+  <p>This document is an evolving proposal to the Web and Mapping communities.  Collaborators and implementation experience is requested.  The intention is to define a new hypertext format (MapML) which encodes map layer semantics
+    directly, but which leverages existing standards where possible and desirable, such as Cascading Style Sheets and OGC Simple Features, for example.  MapML will provide an
+    essential part of the contract between Web user agents and Web servers when map features are exchanged, in a manner based on the architectural
     style of the Web, in a similar way to how HTML provides (part of) the contract for documents.</p>
-	
+
   <h3>Implementation Experience</h3>
-  
-  <p>MapML has been <a href="#sec-examples">implemented</a> using custom elements by Natural Resources Canada, which participates in the <a href="https://www.w3.org/community/maps4html/">W3C Maps for HTML Community Group</a>, as well as the <a href="https://opengeospatial.org/">Open Geospatial Consortium</a>.  
+
+  <p>MapML has been <a href="#sec-examples">implemented</a> using custom elements by Natural Resources Canada, which participates in the <a href="https://www.w3.org/community/maps4html/">W3C Maps for HTML Community Group</a>, as well as the <a href="https://opengeospatial.org/">Open Geospatial Consortium</a>.
     It is hoped that other organizations will also implement MapML and contribute their experience back to the community via the Community Group and <a href="https://github.com/Maps4HTML/MapML">Github</a>.</p>
-  
+
   <h3>Changes Since the Previous Draft</h3>
-  
-  <p>Update schema, such as it is (needs more than 
+
+  <p>Update schema, such as it is (needs more than
 a schema language can provide e.g. schematron or something like HTML has)</p>
   <p>Deprecate input@type= xmin,ymin,xmax,ymax,projection.</p>
   <p>Remove input@type=search for now (not implemented, nor yet discussed).</p>
@@ -171,22 +170,22 @@ property value domain</p>
   <p>Fix <a href="https://github.com/Maps4HTML/MapML/issues/43#issue-428889785">issue</a> with  CamelCase of geometry types, replace with lowercase</p>
   <p>Fix <a href="https://github.com/Maps4HTML/MapML/issues/44">issue</a> with inconsistency with GeoJSON multipoint coordinate encoding</p>
   <p>Fix the order of parameters to the LatLng(lat,lng) pseudofunction in the definition of WGS84</p>
-    
+
 
   <h3>Level of Endorsement by the Community</h3>
-  
+
   <p>Please <a href="https://www.w3.org/community/maps4html/">join</a> the W3C Maps for HTML Community Group if you would like to participate in the development and implementation of this specification.</p>
   <p>You can also star us on <a href="https://github.com/Maps4HTML/MapML">Github</a></p>
 
-  
+
   <h3>Patent Information</h3>
-  
+
   <p>Development of this specification together with implementations is done under the terms of the <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document">W3C Software Notice and License</a>, in accordance with the rules of the W3C Community Groups program.</p>
-  
+
   <h3>How to provide feedback</h3>
 
   <p>Please send comments on this specification to <a href="mailto:public-maps4html@w3.org">public-maps4html@w3.org</a>, or <a href="https://discourse.wicg.io/t/map-markup-language/1267">WICG</a>, or open an <a href="https://github.com/Maps4HTML/MapML/issues">issue</a>.</p>
-  
+
 </div>
 
 <hr />
@@ -262,17 +261,17 @@ property value domain</p>
 <div id="sec-intro">
 	<h2 id="intro">1. Introduction</h2>
 	<p>This section is informative.</p>
-	
+
   <p>Map Markup Language is a text-based format which is allows map authors to encode map information as hypertext documents exchanged over the Uniform Interface of the Web.  The format is defined using some characteristics of HTML, MicroXML, GeoJSON and other standards.</p>
-	
+
 </div>
 
 
 
-<div id="sec-conformance">  
+<div id="sec-conformance">
 	<h2 id="conformance">2. Conformance</h2>
 	<p>This section is normative.</p>
-	
+
   <p><dfn id="conforming-documents">Conforming documents</dfn> are documents that comply with all the conformance criteria for
     MapML documents. For readability, some of these conformance requirements are phrased as conformance
     requirements on authors; such requirements are implicitly requirements on documents: by
@@ -281,135 +280,135 @@ property value domain</p>
     below.)</p>
   <p>User agents fall into several (overlapping) categories with different conformance requirements.</p>
   <dl>
-    
+
     <dt id="interactive">Web browsers and other interactive user agents</dt>
-    
+
     <dd>
       <p>Web browsers are one of the primary client technologies anticipated for MapML, however other categories of interactive client could also be developed, for example
       as extensions to / plugins for traditional Geographic Information Systems software.</p>
-     
-<!--       
+
+<!--
       <p class="example">A conforming XHTML processor would, upon finding an XHTML <code><a href="#the-script-element">script</a></code>
         element in an XML document, execute the script contained in that element. However, if the
         element is found within a transformation expressed in XSLT (assuming the user agent also
         supports XSLT), then the processor would instead treat the <code><a href="#the-script-element">script</a></code> element as an
         opaque element that forms part of the transform.</p>
-      
+
       <p>Web browsers that support <a href="#syntax">the HTML syntax</a> must process documents labeled with an
         <a href="#html-mime-type">HTML MIME type</a> as described in this specification, so that users can interact with
         them.</p>
-      
+
       <p class="note">Unless explicitly stated, specifications that override the semantics of HTML
         elements do not override the requirements on DOM objects representing those elements. For
         example, the <code><a href="#the-script-element">script</a></code> element in the example above would still implement the
         <code><a href="#htmlscriptelement">HTMLScriptElement</a></code> interface.</p>
--->      
+-->
     </dd>
-    
+
     <dt id="non-interactive">Non-interactive presentation user agents</dt>
-    
+
     <dd>
-      
+
       <p>User agents that process MapML documents purely to render non-interactive versions
         of them must comply to the same conformance criteria as map browsers, except that they are
         exempt from requirements regarding user interaction.</p>
-      
+
       <p>While MapML documents are thought to describe map semantics in a standard way, the scope of
-      this specification is intended to not overlap that of HTML documents themselves.  As such, this 
+      this specification is intended to not overlap that of HTML documents themselves.  As such, this
       conformance class may not be relevant, except when consuming MapML within the context of an HTML
       instance's user agent.  For example, the legend and other supporting map related information is out
       of scope for MapML, whereas it is conceivably in-scope for HTML documents.</p>
-      
+
       <p class="note">Typical examples of non-interactive presentation user agents are printers.</p>
-      
+
     </dd>
-    
+
     <dt id="non-scripted">User agents with no scripting support</dt>
-    
+
     <dd>
-      
+
       <p>Scripting can form an integral part of a Web application. User agents that do not
         support scripting, or that have scripting disabled, however should still be able to display and enable
       map-user interaction via the affordances described in this document.</p>
-      
+
     </dd>
-    
-    
+
+
     <dt>Conformance checkers</dt>
-    
+
     <dd id="conformance-checkers">
-      
+
       <p>Conformance checkers must verify that a document conforms to the applicable conformance
         criteria described in this specification.</p>
-      
+
       <p>The term "MapML validator" can be used to refer to a conformance checker that conforms
         to the applicable requirements of this specification.</p>
-      
+
       <div class="note">
-        
+
         <p>Schemas cannot express all the conformance requirements of this specification. Therefore, a
           validating XML processor and a DTD cannot constitute a conformance checker.</p>
-        
+
         <p>To put it another way, there are three types of conformance criteria:</p>
-        
+
         <ol>
-          
+
           <li>Criteria that can be expressed in a schema (RelaxNG, XML Schema etc).</li>
-          
+
           <li>Criteria that cannot be expressed by a DTD, but can still be checked by a machine.</li>
-          
+
           <li>Criteria that can only be checked by a human.</li>
-          
+
         </ol>
-        
+
         <p>A conformance checker must check for the first two. A simple RelaxNG-based validator only checks
           for the first class of errors and is therefore not a conforming conformance checker according
           to this specification.</p>
-        
+
       </div>
     </dd>
-    
-    
+
+
     <dt>Data mining tools</dt>
-    
+
     <dd id="data-mining">
-      
+
       <p>Applications and tools that process HTML and MapML documents for reasons other than to either
         render the documents or check them for conformance should act in accordance with the semantics
         of the documents that they process.</p>
-      
+
     </dd>
-    
-    
+
+
     <dt id="editors">Authoring tools and markup generators</dt>
-    
+
     <dd>
-      
+
       <p>Authoring tools and markup generators must generate <a href="#conforming-documents">conforming documents</a>.
         Conformance criteria that apply to authors also apply to authoring tools, where appropriate.</p>
-      
+
       <p class="example">For example, a markup generator must ensure that polygons have three or more vertices, the first and last of which have the same location.</p>
-      
+
       <p class="note">In terms of conformance checking, an editor has to output documents that conform
         to the same extent that a conformance checker will verify.</p>
-      
+
       <p>When an authoring tool is used to edit a non-conforming document, it may preserve the
         conformance errors in sections of the document that were not edited during the editing session
         (i.e. an editing tool is allowed to round-trip erroneous content). However, an authoring tool
         must not claim that the output is conformant if errors have been so preserved.</p>
-      
+
       <p>Authoring tools are expected to come in two broad varieties: tools that work from structured
         databases, and tools that work on an interactive What-You-See-Is-What-You-Get media-specific editing
         basis (WYSIWYG).</p>
-      
+
       <p>All authoring tools, whether WYSIWYG or not, should make a best effort attempt at enabling
         users to create accessible, well-structured, and efficient content.</p>
-      
+
     </dd>
-    
+
   </dl>
   <p>This document contains explicit conformance criteria that overlap with some RNG definitions in requirements. If there is any conflict between the two, the explicit conformance criteria are the definitive reference. </p>
-	
+
 	<p>Within this specification, the key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as described in <a href="https://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a> [<a href="ref-RFC2119">RFC2119</a>].  However, for readability, these words do not necessarily appear in uppercase in this specification.</p>
 
 </div>
@@ -419,7 +418,7 @@ property value domain</p>
 <div id="sec-ucr">
 	<h2 id="ucr">3. Use Cases and Requirements</h2>
 	<p>This section is informative.</p>
-	
+
 	<h3 id="use-cases">3.1. Use Cases</h3>
   <p>The following usage scenarios illustrate some of the ways in which Map Markup Language might be used for various applications:</p>
 
@@ -427,9 +426,9 @@ property value domain</p>
   <p><strong>Image-based maps</strong>: Web services typically produce a single geo-referenced image which constitutes a map. MapML encodes URL references to such images,
   together with appropriate georeferencing metadata.</p>
   <p><strong>Vector-based maps</strong>: Geospatial databases, for example PostGIS, are able to serve and manipulate vector representations of features which can be symbolized according to their properties. </p>
-  <p><strong>Multi-layer maps</strong>: Maps are often required to overlay information in such a way as to enable both visual and automatated spatial relationship processing. 
-  MapML will support the layering of information using the 'painters model', wherein elements are drawn in document order overtop of earlier elements, together with CSS styling (transparency) techniques.</p>  
-  <p><strong>Use CSS for map styles</strong>: MapML elements should be style-able with CSS rules supplied by the MapML author. 
+  <p><strong>Multi-layer maps</strong>: Maps are often required to overlay information in such a way as to enable both visual and automatated spatial relationship processing.
+  MapML will support the layering of information using the 'painters model', wherein elements are drawn in document order overtop of earlier elements, together with CSS styling (transparency) techniques.</p>
+  <p><strong>Use CSS for map styles</strong>: MapML elements should be style-able with CSS rules supplied by the MapML author.
     For example, the MapML author should be able to link to a stylesheet from a MapML document.</p>
   <p><strong>Location search</strong>: A MapML service might want to allow service consumers to search within the contents of a service for a place name or an address, over which the map is repositioned when a selection is made.  MapML should provide (markup) facilities to enable such searches without forcing the client download large amounts of geospatial data.</p>
   <p><strong>Hyperlinks between and within services</strong>: MapML should allow service-level links such that service providers can link together / federate to provide apparently seamless spatial coverage.</p>
@@ -452,24 +451,24 @@ property value domain</p>
         <p>This section is normative.</p>
         <h3 id="semantics">4.1 Semantics</h3>
         <h4 id="coordinate-systems">4.1.1 Coordinate Systems</h4>
-        <p>In this document, all Coordinate Systems (CS) are 2D. 
+        <p>In this document, all Coordinate Systems (CS) are 2D.
 		A 2D CS has two axes, one horizontal (commonly related to west-east direction),
-		and one vertical (commonly related to north-south direction; do not confuse it with "elevation"). 
-		This document defines the axis order of coordinate pairs serialized in MapML documents which the axis-specific 
-		values are not distinguished by markup, such as within the <code>coordinates</code> element. 
+		and one vertical (commonly related to north-south direction; do not confuse it with "elevation").
+		This document defines the axis order of coordinate pairs serialized in MapML documents which the axis-specific
+		values are not distinguished by markup, such as within the <code>coordinates</code> element.
 		In documents conforming to this specification, we override any externally defined axis order.
-		Coordinates are serialized as <i>horizontal axis followed by vertical axis</i>, separated by whitespace. 
-		Where applicable, coordinate pairs are separated by whitespace. 
+		Coordinates are serialized as <i>horizontal axis followed by vertical axis</i>, separated by whitespace.
+		Where applicable, coordinate pairs are separated by whitespace.
 		The axis names of a coordinate system are identified by this document.</p>
         <h4 id="coordinate-reference-systems">4.1.2 Coordinate Reference Systems</h4>
         <p>A Coordinate Reference System (CRS) is a Coordinate System that is referenced to locations on the Earth.  Maps are graphics which follow mathematical rules (called projections) established to transform locations on Earth to locations on a plane (formerly paper, more recently a device screen). Projections are mathematical equations designed to conserve particular properties of the source location, and often have parameters that can be used to induce desired properties for particular locations.</p>
 	<p>To facilitate the sharing of CRS definitions, the International Association of Oil ans Gas Producers (IOGP)
-		(formerly known as the European Petroleum Survey Group, [EPSG]) mantains a list of CRS definitions and codes 
-		in their Geodetic Parameter Dataset. 
-		Some EPSG codes are used in the following table. 
-		In an effort to bring some clarity about the axis order for the longitude-latitude based CRSs, 
-		the OGC defined some "CRS codes". 
-		CRS:83 is defined equivalent to EPSG:4269 but with horizontal-then-vertical axis order, 
+		(formerly known as the European Petroleum Survey Group, [EPSG]) mantains a list of CRS definitions and codes
+		in their Geodetic Parameter Dataset.
+		Some EPSG codes are used in the following table.
+		In an effort to bring some clarity about the axis order for the longitude-latitude based CRSs,
+		the OGC defined some "CRS codes".
+		CRS:83 is defined equivalent to EPSG:4269 but with horizontal-then-vertical axis order,
 		and CRS:84 is defined equivalent to EPSG:4326 except in its axes order.</p>
         <h4 id="tiled-coordinate-reference-systems">4.1.3 Tiled Coordinate Reference Systems</h4>
         <p>A tiled coordinate reference system is a set of coordinate reference systems,
@@ -591,7 +590,7 @@ property value domain</p>
                      4.7773142669678<br>
                      2.3886571334839<br>
                      1.1943285667419<br>
-                     0.59716428337097<br>   
+                     0.59716428337097<br>
 </td>
     </tr>
     <tr>
@@ -630,32 +629,32 @@ property value domain</p>
                   24<br>
                   25<br>
                     </td>
-     <td>                             38364.660062653464<br> 
-                 22489.62831258996<br> 
-                 13229.193125052918<br> 
-                 7937.5158750317505<br> 
-                 4630.2175937685215<br> 
+     <td>                             38364.660062653464<br>
+                 22489.62831258996<br>
+                 13229.193125052918<br>
+                 7937.5158750317505<br>
+                 4630.2175937685215<br>
                  2645.8386250105837<br>
                  1587.5031750063501<br>
-                 926.0435187537042<br> 
-                 529.1677250021168<br> 
-                 317.50063500127004<br> 
-                 185.20870375074085<br> 
-                 111.12522225044451<br> 
-                 66.1459656252646<br> 
-                 38.36466006265346<br> 
+                 926.0435187537042<br>
+                 529.1677250021168<br>
+                 317.50063500127004<br>
+                 185.20870375074085<br>
+                 111.12522225044451<br>
+                 66.1459656252646<br>
+                 38.36466006265346<br>
                  22.48962831258996<br>
                  13.229193125052918<br>
-                 7.9375158750317505<br> 
-                 4.6302175937685215<br>    
-                 2.6458386250105836<br>    
-                 1.5875031750063502<br>    
-                 0.92604351875370428<br>    
-                 0.52916772500211673<br>    
-                 0.31750063500127002<br>    
-                 0.18520870375074083<br>    
-                 0.11112522225044451<br>    
-                 0.066145965625264591<br>    
+                 7.9375158750317505<br>
+                 4.6302175937685215<br>
+                 2.6458386250105836<br>
+                 1.5875031750063502<br>
+                 0.92604351875370428<br>
+                 0.52916772500211673<br>
+                 0.31750063500127002<br>
+                 0.18520870375074083<br>
+                 0.11112522225044451<br>
+                 0.066145965625264591<br>
 
 </td>
     </tr>
@@ -668,7 +667,7 @@ property value domain</p>
      <td>-28567784.109255, 32567784.109255</td>
      <td>256/256</td>
      <td>-28567784.109254867, -28567784.109254755, 32567784.109255023, 32567784.10925506</td>
-     <td>         
+     <td>
                   0<br>
                   1<br>
                   2<br>
@@ -708,7 +707,7 @@ property value domain</p>
                   3.64396382688807<br>
                   1.82198191331174<br>
                   0.910990956788164<br>
-                  0.45549547826179<br>    
+                  0.45549547826179<br>
 
 </td>
     </tr>
@@ -721,7 +720,7 @@ property value domain</p>
      <td>LatLng(90,-180)</td>
      <td>256/256</td>
      <td>LatLng(-90,-180), LatLng(90,180)</td>
-     <td>         
+     <td>
                   0<br>
                   1<br>
                   2<br>
@@ -762,21 +761,21 @@ property value domain</p>
     </tr>
    </tbody>
 </table>
-        <p>* All coordinate reference systems' coordinate pairs, where not explicitly marked up or identified by axis 
-		(for example, in the <code>coordinates</code> element) are defined by this specification to be in 
-		"horizontal axis followed by vertical axis" order. 
-		Where axes order is defined differently by external definition, 
+        <p>* All coordinate reference systems' coordinate pairs, where not explicitly marked up or identified by axis
+		(for example, in the <code>coordinates</code> element) are defined by this specification to be in
+		"horizontal axis followed by vertical axis" order.
+		Where axes order is defined differently by external definition,
 		this specification MUST be taken to be correct <strong>for MapML documents</strong>.</p>
 
         <h5 id="OSMTILE">OSMTILE</h5>
         <p>This specification defines the string "OSMTILE" to be the identifier of a tiled coordinate reference system projected (in the Web Mercator system) and scaled
-          into 19 zoom levels (0-18) at defined resolutions.  
+          into 19 zoom levels (0-18) at defined resolutions.
           The OSMTILE coordinate reference system has become a de facto interoperable standard for 'slippy' Web maps.
           The OSMTILE coordinate reference system is suitable for small scale mapping of the Earth, exclusive of north and south polar latitudes, where distortion is extreme.
         </p>
-        <p>Some of the major defining characteristics of the OSMTILE coordinate reference system include the fact that a large portion of the surface of the earth is represented by a 
-          single 256px by 256px tile (image) at zoom level 0, with successive zoom levels' tiles dividing the area represented by the parent tile into four equal quadrants, 
-          and 'nesting' perfectly within the parent tile such that each successive level of tiles contains 2<sup>zoom</sup> individual tiles. The geo-registration of tiles at all 
+        <p>Some of the major defining characteristics of the OSMTILE coordinate reference system include the fact that a large portion of the surface of the earth is represented by a
+          single 256px by 256px tile (image) at zoom level 0, with successive zoom levels' tiles dividing the area represented by the parent tile into four equal quadrants,
+          and 'nesting' perfectly within the parent tile such that each successive level of tiles contains 2<sup>zoom</sup> individual tiles. The geo-registration of tiles at all
           zoom levels is defined by the coordinate system definition, and they can thus be 'mashed up' with other spatial data in a defined manner.</p>
         <h5 id="CBMTILE">CBMTILE</h5>
         <p>
@@ -802,8 +801,8 @@ property value domain</p>
         <p>Map projections distort the surface of the earth in ways which suit the objectives of the projection definition. As a result of that distortion, the scale and the resolution of maps in that projection vary as a function of location. The resolutions specified by this document are only valid in defined locations. For example, in WGS84 and OSMTILE the defined resolutions are valid only along the equator. "Zoom" levels are integer values corresponding to the index of the resolution value defined above, and represent numeric proxy for a scale, at the defined location(s). For example, the OSMTILE TCRS, being based internally on the Spherical Web Mercator projection (EPSG::3857), allows us to reasonably portray a large portion of the Earth's surface, requiring relatively simple and fast math to convert to and from WGS84. Additionally, it enables the simple tiling system that has become a <i>de facto</i> standard. As such, it was deemed to have appropriate properties for a globally useful projection on the Web.</p>
         <p>Map documents encoded in MapML have a defined scale, indirectly identified by zoom level and extent. Thus, two MapML documents in the same TCRS and zoom level should be interoperable to the degree that they can be automatically and visually related. The zoom level of a MapML document is often identified as the value of the <code>value</code> attribute of the <code>input[@type=zoom]</code>. In any case, the zoom level of any MapML document SHOULD be present in document metadata as a <code>meta</code> element e.g. &lt;meta name="zoom" content="0"/&gt;.  In the case where a MapML document contains an <code>extent</code> element, an <code>input@type=zoom</code> MUST be present which controls how the zoom is transmitted from client to server. Where that input has a non-empty <code>input@value</code> attribute, in case of discrepancy between  the <code>meta[@name=zoom]/@content</code> and the <code>input[@type=zoom]/@value</code>, the latter zoom value SHALL be taken to be correct, EXCEPT in the case where there may exist more than one <code>input[@type=zoom]</code> and their <code>value</code> attributes do not agree, in which case the value of <code>meta[@name=zoom]/@content</code> shall be taken to be correct.</p>
         <h4 id="extent-semantics">4.1.5 Extents</h4>
-        <p>A MapML document is a representation of a defined portion of a two dimensional map area. In MapML, this is called an 'extent' (see below), the dimensions of which can be described by the bounding axis minimum and maximum values of the specified TCRS, or in one of its associated coordinate reference systems (PCRS,GCRS,Tilematrix,etc.). 
-          The bounds of an extent SHOULD be specified in a MapML document, by the use of coordinates and/or coordinate axes whose coordinate reference system is identified or implied by the <code>extent/@units</code> value. If no <code>extent/@units</code> element or attribute is present, the <code>meta[@name=tcrs]</code> element MAY describe or identify the TCRS of the MapML document. 
+        <p>A MapML document is a representation of a defined portion of a two dimensional map area. In MapML, this is called an 'extent' (see below), the dimensions of which can be described by the bounding axis minimum and maximum values of the specified TCRS, or in one of its associated coordinate reference systems (PCRS,GCRS,Tilematrix,etc.).
+          The bounds of an extent SHOULD be specified in a MapML document, by the use of coordinates and/or coordinate axes whose coordinate reference system is identified or implied by the <code>extent/@units</code> value. If no <code>extent/@units</code> element or attribute is present, the <code>meta[@name=tcrs]</code> element MAY describe or identify the TCRS of the MapML document.
           The <code>extent/@units</code> value SHALL be taken to be the authoritative declaration of TCRS for a MapML document.</p>
         <h4 id="fragments">4.1.6 Fragment identifiers</h4>
         <p>TBD</p>
@@ -909,7 +908,7 @@ property value domain</p>
           <dd><code>href</code> — Address of the hyperlink</dd>
           <dd><code>tref</code> — URL Template</dd>
           <dd><code>rel</code> — Relationship between the document containing the element and the destination resource</dd>
-          <dd><code>projection</code> — The <a href="#projections">TCRS</a> of the linked resource.</dd>
+          <dd><code>projection</code> — The <a href="#tiled-coordinate-reference-systems-table">TCRS</a> of the linked resource.</dd>
           <dd><code>hreflang</code> — Language of the linked resource</dd>
           <dd><code>type</code> — Hint for the type of the referenced resource</dd>
           <dd><code>title</code> — Title of the link</dd>
@@ -931,22 +930,22 @@ property value domain</p>
         <p>The destination of the link(s) is given by the <dfn id="attr-link-href"><code>href</code></dfn> attribute, which must be present and must contain a valid non-empty URL potentially surrounded by spaces. <span class="impl">If the <code><a href="#attr-link-href">href</a></code> attribute is absent, then the element does not define a link.</span></p>
         <p>A <code><a href="#the-link-element">link</a></code> element must have a <code><a href="#attr-link-rel">rel</a></code> attribute. If the <code>rel</code> attribute is absent, then the element does not define a link.</p>
         <p>The types of link are given by the value of the <dfn id="attr-link-rel"><code>rel</code></dfn> attribute, which generally has a value that is a single token, except in the case of the link@rel='self style' value described below. The allowed keywords and their meanings are defined below. If the <code>rel</code> attribute is absent, has no keywords, or if none of the keywords used are allowed according to the definitions in this specification, then the element does not create any links.</p>
-        <p>The <dfn id="attr-link-projection"><code>projection</code></dfn> attribute value identifies the TCRS of the linked resource, with a value from the defined set of <a href="#projections">TCRS identifiers</a>. When <code>rel=alternate</code> is used together with the <code>projection</code> attribute, clients may be able to perform agent-driven content negotiation to provide a better user experience.  For example, if an HTML author mistakenly enters the URL of an OSMTILE resource in their HTML <code>layer@src</code> attribute, but the <code>map</code> in which the layer takes part is declared to be <code>CBMTILE</code>, the MapML author can ease the potential for resultant confusion by providing appropriate <code>rel=alternate</code> links to equivalent MapML resources in other projections.</p>
+        <p>The <dfn id="attr-link-projection"><code>projection</code></dfn> attribute value identifies the TCRS of the linked resource, with a value from the defined set of <a href="#tiled-coordinate-reference-systems-table">TCRS identifiers</a>. When <code>rel=alternate</code> is used together with the <code>projection</code> attribute, clients may be able to perform agent-driven content negotiation to provide a better user experience.  For example, if an HTML author mistakenly enters the URL of an OSMTILE resource in their HTML <code>layer@src</code> attribute, but the <code>map</code> in which the layer takes part is declared to be <code>CBMTILE</code>, the MapML author can ease the potential for resultant confusion by providing appropriate <code>rel=alternate</code> links to equivalent MapML resources in other projections.</p>
         <p>The <code>link/@title</code> value can be used in conjunction with <code>link[@rel=license]</code> as a string description of the link to the terms under which the MapML content is made available, while the <code>link/@href</code> value is used to link to an HTML document of the license terms. Note that there may be more than a single contributor to the information presented in a single extent, and it is therefore possible to have several licenses terms for a single extent, each of which will have its own <code>&lt;link&gt;</code> element in a single MapML document.</p>
-        
+
         <p>The <code>link@rel='self style'</code> rel value can be used to designate one of a set of alternative named style links as being the style of the current document.  As such, the value of the <code>link@title</code> attribute will be used by the user agent to label the current style from among the list of alternate styles.</p>
-        
+
         <p>The <code>link[@tref]</code> element represents a URL template for a resource (e.g. tiles) which can be used by the client make requests for resources
           to fill its extent at zoom levels and bounds indicated by sibling <code>input[/@type=location]</code> elements' <code>min</code> and <code>max</code> attributes, or
           to (partially) identify URL targets suitable to enable query of server resources. The <code>rel</code> attribute contains a keyword string which
           identifies the role of the resource(s) for which the <code>tref</code> attribute value represents a URL template, which may contain zero or
           more <code>input/@name</code> variable references. Such variable references must be a case-insensitive match of sibling <code>input</code> elements' <code>name</code>
         attribute.</p>
-        <p>Use of the <code>link</code> element with the <code>rel</code> attribute in the "tile" or "image" state is an alternative to extent (form) submission 
-          to the <code>extent@action</code> URL, in that the client is responsible to calculate what tiles must be requested to cover its extent ("tile" state), or how  
+        <p>Use of the <code>link</code> element with the <code>rel</code> attribute in the "tile" or "image" state is an alternative to extent (form) submission
+          to the <code>extent@action</code> URL, in that the client is responsible to calculate what tiles must be requested to cover its extent ("tile" state), or how
         paint an image to cover the map extent ("image" state).</p>
         <p>The content represented by <code>link[@tref]</code> elements should be painted in document order of the appearance of the <code>link[@tref]</code> elements.</p>
-        
+
         <table id="rel-values">
           <caption><h2><code>@rel</code> values</h2></caption>
           <thead>
@@ -1086,7 +1085,7 @@ property value domain</p>
           <dd>If no <code>action</code> attribute exists: A set of multiple <code>input</code> and one or more <code>link</code> elements with
             their <code>rel</code> attribute in either the "tile", "image" or "features" state, and zero or one <code>link</code> element with its
               <code>rel</code> attribute in the "query" state.</dd>
-          
+
           <dt>Content attributes:</dt>
           <dd><code>action</code> - URL to use for form (extent) submission</dd>
           <dd><code>enctype</code> - Extent form data set encoding type to use for extent form submission</dd>
@@ -1111,11 +1110,11 @@ property value domain</p>
           </dd>        </dl>
         <p>The <code>extent</code> element represents a collection of extent-associated elements, some of which can represent
           editable values that can be submitted to a server for processing.  When no extent is specified by a request, that is, the zoom and
-          extent maxima (xmin, ymin, xmax, ymax) are not specified, 
+          extent maxima (xmin, ymin, xmax, ymax) are not specified,
           the <code>extent</code> element must represent the overall extent of the entire map resource that is available.</p>
-        <p>The <code>action</code>, <code>enctype</code>, and <code>method</code> 
+        <p>The <code>action</code>, <code>enctype</code>, and <code>method</code>
            attributes are attributes for form submission.  The <code>units</code> attribute is informative.</p>
-        
+
         <dl class="domintro">
           <dt><var>extent</var> . <code>elements</code></dt>
           <dd>
@@ -1186,11 +1185,11 @@ property value domain</p>
 };</pre>
             </dd>
         </dl>
-        <p>The <code>input</code> element represents a typed data field, associated with a map extent form, to allow the user agent to request documents 
-          for a specific map area.  There must be at least four input element children of the extent element, including only one of each of the following 
+        <p>The <code>input</code> element represents a typed data field, associated with a map extent form, to allow the user agent to request documents
+          for a specific map area.  There must be at least four input element children of the extent element, including only one of each of the following
           <code>type</code> inputs: <code>xmin</code>, <code>ymin</code>,<code>xmax</code> and <code>ymax</code>.</p>
         <p>The <code>type</code> attribute controls the data type (and associated control) of the element. It is an enumerated attribute. The following
-          table lists the keywords and states for the attribute — the keywords in the left column map to the states in the cell in the second column 
+          table lists the keywords and states for the attribute — the keywords in the left column map to the states in the cell in the second column
           on the same row as the keyword.</p>
         <table id="attr-input-type-keywords">
           <caption><h2><code>input</code>@<code>type</code> values</h2></caption>
@@ -1265,13 +1264,13 @@ property value domain</p>
             </tr>
           </tbody>
         </table>
-        <p>When the <code>type</code> attribute is in the "location" state, the <code>input</code> may have three associated attributes: 
-          <code>units</code>, <code>axis</code> and <code>position</code>. <code>units</code> identifies the associated coordinate system 
-          that the <code>location</code> is referred to.  Each Tiled Coordinate Reference System (TCRS) instance may have one or more associated 
+        <p>When the <code>type</code> attribute is in the "location" state, the <code>input</code> may have three associated attributes:
+          <code>units</code>, <code>axis</code> and <code>position</code>. <code>units</code> identifies the associated coordinate system
+          that the <code>location</code> is referred to.  Each Tiled Coordinate Reference System (TCRS) instance may have one or more associated
           coordinate systems that are coordinate reference system by virtue of their defined association to the TCRS.
           For instance, the OSMTILE TCRS is associated to the underlying coordinate reference system known commonly as Web Mercator,
           by virtue of an origin location, defined in meters in the EPSG:3857 CRS plus a set of zoom level resolutions, and a transformation.</p>
-        
+
         <table id="attr-input-units-keywords">
           <caption><h2><code>input</code>@<code>units</code> values</h2></caption>
           <thead>
@@ -1315,12 +1314,12 @@ property value domain</p>
             </tr>
           </tbody>
         </table>
-        
-        <p>The meaning of the <code>position</code> attribute value (keyword) depends upon the presence and value of the associated <code>rel</code> attribute.  
+
+        <p>The meaning of the <code>position</code> attribute value (keyword) depends upon the presence and value of the associated <code>rel</code> attribute.
           When the <code>rel</code> attribute is not present or has the value <code>image</code>,
-          the <code>position</code> attribute keyword value describes the input location relative to the ancestor <code>extent</code>. When <code>rel=tile</code> 
+          the <code>position</code> attribute keyword value describes the input location relative to the ancestor <code>extent</code>. When <code>rel=tile</code>
           (only applicable when the <code>units</code> value equals <code>tilematrix</code>), the
-          <code>position</code> attribute values describe the input location relative to the tile at the location in question.  
+          <code>position</code> attribute values describe the input location relative to the tile at the location in question.
         </p>
 
         <table id="attr-input-position-keywords">
@@ -1507,7 +1506,7 @@ property value domain</p>
 };</pre>
             </dd>
         </dl>
-        
+
         <h5 id="the-tile-element">4.2.15 The <code>&lt;tile&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
@@ -1533,13 +1532,13 @@ property value domain</p>
 };</pre>
             </dd>
         </dl>
-        <p>The <code>tile</code> element is a type of feature which is associated with a tiled coordinate reference system that subdivides or 'tiles' 2D space in a recursively 
-          repeating grid pattern, where the origin of both the tiled coordinate reference system and the grid at all zoom levels is defined in coordinates of an underlying 
+        <p>The <code>tile</code> element is a type of feature which is associated with a tiled coordinate reference system that subdivides or 'tiles' 2D space in a recursively
+          repeating grid pattern, where the origin of both the tiled coordinate reference system and the grid at all zoom levels is defined in coordinates of an underlying
           projected coordinate reference system.</p>
-        <p>A defining characteristic of tiled coordinate reference systems is that they rely on integer grid row/col coordinates and zoom values.  The use of these values in 
+        <p>A defining characteristic of tiled coordinate reference systems is that they rely on integer grid row/col coordinates and zoom values.  The use of these values in
           URLs can yield highly cacheable resources, which can lead to high-performance map services.</p>
         <p>The "zoom" value is a global integer property of a MapML document whose coordinate system is defined by this specification.   All MapML documents have a defined zoom value.
-          The "zoom" value is equal to the <code>zoom@value</code> child of the <code>extent</code> element.  Hence the zoom value is not a direct 
+          The "zoom" value is equal to the <code>zoom@value</code> child of the <code>extent</code> element.  Hence the zoom value is not a direct
         attribute of the <code>tile</code> element.</p>
         <p>The main example of such a tiled coordinate reference system is <a href="#OSMTILE"><code>OSMTILE</code></a>, although others exist.</p>
         <h5 id="the-image-element">4.2.16 The <code>&lt;image&gt;</code> element</h5>
@@ -1552,15 +1551,15 @@ property value domain</p>
           <dd>Empty.</dd>
           <dt>Content attributes:</dt>
           <dd><code>src</code> — Address of the hyperlink</dd>
-          <dd><code>type</code> — A hint as to the MIME type of the resource</dd> 
+          <dd><code>type</code> — A hint as to the MIME type of the resource</dd>
           <dt>DOM interface:</dt>
             <dd>
               <pre class="idl">interface <dfn id="mapmlimageelement">MAPMLImageElement</dfn> : MAPMLElement {
- 
+
 };</pre>
             </dd>
         </dl>
-        
+
         <h5 id="the-feature-element">4.2.17 The <code>&lt;feature&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
@@ -1578,7 +1577,7 @@ property value domain</p>
 };</pre>
             </dd>
         </dl>
-          
+
         <p>A <code>feature</code> element represents a geographic feature.  A <code>feature</code> element has an optional <a href="#the-properties-element"><code>properties</code></a> child element, and a required child <a href="#the-geometry-element"><code>geometry</code></a> element. </p>
         <h5 id="the-properties-element">4.2.18 The <code>&lt;properties&gt;</code> element</h5>
         <dl class="element">
@@ -1593,14 +1592,14 @@ property value domain</p>
           <dt>DOM interface:</dt>
             <dd>
               <pre class="idl">interface <dfn id="mapmlpropertieselement">MAPMLPropertiesElement</dfn> : MAPMLElement {
- 
+
 };</pre>
             </dd>
         </dl>
-        
-        <p>A <code>feature</code> element can have zero or one <code>properties</code> element, which contains zero or more unknown elements, whose content is text.  Note: it would 
+
+        <p>A <code>feature</code> element can have zero or one <code>properties</code> element, which contains zero or more unknown elements, whose content is text.  Note: it would
         be better to a content model of property child elements whose values could be HTML. TODO.</p>
-        
+
         <h5 id="the-geometry-element">4.2.19 The <code>&lt;geometry&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
@@ -1618,10 +1617,10 @@ property value domain</p>
 };</pre>
             </dd>
         </dl>
-        
-        <p>A <code>geometry</code> element has <a href="#the-geometry-element">one child element</a>, which can be a <code>point</code>, 
+
+        <p>A <code>geometry</code> element has <a href="#the-geometry-element">one child element</a>, which can be a <code>point</code>,
         <code>linestring</code>, <code>polygon</code>, <code>multipoint</code>, <code>multilinestring</code>, <code>multipolygon</code>, or <code>geometrycollection</code>.</p>
-        
+
         <table id="geometry-values">
           <thead>
             <tr>
@@ -1645,10 +1644,10 @@ property value domain</p>
               <td><code>polygon</code></td>
               <td> One or more <a href="#the-coordinates-element"><code>coordinates</code></a> elements, each containing three or more positions.</td>
               <td> <p>Axis order - x followed by y, separated by whitespace</p>
-                <p>The first and last positions in every child <code>coordinates</code> element are equal / at the same position. </p><p>The first 
-                  <a href="#the-coordinates-element"><code>coordinates</code></a> element represents the outside of the polygon, and 
+                <p>The first and last positions in every child <code>coordinates</code> element are equal / at the same position. </p><p>The first
+                  <a href="#the-coordinates-element"><code>coordinates</code></a> element represents the outside of the polygon, and
                   subsequent <code>coordinates</code> elements represent holes.</p>
-                <p>The "winding order" of positions in child <code>coordinates</code> should depend on the axis orientation of the 
+                <p>The "winding order" of positions in child <code>coordinates</code> should depend on the axis orientation of the
                 coordinate reference system in use, and whether the <code>coordinates</code> element represents the exterior of a polygon, or
                   a hole.  For WGS84, the exterior should be counterclockwise and holes should be clockwise.</p>
               </td>
@@ -1672,7 +1671,7 @@ property value domain</p>
             </tr>
             <tr>
               <td><code>geometrycollection</code></td>
-              <td> One or more <code><code>point</code>, 
+              <td> One or more <code><code>point</code>,
                 <code>linestring</code>, <code>polygon</code>, <code>multipoint</code>, <code>multilinestring</code>, <code>multipolygon</code></code> elements</td>
               <td>For each member geometry, the same non-schema constraints apply as to the unique geometry type above.</td>
             </tr>
@@ -1691,26 +1690,26 @@ property value domain</p>
           <dt>DOM interface:</dt>
             <dd>
               <pre class="idl">interface <dfn id="mapmlcoordinateselement">MAPMLCoordinatesElement</dfn> : MAPMLElement {
- 
+
 };</pre>
             </dd>
         </dl>
-        
+
           <p id="position">In MapML, features have positions in 2D space.  A position is sometimes marked up with coordinate data explicitly identified by axis, for example in the
-            <a href="#the-tile-element"><code>tile</code></a> element, the attributes <code>row</code> and <code>col</code> are used.  Equally common is coordinate data which 
-            omits explicit markup of positions' axes, for example in the <code>coordinates</code> element.  
+            <a href="#the-tile-element"><code>tile</code></a> element, the attributes <code>row</code> and <code>col</code> are used.  Equally common is coordinate data which
+            omits explicit markup of positions' axes, for example in the <code>coordinates</code> element.
             In the <code>coordinates</code> element, positions must be encoded in <code>x</code>,<code>y</code> order, separated by whitespace.  The <code>coordinates</code> element
-          is used to model the content of various geometries in MapML.  Its content and the meaning of its content it depends on what geometry value it is used in.  The 
+          is used to model the content of various geometries in MapML.  Its content and the meaning of its content it depends on what geometry value it is used in.  The
           context and content of the <code>coordinates</code> element is described in the <a href="#the-geometry-element"><code>geometry</code> element table</a>.  A RelaxNG
-            schema for MapML is provided below, however schema validation is not able to fully validate the context and content of the <code>coordinates</code> element.  Such 
+            schema for MapML is provided below, however schema validation is not able to fully validate the context and content of the <code>coordinates</code> element.  Such
           requirements are listed under the column "Non-schema constraints"</p>
         <p>The positions in the <code>coordinates</code> element define the location of the feature.  For <code>geometry</code> elements whose value is ,
           <code>linestring</code>, <code>multipoint</code> or <code>multilinestring</code>, this specification neither assigns nor requires special ordering or other constraints, apart from
-          the axis order described above.  For <code>geometry></code> elements whose value is a <code>polygon</code> or <code>multipolygon</code> element,  the descendant 
+          the axis order described above.  For <code>geometry></code> elements whose value is a <code>polygon</code> or <code>multipolygon</code> element,  the descendant
           <code>coordinates</code> elements must follow additional constraints.</p>
         <h5 id="styling">4.3 Styling</h5>
         <p>MapML documents can be styled with Cascading Style Sheets.</p>
-        
+
       </div>
 
 
@@ -1719,10 +1718,10 @@ property value domain</p>
 	<h2 id="examples">5. Examples</h2>
 	<p>This section is informative.</p>
         <img alt="Origins, orientations and axis names of tcrs, pcrs, gcrs, tilematrix, map, and tile coordinate systems" src="images/figure-1.png" style="width: 100%">
-	
+
   <p>Prototype MapML services are available, representing <a href="https://geogratis.gc.ca/mapml/en/osmtile/cbmt/">tiled</a> and <a href="https://geogratis.gc.ca/api/beta/vectors/canvec/50k/features/?entry-type=full&xmin=-75.6088650226593&ymin=45.39715420088217&xmax=-75.59665560722351&ymax=45.401975540403974&zoom=17&projection=WGS84&alt=xml">vector</a> data.</p>
-  
-	
+
+
 </div>
 
 
@@ -1732,7 +1731,7 @@ property value domain</p>
 	<p>This section is informative.</p>
 
 	<p><em>TODO Provide security considerations for the implementation and authoring of this technology here.</em></p>
-	
+
 </div>
 
 
@@ -1742,27 +1741,27 @@ property value domain</p>
 	<p>This section is normative.</p>
 
 	<p><em>TODO Provide a glossary of terms and datatypes used in this specification.</em></p>
-	
+
 </div>
 
 
 
 <div id="sec-schema">
 	<h2 id="schema">8. Schema</h2>
-	
+
 	<p>A schema is useful for machine processing of documents, be it document creation, transformation, or validation. </p>
 
 	<h2 id="rng">8.1. RelaxNG Schema</h2>
 
 	<p>Map Markup Language provides a schema written in <a href="https://web.archive.org/web/20120619140335/http://www1.y12.doe.gov/capabilities/sgml/sc34/document/0362_files/relaxng-is.pdf">RelaxNG compact syntax</a> [<a href="#ref-RNG">RelaxNG</a>], a namespace-aware schema language that uses the datatypes from <a href="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/">XML Schema Part 2</a> [<a href="#ref-Schema2">Schema2</a>]. </p>
- 
+
  <p>Further map document validation can be done with Schematron. Please see the MapML schema directory for further information.</p>
 
 	<p>Unlike a DTD, the schema used for validation is not hardcoded into the document instance. There is no equivalent to the DOCTYPE declaration. Simply point your editor or other validation tools to the URL of the schema (or your local cached copy, as you prefer).</p>
 
   <p><a href="https://github.com/Maps4HTML/MapML/tree/gh-pages/schema">MapML schema (under development).</a>
 	</p>
-	
+
 </div>
 
 
@@ -1802,7 +1801,7 @@ property value domain</p>
       <br />The <a href="https://www.w3.org/TR/xmlschema-2/">latest edition of XML Schema Part 2</a> is available at
       https://www.w3.org/TR/xmlschema-2/.
     </dd>
-  
+
     <dt id="ref-WebIDL"><strong class="informref">[WebIDL]</strong></dt>
     <dd>
       <cite class="w3cwd"><a href="https://www.w3.org/TR/2008/WD-WebIDL-20081219/">WebIDL</a></cite>,
@@ -1828,12 +1827,12 @@ property value domain</p>
 	  <dt id="ref-GeoJSON"><strong class="informref">[GeoJSON]</strong></dt>
 	  <dd><cite><a href="https://geojson.org/">The GeoJSON Format Specification</a></cite></dd>
 	  <dt id="ref-OSMTILE"><strong class="informref">[OSMTILE]</strong></dt>
-	  <dd><cite><a href="https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames">Open Street Map Slippy Maps Tilenames Wiki</a></cite></dd>
+	  <dd><cite><a href="https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames">OpenStreetMap Slippy Maps Tilenames Wiki</a></cite></dd>
 	  <dt id="ref-EPSG-REGISTRY"><strong class="informref">[EPSG-REGISTRY]</strong></dt>
 	  <dd><cite><a href="https://www.epsg-registry.org/">EPSG Geodetic Parameter Registry</a></cite></dd>
-	  
+
 	</dl>
-	
+
 </div>
 </div>
 </body>
