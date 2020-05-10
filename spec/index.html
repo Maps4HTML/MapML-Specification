@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Map Markup Language</title>
+ <title>Map Markup Language</title>
 
   <!-- <link class="required" rel="stylesheet" href="w3c-unofficial.css" type="text/css"/> -->
-  <link class="required" rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/w3c-unofficial.css" type="text/css">
-  <link rel="stylesheet" type="text/css" href="https://www.w3.org/StyleSheets/TR/w3c-tr.css" >
+  <link class="required" rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/w3c-unofficial.css">
+  <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/w3c-tr.css">
   <style>
         .content { background-image: none; }
         h5 { position: relative; z-index: 3; }
@@ -99,7 +99,7 @@ function googleTranslateElementInit() {
 
 </div>
 
-<hr title="Separator from Header">
+<hr>
 
 <h2 id="abstract">Abstract</h2>
 
@@ -141,7 +141,7 @@ function googleTranslateElementInit() {
   <p>MapML has been <a href="#sec-examples">implemented</a> using custom elements by Natural Resources Canada, which participates in the <a href="https://www.w3.org/community/maps4html/">W3C Maps for HTML Community Group</a>, as well as the <a href="https://opengeospatial.org/">Open Geospatial Consortium</a>.
     It is hoped that other organizations will also implement MapML and contribute their experience back to the community via the Community Group and <a href="https://github.com/Maps4HTML/MapML">Github</a>.</p>
 
-  <details>
+<details>
     <summary>
       <h3>Changes Since the Previous Draft</h3>
     </summary>
@@ -174,6 +174,7 @@ function googleTranslateElementInit() {
     <p>Fix <a href="https://github.com/Maps4HTML/MapML/issues/44">issue</a> with inconsistency with GeoJSON multipoint coordinate encoding</p>
     <p>Fix the order of parameters to the LatLng(lat,lng) pseudofunction in the definition of WGS84</p>
   </details>
+
 
   <h3>Level of Endorsement by the Community</h3>
 
@@ -911,7 +912,7 @@ function googleTranslateElementInit() {
           <dd><code>href</code> — Address of the hyperlink</dd>
           <dd><code>tref</code> — URL Template</dd>
           <dd><code>rel</code> — Relationship between the document containing the element and the destination resource</dd>
-          <dd><code>projection</code> — The <a href="#projections">TCRS</a> of the linked resource.</dd>
+          <dd><code>projection</code> — The <a href="#tiled-coordinate-reference-systems-table">TCRS</a> of the linked resource.</dd>
           <dd><code>hreflang</code> — Language of the linked resource</dd>
           <dd><code>type</code> — Hint for the type of the referenced resource</dd>
           <dd><code>title</code> — Title of the link</dd>
@@ -933,7 +934,7 @@ function googleTranslateElementInit() {
         <p>The destination of the link(s) is given by the <dfn id="attr-link-href"><code>href</code></dfn> attribute, which must be present and must contain a valid non-empty URL potentially surrounded by spaces. <span class="impl">If the <code><a href="#attr-link-href">href</a></code> attribute is absent, then the element does not define a link.</span></p>
         <p>A <code><a href="#the-link-element">link</a></code> element must have a <code><a href="#attr-link-rel">rel</a></code> attribute. If the <code>rel</code> attribute is absent, then the element does not define a link.</p>
         <p>The types of link are given by the value of the <dfn id="attr-link-rel"><code>rel</code></dfn> attribute, which generally has a value that is a single token, except in the case of the link@rel='self style' value described below. The allowed keywords and their meanings are defined below. If the <code>rel</code> attribute is absent, has no keywords, or if none of the keywords used are allowed according to the definitions in this specification, then the element does not create any links.</p>
-        <p>The <dfn id="attr-link-projection"><code>projection</code></dfn> attribute value identifies the TCRS of the linked resource, with a value from the defined set of <a href="#projections">TCRS identifiers</a>. When <code>rel=alternate</code> is used together with the <code>projection</code> attribute, clients may be able to perform agent-driven content negotiation to provide a better user experience.  For example, if an HTML author mistakenly enters the URL of an OSMTILE resource in their HTML <code>layer@src</code> attribute, but the <code>map</code> in which the layer takes part is declared to be <code>CBMTILE</code>, the MapML author can ease the potential for resultant confusion by providing appropriate <code>rel=alternate</code> links to equivalent MapML resources in other projections.</p>
+        <p>The <dfn id="attr-link-projection"><code>projection</code></dfn> attribute value identifies the TCRS of the linked resource, with a value from the defined set of <a href="#tiled-coordinate-reference-systems-table">TCRS identifiers</a>. When <code>rel=alternate</code> is used together with the <code>projection</code> attribute, clients may be able to perform agent-driven content negotiation to provide a better user experience.  For example, if an HTML author mistakenly enters the URL of an OSMTILE resource in their HTML <code>layer@src</code> attribute, but the <code>map</code> in which the layer takes part is declared to be <code>CBMTILE</code>, the MapML author can ease the potential for resultant confusion by providing appropriate <code>rel=alternate</code> links to equivalent MapML resources in other projections.</p>
         <p>The <code>link/@title</code> value can be used in conjunction with <code>link[@rel=license]</code> as a string description of the link to the terms under which the MapML content is made available, while the <code>link/@href</code> value is used to link to an HTML document of the license terms. Note that there may be more than a single contributor to the information presented in a single extent, and it is therefore possible to have several licenses terms for a single extent, each of which will have its own <code>&lt;link&gt;</code> element in a single MapML document.</p>
 
         <p>The <code>link@rel='self style'</code> rel value can be used to designate one of a set of alternative named style links as being the style of the current document.  As such, the value of the <code>link@title</code> attribute will be used by the user agent to label the current style from among the list of alternate styles.</p>
@@ -1830,7 +1831,7 @@ function googleTranslateElementInit() {
 	  <dt id="ref-GeoJSON"><strong class="informref">[GeoJSON]</strong></dt>
 	  <dd><cite><a href="https://geojson.org/">The GeoJSON Format Specification</a></cite></dd>
 	  <dt id="ref-OSMTILE"><strong class="informref">[OSMTILE]</strong></dt>
-	  <dd><cite><a href="https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames">Open Street Map Slippy Maps Tilenames Wiki</a></cite></dd>
+	  <dd><cite><a href="https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames">OpenStreetMap Slippy Maps Tilenames Wiki</a></cite></dd>
 	  <dt id="ref-EPSG-REGISTRY"><strong class="informref">[EPSG-REGISTRY]</strong></dt>
 	  <dd><cite><a href="https://www.epsg-registry.org/">EPSG Geodetic Parameter Registry</a></cite></dd>
 
