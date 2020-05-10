@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Map Markup Language</title>
+ <title>Map Markup Language</title>
+
   <!-- <link class="required" rel="stylesheet" href="w3c-unofficial.css" type="text/css"/> -->
   <link class="required" rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/w3c-unofficial.css">
   <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/w3c-tr.css">
@@ -51,7 +52,7 @@ dl.domintro {padding: 0.5em 1em; border: none; background:#E9FBE9; border: 1px s
       @media screen { code { color: #D93B00; } code :link, code :visited { color: inherit; } }
   </style>
   <style>
-    *,::after,::before{box-sizing: inherit;}.element::before{box-sizing: initial;width: 0.95em;left: -1.18em;}html{box-sizing: border-box; overflow-wrap: break-word;}body{width: 100%; max-width: 50em; margin: 0 auto;line-height: 1.5;padding: 2rem 2.5em;}html, body{overflow-x: hidden;}table{overflow: auto; display: block;}th:first-child,td:first-child{border-left: 0;}th:last-child,td:last-child{border-right: 0;}.content img{width: 100%;max-width: 100%;height: auto;}.example{overflow-x: hidden;padding: 1em 0 0 0 !important;}.example > *,.example::before{padding-left: 1em !important;padding-right: 1em !important;}dd{margin-left: 0;}pre{overflow: auto;margin-left: initial;}dl.domintro::before{display: table; margin: -1em -0.5em .5em auto;}@media (max-width: 1024px){body{padding-right: 1em;}.toc{padding-left: .5rem;}#google_translate_element [id*="targetLanguage"]{display: block !important;}}pre.idl::before{position:initial;display:block;padding:.3em;width:2.25em;margin:0 .5em .5em 0;background-color:#F4F4FA;}
+    *,::after,::before{box-sizing: inherit;}.element::before{box-sizing: initial;width: 0.95em;left: -1.18em;}html{box-sizing: border-box; overflow-wrap: break-word;}body{width: 100%; max-width: 50em; margin: 0 auto;line-height: 1.5;padding: 2rem 2.5em;}html, body{overflow-x: hidden;}table{overflow: auto; display: block;}th:first-child,td:first-child{border-left: 0;}th:last-child,td:last-child{border-right: 0;}.content img{width: 100%;max-width: 100%;height: auto;}.example{overflow-x: hidden;padding: 1em 0 0 0 !important;}.example > *,.example::before{padding-left: 1em !important;padding-right: 1em !important;}dd{margin-left: 0;}pre{overflow: auto;margin-left: initial;}dl.domintro::before{display: table; margin: -1em -0.5em .5em auto;}@media (max-width: 1024px){body{padding-right: 1em;}.toc{padding-left: .5rem;}#google_translate_element [id*="targetLanguage"]{display: block !important;}}pre.idl::before{position:initial;display:block;padding:.3em;width:2.25em;margin:0 .5em .5em 0;background-color:#F4F4FA;}details{padding:.75rem 0}summary{cursor:pointer}summary h3{display:inline;vertical-align: middle}summary~*{padding-left:2rem}
   </style>
 </head>
 <body>
@@ -140,36 +141,39 @@ function googleTranslateElementInit() {
   <p>MapML has been <a href="#sec-examples">implemented</a> using custom elements by Natural Resources Canada, which participates in the <a href="https://www.w3.org/community/maps4html/">W3C Maps for HTML Community Group</a>, as well as the <a href="https://opengeospatial.org/">Open Geospatial Consortium</a>.
     It is hoped that other organizations will also implement MapML and contribute their experience back to the community via the Community Group and <a href="https://github.com/Maps4HTML/MapML">Github</a>.</p>
 
-  <h3>Changes Since the Previous Draft</h3>
-
-  <p>Update schema, such as it is (needs more than
-a schema language can provide e.g. schematron or something like HTML has)</p>
-  <p>Deprecate input@type= xmin,ymin,xmax,ymax,projection.</p>
-  <p>Remove input@type=search for now (not implemented, nor yet discussed).</p>
-  <p>Add input@units=gcrs keyword.</p>
-  <p>Extend input@type=position keyword list to be based on CSS object-position
-property value domain</p>
-  <p>Add input@axis= latitude,longitude keywords</p>
-  <p>Remove reference to link@rel=search, which is not supported.</p>
-  <p>Add Figure 1 in examples. Change URLs to example services.</p>
-  <p>Update Abstract, status, intent, implementation experience,feedback and Change sections</p>
-  <p>Rename link@tcrs to link@projection </p>
-  <p>Add link@rel=style link relation</p>
-  <p>Add select element</p>
-  <p>Add label element</p>
-  <p>Add features link relation</p>
-  <p>Add Google Translate widget</p>
-  <p>Update links to schema directory on github.</p>
-  <p>Add WICG link</p>
-  <p>Changes in input@units descriptions about WGS84</p>
-  <p>Added an equirectangular tiling schema for WGS84</p>
-  <p>Added a table of the different Coordinate System used</p>
-  <p>Better connecting TCRS table with input@units values</p>
-  <p>Align prose for allowed link@href context with schema.</p>
-  <p>Fix <a href="https://github.com/Maps4HTML/MapML/issues/43#issuecomment-507018476">issue</a> with description of multi-geometries as being 'two or more', replace with 'One or more'</p>
-  <p>Fix <a href="https://github.com/Maps4HTML/MapML/issues/43#issue-428889785">issue</a> with  CamelCase of geometry types, replace with lowercase</p>
-  <p>Fix <a href="https://github.com/Maps4HTML/MapML/issues/44">issue</a> with inconsistency with GeoJSON multipoint coordinate encoding</p>
-  <p>Fix the order of parameters to the LatLng(lat,lng) pseudofunction in the definition of WGS84</p>
+<details>
+    <summary>
+      <h3>Changes Since the Previous Draft</h3>
+    </summary>
+    <p>Update schema, such as it is (needs more than
+  a schema language can provide e.g. schematron or something like HTML has)</p>
+    <p>Deprecate input@type= xmin,ymin,xmax,ymax,projection.</p>
+    <p>Remove input@type=search for now (not implemented, nor yet discussed).</p>
+    <p>Add input@units=gcrs keyword.</p>
+    <p>Extend input@type=position keyword list to be based on CSS object-position
+  property value domain</p>
+    <p>Add input@axis= latitude,longitude keywords</p>
+    <p>Remove reference to link@rel=search, which is not supported.</p>
+    <p>Add Figure 1 in examples. Change URLs to example services.</p>
+    <p>Update Abstract, status, intent, implementation experience,feedback and Change sections</p>
+    <p>Rename link@tcrs to link@projection </p>
+    <p>Add link@rel=style link relation</p>
+    <p>Add select element</p>
+    <p>Add label element</p>
+    <p>Add features link relation</p>
+    <p>Add Google Translate widget</p>
+    <p>Update links to schema directory on github.</p>
+    <p>Add WICG link</p>
+    <p>Changes in input@units descriptions about WGS84</p>
+    <p>Added an equirectangular tiling schema for WGS84</p>
+    <p>Added a table of the different Coordinate System used</p>
+    <p>Better connecting TCRS table with input@units values</p>
+    <p>Align prose for allowed link@href context with schema.</p>
+    <p>Fix <a href="https://github.com/Maps4HTML/MapML/issues/43#issuecomment-507018476">issue</a> with description of multi-geometries as being 'two or more', replace with 'One or more'</p>
+    <p>Fix <a href="https://github.com/Maps4HTML/MapML/issues/43#issue-428889785">issue</a> with  CamelCase of geometry types, replace with lowercase</p>
+    <p>Fix <a href="https://github.com/Maps4HTML/MapML/issues/44">issue</a> with inconsistency with GeoJSON multipoint coordinate encoding</p>
+    <p>Fix the order of parameters to the LatLng(lat,lng) pseudofunction in the definition of WGS84</p>
+  </details>
 
 
   <h3>Level of Endorsement by the Community</h3>
