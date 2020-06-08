@@ -1,6 +1,6 @@
 # MapML [![Join the chat at https://gitter.im/Maps4HTML/MapML](https://badges.gitter.im/Maps4HTML/MapML.svg)](https://gitter.im/Maps4HTML/MapML?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[Map Markup Language](http://maps4html.github.io/MapML/spec/) is hypertext for Web maps, like HTML is hypertext for Web pages
+[Map Markup Language](https://maps4html.org/MapML/spec/) is hypertext for Web maps, like HTML is hypertext for Web pages. See the [MapML proposal](https://github.com/Maps4HTML/MapML-Proposal).
 
 ## Background
 
@@ -10,4 +10,4 @@ MapML aims to be a simple format which strictly relies on existing Web standards
 
 ## Maps4HTML Community Group
 
-MapML is being developed by the W3C [Maps For HTML Community Group](http://www.w3.org/community/maps4html/).  Membership in that group is encouraged, however you do not have to join to use the information found here.  However, if you wish to contribute, please join the Maps For HTML Community Group, and help us make the Web a map-friendly platform for everyone, everywhere!
+MapML is being developed by the W3C [Maps For HTML Community Group](https://www.w3.org/community/maps4html/).  Membership in that group is encouraged, however you do not have to join to use the information found here.  However, if you wish to contribute, please join the Maps For HTML Community Group, and help us make the Web a map-friendly platform for everyone, everywhere!
