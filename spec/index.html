@@ -283,15 +283,15 @@
           <dd><a href="https://github.com/Maps4HTML/MapML/">https://github.com/Maps4HTML/MapML/</a></dd>
 
           <dt>Latest version:</dt>
-          <dd><a href="https://maps4html.github.io/MapML/spec/">https://maps4html.github.io/MapML/spec/</a></dd>
+          <dd><a href="https://maps4html.org/MapML/spec/">https://maps4html.org/MapML/spec/</a></dd>
 
           <dt>Previous version:</dt>
           <dd><a href="https://github.com/Maps4HTML/MapML/">https://github.com/Maps4HTML/MapML/</a></dd>
 
           <dt>Editors:</dt>
           <dd><em>Peter Rushforth</em>, Natural Resources Canada</dd>
-          <dt>Authors:</dt>
-          <dd><em>Maps for HTML Community Group</em>.</dd>
+          <dt>Contributors:</dt>
+          <dd><em>Robert Linder, Joan Maso, Elf Pavlik</em>.</dd>
           <dt>Participate:</dt>
           <dd>
             <span><a href="https://github.com/maps4html/mapml/issues/new">File an issue</a> (<a href="https://github.com/maps4html/mapml/issues">open issues</a>)</span>
@@ -1524,7 +1524,7 @@
           <dd>
             <code>axis</code> - when <code>type</code> attribute is <code>location</code>, <a href="#attr-input-axis-keywords">enumerated keyword string</a> identifies the axis of the associated OR related coordinate system from the
             <code>units</code> attribute, for which an associated axis value will be returned. The <code>min</code> and <code>max</code> attribute values, if present, will be interpreted in the
-            <a href="#tiled-CRS">defined units of this axis</a>.
+            <a href="#tiled-coordinate-reference-systems-table">defined units of this axis</a>.
           </dd>
           <dd>
             <code>rel</code> - when <code>type</code> attribute is <code>location</code>, <a href="#rel-values"><code>tile</code> or <code>image</code> (the default if not specified)</a> identifies the relation of this location to either a
@@ -2016,10 +2016,8 @@
           </dd>
         </dl>
 
-        <p>
-          A <code>geometry</code> element has <a href="#the-geometry-element">one child element</a>, which can be a <code>point</code>, <code>linestring</code>, <code>polygon</code>, <code>multipoint</code>, <code>multilinestring</code>,
-          <code>multipolygon</code>, or <code>geometrycollection</code>.
-        </p>
+        <p>A <code>geometry</code> element has one child element, which can be a <code>point</code>,
+        <code>linestring</code>, <code>polygon</code>, <code>multipoint</code>, <code>multilinestring</code>, <code>multipolygon</code>, or <code>geometrycollection</code>.</p>
 
         <table id="geometry-values">
           <thead>
@@ -2030,21 +2028,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr id="the-point-element">
               <td><code>point</code></td>
               <td>
                 A <a href="#the-coordinates-element"><code>coordinates</code></a> element containing a single position
               </td>
               <td>Axis order - x followed by y, separated by whitespace</td>
             </tr>
-            <tr>
+            <tr id="the-linestring-element">
               <td><code>linestring</code></td>
               <td>
                 A <a href="#the-coordinates-element"><code>coordinates</code></a> element containing two or more positions
               </td>
               <td>Axis order - x followed by y, separated by whitespace</td>
             </tr>
-            <tr>
+            <tr id="the-polygon-element">
               <td><code>polygon</code></td>
               <td>
                 One or more <a href="#the-coordinates-element"><code>coordinates</code></a> elements, each containing three or more positions.
@@ -2061,21 +2059,21 @@
                 </p>
               </td>
             </tr>
-            <tr>
+            <tr id="the-multipoint-element">
               <td><code>multipoint</code></td>
               <td>
                 One <a href="#the-coordinates-element"><code>coordinates</code></a> element, containing one or more positions.
               </td>
               <td>Axis order - x followed by y, separated by whitespace</td>
             </tr>
-            <tr>
+            <tr id="the-multilinestring-element">
               <td><code>multilinestring</code></td>
               <td>
                 One or more <a href="#the-coordinates-element"><code>coordinates</code></a> elements, each containing two or more positions.
               </td>
               <td>Axis order - x followed by y, separated by whitespace</td>
             </tr>
-            <tr>
+            <tr id="the-multipolygon-element">
               <td><code>multipolygon</code></td>
               <td>
                 One or more <a href="#the-polygon-element"><code>polygon</code></a> elements
@@ -2085,11 +2083,11 @@
                 <p>For each member polygon, the same non-schema constraints apply to multipolygon descendant <code>coordinates</code> elements, as for polygon <code>coordinates</code> descendant elements.</p>
               </td>
             </tr>
-            <tr>
+            <tr id="the-geometry-collection-element">
               <td><code>geometrycollection</code></td>
-              <td>
-                One or more <code><code>point</code>, <code>linestring</code>, <code>polygon</code>, <code>multipoint</code>, <code>multilinestring</code>, <code>multipolygon</code></code> elements
-              </td>
+              <td> One or more <a href="#the-point-element"><code>point</code></a>,
+                <a href="#the-linestring-element"><code>linestring</code></a>, <a href="#the-polygon-element"><code>polygon</code></a>, <a href="#the-multipoint-element"><code>multipoint</code></a>, <a href="#the-multilinestring-element"><code>multilinestring</code></a>, <a href="#the-multipolygon-element"><code>multipolygon</code></a> elements</td>
+                
               <td>For each member geometry, the same non-schema constraints apply as to the unique geometry type above.</td>
             </tr>
           </tbody>
@@ -2211,7 +2209,7 @@
           <dt id="ref-SCHEMA2"><strong class="informref">[SCHEMA2]</strong></dt>
           <dd>
             <cite class="w3crec"><a href="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/">XML Schema Part 2: Datatypes Second Edition</a></cite>. P. Biron, A. Malhotra, eds. World Wide Web Consortium, 28 October 2004. (See also
-            <a href="https://www.w3.org/TR/2005/NOTE-xml11schema10-20050511/"><cite>Processing XML 1.1 documents with XML Schema 1.0 processors</cite></a> [<a href="#ref-XML11-SCHEMA">XML11-SCHEMA</a>].) <br>
+            [<a href="#ref-XML11-SCHEMA">XML11-SCHEMA</a>].) <br>
             This edition of XML Schema Part 2 is https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/. <br>
             The <a href="https://www.w3.org/TR/xmlschema-2/">latest edition of XML Schema Part 2</a> is available at https://www.w3.org/TR/xmlschema-2/.
           </dd>
@@ -2224,34 +2222,38 @@
           </dd>
 
           <dt id="ref-MicroXML"><strong class="informref">[MicroXML]</strong></dt>
-          <dd>
+    <dd>
             <cite class="w3cwd"><a href="https://dvcs.w3.org/hg/microxml/raw-file/tip/spec/microxml.html">MicroXML</a></cite>, J. CLark, J. Cowan, eds. World Wide Web Consortium MicroXML Community Group,
             <span class="wip">work in progress</span>, 2012.
-          </dd>
+    </dd>
           <dt id="ref-HTML"><strong class="informref">[HTML]</strong></dt>
-          <dd>
+	  <dd>
             <cite class="w3crec"><a href="https://www.w3.org/TR/html/">HTML5 A vocabulary and associated APIs for HTML and XHTML</a></cite>. I. Hickson, R. Berjon, S. Faulkner, T. Leithead E. Doyle Navara, E. O'Connor, S. Pfeiffer, eds.
             World Wide Web Consortium, 28 October 2014.
-          </dd>
+	  </dd>
           <dt id="BCP47"><strong class="informref">[BCP47]</strong></dt>
-          <dd>
+    <dd>
             <cite> <a href="https://www.ietf.org/rfc/bcp/bcp47.txt">Tags for Identifying Languages; Matching of Language Tags</a> (URL: <a href="https://www.ietf.org/rfc/bcp/bcp47.txt">https://www.ietf.org/rfc/bcp/bcp47.txt</a>) </cite>
             , A. Phillips, M. Davis. IETF.
-          </dd>
+    </dd>
           <dt id="ref-GeoJSON"><strong class="informref">[GeoJSON]</strong></dt>
-          <dd>
+    <dd>
             <cite><a href="https://geojson.org/">The GeoJSON Format Specification</a></cite>
-          </dd>
+    </dd>
           <dt id="ref-OSMTILE"><strong class="informref">[OSMTILE]</strong></dt>
-          <dd>
+	  <dd>
             <cite><a href="https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames">OpenStreetMap Slippy Maps Tilenames Wiki</a></cite>
-          </dd>
+	  </dd>
           <dt id="ref-EPSG-REGISTRY"><strong class="informref">[EPSG-REGISTRY]</strong></dt>
-          <dd>
+	  <dd>
             <cite><a href="http://www.epsg-registry.org/">EPSG Geodetic Parameter Registry</a></cite>
-          </dd>
-        </dl>
+	  </dd>
+        <dt id="ref-XML11-SCHEMA"><strong class="informref">[XML11-SCHEMA]</strong></dt>
+    <dd><cite><a href="https://www.w3.org/TR/2005/NOTE-xml11schema10-20050511/">Processing XML 1.1 documents with XML Schema 1.0 processors</a></cite>,
+      H. Thompson, ed. World Wide Web Consortium Working Group Note, 11 May 2005.
+    </dd>
+	</dl>
       </section>
-    </div>
-  </body>
+</div>
+</body>
 </html>
