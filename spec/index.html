@@ -323,7 +323,7 @@
             </ul>
           </li>
           <li>
-            4. <a href="#features">Semantics and Structure of MapML Documents</a>
+            4. <a href="#features">Semantics, Structure and Styling of MapML Documents</a>
             <ul>
               <li>
                 4.1 <a href="#semantics">Semantics</a>
@@ -339,7 +339,9 @@
               <li>
                 4.2 <a href="#structure">Structure</a>
                 <ul class="toc">
-                  <li>4.2.1 <a href="#documents">The Document object</a></li>
+                  <li>
+                    4.2.1 <a href="#the-document-object">The Document object</a>
+                  </li>
                   <li>
                     4.2.2 <a href="#the-mapml-element">The <code>&lt;mapml&gt;</code> element</a>
                   </li>
@@ -398,6 +400,9 @@
                     4.2.20 <a href="#the-coordinates-element">The <code>&lt;coordinates&gt;</code> element</a>
                   </li>
                 </ul>
+              </li>
+              <li>
+                4.3 <a href="#styling">Styling</a>
               </li>
             </ul>
           </li>
@@ -690,7 +695,7 @@
       </section>
 
       <section id="sec-features">
-        <h2 id="features">4. Semantics and structure of MapML documents</h2>
+        <h2 id="features">4. Semantics, Structure and Styling of MapML Documents</h2>
         <p>This section is normative.</p>
         <h3 id="semantics">4.1 Semantics</h3>
         <h4 id="coordinate-systems">4.1.1 Coordinate Systems</h4>
@@ -1090,14 +1095,11 @@
         <p>TBD</p>
         <h3 id="structure">4.2 Structure</h3>
         <p>This section is normative.</p>
-        <h4 id="documents">4.2.1 Elements</h4>
+        <h4 id="the-document-object">4.2.1 The <code><a href="#the-document-object">Document</a></code> object</h4>
         <p>
           A MapML document is a [<a href="#ref-MicroXML">MicroXML</a>] document. As such, it MUST have a single root element named &lt;mapml&gt;. It MUST NOT have a DOCTYPE declaration; attributes named 'xmlns' and names containing a colon
           character ':' (U+003A) are not permitted. Other restrictions relative to XML syntax are enumerated in [<a href="#ref-MicroXML">MicroXML</a>].
         </p>
-        <h4 id="the-document-object">
-          <span class="secno">4.2.1 </span>The <code><a href="#the-document-object">Document</a></code> object
-        </h4>
         <h5 id="the-mapml-element">4.2.2 The <code>&lt;mapml&gt;</code> element</h5>
         <dl class="element">
           <dt>Categories:</dt>
@@ -1252,7 +1254,7 @@
         <p>
           The <dfn id="attr-link-projection"><code>projection</code></dfn> attribute value identifies the TCRS of the linked resource, with a value from the defined set of
           <a href="#tiled-coordinate-reference-systems-table">TCRS identifiers</a>. When <code>rel=alternate</code> is used together with the <code>projection</code> attribute, clients may be able to perform agent-driven content negotiation
-          to provide a better user experience. For example, if an HTML author mistakenly enters the URL of an OSMTILE resource in their HTML <code>layer@src</code> attribute, but the <code>map</code> in which the layer takes part is
+          to provide a better user experience. For example, if an HTML author mistakenly enters the URL of an OSMTILE resource in their HTML <a href="https://maps4html.org/HTML-Map-Element/spec/#the-layer-element"><code>layer@src</code></a> attribute, but the <code>map</code> in which the layer takes part is
           declared to be <code>CBMTILE</code>, the MapML author can ease the potential for resultant confusion by providing appropriate <code>rel=alternate</code> links to equivalent MapML resources in other projections.
         </p>
         <p>
@@ -1291,37 +1293,37 @@
           <tbody>
             <tr>
               <td>
-                <code data-anolis-xref="rel-alternate"><a href="#rel-alternate">alternate</a></code>
+                <code>alternate</code>
               </td>
               <td>Gives alternate representations of the current document.</td>
             </tr>
             <tr>
               <td>
-                <code data-anolis-xref="rel-author"><a href="#link-type-author">author</a></code>
+                <code>author</code>
               </td>
               <td>Gives a link to the author of the current document.</td>
             </tr>
             <tr>
               <td>
-                <code data-anolis-xref="rel-bookmark"><a href="#link-type-bookmark">bookmark</a></code>
+                <code>bookmark</code>
               </td>
               <td>Gives the permalink for the current extent.</td>
             </tr>
             <tr>
               <td>
-                <code><a href="#link-type-legend">legend</a></code>
+                <code>legend</code>
               </td>
               <td>Indicates the link to a legend resource.</td>
             </tr>
             <tr>
               <td>
-                <code data-anolis-xref="rel-license"><a href="#link-type-license">license</a></code>
+                <code>license</code>
               </td>
               <td>Indicates that some or all of the content of the current document is covered by the copyright license described by the referenced document.</td>
             </tr>
             <tr>
               <td>
-                <code data-anolis-xref="rel-next"><a href="#link-type-next">next</a></code>
+                <code>next</code>
               </td>
               <td>Indicates that the current document is a part of a series of documents which represent the extent, and that the next document in the series is the referenced document.</td>
             </tr>
@@ -1994,8 +1996,7 @@
         </dl>
 
         <p>
-          A <code>feature</code> element can have zero or one <code>properties</code> element, which contains zero or more unknown elements, whose content is text. Note: it would be better to a content model of property child elements whose
-          values could be HTML. TODO.
+          A <code>feature</code> element can have zero or one <code>properties</code> element, which contains zero or more unknown elements, whose content is text.
         </p>
 
         <h5 id="the-geometry-element">4.2.19 The <code>&lt;geometry&gt;</code> element</h5>
@@ -2118,11 +2119,12 @@
         </p>
         <p>
           The positions in the <code>coordinates</code> element define the location of the feature. For <code>geometry</code> elements whose value is , <code>linestring</code>, <code>multipoint</code> or <code>multilinestring</code>, this
-          specification neither assigns nor requires special ordering or other constraints, apart from the axis order described above. For <code>geometry></code> elements whose value is a <code>polygon</code> or
+          specification neither assigns nor requires special ordering or other constraints, apart from the axis order described above. For <code>geometry</code> elements whose value is a <code>polygon</code> or
           <code>multipolygon</code> element, the descendant <code>coordinates</code> elements must follow additional constraints.
         </p>
-        <h5 id="styling">4.3 Styling</h5>
+        <h2 id="styling">4.3 Styling</h2>
         <p>MapML documents can be styled with Cascading Style Sheets.</p>
+        <p class="note"><a href="https://github.com/Maps4HTML/MapML/issues/71">Issue 71: How does styling MapML with CSS work?</a></p>
       </section>
 
       <section id="sec-examples">
@@ -2163,8 +2165,8 @@
         <h2 id="rng">8.1. RelaxNG Schema</h2>
 
         <p>
-          Map Markup Language provides a schema written in <a href="https://web.archive.org/web/20120619140335/http://www1.y12.doe.gov/capabilities/sgml/sc34/document/0362_files/relaxng-is.pdf">RelaxNG compact syntax</a> [
-          <a href="#ref-RNG">RelaxNG</a>], a namespace-aware schema language that uses the datatypes from <a href="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/">XML Schema Part 2</a> [<a href="#ref-Schema2">Schema2</a>].
+          Map Markup Language provides a schema written in <a href="https://web.archive.org/web/20120619140335/http://www1.y12.doe.gov/capabilities/sgml/sc34/document/0362_files/relaxng-is.pdf">RelaxNG compact syntax</a> 
+          [<a href="#ref-RNG">RelaxNG</a>], a namespace-aware schema language that uses the datatypes from <a href="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/">XML Schema Part 2</a> [<a href="#ref-SCHEMA2">Schema2</a>].
         </p>
 
         <p>Further map document validation can be done with Schematron. Please see the MapML schema directory for further information.</p>
