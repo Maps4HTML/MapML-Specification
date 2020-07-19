@@ -1086,10 +1086,12 @@
                   In any case, the zoom level of any MapML document MAY be present in document metadata as a <code>meta</code> element e.g. &lt;meta name="zoom" content="0"/&gt;.  In the case where a MapML document contains an <code>extent</code> element, an <code>input@type=zoom</code> MUST be present which controls how the zoom is transmitted from client to server. Where that input has a non-empty <code>input@value</code> attribute, in case of discrepancy between  the <code>meta[@name=zoom]/@content</code> and the <code>input[@type=zoom]/@value</code>, the latter zoom value SHALL be taken to be correct, EXCEPT in the case where there may exist more than one <code>input[@type=zoom]</code> and their <code>value</code> attributes do not agree, in which case the value of <code>meta[@name=zoom]/@content</code> shall be taken to be correct.</p>
         <h4 id="extent-semantics">4.1.5 Extents</h4>
         <p>
-          A MapML document is a representation of a defined portion of a two dimensional map area. In MapML, this is called an 'extent' (see below), the dimensions of which can be described by the bounding axis minimum and maximum values of
-          the specified TCRS, or in one of its associated coordinate reference systems (PCRS,GCRS,Tilematrix,etc.). The bounds of an extent SHOULD be specified in a MapML document, by the use of coordinates and/or coordinate axes whose
-          coordinate reference system is identified or implied by the <code>extent/@units</code> value. If no <code>extent/@units</code> element or attribute is present, the <code>meta[@name=tcrs]</code> element MAY describe or identify the
-          TCRS of the MapML document. The <code>extent/@units</code> value SHALL be taken to be the authoritative declaration of TCRS for a MapML document.
+          A MapML document is a representation of a defined portion of a two dimensional 
+          map area. In MapML, this is called an 'extent' (see below), the extremes 
+          of which can be described in terms of locations coordinates specified 
+          in the TCRS (pcrs,gcrs,tilematrix,etc.).
+          The <code>extent/@units</code> value SHALL be taken to be the authoritative 
+          declaration of the TCRS for a MapML document.
         </p>
         <h4 id="fragments">4.1.6 Fragment identifiers</h4>
         <p>TBD</p>
@@ -1274,10 +1276,6 @@
           string which identifies the role of the resource(s) for which the <code>tref</code> attribute value represents a URL template, which may contain zero or more <code>input/@name</code> variable references. Such variable references
           must be a case-insensitive match of sibling <code>input</code> elements' <code>name</code> attribute.
         </p>
-        <p>
-          Use of the <code>link</code> element with the <code>rel</code> attribute in the "tile" or "image" state is an alternative to extent (form) submission to the <code>extent@action</code> URL, in that the client is responsible to
-          calculate what tiles must be requested to cover its extent ("tile" state), or how paint an image to cover the map extent ("image" state).
-        </p>
         <p>The content represented by <code>link[@tref]</code> elements should be painted in document order of the appearance of the <code>link[@tref]</code> elements.</p>
 
         <table id="rel-values">
@@ -1431,26 +1429,19 @@
           <dt>Categories:</dt>
           <dd>Metadata content</dd>
           <dt>Contexts in which this element can be used:</dt>
-          <dd>Required to be the first child of the <code>&lt;body&gt;</code> element.</dd>
+          <dd>Required to be a child of the <code>&lt;body&gt;</code> element.</dd>
           <dt>Content model:</dt>
-          <dd>If the <code>action</code> attribute exists: A set of multiple <code>input</code> and zero or one <code>link</code> element with its <code>rel</code> attribute in the "query" state.</dd>
           <dd>
-            If no <code>action</code> attribute exists: A set of multiple <code>input</code> and one or more <code>link</code> elements with their <code>rel</code> attribute in either the "tile", "image" or "features" state, and zero or one
+            A set of multiple <code>input</code> and one or more <code>link</code> elements with their <code>rel</code> attribute in either the "tile", "image" or "features" state, and zero or one
             <code>link</code> element with its <code>rel</code> attribute in the "query" state.
           </dd>
 
           <dt>Content attributes:</dt>
-          <dd><code>action</code> - URL to use for form (extent) submission</dd>
-          <dd><code>enctype</code> - Extent form data set encoding type to use for extent form submission</dd>
-          <dd><code>method</code> - HTTP method to use for form submission</dd>
           <dd><code>units</code> - The name of the coordinate reference system whose measurement units are to be used by values submitted by child <code>input</code> elements</dd>
           <dt>DOM interface:</dt>
           <dd></dd>
           <dd>
             <pre class="idl">interface <dfn id="mapmlextentelement">MAPMLExtentElement</dfn> : MAPMLElement {
-           attribute DOMString action;
-           attribute DOMString enctype;
-           attribute DOMString method;
            attribute DOMString units;
 
   readonly attribute MAPMLExtentControlsCollection elements;
@@ -1458,48 +1449,14 @@
   getter Element (unsigned long index);
   getter (RadioNodeList or Element) (DOMString name);
 
-  void submit();
-  void checkValidity();
 };</pre>
           </dd>
         </dl>
         <p>
-          The <code>extent</code> element represents a collection of extent-associated elements, some of which can represent editable values that can be submitted to a server for processing. When no extent is specified by a request, that
-          is, the zoom and extent maxima (xmin, ymin, xmax, ymax) are not specified, the <code>extent</code> element must represent the overall extent of the entire map resource that is available.
+          The <code>extent</code> element is a map-associated affordance, which contains input and link elements, whose job it is to serialize location event properties that can be submitted to a server for processing. 
         </p>
-        <p>The <code>action</code>, <code>enctype</code>, and <code>method</code> attributes are attributes for form submission. The <code>units</code> attribute is informative.</p>
+        <p>The <code>units</code> attribute indicates the parent TCRS that location events shall be generated for, and serialized as requested by the <code>extent</code>'s contents.</p>
 
-        <dl class="domintro">
-          <dt><var>extent</var> . <code>elements</code></dt>
-          <dd>
-            <p>Returns a <code>MAPMLCollection</code> of the extent controls in the extent form</p>
-          </dd>
-          <dt><var>extent</var> . <code>length</code></dt>
-          <dd>
-            <p>Returns the number of form controls in the form (excluding image buttons for historical reasons).</p>
-          </dd>
-          <dt><var>extent</var>[<var>index</var>]</dt>
-          <dd>
-            <p>Returns the <var>index</var>th element in the extent form.</p>
-          </dd>
-          <dt><var>extent</var>[<var>name</var>]</dt>
-          <dd>
-            <p>Returns the extent form control (or, if there are several, a RadioNodeList of the extent form controls) in the extent form with the given ID or name.</p>
-            <p>
-              Once an element has been referenced using a particular name, that name will continue being available as a way to reference that element in this method, even if the element's actual ID or name changes, for as long as the
-              element remains in the Document.
-            </p>
-            <p>If there are multiple matching items, then a RadioNodeList object containing all those elements is returned.</p>
-          </dd>
-          <dt><var>extent</var> . <code>submit</code>()</dt>
-          <dd>
-            <p>Submits the extent form.</p>
-          </dd>
-          <dt><var>extent</var> . <code>checkValidity</code>()</dt>
-          <dd>
-            <p>Returns true if the extent's controls are all valid; otherwise, returns false.</p>
-          </dd>
-        </dl>
 
         <h5 id="the-input-element">4.2.10 The <code>&lt;input&gt;</code> element</h5>
         <dl class="element">
@@ -1554,8 +1511,9 @@
           </dd>
         </dl>
         <p>
-          The <code>input</code> element represents a typed data field, associated with a map extent form, to allow the user agent to request documents for a specific map area. There must be at least four input element children of the
-          extent element, including only one of each of the following <code>type</code> inputs: <code>xmin</code>, <code>ymin</code>,<code>xmax</code> and <code>ymax</code>.
+          The <code>input</code> element represents a typed data field, associated 
+          with a map extent form, to allow the user agent to request documents for 
+          a specific map area.
         </p>
         <p>
           The <code>type</code> attribute controls the data type (and associated control) of the element. It is an enumerated attribute. The following table lists the keywords and states for the attribute — the keywords in the left column
@@ -1603,36 +1561,6 @@
               <td>hidden</td>
               <td>An arbitrary string</td>
               <td>n/a</td>
-            </tr>
-            <tr class="deprecated">
-              <td><code>xmin</code></td>
-              <td>Minimum value of the map X axis</td>
-              <td>A numerical value</td>
-              <td>A derived property of a displayed map</td>
-            </tr>
-            <tr class="deprecated">
-              <td><code>ymin</code></td>
-              <td>Minimum value of the map Y axis</td>
-              <td>A numerical value</td>
-              <td>A derived property of a displayed map</td>
-            </tr>
-            <tr class="deprecated">
-              <td><code>xmax</code></td>
-              <td>Maximum value of the map X axis</td>
-              <td>A numerical value</td>
-              <td>A derived property of a displayed map</td>
-            </tr>
-            <tr class="deprecated">
-              <td><code>ymax</code></td>
-              <td>Maximum value of the map Y axis</td>
-              <td>A numerical value</td>
-              <td>A derived property of a displayed map</td>
-            </tr>
-            <tr class="deprecated">
-              <td><code>projection</code></td>
-              <td>projection</td>
-              <td>A string value with no line breaks</td>
-              <td>The tiled coordinate system name of a displayed map.</td>
             </tr>
           </tbody>
         </table>
