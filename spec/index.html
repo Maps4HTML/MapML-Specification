@@ -920,10 +920,9 @@
         Unless otherwise specified, units are based on pixels projected and transformed from the units of the underlying projection system. The complete definition of these coordinate reference systems can be found in the
         <a href="#tiled-coordinate-reference-systems-table">Tiled Coordinate Reference Systems</a> table.
         </p>
-        <p>The required <code>width</code> and <code>height</code> attributes of the <a href="#the-map-element"><code>map</code></a> element allow the HTML author to explicitly set the size of the rectangular area devoted to the map.
-        If the attributes are not set directly by the HTML author, their values must be established via CSS width and height properties or through script. In any case, these values must be established
-        in order for the <a href="#the-map-element"><code>map</code></a> to process and display its content.  The map can be re-sized via changes to those properties. </p>
         <p>The location and zoom level of the map created with the <a href="#the-map-element"><code>map</code></a> element can be changed via the <code>zoomTo(...)</code> API method, which will change the <code>zoom</code>, <code>lat</code> and <code>lon</code> properties.</p>
+        <p>The <a href="#the-map-element"><code>map</code></a> element supports the <code>width</code> and <code>height</code> <a href="https://html.spec.whatwg.org/multipage/embedded-content-other.html#dimension-attributes">dimension attributes</a>. [<a href="#ref-HTML">HTML</a>]</p>
+        <p>The <a href="https://drafts.csswg.org/css-images/#default-object-size">default object size</a> is a width of 300 <a href="https://drafts.csswg.org/css-values/#px">CSS pixels</a> and a height of 150 <a href="https://drafts.csswg.org/css-values/#px">CSS pixels</a>. <a href="#ref-CSSIMAGES">[CSSIMAGES]</a></p>
         </div>
 
         <h4 id="the-layer-element"><em>4.1.2 The <dfn><code>&lt;layer&gt;</code></dfn> element</em></h4>
@@ -1583,7 +1582,7 @@
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd>One <code>&lt;head&gt;</code> element, followed by one <code>&lt;body&gt;</code> element</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd>lang — the language of the document, expressed as a BCP 47 language tag.<a href="#BCP47">[BCP47]</a></dd>
+          <dd>lang — the language of the document, expressed as a BCP 47 language tag.<a href="#ref-BCP47">[BCP47]</a></dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">interface <dfn id="mapmlmapmlelement">MAPMLMapMLElement</dfn> : MAPMLElement {
@@ -2642,7 +2641,7 @@
             <cite class="w3crec"><a href="https://html.spec.whatwg.org/multipage/">HTML</a></cite>,
             Anne van Kesteren; et al. HTML Standard. Living Standard. URL: https://html.spec.whatwg.org/multipage/
 	  </dd>
-          <dt id="BCP47"><strong class="informref">[BCP47]</strong></dt>
+          <dt id="ref-BCP47"><strong class="informref">[BCP47]</strong></dt>
     <dd>
             <cite> <a href="https://www.ietf.org/rfc/bcp/bcp47.txt">Tags for Identifying Languages; Matching of Language Tags</a> (URL: <a href="https://www.ietf.org/rfc/bcp/bcp47.txt">https://www.ietf.org/rfc/bcp/bcp47.txt</a>) </cite>
             , A. Phillips, M. Davis. IETF.
@@ -2662,6 +2661,10 @@
         <dt id="ref-XML11-SCHEMA"><strong class="informref">[XML11-SCHEMA]</strong></dt>
     <dd><cite><a href="https://www.w3.org/TR/2005/NOTE-xml11schema10-20050511/">Processing XML 1.1 documents with XML Schema 1.0 processors</a></cite>,
       H. Thompson, ed. World Wide Web Consortium Working Group Note, 11 May 2005.
+    </dd>
+    <dt id="ref-CSSIMAGES"><strong class="informref">[CSSIMAGES]</strong></dt>
+    <dd>
+      <cite class="w3crec"><a href="https://drafts.csswg.org/css-images/">CSS Images Module</a></cite>, E. Etemad, T. Atkins, L. Verou. W3C.
     </dd>
 	</dl>
       </section>
