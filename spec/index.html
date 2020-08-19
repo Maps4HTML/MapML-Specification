@@ -321,8 +321,9 @@
 
           <dt>Editors:</dt>
           <dd><em>Peter Rushforth</em>, Natural Resources Canada</dd>
+          <dd><em>Robert Linder</em></dd>
           <dt>Contributors:</dt>
-          <dd><em>Robert Linder, Joan Maso, Elf Pavlik</em>.</dd>
+          <dd><em>Robert Linder, Joan Masó, Elf Pavlik</em>.</dd>
           <dt>Participate:</dt>
           <dd>
             <span><a href="https://github.com/maps4html/mapml/issues/new">File an issue</a> (<a href="https://github.com/maps4html/mapml/issues">open issues</a>)</span>
@@ -561,6 +562,8 @@
             <li>Fix <a href="https://github.com/Maps4HTML/MapML/issues/43#issue-428889785">issue</a> with CamelCase of geometry types, replace with lowercase</li>
             <li>Fix <a href="https://github.com/Maps4HTML/MapML/issues/44">issue</a> with inconsistency with GeoJSON multipoint coordinate encoding</li>
             <li>Fix the order of parameters to the LatLng(lat,lng) pseudofunction in the definition of WGS84</li>
+            <li>Remove rel=search value</li>
+            
           </ul>
         </details>
 
@@ -1768,18 +1771,6 @@
             </tr>
             <tr>
               <td>
-                <code>author</code>
-              </td>
-              <td>Gives a link to the author of the current document.</td>
-            </tr>
-            <tr>
-              <td>
-                <code>bookmark</code>
-              </td>
-              <td>Gives the permalink for the current extent.</td>
-            </tr>
-            <tr>
-              <td>
                 <code>legend</code>
               </td>
               <td>Indicates the link to a legend resource.</td>
@@ -1789,16 +1780,6 @@
                 <code>license</code>
               </td>
               <td>Indicates that some or all of the content of the current document is covered by the copyright license described by the referenced document.</td>
-            </tr>
-            <tr>
-              <td>
-                <code>next</code>
-              </td>
-              <td>Indicates that the current document is a part of a series of documents which represent the extent, and that the next document in the series is the referenced document.</td>
-            </tr>
-            <tr>
-              <td><code>search</code></td>
-              <td>Gives a link to a resource that can be used to search through the current map document and its related pages.</td>
             </tr>
             <tr>
               <td><code>stylesheet</code></td>
@@ -1816,48 +1797,12 @@
               </td>
             </tr>
             <tr>
-              <td><code>west</code></td>
-              <td>Indicates a resource that may be used to the west of the maximum extent of the current resource, at the current zoom level.</td>
-            </tr>
-            <tr>
-              <td><code>southwest</code></td>
-              <td>Indicates a resource that may be used to the southwest of the maximum extent of the current resource, at the current zoom level.</td>
-            </tr>
-            <tr>
-              <td><code>south</code></td>
-              <td>Indicates a resource that may be used to the south of the maximum extent of the current resource, at the current zoom level.</td>
-            </tr>
-            <tr>
-              <td><code>southeast</code></td>
-              <td>Indicates a resource that may be used to the southeast of the maximum extent of the current resource, at the current zoom level.</td>
-            </tr>
-            <tr>
-              <td><code>east</code></td>
-              <td>Indicates a resource that may be used to the east of the maximum extent of the current resource, at the current zoom level.</td>
-            </tr>
-            <tr>
-              <td><code>northeast</code></td>
-              <td>Indicates a resource that may be used to the northeast of the maximum extent of the current resource, at the current zoom level.</td>
-            </tr>
-            <tr>
-              <td><code>north</code></td>
-              <td>Indicates a resource that may be used to the north of the maximum extent of the current resource, at the current zoom level.</td>
-            </tr>
-            <tr>
-              <td><code>northwest</code></td>
-              <td>Indicates a resource that may be used to the northwest of the maximum extent of the current resource, at the current zoom level.</td>
-            </tr>
-            <tr>
               <td><code>zoomin</code></td>
               <td>Indicates a resource that may be used at a zoom level greater than the maximum zoom of the current extent.</td>
             </tr>
             <tr>
               <td><code>zoomout</code></td>
               <td>Indicates a resource that may be used at a zoom level less than the minimum zoom of the current extent.</td>
-            </tr>
-            <tr>
-              <td><code>panto</code></td>
-              <td>Indicates a resource that may be used to the pan at the current zoom level.</td>
             </tr>
             <tr>
               <td><code>tile</code></td>
