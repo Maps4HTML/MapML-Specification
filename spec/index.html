@@ -563,6 +563,9 @@
             <li>Fix <a href="https://github.com/Maps4HTML/MapML/issues/44">issue</a> with inconsistency with GeoJSON multipoint coordinate encoding</li>
             <li>Fix the order of parameters to the LatLng(lat,lng) pseudofunction in the definition of WGS84</li>
             <li>Remove rel=search value</li>
+            <li>Remove feature <code>type</code> property from IDL</li>
+            <li>Add feature zoom attribute</li>
+            <li>Update feature content model to reflect implementation</li>
             
           </ul>
         </details>
@@ -2307,13 +2310,14 @@
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>Child of the <code>&lt;body&gt;</code> element.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-          <dd>An optional <code>bbox</code> element, followed by either an <code>image</code> or <code>geometry</code> element, followed by an optional <code>properties</code> element.</dd>
+          <dd>An optional <code>geometry</code> element and an optional <code>properties</code> element.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
+          <dd><code>zoom</code> — the 'native' zoom level of the feature geometry</dd>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a></dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">interface <dfn id="mapmlfeatureelement">MAPMLFeatureElement</dfn> : MAPMLElement {
-                  readonly attribute type
+                  attribute DOMString zoom
 };</pre>
           </dd>
         </dl>

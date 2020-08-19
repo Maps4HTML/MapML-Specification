@@ -77,7 +77,8 @@ option = element option {
 feature = element feature {
     attribute id { text }?,
     attribute class { text }?,
-    (bbox? & ( image? | geometry? ) & properties?)
+    attribute zoom { text }?,
+    (geometry? & properties?)
 }
 tile = element tile {
     attribute col { xsd:integer },
