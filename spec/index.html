@@ -846,7 +846,7 @@
         <h3 id="web-mapping-elements-and-api">4.1 Web mapping elements and API</h3>
         <p>This section is normative.</p>
 
-        <h4 id="the-map-element"><em>4.1.1 The <dfn><code>&lt;map&gt;</code></dfn> element</em></h4>
+        <h4 id="the-map-element">4.1.1 The <dfn><code>&lt;map&gt;</code></dfn> element</h4>
         <dl class="element"><dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#flow-content-2">Flow content</a>.</dd>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
@@ -854,26 +854,26 @@
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#embedded-content-2">Embedded content</a>.</dd>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#interactive-content-2">Interactive content</a>.</dd>
         <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
-        <dd><em>Where <a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#embedded-content-2">embedded content</a> is expected.</em></dd>
+        <dd>Where <a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#embedded-content-2">embedded content</a> is expected.</dd>
         <dt id="map-content"><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-        <dd><em>If <a href="#attr-map-lat">lat</a>, <a href="#attr-map-lon">lon</a>, and <a href="#attr-map-zoom">zoom</a>
-         are NOT present: <a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#transparent">Transparent</a>; otherwise: Zero or more <a href="#the-layer-element"><code>layer</code></a> or <a href="#the-area-element"><code>area</code></a> elements.</em></dd>
+        <dd>If <a href="#attr-map-lat">lat</a>, <a href="#attr-map-lon">lon</a>, and <a href="#attr-map-zoom">zoom</a>
+         are NOT present: <a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#transparent">Transparent</a>; otherwise: Zero or more <a href="#the-layer-element"><code>layer</code></a> or <a href="#the-area-element"><code>area</code></a> elements.</dd>
 
         <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-        <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a></dd>
-        <dd id="attr-map-zoom"><em><code><a href="#attr-map-zoom">zoom</a></code> - a positive integer zoom (scale) value</em></dd>
-        <dd id="attr-map-lat"><em><code><a href="#attr-map-lat">lat</a></code> - a decimal WGS84 latitude value for the map center</em></dd>
-        <dd id="attr-map-lon"><em><code><a href="#attr-map-lon">lon</a></code> - a decimal WGS84 longitude value for the map center</em></dd>
-        <dd id="attr-map-projection"><em><code><a href="#attr-map-projection">projection</a></code> - a case-sensitive string <a href="#tiled-coordinate-reference-systems-table">identifier</a> of the MapML coordinate reference system used by the map. Default is <a href="#OSMTILE"><code>OSMTILE</code></a>.</em></dd>
-        <dd id="attr-map-controls"><em><code><a href="#attr-map-controls">controls</a></code> - Show user agent map controls</em></dd>
-        <dd id="attr-map-width"><em><code><a href="#attr-map-width">width</a></code> - Horizontal dimension</em></dd>
-        <dd id="attr-map-height"><em><code><a href="#attr-map-height">height</a></code> - Vertical dimension</em></dd>
+        <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
+        <dd id="attr-map-zoom"><code><a href="#attr-map-zoom">zoom</a></code> — A positive integer zoom (scale) value.</dd>
+        <dd id="attr-map-lat"><code><a href="#attr-map-lat">lat</a></code> — A decimal WGS84 latitude value for the map center.</dd>
+        <dd id="attr-map-lon"><code><a href="#attr-map-lon">lon</a></code> — A decimal WGS84 longitude value for the map center.</dd>
+        <dd id="attr-map-projection"><code><a href="#attr-map-projection">projection</a></code> — A case-sensitive string <a href="#tiled-coordinate-reference-systems-table">identifier</a> of the MapML coordinate reference system used by the map. Default is <a href="#OSMTILE"><code>OSMTILE</code></a>.</dd>
+        <dd id="attr-map-controls"><code><a href="#attr-map-controls">controls</a></code> — Show user agent map controls.</dd>
+        <dd id="attr-map-width"><code><a href="#attr-map-width">width</a></code> — Horizontal dimension.</dd>
+        <dd id="attr-map-height"><code><a href="#attr-map-height">height</a></code> — Vertical dimension.</dd>
         <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
-        <dd>Neither tag is omissible</dd>
+        <dd>Neither tag is omissible.</dd>
         <dt>Allowed <a target="_blank" href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#aria-role-attribute">ARIA role attribute</a> values:</dt>
-        <dd><a target="_blank" href="https://www.w3.org/TR/html-aria/#index-aria-application"><code title="">application</code></a></dd>
+        <dd><a target="_blank" href="https://www.w3.org/TR/html-aria/#index-aria-application"><code>application</code></a>.</dd>
         <dt>Allowed <a target="_blank" href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#state-and-property-attributes">ARIA state and property attributes</a>:</dt>
-        <dd><a target="_blank" href="https://www.w3.org/TR/html-aria/#index-aria-global">Global aria-* attributes</a></dd>
+        <dd><a target="_blank" href="https://www.w3.org/TR/html-aria/#index-aria-global">Global aria-* attributes</a>.</dd>
         <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
         <dd>
         <pre class="idl">[NamedConstructor=Map(unsigned long width, unsigned long height, double lat, double lon, unsigned short zoom, optional string projection, boolean controls)]
@@ -931,7 +931,7 @@
         <p>The <a href="https://drafts.csswg.org/css-images/#default-object-size">default object size</a> is a width of 300 <a href="https://drafts.csswg.org/css-values/#px">CSS pixels</a> and a height of 150 <a href="https://drafts.csswg.org/css-values/#px">CSS pixels</a>. <a href="#ref-CSSIMAGES">[CSSIMAGES]</a></p>
         </div>
 
-        <h4 id="the-layer-element"><em>4.1.2 The <dfn><code>&lt;layer&gt;</code></dfn> element</em></h4>
+        <h4 id="the-layer-element">4.1.2 The <dfn><code>&lt;layer&gt;</code></dfn> element</h4>
         <dl class="element"><dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#flow-content-2">Flow content</a>.</dd>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
@@ -939,26 +939,26 @@
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#embedded-content-2">Embedded content</a>.</dd>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#interactive-content-2">Interactive content</a>.</dd>
         <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
-        <dd>As a child of the <a href="#the-map-element">map</a> element</dd>
+        <dd>As a child of the <a href="#the-map-element">map</a> element.</dd>
         <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
         <dd>If the <a href="#attr-layer-src"><code>src</code></a> attribute is present: <a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-content-nothing">Nothing</a>. 
         If no <a href="#attr-layer-src"><code>src</code></a> attribute is present: 
-        <a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a> describing nested <a href="#structure">Map Markup Language</a> content</dd>
+        <a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a> describing nested <a href="#structure">Map Markup Language</a> content.</dd>
         <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-        <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a></dd>
-        <dd id="attr-layer-src"><em><code><a href="#attr-layer-src">src</a></code> - Address of the resource</em></dd>
-        <dd id="attr-layer-label"><em><code><a href="#attr-layer-label">label</a></code> - String label for the layer in the layer control, if displayed</em></dd>
-        <dd id="attr-layer-checked"><em><code><a href="#attr-layer-checked">checked</a></code> - Layer on/off status</em></dd>
-        <dd id="attr-layer-disabled"><em><code><a href="#attr-layer-disabled">disabled</a></code> - Sets the disabled state of the layer in the layer control</em></dd>
-        <dd id="attr-layer-hidden"><em><code><a href="#attr-layer-hidden">hidden</a></code> - Visibility status of the layer in the layer control</em></dd>
-        <dd id="attr-layer-referrerpolicy"><em><code><a href="#attr-layer-referrerpolicy">referrerpolicy</a></code> - <a href="https://w3c.github.io/webappsec-referrer-policy/#referrer-policy">Referrer policy</a> for <a href="https://fetch.spec.whatwg.org/#concept-fetch">fetches</a> initiated by the element</em></dd>
-        <dd id="attr-layer-crossorigin"><em><code><a href="#attr-layer-crossorigin">crossorigin</a></code> - A <a href="https://html.spec.whatwg.org/multipage/urls-and-fetching.html#cors-settings-attribute">CORS settings attribute</a>, specifies how the element handles crossorigin requests</em></dd>
+        <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
+        <dd id="attr-layer-src"><code><a href="#attr-layer-src">src</a></code> — Address of the resource.</dd>
+        <dd id="attr-layer-label"><code><a href="#attr-layer-label">label</a></code> — String label for the layer in the layer control, if displayed.</dd>
+        <dd id="attr-layer-checked"><code><a href="#attr-layer-checked">checked</a></code> — Layer on/off status.</dd>
+        <dd id="attr-layer-disabled"><code><a href="#attr-layer-disabled">disabled</a></code> — Sets the disabled state of the layer in the layer control.</dd>
+        <dd id="attr-layer-hidden"><code><a href="#attr-layer-hidden">hidden</a></code> — Visibility status of the layer in the layer control.</dd>
+        <dd id="attr-layer-referrerpolicy"><code><a href="#attr-layer-referrerpolicy">referrerpolicy</a></code> — <a href="https://w3c.github.io/webappsec-referrer-policy/#referrer-policy">Referrer policy</a> for <a href="https://fetch.spec.whatwg.org/#concept-fetch">fetches</a> initiated by the element.</dd>
+        <dd id="attr-layer-crossorigin"><code><a href="#attr-layer-crossorigin">crossorigin</a></code> — A <a href="https://html.spec.whatwg.org/multipage/urls-and-fetching.html#cors-settings-attribute">CORS settings attribute</a>, specifies how the element handles crossorigin requests.</dd>
         <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
-        <dd>Neither tag is omissible</dd>
+        <dd>Neither tag is omissible.</dd>
         <dt>Allowed <a target="_blank" href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#aria-role-attribute">ARIA role attribute</a> values:</dt>
-        <dd>None</dd>
+        <dd>None.</dd>
         <dt>Allowed <a target="_blank" href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#state-and-property-attributes">ARIA state and property attributes</a>:</dt>
-        <dd><a target="_blank" href="https://www.w3.org/TR/html-aria/#index-aria-global">Global aria-* attributes</a></dd>
+        <dd><a target="_blank" href="https://www.w3.org/TR/html-aria/#index-aria-global">Global aria-* attributes</a>.</dd>
         <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
         <dd>
         <pre class="idl">interface <dfn id="htmllayerelement">HTMLLayerElement</dfn> : <a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#htmlelement">HTMLElement</a> {
@@ -1000,26 +1000,26 @@
         zoom or extent mismatch, the property will be true and if the layer is present in the layer control (i.e. <a href="#attr-layer-hidden"><code>hidden</code></a> is false), it will be disabled in that control i.e. not checkable.</p>
 
         </div>
-        <h4 id="the-area-element"><em>4.1.3 The <dfn><code>&lt;area&gt;</code></dfn> element</em></h4>
+        <h4 id="the-area-element">4.1.3 The <dfn><code>&lt;area&gt;</code></dfn> element</h4>
         <dl class="element"><dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#flow-content-2">Flow content</a>.</dd>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
         <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
-        <dd>As a child of the <a href="#the-map-element">map</a> element</dd>
+        <dd>As a child of the <a href="#the-map-element">map</a> element.</dd>
         <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-content-nothing">Nothing</a>.</dd>
         <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-        <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a></dd>
-        <dd id="attr-area-href"><em><code><a href="#attr-area-href">href</a></code> - Address of the hyperlink</em></dd>
-        <dd id="attr-area-alt"><em><code><a href="#attr-area-alt">alt</a></code> - User-visible label</em></dd>
-        <dd id="attr-area-coords"><em><code><a href="#attr-area-coords">coords</a></code> - Coordinates for the shape to be created on the map</em></dd>
-        <dd id="attr-area-shape"><em><code><a href="#attr-area-shape">shape</a></code> - The kind of shape to be created on the map</em></dd>
+        <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
+        <dd id="attr-area-href"><code><a href="#attr-area-href">href</a></code> — Address of the hyperlink.</dd>
+        <dd id="attr-area-alt"><code><a href="#attr-area-alt">alt</a></code> — User-visible label.</dd>
+        <dd id="attr-area-coords"><code><a href="#attr-area-coords">coords</a></code> — Coordinates for the shape to be created on the map.</dd>
+        <dd id="attr-area-shape"><code><a href="#attr-area-shape">shape</a></code> — The kind of shape to be created on the map.</dd>
         <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
-        <dd>Neither tag is omissible</dd>
+        <dd>Neither tag is omissible.</dd>
         <dt>Allowed <a target="_blank" href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#aria-role-attribute">ARIA role attribute</a> values:</dt>
         <dd><a target="_blank" href="https://www.w3.org/TR/wai-aria-1.1/#link"><code>link</code></a> role (default - <a target="_blank" href="https://www.w3.org/TR/html-aria/#el-area">do not set</a>).</dd>
         <dt>Allowed <a target="_blank" href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#state-and-property-attributes">ARIA state and property attributes</a>:</dt>
-        <dd><a target="_blank" href="https://www.w3.org/TR/html-aria/#index-aria-global">Global aria-* attributes</a></dd>
+        <dd><a target="_blank" href="https://www.w3.org/TR/html-aria/#index-aria-global">Global aria-* attributes</a>.</dd>
         <dd>Any aria-* attributes <a target="_blank" href="https://www.w3.org/TR/html-aria/#allowed-aria-roles-states-and-properties">applicable to the allowed roles</a>.</dd>
         <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
         <dd>
@@ -1582,13 +1582,13 @@
         <h5 id="the-mapml-element">5.2.2 The <code>&lt;mapml&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd>n/a</dd>
+          <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
-          <dd>The root of a MapML document</dd>
+          <dd>The root of a MapML document.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-          <dd>One <code>&lt;head&gt;</code> element, followed by one <code>&lt;body&gt;</code> element</dd>
+          <dd>One <code>&lt;head&gt;</code> element, followed by one <code>&lt;body&gt;</code> element.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd>lang — the language of the document, expressed as a BCP 47 language tag.<a href="#ref-BCP47">[BCP47]</a></dd>
+          <dd><code>lang</code> — the language of the document, expressed as a BCP 47 language tag.<a href="#ref-BCP47">[BCP47]</a></dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">interface <dfn id="mapmlmapmlelement">MAPMLMapMLElement</dfn> : MAPMLElement {
@@ -1601,7 +1601,7 @@
         <h5 id="the-head-element">5.2.3 The <code>&lt;head&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a></dd>
+          <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>As the first child element of the <code>&lt;mapml&gt;</code> element.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
@@ -1621,11 +1621,11 @@
         <h5 id="the-title-element">5.2.4 The <code>&lt;title&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a></dd>
+          <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>As a child of the <code>&lt;head&gt;</code> element.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-          <dd>Text</dd>
+          <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#text-content">Text</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
@@ -1641,13 +1641,13 @@
         <h5 id="the-base-element">5.2.5 The <code>&lt;base&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a></dd>
+          <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>As a child element of the <code>&lt;head&gt;</code> element.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-content-nothing">Nothing</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><code>href</code> — the absolute URL to be used to resolve relative URLs in the document.</dd>
+          <dd><code>href</code> — The absolute URL to be used to resolve relative URLs in the document.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">interface <dfn id="mapmlbaseelement">MAPMLBaseElement</dfn> : MAPMLElement {
@@ -1663,15 +1663,15 @@
         <h5 id="the-meta-element">5.2.6 The <code>&lt;meta&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a></dd>
+          <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>In the <code>&lt;head&gt;</code> element.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-content-nothing">Nothing</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><code>name</code> — Metadata name</dd>
-          <dd><code>http-equiv</code> — Pragma directive</dd>
-          <dd><code>content</code> — Value of the element</dd>
+          <dd><code>name</code> — Metadata name.</dd>
+          <dd><code>http-equiv</code> — Pragma directive.</dd>
+          <dd><code>content</code> — Value of the element.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">interface <dfn id="mapmlmetaelement">MAPMLMetaElement</dfn> : MAPMLElement {
@@ -1685,20 +1685,20 @@
         <h5 id="the-link-element">5.2.7 The <code>&lt;link&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a></dd>
+          <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>If the element represents a hyperlink (has a <code>href</code> attribute): as a child of the <code>head</code> or <code>body</code> element.</dd>
           <dd>If the element represents a link template (has a <code>tref</code> attribute): as a child of the <code>extent</code> element.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-content-nothing">Nothing</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><code>href</code> — Address of the hyperlink</dd>
-          <dd><code>tref</code> — URL Template</dd>
-          <dd><code>rel</code> — Relationship between the document containing the element and the destination resource</dd>
+          <dd><code>href</code> — Address of the hyperlink.</dd>
+          <dd><code>tref</code> — URL Template.</dd>
+          <dd><code>rel</code> — Relationship between the document containing the element and the destination resource.</dd>
           <dd><code>projection</code> — The <a href="#tiled-coordinate-reference-systems-table">TCRS</a> of the linked resource.</dd>
-          <dd><code>hreflang</code> — Language of the linked resource</dd>
-          <dd><code>type</code> — Hint for the type of the referenced resource</dd>
-          <dd><code>title</code> — Title of the link</dd>
+          <dd><code>hreflang</code> — Language of the linked resource.</dd>
+          <dd><code>type</code> — Hint for the type of the referenced resource.</dd>
+          <dd><code>title</code> — Title of the link.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">interface <dfn id="mapmllinkelement">MAPMLLinkElement</dfn> : MAPMLElement {
@@ -1828,13 +1828,13 @@
         <h5 id="the-body-element">5.2.8 The <code>&lt;body&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd>n/a</dd>
+          <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>As the second child of the <code>&lt;mapml&gt;</code> element.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-          <dd>Features and metadata</dd>
+          <dd>Features and metadata.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd>n/a</dd>
+          <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">interface <dfn id="mapmlbodyelement">MAPMLBodyElement</dfn> : MAPMLElement {
@@ -1846,7 +1846,7 @@
         <h5 id="the-extent-element">5.2.9 The <code>&lt;extent&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a></dd>
+          <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>Required to be a child of the <code>&lt;body&gt;</code> element.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
@@ -1856,7 +1856,7 @@
           </dd>
 
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><code>units</code> - The name of the coordinate reference system whose measurement units are to be used by values submitted by child <code>input</code> elements</dd>
+          <dd><code>units</code> — The name of the coordinate reference system whose measurement units are to be used by values submitted by child <code>input</code> elements.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -1880,36 +1880,36 @@
         <h5 id="the-input-element">5.2.10 The <code>&lt;input&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd>n/a</dd>
+          <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>Required to be a child of the <code>&lt;extent&gt;</code> element.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-content-nothing">Nothing</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><code>type</code> - <a href="#attr-input-type-keywords">enumerated keyword string</a> identifies the type of input</dd>
-          <dd><code>name</code> - the token to be used as a variable name in form serialization.</dd>
-          <dd><code>value</code> - the current or default value of the name/value pair represented by the <code>input</code></dd>
+          <dd><code>type</code> — <a href="#attr-input-type-keywords">Enumerated keyword string</a> identifies the type of input.</dd>
+          <dd><code>name</code> — The token to be used as a variable name in form serialization.</dd>
+          <dd><code>value</code> — The current or default value of the name/value pair represented by the <code>input</code>.</dd>
           <dd>
-            <code>shard</code> - a boolean attribute indicating associated <a href="#the-datalist-element"><code>datalist</code></a> values be used to shard map tile requests across subdomains (the values)
+            <code>shard</code> — A boolean attribute indicating associated <a href="#the-datalist-element"><code>datalist</code></a> values be used to shard map tile requests across subdomains (the values).
           </dd>
           <dd>
-            <code>list</code> - the id of an associated <a href="#the-datalist-element"><code>datalist</code></a> element to supply values for the input. Useful only with <code>shard</code> at this time.
+            <code>list</code> — The id of an associated <a href="#the-datalist-element"><code>datalist</code></a> element to supply values for the input. Useful only with <code>shard</code> at this time.
           </dd>
-          <dd><code>min</code> - the minimum value for the extent parameter acceptable by the server</dd>
-          <dd><code>max</code> - the maximum value for the extent parameter acceptable by the server</dd>
-          <dd><code>step</code> - the increment by which a value may vary between the <code>min</code> and <code>max</code> values</dd>
-          <dd><code>units</code> - when <code>type</code> attribute is <code>location</code>, <a href="#attr-input-units-keywords">enumerated keyword string</a> identifies the associated coordinate system for this input</dd>
+          <dd><code>min</code> — The minimum value for the extent parameter acceptable by the server.</dd>
+          <dd><code>max</code> — The maximum value for the extent parameter acceptable by the server.</dd>
+          <dd><code>step</code> — The increment by which a value may vary between the <code>min</code> and <code>max</code> values.</dd>
+          <dd><code>units</code> — When <code>type</code> attribute is <code>location</code>, <a href="#attr-input-units-keywords">enumerated keyword string</a> identifies the associated coordinate system for this input.</dd>
           <dd>
-            <code>axis</code> - when <code>type</code> attribute is <code>location</code>, <a href="#attr-input-axis-keywords">enumerated keyword string</a> identifies the axis of the associated OR related coordinate system from the
+            <code>axis</code> — When <code>type</code> attribute is <code>location</code>, <a href="#attr-input-axis-keywords">enumerated keyword string</a> identifies the axis of the associated OR related coordinate system from the
             <code>units</code> attribute, for which an associated axis value will be returned. The <code>min</code> and <code>max</code> attribute values, if present, will be interpreted in the
             <a href="#tiled-coordinate-reference-systems-table">defined units of this axis</a>.
           </dd>
           <dd>
-            <code>rel</code> - when <code>type</code> attribute is <code>location</code>, <a href="#rel-values"><code>tile</code> or <code>image</code> (the default if not specified)</a> identifies the relation of this location to either a
+            <code>rel</code> — When <code>type</code> attribute is <code>location</code>, <a href="#rel-values"><code>tile</code> or <code>image</code> (the default if not specified)</a> identifies the relation of this location to either a
             tile or an image corresponding to the map extent in which the location is found. Establishes the meaning of the <code>position</code> attribute to identify the location relative to the tile in question or to the map extent (the
             default).
           </dd>
-          <dd><code>position</code> - when <code>type</code> attribute is <code>location</code>, <a href="#attr-input-position-keywords">enumerated keyword string</a> identifies the relative position of a location</dd>
+          <dd><code>position</code> — When <code>type</code> attribute is <code>location</code>, <a href="#attr-input-position-keywords">enumerated keyword string</a> identifies the relative position of a location.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -2004,14 +2004,14 @@
           <tbody>
             <tr>
               <td><code>tcrs</code></td>
-              <td>For each zoom level, locations are expressed in pixel coordinates with the origin at the top-left corner of the pixel space</td>
+              <td>For each zoom level, locations are expressed in pixel coordinates with the origin at the top-left corner of the pixel space.</td>
               <td>OGC Tile Matrix Set "tile matrix (i',j')".</td>
             </tr>
             <tr>
               <td><code>pcrs</code></td>
               <td>
                 The location is expressed in projected coordinates. Units are meters except for WGS84 where pcrs AND gcrs coordinates are in longitude-latitude. E.g. meters for OSMTILE, which has an associated projected coordinate reference
-                system of EPSG:3857
+                system of EPSG:3857.
               </td>
               <td>Commonly represented as (x,y)</td>
             </tr>
@@ -2160,7 +2160,7 @@
         <h5 id="the-datalist-element">5.2.11 The <code>&lt;datalist&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd>n/a</dd>
+          <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>
             As a child of the <a href="#the-extent-element"><code>extent</code></a> element, associated to an <a href="#the-input-element"><code>input</code></a> element via that element's <code>list</code> attribute.
@@ -2170,7 +2170,7 @@
             One or more <a href="#the-option-element"><code>option</code></a> elements.
           </dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><code>id</code> - identifies the list within the current document</dd>
+          <dd><code>id</code> — Identifies the list within the current document.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -2182,15 +2182,15 @@
         <h5 id="the-label-element">5.2.12 The <code>&lt;label&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd>n/a</dd>
+          <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>
             As a child of the <a href="#the-extent-element"><code>extent</code></a> element.
           </dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-          <dd>Phrasing content</dd>
+          <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><code>for</code> - identifies by id reference the select for which the content of this element is the label</dd>
+          <dd><code>for</code> — Identifies by id reference the select for which the content of this element is the label.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -2202,7 +2202,7 @@
         <h5 id="the-select-element">5.2.13 The <code>&lt;select&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd>n/a</dd>
+          <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>
             As a child of the <a href="#the-extent-element"><code>extent</code></a> element.
@@ -2212,8 +2212,8 @@
             One or more <a href="#the-option-element"><code>option</code></a> elements.
           </dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><code>id</code> - identifies the select within the current document</dd>
-          <dd><code>name</code> - the token to be used as a variable name in form serialization.</dd>
+          <dd><code>id</code> — Identifies the select within the current document.</dd>
+          <dd><code>name</code> — The token to be used as a variable name in form serialization.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -2226,16 +2226,16 @@
         <h5 id="the-option-element">5.2.14 The <code>&lt;option&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd>n/a</dd>
+          <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>
             As a child of the <a href="#the-select-element"><code>select</code></a> element or the <a href="#the-datalist-element"><code>datalist</code></a> element.
           </dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-          <dd>Nothing</dd>
+          <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-content-nothing">Nothing</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><code>value</code> - the value to be used in form submission</dd>
-          <dd><code>label</code> - the label to be presented to the user, if applicable</dd>
+          <dd><code>value</code> — The value to be used in form submission.</dd>
+          <dd><code>label</code> — The label to be presented to the user, if applicable.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -2249,16 +2249,16 @@
         <h5 id="the-tile-element">5.2.15 The <code>&lt;tile&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd>Feature data</dd>
+          <dd>Feature data.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>Child of the <code>&lt;body&gt;</code> element.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-content-nothing">Nothing</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><code>row</code> - an integer (a Y axis value / the tile size) in the range of the tile coordinate reference system</dd>
-          <dd><code>col</code> - an integer (a X axis value / the tile size) in the domain of the tile coordinate reference system</dd>
-          <dd><code>src</code> - a URL from which the tile may be obtained</dd>
-          <dd><code>type</code> - a hint about the MIME type of the resource obtainable at the <code>src</code> URL.</dd>
+          <dd><code>row</code> — An integer (a Y axis value / the tile size) in the range of the tile coordinate reference system.</dd>
+          <dd><code>col</code> — An integer (a X axis value / the tile size) in the domain of the tile coordinate reference system.</dd>
+          <dd><code>src</code> — A URL from which the tile may be obtained.</dd>
+          <dd><code>type</code> — A hint about the MIME type of the resource obtainable at the <code>src</code> URL.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -2288,14 +2288,14 @@
         <h5 id="the-image-element">5.2.16 The <code>&lt;image&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd>Feature data</dd>
+          <dd>Feature data.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>A child of the <code>&lt;feature&gt;</code> element, which has a sibling <code>bbox</code> element.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-content-nothing">Nothing</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><code>src</code> — Address of the hyperlink</dd>
-          <dd><code>type</code> — A hint as to the MIME type of the resource</dd>
+          <dd><code>src</code> — Address of the hyperlink.</dd>
+          <dd><code>type</code> — A hint as to the MIME type of the resource.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">interface <dfn id="mapmlimageelement">MAPMLImageElement</dfn> : MAPMLElement {
@@ -2306,14 +2306,14 @@
         <h5 id="the-feature-element">5.2.17 The <code>&lt;feature&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd>Feature data</dd>
+          <dd>Feature data.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>Child of the <code>&lt;body&gt;</code> element.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd>An optional <code>geometry</code> element and an optional <code>properties</code> element.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><code>zoom</code> — the 'native' zoom level of the feature geometry</dd>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a></dd>
+          <dd><code>zoom</code> — the 'native' zoom level of the feature geometry.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">interface <dfn id="mapmlfeatureelement">MAPMLFeatureElement</dfn> : MAPMLElement {
@@ -2329,13 +2329,13 @@
         <h5 id="the-properties-element">5.2.18 The <code>&lt;properties&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd>Feature data</dd>
+          <dd>Feature data.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>A child of the <code>&lt;feature&gt;</code> element, containing elements representing the properties of the feature.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd>One or more unknown elements with text values. TODO allow HTML content.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd>n/a</dd>
+          <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">interface <dfn id="mapmlpropertieselement">MAPMLPropertiesElement</dfn> : MAPMLElement {
@@ -2350,13 +2350,13 @@
         <h5 id="the-geometry-element">5.2.19 The <code>&lt;geometry&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd>Feature data</dd>
+          <dd>Feature data.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>Child of the <code>&lt;feature&gt;</code> element.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd>A single geometry value, described in the <a href="#geometry-values">table</a> below.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a></dd>
+          <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">interface <dfn id="mapmlgeometryelement">MAPMLGeometryElement</dfn> : MAPMLElement {
@@ -2380,16 +2380,16 @@
             <tr id="the-point-element">
               <td><code>point</code></td>
               <td>
-                A <a href="#the-coordinates-element"><code>coordinates</code></a> element containing a single position
+                A <a href="#the-coordinates-element"><code>coordinates</code></a> element containing a single position.
               </td>
-              <td>Axis order - x followed by y, separated by whitespace</td>
+              <td>Axis order - x followed by y, separated by whitespace.</td>
             </tr>
             <tr id="the-linestring-element">
               <td><code>linestring</code></td>
               <td>
-                A <a href="#the-coordinates-element"><code>coordinates</code></a> element containing two or more positions
+                A <a href="#the-coordinates-element"><code>coordinates</code></a> element containing two or more positions.
               </td>
-              <td>Axis order - x followed by y, separated by whitespace</td>
+              <td>Axis order - x followed by y, separated by whitespace.</td>
             </tr>
             <tr id="the-polygon-element">
               <td><code>polygon</code></td>
@@ -2397,7 +2397,7 @@
                 One or more <a href="#the-coordinates-element"><code>coordinates</code></a> elements, each containing three or more positions.
               </td>
               <td>
-                <p>Axis order - x followed by y, separated by whitespace</p>
+                <p>Axis order - x followed by y, separated by whitespace.</p>
                 <p>The first and last positions in every child <code>coordinates</code> element are equal / at the same position.</p>
                 <p>
                   The first <a href="#the-coordinates-element"><code>coordinates</code></a> element represents the outside of the polygon, and subsequent <code>coordinates</code> elements represent holes.
@@ -2413,29 +2413,29 @@
               <td>
                 One <a href="#the-coordinates-element"><code>coordinates</code></a> element, containing one or more positions.
               </td>
-              <td>Axis order - x followed by y, separated by whitespace</td>
+              <td>Axis order - x followed by y, separated by whitespace.</td>
             </tr>
             <tr id="the-multilinestring-element">
               <td><code>multilinestring</code></td>
               <td>
                 One or more <a href="#the-coordinates-element"><code>coordinates</code></a> elements, each containing two or more positions.
               </td>
-              <td>Axis order - x followed by y, separated by whitespace</td>
+              <td>Axis order - x followed by y, separated by whitespace.</td>
             </tr>
             <tr id="the-multipolygon-element">
               <td><code>multipolygon</code></td>
               <td>
-                One or more <a href="#the-polygon-element"><code>polygon</code></a> elements
+                One or more <a href="#the-polygon-element"><code>polygon</code></a> elements.
               </td>
               <td>
-                <p>Axis order - x followed by y, separated by whitespace</p>
+                <p>Axis order - x followed by y, separated by whitespace.</p>
                 <p>For each member polygon, the same non-schema constraints apply to multipolygon descendant <code>coordinates</code> elements, as for polygon <code>coordinates</code> descendant elements.</p>
               </td>
             </tr>
             <tr id="the-geometry-collection-element">
               <td><code>geometrycollection</code></td>
               <td> One or more <a href="#the-point-element"><code>point</code></a>,
-                <a href="#the-linestring-element"><code>linestring</code></a>, <a href="#the-polygon-element"><code>polygon</code></a>, <a href="#the-multipoint-element"><code>multipoint</code></a>, <a href="#the-multilinestring-element"><code>multilinestring</code></a>, <a href="#the-multipolygon-element"><code>multipolygon</code></a> elements</td>
+                <a href="#the-linestring-element"><code>linestring</code></a>, <a href="#the-polygon-element"><code>polygon</code></a>, <a href="#the-multipoint-element"><code>multipoint</code></a>, <a href="#the-multilinestring-element"><code>multilinestring</code></a>, <a href="#the-multipolygon-element"><code>multipolygon</code></a> elements.</td>
                 
               <td>For each member geometry, the same non-schema constraints apply as to the unique geometry type above.</td>
             </tr>
@@ -2444,13 +2444,13 @@
         <h5 id="the-coordinates-element">5.2.20 The <code>&lt;coordinates&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd>Feature data</dd>
+          <dd>Feature data.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>A descendant of the <code>&lt;geometry&gt;</code> element, as the coordinate data which defines a feature geometry.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd>One or more <a href="#position">position</a>s in x followed by y, separated by whitespace, with each position separated from the adjacent position by whitespace.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd>n/a</dd>
+          <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">interface <dfn id="mapmlcoordinateselement">MAPMLCoordinatesElement</dfn> : MAPMLElement {
