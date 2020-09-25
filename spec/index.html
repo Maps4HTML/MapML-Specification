@@ -55,140 +55,9 @@
     </script>
     <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 
-    <div class="content">
 
-      <nav id="toc">
-        <h2>Table of Contents</h2>
-        <ol class="toc">
-          <li>1. <a href="#sec-intro">Introduction</a></li>
-          <li>2. <a href="#conformance">Conformance</a></li>
-          <li>
-            3. <a href="#ucr">Use Cases and Requirements</a>
-            <ul class="toc">
-              <li>3.1. <a href="#use-cases">Use Cases</a></li>
-              <li>3.2. <a href="#requirements">Requirements</a></li>
-            </ul>
-          </li>
-          <li>
-            4. <a href="#web-maps">Web Maps</a>
-            <ul>
-              <li>4.1. <a href="#web-mapping-elements-and-api">Web Mapping Elements and API</a>
-                <ul>
-                  <li>4.1.1 <a href="#the-map-element">The <code>&lt;map&gt;</code> element</a></li>
-                  <li>4.1.2 <a href="#the-layer-element">The <code>&lt;layer&gt;</code> element</a></li>
-                  <li>4.1.3 <a href="#the-area-element">The <code>&lt;area&gt;</code> element</a></li>
-                </ul>
-              </li>
-              <li>4.2. <a href="#authoring">Authoring</a></li>
-              <li>4.3. <a href="#syntax">Syntax</a></li>
-            </ul>
-          </li>
-          <li>
-            5. <a href="#features">Semantics, Structure and Styling of MapML Documents</a>
-            <ul>
-              <li>
-                5.1 <a href="#semantics">Semantics</a>
-                <ul class="toc">
-                  <li>5.1.1 <a href="#coordinate-systems">Coordinate Systems</a></li>
-                  <li>5.1.2 <a href="#coordinate-reference-systems">Coordinate Reference Systems</a></li>
-                  <li>5.1.3 <a href="#tiled-coordinate-reference-systems">Tiled Coordinate Reference Systems</a></li>
-                  <li>5.1.4 <a href="#scale">Scale / Resolution / Zoom levels</a></li>
-                  <li>5.1.5 <a href="#extent-semantics">Map extents</a></li>
-                  <li>5.1.6 <a href="#fragments">Fragment identifiers</a></li>
-                </ul>
-              </li>
-              <li>
-                5.2 <a href="#structure">Structure</a>
-                <ul class="toc">
-                  <li>
-                    5.2.1 <a href="#the-document-object">The Document object</a>
-                  </li>
-                  <li>
-                    5.2.2 <a href="#the-mapml-element">The <code>&lt;mapml&gt;</code> element</a>
-                  </li>
-                  <li>
-                    5.2.3 <a href="#the-head-element">The <code>&lt;head&gt;</code> element</a>
-                  </li>
-                  <li>
-                    5.2.4 <a href="#the-title-element">The <code>&lt;title&gt;</code> element</a>
-                  </li>
-                  <li>
-                    5.2.5 <a href="#the-base-element">The <code>&lt;base&gt;</code> element</a>
-                  </li>
-                  <li>
-                    5.2.6 <a href="#the-meta-element">The <code>&lt;meta&gt;</code> element</a>
-                  </li>
-                  <li>
-                    5.2.7 <a href="#the-link-element">The <code>&lt;link&gt;</code> element</a>
-                  </li>
-                  <li>
-                    5.2.8 <a href="#the-body-element">The <code>&lt;body&gt;</code> element</a>
-                  </li>
-                  <li>
-                    5.2.9 <a href="#the-extent-element">The <code>&lt;extent&gt;</code> element</a>
-                  </li>
-                  <li>
-                    5.2.10 <a href="#the-input-element">The <code>&lt;input&gt;</code> element</a>
-                  </li>
-                  <li>
-                    5.2.11 <a href="#the-datalist-element">The <code>&lt;datalist&gt;</code> element</a>
-                  </li>
-                  <li>
-                    5.2.12 <a href="#the-label-element">The <code>&lt;label&gt;</code> element</a>
-                  </li>
-                  <li>
-                    5.2.13 <a href="#the-select-element">The <code>&lt;select&gt;</code> element</a>
-                  </li>
-                  <li>
-                    5.2.14 <a href="#the-option-element">The <code>&lt;option&gt;</code> element</a>
-                  </li>
-                  <li>
-                    5.2.15 <a href="#the-tile-element">The <code>&lt;tile&gt;</code> element</a>
-                  </li>
-                  <li>
-                    5.2.16 <a href="#the-image-element">The <code>&lt;image&gt;</code> element</a>
-                  </li>
-                  <li>
-                    5.2.17 <a href="#the-feature-element">The <code>&lt;feature&gt;</code> element</a>
-                  </li>
-                  <li>
-                    5.2.18 <a href="#the-properties-element">The <code>&lt;properties&gt;</code> element</a>
-                  </li>
-                  <li>
-                    5.2.19 <a href="#the-geometry-element">The <code>&lt;geometry&gt;</code> element</a>
-                  </li>
-                  <li>
-                    5.2.20 <a href="#the-coordinates-element">The <code>&lt;coordinates&gt;</code> element</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                5.3. <a href="#styling">Styling</a>
-              </li>
-              <li>
-                5.4. <a href="#examples">Examples</a>
-              </li>
-            </ul>
-          </li>
-          <li>6. <a href="#security">Security Considerations</a></li>
-          <li>7. <a href="#glossary">Glossary of Terms and Datatypes</a></li>
-          <li>
-            8. <a href="#schema">Schema</a>
-            <ul class="toc">
-              <li>8.1. <a href="#rng">RelaxNG Schema</a></li>
-            </ul>
-          </li>
-          <li>
-            9. <a href="#sec-refs">References</a>
-            <ul class="toc">
-              <li>9.1. <a href="#normrefs">Normative References</a></li>
-              <li>9.2. <a href="#informrefs">Informative References</a></li>
-            </ul>
-          </li>
-        </ol>
-      </nav>
 
-      <h2 id="abstract">Abstract</h2>
+      <section id="abstract">
 
       <p>Map Markup Language is a text format for encoding map information for the World Wide Web.</p>
       <p>The objective of MapML is to allow Web-based user agent software (browsers and others) to display and edit maps and map data without necessary customization.</p>
@@ -199,19 +68,9 @@
       <p>The applications of Web maps are diverse.  The wide scope of use of Web maps appears similarly broad to that of other Web media types, such as video or audio.  In other words, there are a multitude of reasons for wanting to include
       a map on your Web page.  The HTML <a href="#the-map-element"><code>map</code></a> element proposed by this document should be provider-agnostic, 
       and should only depend on Web standards, including Uniform Resource Identifiers, Document Object Model, Cascading Style Sheets and media types.</p>
+      </section>
+      <section id="sotd">
 
-      <div id="sotd">
-        <h2 id="status">Status of This Document</h2>
-
-        <p class="required"><em>This section describes the status of this document at the time of its publication. Other documents may supersede this document.</em></p>
-
-        <p class="disclaimer required"><strong>Although W3C has provided the template for this document for community use, the document is not affiliated with W3C in any way, and is not endorsed or approved by W3C.</strong></p>
-
-        <p class="required">
-          This document is a draft of this specification, produced by an independent party. It is inappropriate to cite this specification as as a publication of the World Wide Web Consortium (W3C), or anything other than a
-          <em>work in progress</em> by an independent entity.
-        </p>
-        <p>In particular, certain aspects of this document are yet to be defined. Feedback from the community is solicited for accessibility and DOM APIs.</p>
 
         <h3>Intent of this Specification</h3>
         
@@ -303,9 +162,7 @@
           Please send comments on this specification to <a href="mailto:public-maps4html@w3.org">public-maps4html@w3.org</a>, or <a href="https://discourse.wicg.io/t/map-markup-language/1267">WICG</a>, or open an
           <a href="https://github.com/Maps4HTML/MapML/issues">issue</a>.
         </p>
-      </div>
-
-      <hr>
+      </section>
 
       <section id="sec-intro">
         <h2 id="intro">1. Introduction</h2>
@@ -333,12 +190,14 @@
           Web Map Custom Element</a> project.</p>
       </section>
 
-      <section id="sec-conformance">
-        <h2 id="conformance">2. Conformance</h2>
+      <section id="conformance">
+        <!-- https://github.com/w3c/respec/wiki/conformance -->
+        <section id="conforming-documents">
+        <h2>Conforming documents</h2>
         <p>This section is normative.</p>
 
         <p>
-          <dfn id="conforming-documents">Conforming documents</dfn> are documents that comply with all the conformance criteria for MapML documents. For readability, some of these conformance requirements are phrased as conformance
+          <dfn>Conforming documents</dfn> are documents that comply with all the conformance criteria for MapML documents. For readability, some of these conformance requirements are phrased as conformance
           requirements on authors; such requirements are implicitly requirements on documents: by definition, all documents are assumed to have had an author. (In some cases, that author may itself be a user agent — such user agents are
           subject to additional rules, as explained below.)
         </p>
@@ -451,17 +310,14 @@
           </dd>
         </dl>
         <p>This document contains explicit conformance criteria that overlap with some RNG definitions in requirements. If there is any conflict between the two, the explicit conformance criteria are the definitive reference.</p>
-
-        <p>
-          Within this specification, the key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as described in
-          <a href="https://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a> [<a href="#ref-RFC2119">RFC2119</a>]. However, for readability, these words do not necessarily appear in uppercase in this specification.
-        </p>
+        </section>
       </section>
 
       <section id="sec-ucr">
         <h2 id="ucr">3. Use Cases and Requirements</h2>
         <p>This section is informative.</p>
 
+        <section>
         <h3 id="use-cases">3.1. Use Cases</h3>
         <p>The following usage scenarios illustrate some of the ways in which <strong>Map Markup Language</strong> might be used for various applications:</p>
 
@@ -538,7 +394,8 @@
             Web search users.</p>
           </li>
         </ul>
-
+        </section>
+        <section>
         <h3 id="requirements">3.2. Requirements</h3>
         <p>
           <strong>Uniform interface</strong>: No URL recipes should be required to be supported by clients - support for simple opaque URLs and standardized media types should be all that is required clients. Application state / state
@@ -547,7 +404,7 @@
         <p><strong>Implementation commitments</strong>: Simple, lightweight server software should be available to allow authors to serve spatial resources as MapML.</p>
         <p>One or more <strong>accessibile </strong>Custom Element clients should be available to demonstrate client functionality.</p>
         <p><strong>Ease of authoring</strong>: A range of authoring situations should be supported, from simple single file services to robust MapML services over large volumes of framework data.</p>
-      
+        </section>
       </section>
       
       <section id="sec-web-maps">
@@ -556,11 +413,11 @@
         
         <p>The <a href="#the-map-element"><code>&lt;map&gt;</code></a> element, in conjunction with any <a href="#the-layer-element"><code>&lt;layer&gt;</code></a> and <a href="#the-area-element"><code>&lt;area&gt;</code></a> element descendants, 
   defines an interactive <a href="#the-map-element"><code>map</code></a> media element. </p>
-  
+        <section>
         <!-- initially copied from the HTML 5 spec -->
         <h3 id="web-mapping-elements-and-api">4.1 Web mapping elements and API</h3>
         <p>This section is normative.</p>
-
+        <section>
         <h4 id="the-map-element">4.1.1 The <dfn><code>&lt;map&gt;</code></dfn> element</h4>
         <dl class="element"><dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#flow-content-2">Flow content</a>.</dd>
@@ -645,7 +502,8 @@
         <p>The <a href="#the-map-element"><code>map</code></a> element supports the <code>width</code> and <code>height</code> <a href="https://html.spec.whatwg.org/multipage/embedded-content-other.html#dimension-attributes">dimension attributes</a>. [<a href="#ref-HTML">HTML</a>]</p>
         <p>The <a href="https://drafts.csswg.org/css-images/#default-object-size">default object size</a> is a width of 300 <a href="https://drafts.csswg.org/css-values/#px">CSS pixels</a> and a height of 150 <a href="https://drafts.csswg.org/css-values/#px">CSS pixels</a>. <a href="#ref-CSSIMAGES">[CSSIMAGES]</a></p>
         </div>
-
+        </section>
+        <section>
         <h4 id="the-layer-element">4.1.2 The <dfn><code>&lt;layer&gt;</code></dfn> element</h4>
         <dl class="element"><dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#flow-content-2">Flow content</a>.</dd>
@@ -715,6 +573,8 @@
         zoom or extent mismatch, the property will be true and if the layer is present in the layer control (i.e. <a href="#attr-layer-hidden"><code>hidden</code></a> is false), it will be disabled in that control i.e. not checkable.</p>
 
         </div>
+        </section>
+        <section>
         <h4 id="the-area-element">4.1.3 The <dfn><code>&lt;area&gt;</code></dfn> element</h4>
         <dl class="element"><dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#flow-content-2">Flow content</a>.</dd>
@@ -827,7 +687,9 @@
         <p>The intention of the <a href="#the-area-element"><code>area</code></a> element is to extend the behavior of the existing HTML <a href="#the-area-element"><code>area</code></a> element. For information pertaining to
         the processing of various link types created by the <a href="#the-area-element"><code>area</code></a> element, please refer to the description of hyperlink processing for the 
         <a target="_blank" href="https://html.spec.whatwg.org/multipage/image-maps.html#the-area-element">HTML <code>area</code></a> element.</p>
-        
+        </section>
+      </section>
+        <section>
         <h3 id="authoring">4.2. Authoring</h3>
         <p>A <dfn id="map">Web map</dfn> is an embedded media element which enables dynamic cartographic Web applications in HTML documents.</p>
         <p>A Web map is a rectangular page area, represented in HTML in the form of a <a href="#the-map-element"><code>map</code></a> element, containing a set of zero or more 
@@ -874,7 +736,8 @@
   &lt;/map&gt;
           </pre>
         </div>
-        
+        </section>
+        <section>
         <h3 id="syntax">4.4 Syntax</h3>
         <p>The <a href="#the-map-element"><code>map</code></a> element has a different content model defined by this specification, compared to that defined by the <a target="_blank" href="https://html.spec.whatwg.org/multipage/image-maps.html#the-map-element">HTML standard</a>.</p>
         <p>At such a moment as is warranted, the standard definition of the <code>map</code>
@@ -884,12 +747,15 @@
         the existing standard map element behaviour and markup can be used by
         authors as a widely supported fallback mechanism for non-compliant browsers as this
         specification is incrementally implemented by the platform browsers.</p>
+        </section>
       </section>
 
       <section id="sec-features">
         <h2 id="features">5. Semantics, Structure and Styling of MapML Documents</h2>
         <p>This section is normative.</p>
+        <section>
         <h3 id="semantics">5.1 Semantics</h3>
+        <section>
         <h4 id="coordinate-systems">5.1.1 Coordinate Systems</h4>
         <p>
           In this document, all Coordinate Systems (CS) are 2D. A 2D CS has two axes, one horizontal (commonly related to west-east direction), and one vertical (commonly related to north-south direction; do not confuse it with
@@ -897,6 +763,8 @@
           conforming to this specification, we override any externally defined axis order. Coordinates are serialized as <i>horizontal axis followed by vertical axis</i>, separated by whitespace. Where applicable, coordinate pairs are
           separated by whitespace. The axis names of a coordinate system are identified by this document.
         </p>
+        </section>
+        <section>
         <h4 id="coordinate-reference-systems">5.1.2 Coordinate Reference Systems</h4>
         <p>
           A Coordinate Reference System (CRS) is a Coordinate System that is referenced to locations on the Earth. Maps are graphics which follow mathematical rules (called projections) established to transform locations on Earth to
@@ -908,6 +776,8 @@
           Geodetic Parameter Dataset. Some EPSG codes are used in the following table. In an effort to bring some clarity about the axis order for the longitude-latitude based CRSs, the OGC defined some "CRS codes". CRS:83 is defined
           equivalent to EPSG:4269 but with horizontal-then-vertical axis order, and CRS:84 is defined equivalent to EPSG:4326 except in its axes order.
         </p>
+        </section>
+        <section>
         <h4 id="tiled-coordinate-reference-systems">5.1.3 Tiled Coordinate Reference Systems</h4>
         <p>
           A tiled coordinate reference system is a set of coordinate reference systems, which share a common origin in space, but which differ by the size of their smallest unit at defined locations, e.g. meters/pixel along the equator.
@@ -1266,6 +1136,8 @@
           Many other projection systems exist, and could in principle be used by map clients and servers. As such projections and associated defined tiled coordinate reference systems come into common usage, it is expected that their
           definitions for use in MapML and on the Web will be imported here. The contents of this document constitutes a registry of such projections.
         </p>
+        </section>
+        <section>
         <h4 id="scale">5.1.4 Scale / Resolution / Zoom levels</h4>
         <p>
           Scale is an essential characteristic of all geospatial information. The scale at which information is used dictates the model used for its representation. Geospatial information cannot be meaningfully combined without
@@ -1276,6 +1148,8 @@
                 <p id="zoom">In MapML documents, scale is indirectly represented by zoom level, and varies across any rendered map extent. Two MapML documents in the same TCRS and zoom level should be interoperable to the degree that they can be automatically and visually related (overlayed). The zoom level of a MapML document is often represented by the value of the <code>value</code> attribute of the <code>input[@type=zoom]</code>. By associating a specific zoom <code>value</code> to the input, we are able to compute the spatial bounds of a <code>link</code> template by means of <code>min</code>, <code>max</code> and <code>axis</code> values of other <code>input[@type=location]</code> elements associated to the same <code>link</code> template element with which the <code>input[@type=zoom]</code> is associated. 
                   
                   In any case, the zoom level of any MapML document MAY be present in document metadata as a <code>meta</code> element e.g. &lt;meta name="zoom" content="0"/&gt;.  In the case where a MapML document contains an <code>extent</code> element, an <code>input@type=zoom</code> MUST be present which controls how the zoom is transmitted from client to server. Where that input has a non-empty <code>input@value</code> attribute, in case of discrepancy between  the <code>meta[@name=zoom]/@content</code> and the <code>input[@type=zoom]/@value</code>, the latter zoom value SHALL be taken to be correct, EXCEPT in the case where there may exist more than one <code>input[@type=zoom]</code> and their <code>value</code> attributes do not agree, in which case the value of <code>meta[@name=zoom]/@content</code> shall be taken to be correct.</p>
+        </section>
+        <section>
         <h4 id="extent-semantics">5.1.5 Extents</h4>
         <p>
           A MapML document is a representation of a defined portion of a two dimensional 
@@ -1285,15 +1159,23 @@
           The <code>extent/@units</code> value SHALL be taken to be the authoritative 
           declaration of the TCRS for a MapML document.
         </p>
+        </section>
+        <section>
         <h4 id="fragments">5.1.6 Fragment identifiers</h4>
         <p>TBD</p>
+        </section>
+        </section>
+        <section>
         <h3 id="structure">5.2 Structure</h3>
         <p>This section is normative.</p>
+        <section>
         <h4 id="the-document-object">5.2.1 The <code>Document</code> object</h4>
         <p>
           A MapML document is a [<a href="#ref-MicroXML">MicroXML</a>] document. As such, it MUST have a single root element named &lt;mapml&gt;. It MUST NOT have a DOCTYPE declaration; attributes named 'xmlns' and names containing a colon
           character ':' (U+003A) are not permitted. Other restrictions relative to XML syntax are enumerated in [<a href="#ref-MicroXML">MicroXML</a>].
         </p>
+        </section>
+        <section>
         <h5 id="the-mapml-element">5.2.2 The <code>&lt;mapml&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -1313,6 +1195,8 @@
         </dl>
         <p>The <code>&lt;mapml&gt;</code> element is the the root element of a MapML document, and must contain one <code>&lt;head&gt;</code> element followed by one <code>&lt;body&gt;</code> element.</p>
         <p>The <code>&lt;mapml&gt;</code> element may carry a <code>lang</code> attribute, as <a href="https://html.spec.whatwg.org/multipage/dom.html#attr-lang">defined</a> by [<a href="#ref-HTML">HTML</a>].</p>
+        </section>
+        <section>
         <h5 id="the-head-element">5.2.3 The <code>&lt;head&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -1333,6 +1217,8 @@
           The <code>&lt;head&gt;</code> element is for MapML document metadata content. The content may include: one <code>&lt;title&gt;</code> element, one <code>&lt;base&gt;</code> element, zero or more <code>&lt;link&gt;</code> elements,
           and zero or more <code>&lt;meta&gt;</code> elements.
         </p>
+        </section>
+        <section>
         <h5 id="the-title-element">5.2.4 The <code>&lt;title&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -1353,6 +1239,8 @@
           The <code>&lt;title&gt;</code> element should exist as the one and only <code>&lt;title&gt;</code> element in the <code>&lt;head&gt;</code> element. Its content should be a text string describing the document. It is conceivably
           used as a bookmark title.
         </p>
+        </section>
+        <section>
         <h5 id="the-base-element">5.2.5 The <code>&lt;base&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -1375,6 +1263,8 @@
           There must be only one <code>&lt;base&gt;</code> element in a MapML document, and it must be in the content of the <code>&lt;head&gt;</code> element, before any MapML elements which potentially carry a URL for resolution, notably
           the <code>&lt;link&gt;</code> element.
         </p>
+        </section>
+        <section>
         <h5 id="the-meta-element">5.2.6 The <code>&lt;meta&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -1397,6 +1287,8 @@
 </pre>
           </dd>
         </dl>
+        </section>
+        <section>
         <h5 id="the-link-element">5.2.7 The <code>&lt;link&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -1540,6 +1432,8 @@
             </tr>
           </tbody>
         </table>
+        </section>
+        <section>
         <h5 id="the-body-element">5.2.8 The <code>&lt;body&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -1558,6 +1452,8 @@
           </dd>
         </dl>
         <p>The <code>&lt;body&gt;</code> element represents the content of the document.</p>
+        </section>
+        <section>
         <h5 id="the-extent-element">5.2.9 The <code>&lt;extent&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -1591,7 +1487,8 @@
         </p>
         <p>The <code>units</code> attribute indicates the parent TCRS that location events shall be generated for, and serialized as requested by the <code>extent</code>'s contents.</p>
 
-
+        </section>
+        <section>
         <h5 id="the-input-element">5.2.10 The <code>&lt;input&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -1872,6 +1769,8 @@
             </tr>
           </tbody>
         </table>
+        </section>
+        <section>
         <h5 id="the-datalist-element">5.2.11 The <code>&lt;datalist&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -1894,6 +1793,8 @@
 };</pre>
           </dd>
         </dl>
+        </section>
+        <section>
         <h5 id="the-label-element">5.2.12 The <code>&lt;label&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -1914,6 +1815,8 @@
 };</pre>
           </dd>
         </dl>
+        </section>
+        <section>
         <h5 id="the-select-element">5.2.13 The <code>&lt;select&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -1938,6 +1841,8 @@
 };</pre>
           </dd>
         </dl>
+        </section>
+        <section>
         <h5 id="the-option-element">5.2.14 The <code>&lt;option&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -1960,7 +1865,8 @@
 };</pre>
           </dd>
         </dl>
-
+        </section>
+        <section>
         <h5 id="the-tile-element">5.2.15 The <code>&lt;tile&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -2000,6 +1906,8 @@
         <p>
           The main example of such a tiled coordinate reference system is <a href="#OSMTILE"><code>OSMTILE</code></a>, although others exist.
         </p>
+        </section>
+        <section>
         <h5 id="the-image-element">5.2.16 The <code>&lt;image&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -2017,7 +1925,8 @@
 };</pre>
           </dd>
         </dl>
-
+        </section>
+        <section>
         <h5 id="the-feature-element">5.2.17 The <code>&lt;feature&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -2041,6 +1950,8 @@
           A <code>feature</code> element represents a geographic feature. A <code>feature</code> element has an optional <a href="#the-properties-element"><code>properties</code></a> child element, and a required child
           <a href="#the-geometry-element"><code>geometry</code></a> element.
         </p>
+        </section>
+        <section>
         <h5 id="the-properties-element">5.2.18 The <code>&lt;properties&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -2061,7 +1972,8 @@
         <p>
           A <code>feature</code> element can have zero or one <code>properties</code> element, which contains zero or more unknown elements, whose content is text.
         </p>
-
+        </section>
+        <section>
         <h5 id="the-geometry-element">5.2.19 The <code>&lt;geometry&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -2185,10 +2097,14 @@
           specification neither assigns nor requires special ordering or other constraints, apart from the axis order described above. For <code>geometry</code> elements whose value is a <code>polygon</code> or
           <code>multipolygon</code> element, the descendant <code>coordinates</code> elements must follow additional constraints.
         </p>
+        </section>
+        </section>
+        <section>
         <h2 id="styling">5.3. Styling</h2>
         <p>MapML documents can be styled with Cascading Style Sheets.</p>
         <p class="note"><a href="https://github.com/Maps4HTML/MapML/issues/71">Issue 71: How does styling MapML with CSS work?</a></p>
-        
+        </section>
+        <section>
         <h2 id="examples">5.4. Examples</h2>
         <p>This section is informative.</p>
         <figure>
@@ -2202,6 +2118,7 @@
             data.
           </figcaption>
         </figure>
+        </section>
       </section>
 
       <section id="sec-security">
@@ -2243,95 +2160,17 @@
 
         <p><a href="https://github.com/Maps4HTML/MapML/tree/gh-pages/schema">MapML schema (under development).</a></p>
       </section>
-
-      <section id="sec-refs">
-        <h2 id="refs">9. References</h2>
-
-        <h3 id="normrefs">9.1. Normative References</h3>
-        <dl>
-          <dt id="ref-RFC2119"><strong class="normref">[RFC2119]</strong></dt>
-          <dd>
-            <cite><a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a></cite>, S. Bradner, March 1997. <br>
-            Available at https://tools.ietf.org/html/rfc2119.
-          </dd>
-
-          <dt id="ref-RNG"><strong class="normref">[RELAXNG]</strong></dt>
-          <dd>
-            <cite>
-              <a href="https://web.archive.org/web/20120619140335/http://www1.y12.doe.gov/capabilities/sgml/sc34/document/0362_files/relaxng-is.pdf">
-                Document Schema Definition Languages (DSDL) — Part 2: Regular grammar-based validation — RELAX NG, ISO/IEC FDIS 19757-2:2002(E)
-              </a>
-            </cite>
-            , J. Clark,
-            <ruby>
-              <rb xml:lang="ja" lang="ja">村田 真</rb> <rp>(</rp><rt><span class="familyname">Murata</span> M.</rt><rp>)</rp>
-            </ruby>
-            , eds. International Organization for Standardization, 12 December 2002. <br>
-            Available at https://web.archive.org/web/20120619140335/http://www1.y12.doe.gov/capabilities/sgml/sc34/document/0362_files/relaxng-is.pdf.
-          </dd>
-          
-          <dt id="ref-Web-Map-Custom-Element"><strong class="normref">[Web-Map-Custom-Element]</strong></dt>
-          <dd>
-            <cite><a target="_blank" href="https://github.com/Maps4HTML/Web-Map-Custom-Element">Web Map Custom Element</a></cite>,
-            Maps For HTML Community Group, August 2015.
-            <br>Source code available at https://github.com/Maps4HTML/Web-Map-Custom-Element.
-          </dd>
-        </dl>
-
-        <h3 id="informrefs">9.2. Informative References</h3>
-        <dl>
-          <dt id="ref-SCHEMA2"><strong class="informref">[SCHEMA2]</strong></dt>
-          <dd>
-            <cite class="w3crec"><a href="https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/">XML Schema Part 2: Datatypes Second Edition</a></cite>. P. Biron, A. Malhotra, eds. World Wide Web Consortium, 28 October 2004. (See also
-            [<a href="#ref-XML11-SCHEMA">XML11-SCHEMA</a>].) <br>
-            This edition of XML Schema Part 2 is https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/. <br>
-            The <a href="https://www.w3.org/TR/xmlschema-2/">latest edition of XML Schema Part 2</a> is available at https://www.w3.org/TR/xmlschema-2/.
-          </dd>
-
-          <dt id="ref-WebIDL"><strong class="informref">[WebIDL]</strong></dt>
-          <dd>
-            <cite class="w3cwd"><a href="https://www.w3.org/TR/2008/WD-WebIDL-20081219/">WebIDL</a></cite>, C. McCormack, ed. World Wide Web Consortium, <span class="wip">work in progress</span>, 19 December 2008. <br>
-            This edition of WebIDL is https://www.w3.org/TR/2008/WD-WebIDL-20081219/. <br>
-            The <a href="https://www.w3.org/TR/WebIDL/">latest edition of WebIDL</a> is available at https://www.w3.org/TR/WebIDL/.
-          </dd>
-
-          <dt id="ref-MicroXML"><strong class="informref">[MicroXML]</strong></dt>
-    <dd>
-            <cite class="w3cwd"><a href="https://dvcs.w3.org/hg/microxml/raw-file/tip/spec/microxml.html">MicroXML</a></cite>, J. CLark, J. Cowan, eds. World Wide Web Consortium MicroXML Community Group,
-            <span class="wip">work in progress</span>, 2012.
-    </dd>
-          <dt id="ref-HTML"><strong class="informref">[HTML]</strong></dt>
-	  <dd>
-            <cite class="w3crec"><a href="https://html.spec.whatwg.org/multipage/">HTML</a></cite>,
-            Anne van Kesteren; et al. HTML Standard. Living Standard. URL: https://html.spec.whatwg.org/multipage/
-	  </dd>
-          <dt id="ref-BCP47"><strong class="informref">[BCP47]</strong></dt>
-    <dd>
-            <cite> <a href="https://www.ietf.org/rfc/bcp/bcp47.txt">Tags for Identifying Languages; Matching of Language Tags</a> (URL: <a href="https://www.ietf.org/rfc/bcp/bcp47.txt">https://www.ietf.org/rfc/bcp/bcp47.txt</a>) </cite>
-            , A. Phillips, M. Davis. IETF.
-    </dd>
-          <dt id="ref-GeoJSON"><strong class="informref">[GeoJSON]</strong></dt>
-    <dd>
-            <cite><a href="https://geojson.org/">The GeoJSON Format Specification</a></cite>
-    </dd>
-          <dt id="ref-OSMTILE"><strong class="informref">[OSMTILE]</strong></dt>
-	  <dd>
-            <cite><a href="https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames">OpenStreetMap Slippy Maps Tilenames Wiki</a></cite>
-	  </dd>
-          <dt id="ref-EPSG-REGISTRY"><strong class="informref">[EPSG-REGISTRY]</strong></dt>
-	  <dd>
-            <cite><a href="http://www.epsg-registry.org/">EPSG Geodetic Parameter Registry</a></cite>
-	  </dd>
-        <dt id="ref-XML11-SCHEMA"><strong class="informref">[XML11-SCHEMA]</strong></dt>
-    <dd><cite><a href="https://www.w3.org/TR/2005/NOTE-xml11schema10-20050511/">Processing XML 1.1 documents with XML Schema 1.0 processors</a></cite>,
-      H. Thompson, ed. World Wide Web Consortium Working Group Note, 11 May 2005.
-    </dd>
-    <dt id="ref-CSSIMAGES"><strong class="informref">[CSSIMAGES]</strong></dt>
-    <dd>
-      <cite class="w3crec"><a href="https://drafts.csswg.org/css-images/">CSS Images Module</a></cite>, E. Etemad, T. Atkins, L. Verou. W3C.
-    </dd>
-	</dl>
+      
+      <section id="idl-index" class="appendix">
+        <!-- https://github.com/w3c/respec/wiki/idl-index -->
       </section>
-</div>
+      
+      <section id="index" class="appendix">
+        <!-- https://github.com/w3c/respec/wiki/index -->
+      </section>
+
+      <section id="references" class="appendix">
+        <!-- https://github.com/w3c/respec/wiki/references -->
+      </section>
 </body>
 </html>
