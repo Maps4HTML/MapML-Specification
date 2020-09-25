@@ -164,9 +164,8 @@
         </p>
       </section>
 
-      <section id="sec-intro">
-        <h2 id="intro">1. Introduction</h2>
-        <p>This section is informative.</p>
+      <section id="intro" class="informative">
+        <h1>Introduction</h1>
         <p>
           Map Markup Language is a text-based format which is allows map authors to encode map information as hypertext documents exchanged over the Uniform Interface of the Web. The format is defined using some characteristics of HTML,
           MicroXML, GeoJSON and other standards.
@@ -194,7 +193,6 @@
         <!-- https://github.com/w3c/respec/wiki/conformance -->
         <section id="conforming-documents">
         <h2>Conforming documents</h2>
-        <p>This section is normative.</p>
 
         <p>
           <dfn>Conforming documents</dfn> are documents that comply with all the conformance criteria for MapML documents. For readability, some of these conformance requirements are phrased as conformance
@@ -293,7 +291,7 @@
           <dd>
             <p>Authoring tools and markup generators must generate <a href="#conforming-documents">conforming documents</a>. Conformance criteria that apply to authors also apply to authoring tools, where appropriate.</p>
 
-            <p class="example">For example, a markup generator must ensure that polygons have three or more vertices, the first and last of which have the same location.</p>
+            <p class="note">For example, a markup generator must ensure that polygons have three or more vertices, the first and last of which have the same location.</p>
 
             <p class="note">In terms of conformance checking, an editor has to output documents that conform to the same extent that a conformance checker will verify.</p>
 
@@ -313,9 +311,8 @@
         </section>
       </section>
 
-      <section id="sec-ucr">
+      <section id="sec-ucr" class="informative">
         <h2 id="ucr">3. Use Cases and Requirements</h2>
-        <p>This section is informative.</p>
 
         <section>
         <h3 id="use-cases">3.1. Use Cases</h3>
@@ -416,7 +413,6 @@
         <section>
         <!-- initially copied from the HTML 5 spec -->
         <h3 id="web-mapping-elements-and-api">4.1 Web mapping elements and API</h3>
-        <p>This section is normative.</p>
         <section>
         <h4 id="the-map-element">4.1.1 The <dfn><code>&lt;map&gt;</code></dfn> element</h4>
         <dl class="element"><dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -696,7 +692,7 @@
           <a href="#the-layer-element"><code>layer</code></a> elements.  A Web map represents a region of the earth's surface in two dimensions.  A map's initial location 
           (<a href="#attr-map-lat"><code>lat</code></a>, <a href="#attr-map-lon"><code>lon</code></a>), extent (<a href="#attr-map-width"><code>width</code></a> and <a href="#attr-map-height"><code>height</code></a>) 
           and scale (<a href="#attr-map-zoom"><code>zoom</code></a>) are defined by its attributes.</p>
-        <div class="example-code">
+        <aside class="example">
         
            <p>Consider a map of Paris:</p>
         
@@ -712,11 +708,11 @@
   &lt;/map&gt;
           </pre>
            
-        </div>
+        </aside>
         <p>A Web map can have zero or more layers.  Map layers are drawn in document order of the <a href="#the-layer-element"><code>layer</code></a> elements, following the <a href="https://www.w3.org/TR/SVG/render.html#PaintersModel"  target="_blank">painters model</a>.  If the user 
         (or author) enables more than one layer, all the layers will be painted, in document order.  Features in layers drawn earlier will be painted over by later layers.  Opacity of layers can be managed with CSS, if necessary.</p>
         
-        <div class="example-code">
+        <aside class="example">
         
            <p>Here is a map of Ottawa, with two layers:</p>
            <img src="images/ottawa.jpg" width="639" height="304" alt="Large scale image of a street map of part of Ottawa, Canada">
@@ -735,7 +731,7 @@
     &lt;layer label="CanVec+ 031G" src="https://example.com/mapml/canvec/50k/features/" crossorigin class="transparency"&gt;&lt;/layer&gt;
   &lt;/map&gt;
           </pre>
-        </div>
+        </aside>
         </section>
         <section>
         <h3 id="syntax">4.4 Syntax</h3>
@@ -752,7 +748,6 @@
 
       <section id="sec-features">
         <h2 id="features">5. Semantics, Structure and Styling of MapML Documents</h2>
-        <p>This section is normative.</p>
         <section>
         <h3 id="semantics">5.1 Semantics</h3>
         <section>
@@ -1162,12 +1157,11 @@
         </section>
         <section>
         <h4 id="fragments">5.1.6 Fragment identifiers</h4>
-        <p>TBD</p>
+        <p class="ednote">TBD</p>
         </section>
         </section>
         <section>
         <h3 id="structure">5.2 Structure</h3>
-        <p>This section is normative.</p>
         <section>
         <h4 id="the-document-object">5.2.1 The <code>Document</code> object</h4>
         <p>
@@ -1959,7 +1953,7 @@
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>A child of the <code>&lt;feature&gt;</code> element, containing elements representing the properties of the feature.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-          <dd>One or more unknown elements with text values. TODO allow HTML content.</dd>
+          <dd>One or more unknown elements with text values. <div class="ednote">TODO: Allow HTML content.</div></dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
@@ -2102,11 +2096,13 @@
         <section>
         <h2 id="styling">5.3. Styling</h2>
         <p>MapML documents can be styled with Cascading Style Sheets.</p>
-        <p class="note"><a href="https://github.com/Maps4HTML/MapML/issues/71">Issue 71: How does styling MapML with CSS work?</a></p>
+        <div class="issue" data-number="71">
+         <!-- https://github.com/w3c/respec/wiki/data-number -->
+        </div>
         </section>
-        <section>
+        <section class="informative">
         <h2 id="examples">5.4. Examples</h2>
-        <p>This section is informative.</p>
+        <aside class="example">
         <figure>
           <img src="images/mapml.png" width="830" height="467" alt="Origins, orientations and axis names of tcrs, pcrs, gcrs, tilematrix, map, and tile coordinate systems">
 
@@ -2118,25 +2114,24 @@
             data.
           </figcaption>
         </figure>
+        </aside>
         </section>
       </section>
 
       <section id="sec-security">
         <h2 id="security">6. Security Considerations</h2>
-        <p>This section is informative.</p>
 
-        <p><em>This technology relies on web resources loaded over the internet, which carries security implications.
+        <p class="ednote">This technology relies on web resources loaded over the internet, which carries security implications.
           The architecture is not unlike allowing embedded images encoded in SVG format,
           and it is thought that similar security considerations apply.
           The author would be grateful if commenters could highlight such implications,
-          so that they could be explicitly made part or the considerations of this draft.</em></p>
+          so that they could be explicitly made part or the considerations of this draft.</p>
       </section>
 
       <section id="sec-glossary">
         <h2 id="glossary">7. Glossary of Terms and Datatypes</h2>
-        <p>This section is normative.</p>
 
-        <p><em>TODO Provide a glossary of terms and datatypes used in this specification.</em></p>
+        <p class="ednote">TODO: Provide a glossary of terms and datatypes used in this specification.</p>
       </section>
 
       <section id="sec-schema">
