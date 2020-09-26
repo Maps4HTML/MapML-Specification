@@ -504,33 +504,33 @@
 
         <ul>
           <li>
-            <p><strong>Tiled maps</strong>: Modern map services are dominantly created by composing adjacent map 'tiles' (often bitmapped images) into a coherent and unified image of a map.</p>
+            <strong>Tiled maps</strong> <p>Modern map services are dominantly created by composing adjacent map 'tiles' (often bitmapped images) into a coherent and unified image of a map.</p>
           </li>
           <li>
-            <p><strong>Image-based maps</strong>: Web services typically produce a single geo-referenced image which constitutes a map. MapML encodes URL references to such images, together with appropriate georeferencing metadata.</p>
+            <strong>Image-based maps</strong> <p>Web services typically produce a single geo-referenced image which constitutes a map. MapML encodes URL references to such images, together with appropriate georeferencing metadata.</p>
           </li>
           <li>
-            <p><strong>Vector-based maps</strong>: Geospatial databases, for example PostGIS, are able to serve and manipulate vector representations of features which can be symbolized according to their properties.</p>
+            <strong>Vector-based maps</strong> <p>Geospatial databases, for example PostGIS, are able to serve and manipulate vector representations of features which can be symbolized according to their properties.</p>
           </li>
           <li>
-            <p><strong>Multi-layer maps</strong>: Maps are often required to overlay information in such a way as to enable both visual and automatated spatial relationship processing. MapML will support the layering of information using the
+            <strong>Multi-layer maps</strong> <p>Maps are often required to overlay information in such a way as to enable both visual and automatated spatial relationship processing. MapML will support the layering of information using the
           <a href="https://www.w3.org/TR/SVG/render.html#PaintersModel">painters model</a>, wherein elements are drawn in document order overtop of earlier elements, together with CSS styling (transparency) techniques.</p>
           </li>
           <li>
-            <p><strong>Use CSS for map styles</strong>: MapML elements should be style-able with CSS rules supplied by the MapML author. For example, the MapML author should be able to link to a stylesheet from a MapML document.</p>
+            <strong>Use CSS for map styles</strong> <p>MapML elements should be style-able with CSS rules supplied by the MapML author. For example, the MapML author should be able to link to a stylesheet from a MapML document.</p>
           </li>
           <li>
-            <p><strong>Location search</strong>: A MapML service might want to allow service consumers to search within the contents of a service for a place name or an address, over which the map is repositioned when a selection is made. MapML
+            <strong>Location search</strong> <p>A MapML service might want to allow service consumers to search within the contents of a service for a place name or an address, over which the map is repositioned when a selection is made. MapML
           should provide (markup) facilities to enable such searches without forcing the client download large amounts of geospatial data.</p>
           </li>
           <li>
-            <p><strong>Hyperlinks between and within services</strong>: MapML should allow service-level links such that service providers can link together / federate to provide apparently seamless spatial coverage.</p>
+            <strong>Hyperlinks between and within services</strong> <p>MapML should allow service-level links such that service providers can link together / federate to provide apparently seamless spatial coverage.</p>
           </li>
           <li>
-            <p><strong>Feature identification</strong>: If a MapML document includes features, the MapML author should be able to markup any or all of those features in a way which lends itself to feature identification and property display.</p>
+            <strong>Feature identification</strong> <p>If a MapML document includes features, the MapML author should be able to markup any or all of those features in a way which lends itself to feature identification and property display.</p>
           </li>
           <li>
-            <p><strong>Attribution</strong>: MapML documents encode citation information on a per-request basis, making it available as markup in the response.</p>
+            <strong>Attribution</strong> <p>MapML documents encode citation information on a per-request basis, making it available as markup in the response.</p>
           </li>
         </ul>      
 
@@ -578,13 +578,21 @@
         </section>
         <section>
         <h3 id="requirements">Requirements</h3>
-        <p>
-          <strong>Uniform interface</strong>: No URL recipes should be required to be supported by clients - support for simple opaque URLs and standardized media types should be all that is required clients. Application state / state
-          transitions should be conveyed in markup.
-        </p>
-        <p><strong>Implementation commitments</strong>: Simple, lightweight server software should be available to allow authors to serve spatial resources as MapML.</p>
-        <p>One or more <strong>accessibile </strong>Custom Element clients should be available to demonstrate client functionality.</p>
-        <p><strong>Ease of authoring</strong>: A range of authoring situations should be supported, from simple single file services to robust MapML services over large volumes of framework data.</p>
+        <ul>
+          <li id="req-uniform-interface">
+          <strong>Uniform interface</strong><p>No URL recipes should be required to be supported by clients - support for simple opaque URLs and standardized media types should be all that is required clients. Application state / state
+          transitions should be conveyed in markup.</p>
+          </li>
+          <li id="req-implementation-commitments">
+            <strong>Implementation commitments</strong><p>Simple, lightweight server software should be available to allow authors to serve spatial resources as MapML.</p>
+          </li>
+          <li id="req-accessible-custom-element">
+            <strong>Accessible custom element</strong><p>One or more accessible Custom Element clients should be available to demonstrate client functionality.</p>
+          </li>
+          <li id="req-ease-of-authoring">
+            <strong>Ease of authoring</strong><p>A range of authoring situations should be supported, from simple single file services to robust MapML services over large volumes of framework data.</p>
+          </li>
+        </ul>
         </section>
       </section>
       
