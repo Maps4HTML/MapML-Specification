@@ -312,10 +312,10 @@
       </section>
 
       <section id="sec-ucr" class="informative">
-        <h2 id="ucr">3. Use Cases and Requirements</h2>
+        <h2 id="ucr">Use Cases and Requirements</h2>
 
         <section>
-        <h3 id="use-cases">3.1. Use Cases</h3>
+        <h3 id="use-cases">Use Cases</h3>
         <p>The following usage scenarios illustrate some of the ways in which <strong>Map Markup Language</strong> might be used for various applications:</p>
 
         <ul>
@@ -393,7 +393,7 @@
         </ul>
         </section>
         <section>
-        <h3 id="requirements">3.2. Requirements</h3>
+        <h3 id="requirements">Requirements</h3>
         <p>
           <strong>Uniform interface</strong>: No URL recipes should be required to be supported by clients - support for simple opaque URLs and standardized media types should be all that is required clients. Application state / state
           transitions should be conveyed in markup.
@@ -406,15 +406,15 @@
       
       <section id="sec-web-maps">
         
-        <h2 id="web-maps">4. Web Maps</h2>
+        <h2 id="web-maps">Web Maps</h2>
         
         <p>The <a href="#the-map-element"><code>&lt;map&gt;</code></a> element, in conjunction with any <a href="#the-layer-element"><code>&lt;layer&gt;</code></a> and <a href="#the-area-element"><code>&lt;area&gt;</code></a> element descendants, 
   defines an interactive <a href="#the-map-element"><code>map</code></a> media element. </p>
         <section>
         <!-- initially copied from the HTML 5 spec -->
-        <h3 id="web-mapping-elements-and-api">4.1 Web mapping elements and API</h3>
+        <h3 id="web-mapping-elements-and-api">Web mapping elements and API</h3>
         <section>
-        <h4 id="the-map-element">4.1.1 The <dfn><code>&lt;map&gt;</code></dfn> element</h4>
+        <h4 id="the-map-element">The <dfn><code>&lt;map&gt;</code></dfn> element</h4>
         <dl class="element"><dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#flow-content-2">Flow content</a>.</dd>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
@@ -500,7 +500,7 @@
         </div>
         </section>
         <section>
-        <h4 id="the-layer-element">4.1.2 The <dfn><code>&lt;layer&gt;</code></dfn> element</h4>
+        <h4 id="the-layer-element">The <dfn><code>&lt;layer&gt;</code></dfn> element</h4>
         <dl class="element"><dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#flow-content-2">Flow content</a>.</dd>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
@@ -571,7 +571,7 @@
         </div>
         </section>
         <section>
-        <h4 id="the-area-element">4.1.3 The <dfn><code>&lt;area&gt;</code></dfn> element</h4>
+        <h4 id="the-area-element">The <dfn><code>&lt;area&gt;</code></dfn> element</h4>
         <dl class="element"><dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#flow-content-2">Flow content</a>.</dd>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
@@ -686,7 +686,7 @@
         </section>
       </section>
         <section>
-        <h3 id="authoring">4.2. Authoring</h3>
+        <h3 id="authoring">Authoring</h3>
         <p>A <dfn id="map">Web map</dfn> is an embedded media element which enables dynamic cartographic Web applications in HTML documents.</p>
         <p>A Web map is a rectangular page area, represented in HTML in the form of a <a href="#the-map-element"><code>map</code></a> element, containing a set of zero or more 
           <a href="#the-layer-element"><code>layer</code></a> elements.  A Web map represents a region of the earth's surface in two dimensions.  A map's initial location 
@@ -734,7 +734,7 @@
         </aside>
         </section>
         <section>
-        <h3 id="syntax">4.4 Syntax</h3>
+        <h3 id="syntax">Syntax</h3>
         <p>The <a href="#the-map-element"><code>map</code></a> element has a different content model defined by this specification, compared to that defined by the <a target="_blank" href="https://html.spec.whatwg.org/multipage/image-maps.html#the-map-element">HTML standard</a>.</p>
         <p>At such a moment as is warranted, the standard definition of the <code>map</code>
           and <code>area</code> elements will be
@@ -747,11 +747,11 @@
       </section>
 
       <section id="sec-features">
-        <h2 id="features">5. Semantics, Structure and Styling of MapML Documents</h2>
+        <h2 id="features">Semantics, Structure and Styling of MapML Documents</h2>
         <section>
-        <h3 id="semantics">5.1 Semantics</h3>
+        <h3 id="semantics">Semantics</h3>
         <section>
-        <h4 id="coordinate-systems">5.1.1 Coordinate Systems</h4>
+        <h4 id="coordinate-systems">Coordinate Systems</h4>
         <p>
           In this document, all Coordinate Systems (CS) are 2D. A 2D CS has two axes, one horizontal (commonly related to west-east direction), and one vertical (commonly related to north-south direction; do not confuse it with
           "elevation"). This document defines the axis order of coordinate pairs serialized in MapML documents which the axis-specific values are not distinguished by markup, such as within the <code>coordinates</code> element. In documents
@@ -760,7 +760,7 @@
         </p>
         </section>
         <section>
-        <h4 id="coordinate-reference-systems">5.1.2 Coordinate Reference Systems</h4>
+        <h4 id="coordinate-reference-systems">Coordinate Reference Systems</h4>
         <p>
           A Coordinate Reference System (CRS) is a Coordinate System that is referenced to locations on the Earth. Maps are graphics which follow mathematical rules (called projections) established to transform locations on Earth to
           locations on a plane (formerly paper, more recently a device screen). Projections are mathematical equations designed to conserve particular properties of the source location, and often have parameters that can be used to induce
@@ -773,7 +773,7 @@
         </p>
         </section>
         <section>
-        <h4 id="tiled-coordinate-reference-systems">5.1.3 Tiled Coordinate Reference Systems</h4>
+        <h4 id="tiled-coordinate-reference-systems">Tiled Coordinate Reference Systems</h4>
         <p>
           A tiled coordinate reference system is a set of coordinate reference systems, which share a common origin in space, but which differ by the size of their smallest unit at defined locations, e.g. meters/pixel along the equator.
         </p>
@@ -1133,7 +1133,7 @@
         </p>
         </section>
         <section>
-        <h4 id="scale">5.1.4 Scale / Resolution / Zoom levels</h4>
+        <h4 id="scale">Scale / Resolution / Zoom levels</h4>
         <p>
           Scale is an essential characteristic of all geospatial information. The scale at which information is used dictates the model used for its representation. Geospatial information cannot be meaningfully combined without
           consideration given to its scale. Entire cities are represented on 'small scale' maps as dots, whereas on another large scale map, a single city could have many thousands of individual features in its depiction.
@@ -1145,7 +1145,7 @@
                   In any case, the zoom level of any MapML document MAY be present in document metadata as a <code>meta</code> element e.g. &lt;meta name="zoom" content="0"/&gt;.  In the case where a MapML document contains an <code>extent</code> element, an <code>input@type=zoom</code> MUST be present which controls how the zoom is transmitted from client to server. Where that input has a non-empty <code>input@value</code> attribute, in case of discrepancy between  the <code>meta[@name=zoom]/@content</code> and the <code>input[@type=zoom]/@value</code>, the latter zoom value SHALL be taken to be correct, EXCEPT in the case where there may exist more than one <code>input[@type=zoom]</code> and their <code>value</code> attributes do not agree, in which case the value of <code>meta[@name=zoom]/@content</code> shall be taken to be correct.</p>
         </section>
         <section>
-        <h4 id="extent-semantics">5.1.5 Extents</h4>
+        <h4 id="extent-semantics">Extents</h4>
         <p>
           A MapML document is a representation of a defined portion of a two dimensional 
           map area. In MapML, this is called an 'extent' (see below), the extremes 
@@ -1156,21 +1156,21 @@
         </p>
         </section>
         <section>
-        <h4 id="fragments">5.1.6 Fragment identifiers</h4>
+        <h4 id="fragments">Fragment identifiers</h4>
         <p class="ednote">TBD</p>
         </section>
         </section>
         <section>
-        <h3 id="structure">5.2 Structure</h3>
+        <h3 id="structure">Structure</h3>
         <section>
-        <h4 id="the-document-object">5.2.1 The <code>Document</code> object</h4>
+        <h4 id="the-document-object">The <code>Document</code> object</h4>
         <p>
           A MapML document is a [<a href="#ref-MicroXML">MicroXML</a>] document. As such, it MUST have a single root element named &lt;mapml&gt;. It MUST NOT have a DOCTYPE declaration; attributes named 'xmlns' and names containing a colon
           character ':' (U+003A) are not permitted. Other restrictions relative to XML syntax are enumerated in [<a href="#ref-MicroXML">MicroXML</a>].
         </p>
         </section>
         <section>
-        <h5 id="the-mapml-element">5.2.2 The <code>&lt;mapml&gt;</code> element</h5>
+        <h5 id="the-mapml-element">The <code>&lt;mapml&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>N/A.</dd>
@@ -1191,7 +1191,7 @@
         <p>The <code>&lt;mapml&gt;</code> element may carry a <code>lang</code> attribute, as <a href="https://html.spec.whatwg.org/multipage/dom.html#attr-lang">defined</a> by [<a href="#ref-HTML">HTML</a>].</p>
         </section>
         <section>
-        <h5 id="the-head-element">5.2.3 The <code>&lt;head&gt;</code> element</h5>
+        <h5 id="the-head-element">The <code>&lt;head&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
@@ -1213,7 +1213,7 @@
         </p>
         </section>
         <section>
-        <h5 id="the-title-element">5.2.4 The <code>&lt;title&gt;</code> element</h5>
+        <h5 id="the-title-element">The <code>&lt;title&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
@@ -1235,7 +1235,7 @@
         </p>
         </section>
         <section>
-        <h5 id="the-base-element">5.2.5 The <code>&lt;base&gt;</code> element</h5>
+        <h5 id="the-base-element">The <code>&lt;base&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
@@ -1259,7 +1259,7 @@
         </p>
         </section>
         <section>
-        <h5 id="the-meta-element">5.2.6 The <code>&lt;meta&gt;</code> element</h5>
+        <h5 id="the-meta-element">The <code>&lt;meta&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
@@ -1283,7 +1283,7 @@
         </dl>
         </section>
         <section>
-        <h5 id="the-link-element">5.2.7 The <code>&lt;link&gt;</code> element</h5>
+        <h5 id="the-link-element">The <code>&lt;link&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
@@ -1428,7 +1428,7 @@
         </table>
         </section>
         <section>
-        <h5 id="the-body-element">5.2.8 The <code>&lt;body&gt;</code> element</h5>
+        <h5 id="the-body-element">The <code>&lt;body&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>N/A.</dd>
@@ -1448,7 +1448,7 @@
         <p>The <code>&lt;body&gt;</code> element represents the content of the document.</p>
         </section>
         <section>
-        <h5 id="the-extent-element">5.2.9 The <code>&lt;extent&gt;</code> element</h5>
+        <h5 id="the-extent-element">The <code>&lt;extent&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
@@ -1483,7 +1483,7 @@
 
         </section>
         <section>
-        <h5 id="the-input-element">5.2.10 The <code>&lt;input&gt;</code> element</h5>
+        <h5 id="the-input-element">The <code>&lt;input&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>N/A.</dd>
@@ -1765,7 +1765,7 @@
         </table>
         </section>
         <section>
-        <h5 id="the-datalist-element">5.2.11 The <code>&lt;datalist&gt;</code> element</h5>
+        <h5 id="the-datalist-element">The <code>&lt;datalist&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>N/A.</dd>
@@ -1789,7 +1789,7 @@
         </dl>
         </section>
         <section>
-        <h5 id="the-label-element">5.2.12 The <code>&lt;label&gt;</code> element</h5>
+        <h5 id="the-label-element">The <code>&lt;label&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>N/A.</dd>
@@ -1811,7 +1811,7 @@
         </dl>
         </section>
         <section>
-        <h5 id="the-select-element">5.2.13 The <code>&lt;select&gt;</code> element</h5>
+        <h5 id="the-select-element">The <code>&lt;select&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>N/A.</dd>
@@ -1837,7 +1837,7 @@
         </dl>
         </section>
         <section>
-        <h5 id="the-option-element">5.2.14 The <code>&lt;option&gt;</code> element</h5>
+        <h5 id="the-option-element">The <code>&lt;option&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>N/A.</dd>
@@ -1861,7 +1861,7 @@
         </dl>
         </section>
         <section>
-        <h5 id="the-tile-element">5.2.15 The <code>&lt;tile&gt;</code> element</h5>
+        <h5 id="the-tile-element">The <code>&lt;tile&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>Feature data.</dd>
@@ -1902,7 +1902,7 @@
         </p>
         </section>
         <section>
-        <h5 id="the-image-element">5.2.16 The <code>&lt;image&gt;</code> element</h5>
+        <h5 id="the-image-element">The <code>&lt;image&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>Feature data.</dd>
@@ -1921,7 +1921,7 @@
         </dl>
         </section>
         <section>
-        <h5 id="the-feature-element">5.2.17 The <code>&lt;feature&gt;</code> element</h5>
+        <h5 id="the-feature-element">The <code>&lt;feature&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>Feature data.</dd>
@@ -1946,7 +1946,7 @@
         </p>
         </section>
         <section>
-        <h5 id="the-properties-element">5.2.18 The <code>&lt;properties&gt;</code> element</h5>
+        <h5 id="the-properties-element">The <code>&lt;properties&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>Feature data.</dd>
@@ -1968,7 +1968,7 @@
         </p>
         </section>
         <section>
-        <h5 id="the-geometry-element">5.2.19 The <code>&lt;geometry&gt;</code> element</h5>
+        <h5 id="the-geometry-element">The <code>&lt;geometry&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>Feature data.</dd>
@@ -2062,7 +2062,7 @@
             </tr>
           </tbody>
         </table>
-        <h5 id="the-coordinates-element">5.2.20 The <code>&lt;coordinates&gt;</code> element</h5>
+        <h5 id="the-coordinates-element">The <code>&lt;coordinates&gt;</code> element</h5>
         <dl class="element">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>Feature data.</dd>
@@ -2094,14 +2094,14 @@
         </section>
         </section>
         <section>
-        <h2 id="styling">5.3. Styling</h2>
+        <h2 id="styling">Styling</h2>
         <p>MapML documents can be styled with Cascading Style Sheets.</p>
         <div class="issue" data-number="71">
          <!-- https://github.com/w3c/respec/wiki/data-number -->
         </div>
         </section>
         <section class="informative">
-        <h2 id="examples">5.4. Examples</h2>
+        <h2 id="examples">Examples</h2>
         <aside class="example">
         <figure>
           <img src="images/mapml.png" width="830" height="467" alt="Origins, orientations and axis names of tcrs, pcrs, gcrs, tilematrix, map, and tile coordinate systems">
@@ -2119,7 +2119,7 @@
       </section>
 
       <section id="sec-security">
-        <h2 id="security">6. Security Considerations</h2>
+        <h2 id="security">Security Considerations</h2>
 
         <p class="ednote">This technology relies on web resources loaded over the internet, which carries security implications.
           The architecture is not unlike allowing embedded images encoded in SVG format,
@@ -2129,17 +2129,17 @@
       </section>
 
       <section id="sec-glossary">
-        <h2 id="glossary">7. Glossary of Terms and Datatypes</h2>
+        <h2 id="glossary">Glossary of Terms and Datatypes</h2>
 
         <p class="ednote">TODO: Provide a glossary of terms and datatypes used in this specification.</p>
       </section>
 
       <section id="sec-schema">
-        <h2 id="schema">8. Schema</h2>
+        <h2 id="schema">Schema</h2>
 
         <p>A schema is useful for machine processing of documents, be it document creation, transformation, or validation.</p>
 
-        <h2 id="rng">8.1. RelaxNG Schema</h2>
+        <h2 id="rng">RelaxNG Schema</h2>
 
         <p>
           Map Markup Language provides a schema written in <a href="https://web.archive.org/web/20120619140335/http://www1.y12.doe.gov/capabilities/sgml/sc34/document/0362_files/relaxng-is.pdf">RelaxNG compact syntax</a> 
