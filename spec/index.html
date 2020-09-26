@@ -436,7 +436,7 @@
         <h3 id="web-mapping-elements-and-api">Web mapping elements and API</h3>
         <section>
         <h4>The <code>&lt;<dfn id="the-map-element">map</dfn>&gt;</code> element</h4>
-        <dl class="element"><dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
+        <dl class="def"><dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#flow-content-2">Flow content</a>.</dd>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#palpable-content-2">Palpable content</a>.</dd>
@@ -465,19 +465,23 @@
         <dd><a target="_blank" href="https://www.w3.org/TR/html-aria/#index-aria-global">Global aria-* attributes</a>.</dd>
         <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
         <dd>
-        <pre class="idl">[NamedConstructor=Map(unsigned long width, unsigned long height, double lat, double lon, unsigned short zoom, optional string projection, boolean controls)]
-        interface <dfn id="htmlmapelement">HTMLMapElement</dfn> : <a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#htmlelement">HTMLElement</a> {
-        <em> readonly attribute <a target="_blank" href="https://dom.spec.whatwg.org/#interface-htmlcollection">HTMLCollection</a> <a href="#map-content">layers</a>;</em>
-        <em> readonly attribute <a target="_blank" href="https://dom.spec.whatwg.org/#interface-htmlcollection">HTMLCollection</a> <a href="#map-content">areas</a>;</em>
-        <em> readonly attribute unsigned short <a href="#attr-map-zoom">zoom</a>;</em>
-        <em> readonly attribute double <a href="#attr-map-lat">lat</a>;</em>
-        <em> readonly attribute double <a href="#attr-map-lon">lon</a>;</em>
-        <em> readonly attribute string <a href="#attr-map-projection">projection</a>;</em>
-        <em> attribute boolean <a href="#attr-map-controls">controls</a>;</em>
-        <em> attribute unsigned long <a href="#attr-map-width">width</a>;</em>
-        <em> attribute unsigned long <a href="#attr-map-height">height</a>;</em>
-        <em> void zoomTo(double latitude, double longitude, optional unsigned short zoom);</em>
-        };</pre>
+          <pre class="idl">
+          [Exposed=Window, LegacyFactoryFunction=Map(unsigned long width, unsigned long height, double lat, double lon, unsigned short zoom, optional DOMString projection, boolean controls)]
+          interface HTMLMapElement : HTMLElement {
+            [HTMLConstructor] constructor();
+            
+            [SameObject] readonly attribute HTMLCollection layers;
+            [SameObject] readonly attribute HTMLCollection areas;
+            readonly attribute unsigned short zoom;
+            readonly attribute double lat;
+            readonly attribute double lon;
+            readonly attribute DOMString projection;
+            [CEReactions] attribute boolean controls;
+            [CEReactions] attribute unsigned long width;
+            [CEReactions] attribute unsigned long height;
+            undefined zoomTo(double latitude, double longitude, optional unsigned short zoom);
+          };
+          </pre>
         </dd>
         </dl>
         <div class="impl">
@@ -487,22 +491,22 @@
         <a href="#attr-map-zoom"><code>zoom</code></a> attribute indirectly identifies an initial scale of the map.
         After initialization, the <code>lat</code>,<code>lon</code> and <code>zoom</code> IDL properties reflect the location and scale of the map respectively, based on changes initiated
         by the user or by script.</p>
-        <dl class="domintro"><dt><var>map</var> . <code><a href="#dom-areas">areas</a></code></dt>
+        <dl class="domintro"><dt><var>map</var> . <a href="#dom-areas"><code>areas</code></a></dt>
         <dd>
-        <p>Returns an <code><a target="_blank" href="https://dom.spec.whatwg.org/#interface-htmlcollection">HTMLCollection</a></code> of the 
+        <p>Returns an <code>HTMLCollection</code> of the 
         <a href="#the-area-element"><code>area</code></a> elements in the
-        <a href="#the-map-element">map</a>.</p>
+        <a href="#the-map-element"><code>map</code></a>.</p>
         </dd>
-        <dt><var>map</var> . <code><a href="#dom-layers">layers</a></code></dt>
+        <dt><var>map</var> . <a href="#dom-layers"><code>layers</code></a></dt>
         <dd>
-        <p>Returns an <code><a target="_blank" href="https://dom.spec.whatwg.org/#interface-htmlcollection">HTMLCollection</a></code> of the 
-        <a href="#the-layer-element"><code>layer</code></a> element children of the <a href="#the-map-element">map</a>.</p>
+        <p>Returns an <code>HTMLCollection</code> of the 
+        <a href="#the-layer-element"><code>layer</code></a> element children of the <a href="#the-map-element"><code>map</code></a>.</p>
         </dd>
         </dl>
-        <p>The <code>areas</code> attribute must return an <code><a target="_blank" href="https://dom.spec.whatwg.org/#interface-htmlcollection">HTMLCollection</a></code> 
+        <p>The <code id="dom-areas">areas</code> attribute must return an <code>HTMLCollection</code> 
         rooted at the <a href="#the-map-element"><code>map</code></a> element, whose filter matches only  <a href="#the-area-element"><code>area</code></a> child elements.</p>
 
-        <p>The <code>layers</code> attribute must return an <code><a target="_blank" href="https://dom.spec.whatwg.org/#interface-htmlcollection">HTMLCollection</a></code> 
+        <p>The <code id="dom-layers">layers</code> attribute must return an <code>HTMLCollection</code> 
         rooted at the <a href="#the-map-element"><code>map</code></a> node, whose filter matches only <a href="#the-layer-element"><code>layer</code></a> child elements of this <a href="#the-map-element"><code>map</code></a> element.</p>
 
         <p>The <code>controls</code> boolean attribute indicates whether default map controls should be displayed on the map.  The nature and position of the controls 
@@ -522,7 +526,7 @@
         </section>
         <section>
         <h4>The <code>&lt;<dfn id="the-layer-element">layer</dfn>&gt;</code> element</h4>
-        <dl class="element"><dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
+        <dl class="def"><dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#flow-content-2">Flow content</a>.</dd>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#palpable-content-2">Palpable content</a>.</dd>
@@ -551,26 +555,34 @@
         <dd><a target="_blank" href="https://www.w3.org/TR/html-aria/#index-aria-global">Global aria-* attributes</a>.</dd>
         <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
         <dd>
-        <pre class="idl">interface <dfn id="htmllayerelement">HTMLLayerElement</dfn> : <a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#htmlelement">HTMLElement</a> {
-        <em> readonly attribute DOMString <a href="#attr-layer-src">src</a>;</em>
-        <em>          attribute DOMString <a href="#attr-layer-label">label</a>;</em>
-        <em>          attribute boolean <a href="#attr-layer-checked">checked</a>;</em>
-        <em> readonly attribute boolean <a href="#attr-layer-disabled">disabled</a>;</em>
-        <em>          attribute boolean <a href="#attr-layer-hidden">hidden</a>;</em>
-        <em> readonly attribute <a href="#legendlink">LegendLink[]</a> legendLinks;</em>
-        <em>          attribute DOMString <a href="#attr-layer-referrerpolicy">referrerPolicy</a>;</em>
-        <em>          attribute DOMString? <a href="#attr-layer-crossorigin">crossOrigin</a>;</em>
-        };
-
-        interface <dfn id="legendlink">LegendLink</dfn> {
-        <em>readonly attribute DOMString type;
-        readonly attribute DOMString rel;
-        readonly attribute DOMString href;
-        readonly attribute DOMString title;
-        readonly attribute DOMString lang;
-        readonly attribute DOMString hreflang;
-        readonly attribute DOMString sizes;</em>
-        };</pre>
+          <pre class="idl">
+          [Exposed=Window]
+          interface <dfn id="htmllayerelement">HTMLLayerElement</dfn> : HTMLElement {
+            [HTMLConstructor] constructor();
+            
+            readonly attribute DOMString <a href="#attr-layer-src">src</a>;
+                     attribute DOMString <a href="#attr-layer-label">label</a>;
+                     attribute boolean <a href="#attr-layer-checked">checked</a>;
+            readonly attribute boolean <a href="#attr-layer-disabled">disabled</a>;
+                     attribute boolean <a href="#attr-layer-hidden">hidden</a>;
+            readonly attribute <a href="#legendlink">LegendLink[]</a> legendLinks;
+                     attribute DOMString <a href="#attr-layer-referrerpolicy">referrerPolicy</a>;
+                     attribute DOMString? <a href="#attr-layer-crossorigin">crossOrigin</a>;
+          };
+            
+          [Exposed=Window]
+          interface <dfn id="legendlink">LegendLink</dfn> {
+            [HTMLConstructor] constructor();
+            
+            readonly attribute DOMString type;
+            readonly attribute DOMString rel;
+            readonly attribute DOMString href;
+            readonly attribute DOMString title;
+            readonly attribute DOMString lang;
+            readonly attribute DOMString hreflang;
+            readonly attribute DOMString sizes;
+          };
+          </pre>
         </dd>
         </dl>
         <div class="impl">
@@ -593,7 +605,7 @@
         </section>
         <section>
         <h4>The <code>&lt;<dfn id="the-area-element">area</dfn>&gt;</code> element</h4>
-        <dl class="element"><dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
+        <dl class="def"><dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#flow-content-2">Flow content</a>.</dd>
         <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
         <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -615,12 +627,17 @@
         <dd>Any aria-* attributes <a target="_blank" href="https://www.w3.org/TR/html-aria/#allowed-aria-roles-states-and-properties">applicable to the allowed roles</a>.</dd>
         <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
         <dd>
-        <pre class="idl">interface <dfn>HTMLAreaElement</dfn> : <a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#htmlelement">HTMLElement</a> {
-        <em>attribute DOMString <a href="#attr-area-href">href</a>;</em>
-        <em>attribute DOMString <a href="#attr-area-alt">alt</a>;</em>
-        <em>attribute DOMString <a href="#attr-area-coords">coords</a>;</em>
-        <em>attribute DOMString <a href="#attr-area-shape">shape</a>;</em>
-        };</pre>
+          <pre class="idl">
+          [Exposed=Window]
+          interface HTMLAreaElement : HTMLElement {
+            [HTMLConstructor] constructor();
+            
+            attribute DOMString href;
+            attribute DOMString alt;
+            attribute DOMString coords;
+            attribute DOMString shape;
+          };
+          </pre>
         </dd>
         </dl>
         <p>The <a href="#the-area-element"><code>area</code></a> element allows the HTML author to encode and style a limited set of spatial feature types on its parent <a href="#the-map-element"><code>map</code></a> element, 
@@ -1192,7 +1209,7 @@
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-mapml-element">mapml</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -1203,9 +1220,12 @@
           <dd><code>lang</code> — the language of the document, expressed as a BCP 47 language tag. [[BCP47]]</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
-            <pre class="idl">interface <dfn id="mapmlmapmlelement">MAPMLMapMLElement</dfn> : MAPMLElement {
-};
-</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface MAPMLMapMLElement : MAPMLElement {
+              [HTMLConstructor] constructor();
+            };
+            </pre>
           </dd>
         </dl>
         <p>The <a href="#the-mapml-element"><code>mapml</code></a> element is the the root element of a MapML document, and must contain one <a href="#the-head-element"><code>head</code></a> element followed by one <a href="#the-body-element"><code>body</code></a> element.</p>
@@ -1213,7 +1233,7 @@
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-head-element">head</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -1223,9 +1243,12 @@
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
-            <pre class="idl">interface <dfn id="mapmlheadelement">MAPMLHeadElement</dfn> : MAPMLElement {
-};
-</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface MAPMLHeadElement : MAPMLElement {
+              [HTMLConstructor] constructor();
+            };
+            </pre>
           </dd>
         </dl>
         <p>
@@ -1235,7 +1258,7 @@
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-title-element">title</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -1245,9 +1268,12 @@
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
-            <pre class="idl">interface <dfn id="mapmltitleelement">MAPMLTitleElement</dfn> : MAPMLElement {
-};
-</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface MAPMLTitleElement : MAPMLElement {
+              [HTMLConstructor] constructor();
+            };
+          </pre>
           </dd>
         </dl>
         <p>
@@ -1257,7 +1283,7 @@
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-base-element">base</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -1268,9 +1294,12 @@
           <dd><code>href</code> — The absolute URL to be used to resolve relative URLs in the document.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
-            <pre class="idl">interface <dfn id="mapmlbaseelement">MAPMLBaseElement</dfn> : MAPMLElement {
-};
-</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface MAPMLBaseElement : MAPMLElement {
+              [HTMLConstructor] constructor();
+            };
+            </pre>
           </dd>
         </dl>
         <p>The <a href="#the-base-element"><code>base</code></a> element is used to identify a URL to be used to act as a base URL in order to resolve relative URLs later in the document.</p>
@@ -1281,7 +1310,7 @@
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-meta-element">meta</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -1294,18 +1323,22 @@
           <dd><code>content</code> — Value of the element.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
-            <pre class="idl">interface <dfn id="mapmlmetaelement">MAPMLMetaElement</dfn> : MAPMLElement {
-           attribute DOMString name;
-           attribute DOMString httpEquiv;
-           attribute DOMString content;
-};
-</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface MAPMLMetaElement : MAPMLElement {
+              [HTMLConstructor] constructor();
+              
+              attribute DOMString name;
+              attribute DOMString httpEquiv;
+              attribute DOMString content;
+            };
+            </pre>
           </dd>
         </dl>
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-link-element">link</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -1323,16 +1356,21 @@
           <dd><code>title</code> — Title of the link.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
-            <pre class="idl">interface <dfn id="mapmllinkelement">MAPMLLinkElement</dfn> : MAPMLElement {
-           attribute DOMString href;
-           attribute DOMString tref;
-           attribute DOMString rel;
-           attribute DOMString projection;
-           attribute DOMString hreflang;
-           attribute DOMString type;
-           attribute DOMString title;
-};
-<a href="#the-link-element">MAPMLLinkElement</a> implements LinkStyle;</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface <dfn id="mapmllinkelement">MAPMLLinkElement</dfn> : MAPMLElement {
+              [HTMLConstructor] constructor();
+              
+              attribute DOMString href;
+              attribute DOMString tref;
+              attribute DOMString rel;
+              attribute DOMString projection;
+              attribute DOMString hreflang;
+              attribute DOMString type;
+              attribute DOMString title;
+            };
+            <a href="#the-link-element">MAPMLLinkElement</a> implements LinkStyle;
+          </pre>
           </dd>
         </dl>
         <p>
@@ -1450,7 +1488,7 @@
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-body-element">body</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -1461,16 +1499,19 @@
           <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
-            <pre class="idl">interface <dfn id="mapmlbodyelement">MAPMLBodyElement</dfn> : MAPMLElement {
-};
-</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface MAPMLBodyElement : MAPMLElement {
+              [HTMLConstructor] constructor();
+            };
+            </pre>
           </dd>
         </dl>
         <p>The <a href="#the-body-element"><code>body</code></a> element represents the content of the document.</p>
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-extent-element">extent</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -1486,15 +1527,18 @@
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
-            <pre class="idl">interface <dfn id="mapmlextentelement">MAPMLExtentElement</dfn> : MAPMLElement {
-           attribute DOMString units;
-
-  readonly attribute MAPMLExtentControlsCollection elements;
-  readonly attribute long length;
-  getter Element (unsigned long index);
-  getter (RadioNodeList or Element) (DOMString name);
-
-};</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface MAPMLExtentElement : MAPMLElement {
+              [HTMLConstructor] constructor();
+              
+              attribute DOMString units;
+              readonly attribute MAPMLExtentControlsCollection elements;
+              readonly attribute long length;
+              getter Element (unsigned long index);
+              getter (RadioNodeList or Element) (DOMString name);
+            };
+            </pre>
           </dd>
         </dl>
         <p>
@@ -1505,7 +1549,7 @@
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-input-element">input</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -1540,20 +1584,25 @@
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
-            <pre class="idl">interface <dfn id="mapmlinputelement">MAPMLInputElement</dfn> : MAPMLElement {
-           attribute DOMString type;
-           attribute DOMString name;
-           attribute boolean shard;
-           readonly attribute MAPMLElement? list;
-           attribute DOMString min;
-           attribute DOMString max;
-           attribute DOMString step;
-           attribute DOMString units;
-           attribute DOMString axis;
-           attribute DOMString rel;
-           attribute DOMString position;
-           attribute DOMString value;
-};</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface MAPMLInputElement : MAPMLElement {
+              [HTMLConstructor] constructor();
+              
+              attribute DOMString type;
+              attribute DOMString name;
+              attribute boolean shard;
+              readonly attribute MAPMLElement? list;
+              attribute DOMString min;
+              attribute DOMString max;
+              attribute DOMString step;
+              attribute DOMString units;
+              attribute DOMString axis;
+              attribute DOMString rel;
+              attribute DOMString position;
+              attribute DOMString value;
+            };
+            </pre>
           </dd>
         </dl>
         <p>
@@ -1787,7 +1836,7 @@
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-datalist-element">datalist</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -1803,15 +1852,20 @@
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
-            <pre class="idl">interface <dfn id="mapmldatalistelement">MAPMLDatalistElement</dfn> : MAPMLElement {
-           attribute DOMString id;
-};</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface MAPMLDatalistElement : MAPMLElement {
+              [HTMLConstructor] constructor();
+              
+              attribute DOMString id;
+            };
+            </pre>
           </dd>
         </dl>
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-label-element">label</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -1825,15 +1879,20 @@
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
-            <pre class="idl">interface <dfn id="mapmllabelelement">MAPMLLabelElement</dfn> : MAPMLElement {
-           attribute DOMString for;
-};</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface MAPMLLabelElement : MAPMLElement {
+              [HTMLConstructor] constructor();
+              
+              attribute DOMString for;
+            };
+            </pre>
           </dd>
         </dl>
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-select-element">select</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -1850,16 +1909,21 @@
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
-            <pre class="idl">interface <dfn id="mapmlselectelement">MAPMLSelectElement</dfn> : MAPMLElement {
-           attribute DOMString id;
-           attribute DOMString name;
-};</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface MAPMLSelectElement : MAPMLElement {
+              [HTMLConstructor] constructor();
+              
+              attribute DOMString id;
+              attribute DOMString name;
+            };
+            </pre>
           </dd>
         </dl>
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-option-element">option</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -1874,16 +1938,21 @@
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
-            <pre class="idl">interface <dfn id="mapmloptionelement">MAPMLOptionElement</dfn> : MAPMLElement {
-           attribute DOMString value;
-           attribute DOMString label;
-};</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface MAPMLOptionElement : MAPMLElement {
+              [HTMLConstructor] constructor();
+              
+              attribute DOMString value;
+              attribute DOMString label;
+            };
+            </pre>
           </dd>
         </dl>
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-tile-element">tile</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>Feature data.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -1898,12 +1967,17 @@
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
-            <pre class="idl">interface <dfn id="mapmltileelement">MAPMLTileElement</dfn> : MAPMLElement {
-           attribute long row;
-           attribute long col;
-           attribute DOMString src;
-           attribute DOMString type;
-};</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface MAPMLTileElement : MAPMLElement {
+              [HTMLConstructor] constructor();
+              
+              attribute long row;
+              attribute long col;
+              attribute DOMString src;
+              attribute DOMString type;
+            };
+            </pre>
           </dd>
         </dl>
         <p>
@@ -1924,7 +1998,7 @@
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-image-element">image</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>Feature data.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -1936,14 +2010,18 @@
           <dd><code>type</code> — A hint as to the MIME type of the resource.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
-            <pre class="idl">interface <dfn id="mapmlimageelement">MAPMLImageElement</dfn> : MAPMLElement {
-};</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface MAPMLImageElement : MAPMLElement {
+              [HTMLConstructor] constructor();
+            };
+            </pre>
           </dd>
         </dl>
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-feature-element">feature</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>Feature data.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -1955,9 +2033,14 @@
           <dd><code>zoom</code> — the 'native' zoom level of the feature geometry.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
-            <pre class="idl">interface <dfn id="mapmlfeatureelement">MAPMLFeatureElement</dfn> : MAPMLElement {
-                  attribute DOMString zoom
-};</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface <dfn id="mapmlfeatureelement">MAPMLFeatureElement</dfn> : MAPMLElement {
+              [HTMLConstructor] constructor();
+              
+              attribute DOMString zoom;
+            };
+            </pre>
           </dd>
         </dl>
 
@@ -1968,7 +2051,7 @@
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-properties-element">properties</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>Feature data.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -1979,8 +2062,12 @@
           <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
-            <pre class="idl">interface <dfn id="mapmlpropertieselement">MAPMLPropertiesElement</dfn> : MAPMLElement {
-};</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface MAPMLPropertiesElement : MAPMLElement {
+              [HTMLConstructor] constructor();
+            };
+            </pre>
           </dd>
         </dl>
 
@@ -1990,7 +2077,7 @@
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-geometry-element">geometry</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>Feature data.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -2001,9 +2088,14 @@
           <dd><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
-            <pre class="idl">interface <dfn id="mapmlgeometryelement">MAPMLGeometryElement</dfn> : MAPMLElement {
-                  readonly attribute type
-};</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface <dfn id="mapmlgeometryelement">MAPMLGeometryElement</dfn> : MAPMLElement {
+              [HTMLConstructor] constructor();
+              
+              readonly attribute DOMString type;
+            };
+            </pre>
           </dd>
         </dl>
 
@@ -2086,7 +2178,7 @@
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-coordinates-element">coordinates</dfn>&gt;</code> element</h5>
-        <dl class="element">
+        <dl class="def">
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>Feature data.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
@@ -2097,8 +2189,12 @@
           <dd>N/A.</dd>
           <dt><a target="_blank" href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
-            <pre class="idl">interface <dfn id="mapmlcoordinateselement">MAPMLCoordinatesElement</dfn> : MAPMLElement {
-};</pre>
+            <pre class="idl">
+            [Exposed=Window]
+            interface MAPMLCoordinatesElement : MAPMLElement {
+              [HTMLConstructor] constructor();
+            };
+            </pre>
           </dd>
         </dl>
 
