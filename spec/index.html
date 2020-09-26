@@ -4,6 +4,169 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Map Markup Language</title>
+    <style>
+    :root h2,
+    :root h3,
+    :root h4,
+    :root h5,
+    :root h6 {
+      font-weight: normal;
+    }
+    :root details {
+      margin: 2.5rem 0 1.5rem 0;
+    }
+    :root summary {
+      cursor: pointer;
+    }
+    :root summary h2 {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0;
+    }
+    :root caption {
+      text-align: left;
+      text-align: start;
+      padding: .75rem .65rem;
+    }
+    :root caption h3,
+    :root caption h4 {
+      margin: 0;
+    }
+    :root table {
+      border-spacing: 0;
+      overflow: auto;
+      display: block;
+      max-width: max-content;
+      border-collapse: collapse;
+      border-style: hidden hidden none hidden;
+    }
+    :root table th,
+    :root table.def th {
+      white-space: nowrap;
+      padding-left: 0;
+      font-style: normal;
+    }
+    :root .respec-button-copy-paste {
+      left: auto;
+      right: 0;
+      border: 0;
+      border-radius: 0;
+      border-bottom-left-radius: 2px;
+    }
+    :root pre.idl.def:not(#actual-idl-index) {
+      background-color: #edf6ff;
+      border: 0;
+      max-width: 100%;
+      margin-left: -1rem;
+      overflow-x: hidden;
+    }
+    :root .idlInterface {
+      overflow-x: auto;
+      display: block;
+    }
+    :root pre.idl.def:not(#actual-idl-index) .idlHeader {
+      background-color: unset;
+    }
+    :root h1 {
+      padding-top: 3rem;
+    }
+    :root dl.def dt,
+    :root dl.def dd {
+      margin: 0;
+    }
+    :root dl.def dt + dd {
+      margin-top: 0.5em;
+    }
+    :root dl.def dd {
+      margin-left: 1em;
+    }
+    :root dl.def dd + dt {
+      margin-top: 0.75em;
+    }
+    :root h5,
+    :root section h4 dfn {
+      font-style: normal;
+    }
+    :root code,
+    :root .hljs-deletion,
+    :root .hljs-name,
+    :root .hljs-section,
+    :root .hljs-selector-tag,
+    :root .hljs-subst {
+      color: #cf2c2c;
+    }
+    :root .hljs-attr,
+    :root .hljs-number,
+    :root .hljs-selector-attr,
+    :root .hljs-selector-class,
+    :root .hljs-selector-pseudo,
+    :root .hljs-template-variable,
+    :root .hljs-type,
+    :root .hljs-variable {
+      color: #034575;
+    }
+    :root .hljs,
+    :root .hljs-addition,
+    :root .hljs-attribute,
+    :root .hljs-meta-string,
+    :root .hljs-regexp,
+    :root .hljs-string {
+      color: #000;
+    }
+    :root caption {
+      font-size: 100%;
+    }
+    :root summary h3 {
+      display: inline;
+      vertical-align: middle;
+      margin-left: 1rem;
+    }
+    @media (max-width: 28em) {
+      :root body {
+        background-image: none;
+      }
+      :root div.head h1 {
+        margin-top: 1rem;
+      }
+      :root div.head .logo {
+        margin-top: -1rem;
+      }
+    }
+    @media (max-width: 48em) {
+      #google_translate_element [id*="targetLanguage"] {
+        display: block !important;
+      }
+    }
+    #google_translate_element {
+      position: absolute;
+      top: 0;
+      left: 1rem;
+      padding: 20px 0;
+      height: 30px;
+      margin-top: .5rem;
+    }
+    @media (min-width: 28em) {
+      #google_translate_element {
+        left: 160px;
+      }
+      :root div.head {
+        margin-top: 1rem;
+      }
+    }
+    @media (min-width: 28em) and (max-width: 48em) {
+      :root div.head .logo {
+        margin-top: -2rem;
+      }
+    }
+    @media (min-width: 78em) {
+      #google_translate_element {
+        left: 29em;
+      }
+    }
+    :root #references :target {
+      animation: none;
+    }
+    </style>
     <!-- ReSpec config -->
     <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
     <script class="remove">
@@ -484,7 +647,7 @@
           </pre>
         </dd>
         </dl>
-        <div class="impl">
+        <div>
         <p id="implementation">The <a href="#the-map-element"><code>map</code></a> element, in conjunction with child <a href="#the-layer-element"><code>layer</code></a> and optionally 
         <a href="#the-area-element"><code>area</code></a> elements, allows authors to embed an interactive web mapping application in a rectangular area of a web page.  
         The <a href="#attr-map-lat"><code>lat</code></a>, <a href="#attr-map-lon"><code>lon</code></a> attributes locate the initial center of the map.  The 
@@ -585,7 +748,6 @@
           </pre>
         </dd>
         </dl>
-        <div class="impl">
         <p>The <a href="#the-map-element"><code>map</code></a> element displays its child <a href="#the-layer-element"><code>layer</code></a> elements similarly to "acetate" layers on a (paper) map.  The layers follow the <a target="_blank" href="https://www.w3.org/TR/SVG/render.html#PaintersModel">painters model</a>, whereby
         <a href="#the-layer-element"><code>layer</code></a> elements are displayed on top of earlier siblings according to their document order.  <a href="#the-layer-element"><code>layer</code></a> transparency is controlled by the CSS opacity property. [[SVG2]] [[css-color-3]]</p>
 
@@ -601,7 +763,6 @@
         <p>The <a href="#attr-layer-disabled"><code>disabled</code></a> property is a read-only boolean indicator of the visibility of the layer on the map.  If the layer is not visible due to errors, including projection,
         zoom or extent mismatch, the property will be true and if the layer is present in the layer control (i.e. <a href="#attr-layer-hidden"><code>hidden</code></a> is false), it will be disabled in that control i.e. not checkable.</p>
 
-        </div>
         </section>
         <section>
         <h4>The <code>&lt;<dfn id="the-area-element">area</dfn>&gt;</code> element</h4>
@@ -651,40 +812,40 @@
         encoded as coordinates in the <a href="#attr-area-coords"><code>coords</code></a> attribute.</p>
         <p>The shape attribute is an enumerated attribute. The following table lists the keywords defined for this attribute. The states given in the first cell of the rows with 
         keywords give the states to which those keywords map. </p>
-        <table>
+        <table class="def">
         <thead>
-        <tr><th>State</th><th>Keywords</th><th class="impl">Notes</th></tr>
+        <tr><th>State</th><th>Keywords</th><th>Notes</th></tr>
         </thead>
         <tbody>
         <tr>
           <td><a href="#attr-area-shape-circle">Circle state</a></td>
           <td><dfn id="attr-area-shape-keyword-circle"><code>circle</code></dfn></td>
-          <td class="impl"></td>
+          <td></td>
         </tr>
         <tr>
           <td><a href="#attr-area-shape-default">Default state</a></td>
           <td><dfn id="attr-area-shape-keyword-default"><code>default</code></dfn></td>
-          <td class="impl"></td>
+          <td></td>
         </tr>
         <tr>
           <td><a href="#attr-area-shape-polygon">Polygon state</a></td>
           <td><dfn id="attr-area-shape-keyword-poly"><code>poly</code></dfn></td>
-          <td class="impl"></td>
+          <td></td>
         </tr>
         <tr>
           <td><a href="#attr-area-shape-rectangle">Rectangle state</a></td>
           <td><dfn id="attr-area-shape-keyword-rect"><code>rect</code></dfn></td>
-          <td class="impl"></td>
+          <td></td>
         </tr>
         <tr>
           <td><a href="#attr-area-shape-marker">Marker state</a></td>
           <td><dfn id="attr-area-shape-keyword-marker"><code>marker</code></dfn></td>
-          <td class="impl">new</td>
+          <td>new</td>
         </tr>
         <tr>
           <td><a href="#attr-area-shape-line">Line state</a></td>
           <td><dfn id="attr-area-shape-keyword-line"><code>line</code></dfn></td>
-          <td class="impl">new</td>
+          <td>new</td>
         </tr>
         </tbody>
         </table>
@@ -817,7 +978,7 @@
         </p>
 
         <p>This document defines the following coordinate reference system types:</p>
-        <table id="CS-defs">
+        <table id="CS-defs" class="def">
           <caption>
             <h2>Coordinate Reference System type codes and descriptions</h2>
           </caption>
@@ -885,7 +1046,7 @@
           table below, and exchanged in markup defined by this specification.
         </p>
 
-        <table id="tiled-coordinate-reference-systems-table">
+        <table id="tiled-coordinate-reference-systems-table" class="def">
           <caption>
             <h2>Tiled Coordinate Reference Systems</h2>
           </caption>
@@ -1155,7 +1316,7 @@
           areas in (north) polar latitudes.
         </p>
         <h5 id="WGS84">WGS84</h5>
-        <p>This specification defines the string "<a href="#tcrs-WGS84">WGS84</a>" to be the identifier of a tiled coordinate reference system projected in the Equirectangular, or Plate carr&eacute;e system.</p>
+        <p>This specification defines the string "<a href="#tcrs-WGS84">WGS84</a>" to be the identifier of a tiled coordinate reference system projected in the Equirectangular, or <i lang="fr">Plate carrée</i> system.</p>
         <p>
           The WGS84 tiled coordinate reference system is suitable for small to medium scale mapping of the entire world. It is also useful for vector data provided that the inter-vertex distance is no less than a single pixel in size at any
           particular zoom level.
@@ -1378,7 +1539,7 @@
         </p>
         <p>
           The destination of the link(s) is given by the <dfn id="attr-link-href"><code>href</code></dfn> attribute, which must be present and must contain a valid non-empty URL potentially surrounded by spaces.
-          <span class="impl">
+          <span>
             If the <a href="#attr-link-href"><code>href</code></a> attribute is absent, then the element does not define a link.
           </span>
         </p>
@@ -1415,7 +1576,7 @@
         </p>
         <p>The content represented by <code>link[@tref]</code> elements should be painted in document order of the appearance of the <code>link[@tref]</code> elements.</p>
 
-        <table id="rel-values">
+        <table id="rel-values" class="def">
           <caption>
             <h2><code>@rel</code> values</h2>
           </caption>
@@ -1614,7 +1775,7 @@
           The <code>type</code> attribute controls the data type (and associated control) of the element. It is an enumerated attribute. The following table lists the keywords and states for the attribute — the keywords in the left column
           map to the states in the cell in the second column on the same row as the keyword.
         </p>
-        <table id="attr-input-type-keywords">
+        <table id="attr-input-type-keywords" class="def">
           <caption>
             <h2><code>input</code>@<code>type</code> values</h2>
           </caption>
@@ -1666,7 +1827,7 @@
           EPSG:3857 CRS plus a set of zoom level resolutions, and a transformation.
         </p>
 
-        <table id="attr-input-units-keywords">
+        <table id="attr-input-units-keywords" class="def">
           <caption>
             <h2><code>input</code>@<code>units</code> values</h2>
           </caption>
@@ -1730,7 +1891,7 @@
           <code>tilematrix</code>), the <code>position</code> attribute values describe the input location relative to the tile at the location in question.
         </p>
 
-        <table id="attr-input-position-keywords">
+        <table id="attr-input-position-keywords" class="def">
           <caption>
             <h2><code>input</code>@<code>position</code> values</h2>
           </caption>
@@ -1780,7 +1941,7 @@
           </tbody>
         </table>
         <p>The <code>axis</code> keyword identifies the axis of the coordinate that the <a href="#the-input-element"><code>input</code></a> variable represents. The coordinate system should be identified by the <code>units</code> attribute.</p>
-        <table id="attr-input-axis-keywords">
+        <table id="attr-input-axis-keywords" class="def">
           <caption>
             <h2><code>input</code>@<code>axis</code> values</h2>
           </caption>
@@ -2102,7 +2263,7 @@
         <p>A <a href="#the-geometry-element"><code>geometry</code></a> element has one child element, which can be a <a href="#the-point-element"><code>point</code></a>,
         <a href="#the-linestring-element"><code>linestring</code></a>, <a href="#the-polygon-element"><code>polygon</code></a>, <a href="#the-multipoint-element"><code>multipoint</code></a>, <a href="#the-multilinestring-element"><code>multilinestring</code></a>, <a href="#the-multipolygon-element"><code>multipolygon</code></a>, or <a href="#the-geometrycollection-element"><code>geometrycollection</code></a>.</p>
 
-        <table id="geometry-values">
+        <table id="geometry-values" class="def">
           <thead>
             <tr>
               <th><code>geometry</code> value</th>
