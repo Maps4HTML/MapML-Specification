@@ -626,14 +626,14 @@
 
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
-        <dd><code id="attr-map-zoom">zoom</code> — A positive integer zoom (scale) value.</dd>
-        <dd><code id="attr-map-lat">lat</code> — A decimal WGS84 latitude value for the map center.</dd>
-        <dd><code id="attr-map-lon">lon</code> — A decimal WGS84 longitude value for the map center.</dd>
-        <dd><code id="attr-map-projection">projection</code> — A case-sensitive string <a href="#tiled-coordinate-reference-systems-table">identifier</a> of the MapML coordinate reference system used by the map. Default is <a href="#tcrs-OSMTILE"><code>OSMTILE</code></a>.</dd>
-        <dd><code id="attr-map-controls">controls</code> — Show user agent controls.</dd>
+        <dd><code>zoom</code> — A positive integer zoom (scale) value.</dd>
+        <dd><code>lat</code> — A decimal WGS84 latitude value for the map center.</dd>
+        <dd><code>lon</code> — A decimal WGS84 longitude value for the map center.</dd>
+        <dd><code>projection</code> — A case-sensitive string <a href="#tiled-coordinate-reference-systems-table">identifier</a> of the MapML coordinate reference system used by the map. Default is <a href="#tcrs-OSMTILE"><code>OSMTILE</code></a>.</dd>
+        <dd><code>controls</code> — Show user agent controls.</dd>
         <dd><code>controlslist</code> — Show/hide specific user agent controls.</dd>
-        <dd><code id="attr-map-width">width</code> — Horizontal dimension.</dd>
-        <dd><code id="attr-map-height">height</code> — Vertical dimension.</dd>
+        <dd><code>width</code> — Horizontal dimension.</dd>
+        <dd><code>height</code> — Vertical dimension.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
         <dd>Neither tag is omissible.</dd>
         <dt>Allowed <a href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#aria-role-attribute">ARIA role attribute</a> values:</dt>
@@ -693,9 +693,11 @@
         <p>The <dfn id="attr-map-lat"><code>lat</code></dfn></a> and <dfn id="attr-map-lon"><code>lon</code></dfn> attributes locate the initial center of the map.</p>
         <p>The <a href="#dom-htmlmapelement-lat"><code>lat</code></a> and <a href="#dom-htmlmapelement-lon"><code>lon</code></a> IDL attributes must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the content attribute of the same name.</p>
 
-        <p>The <code>controls</code> boolean attribute indicates whether default map controls should be displayed on the map.  The nature and position of the controls 
-        is user agent implementation-defined.  The controls can be added or removed by toggling the controls property of the element.
-        </p>
+        <p>The <dfn id="attr-map-controls"><code>controls</code></dfn> attribute is a <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attribute">boolean attribute</a>. If present, it indicates that the author has not provided scripted controls and would like the user agent to provide its own set of controls.</p>
+        <!-- https://html.spec.whatwg.org/multipage/media.html#user-interface -->
+        <p>If the attribute is present, or if <a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-n-noscript">scripting is disabled</a> for the <a href="https://html.spec.whatwg.org/multipage/media.html#media-element">media element</a>, then the user agent should <dfn id="expose-a-user-interface-to-the-user"><strong>expose a user interface to the user</strong></dfn>.
+          This user interface should include features to zoom in, zoom out, pan to an arbitrary position in the content, and show the media content in manners more suitable to the user (e.g. fullscreen map or in an independent resizable window). Other controls may also be made available.</p>
+        <p>The <a href="#dom-htmlmapelement-controls"><code>controls</code></a> IDL attribute must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the content attribute of the same name.</p>
         
         <p>The <dfn id="attr-map-controlslist"><code>controlslist</code></dfn> attribute, when specified, helps the user agent select what controls to show on the media element whenever the user agent shows its own set of controls.
           Its value must be an <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#unordered-set-of-unique-space-separated-tokens">unordered set of unique space-separated tokens</a> that are <a href="https://infra.spec.whatwg.org/#ascii-case-insensitive">ASCII case-insensitive</a>.
@@ -715,7 +717,7 @@
         
         <p class="note">A user agent might ignore the <a href="#attr-map-controlslist-nofullscreen"><code>nofullscreen</code></a> keyword if the content area containing the map is small, such as on a mobile device.</p>
         
-        <p>The <code>projection</code> attribute value identifies the coordinate system for the map and all the <a href="#the-layer-element"><code>layer</code></a> element children, with the exception of
+        <p>The <dfn id="attr-map-projection"><code>projection</code></dfn> attribute value identifies the coordinate system for the map and all the <a href="#the-layer-element"><code>layer</code></a> element children, with the exception of
         <a href="#the-layer-element"><code>layer</code></a> children in the WGS84 projection.  WGS84 serves as a "wild-card" projection; features encoded in longitude, latitude values according to this projection can often be re-projected for
         use on maps encoded in other projections.  As such, <a href="#the-layer-element"><code>layer</code></a> children do not have a projection attribute, in that they are verified to share the projection declared by their
         parent <a href="#the-map-element"><code>map</code></a> element.  Once established, the projection of the <a href="#the-map-element"><code>map</code></a> is read-only.
