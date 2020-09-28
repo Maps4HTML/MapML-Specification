@@ -649,9 +649,9 @@
             
             [SameObject] readonly attribute HTMLCollection layers;
             [SameObject] readonly attribute HTMLCollection areas;
-            readonly attribute unsigned short zoom;
-            readonly attribute double lat;
-            readonly attribute double lon;
+            [CEReactions] attribute unsigned short zoom;
+            [CEReactions] attribute double lat;
+            [CEReactions] attribute double lon;
             readonly attribute DOMString projection;
             [CEReactions] attribute boolean controls;
             [SameObject, PutForwards=value] readonly attribute
@@ -664,29 +664,34 @@
         </dd>
         </dl>
         <div>
+          
         <p id="implementation">The <a href="#the-map-element"><code>map</code></a> element, in conjunction with child <a href="#the-layer-element"><code>layer</code></a> and optionally 
-        <a href="#the-area-element"><code>area</code></a> elements, allows authors to embed an interactive web mapping application in a rectangular area of a web page.  
-        The <a href="#attr-map-lat"><code>lat</code></a>, <a href="#attr-map-lon"><code>lon</code></a> attributes locate the initial center of the map.  The 
-        <a href="#attr-map-zoom"><code>zoom</code></a> attribute indirectly identifies an initial scale of the map.
-        After initialization, the <code>lat</code>,<code>lon</code> and <code>zoom</code> IDL properties reflect the location and scale of the map respectively, based on changes initiated
-        by the user or by script.</p>
-        <dl class="domintro"><dt><var>map</var> . <a href="#dom-areas"><code>areas</code></a></dt>
+        <a href="#the-area-element"><code>area</code></a> elements, defines a map <a href="https://html.spec.whatwg.org/multipage/media.html#media-element">media element</a>.</p>
+          
+        <dl class="def"><dt><var>map</var> . <a href="#dom-areas"><code>areas</code></a></dt>
         <dd>
-        <p>Returns an <code>HTMLCollection</code> of the 
+        <p>Returns an <a href="https://dom.spec.whatwg.org/#htmlcollection"><code>HTMLCollection</code></a> of the 
         <a href="#the-area-element"><code>area</code></a> elements in the
         <a href="#the-map-element"><code>map</code></a>.</p>
         </dd>
         <dt><var>map</var> . <a href="#dom-layers"><code>layers</code></a></dt>
         <dd>
-        <p>Returns an <code>HTMLCollection</code> of the 
+        <p>Returns an <a href="https://dom.spec.whatwg.org/#htmlcollection"><code>HTMLCollection</code></a> of the 
         <a href="#the-layer-element"><code>layer</code></a> element children of the <a href="#the-map-element"><code>map</code></a>.</p>
         </dd>
         </dl>
-        <p>The <code id="dom-areas">areas</code> attribute must return an <code>HTMLCollection</code> 
+        
+        <p>The <code id="dom-areas">areas</code> attribute must return an <a href="https://dom.spec.whatwg.org/#htmlcollection"><code>HTMLCollection</code></a> 
         rooted at the <a href="#the-map-element"><code>map</code></a> element, whose filter matches only  <a href="#the-area-element"><code>area</code></a> child elements.</p>
 
-        <p>The <code id="dom-layers">layers</code> attribute must return an <code>HTMLCollection</code> 
+        <p>The <code id="dom-layers">layers</code> attribute must return an <a href="https://dom.spec.whatwg.org/#htmlcollection"><code>HTMLCollection</code></a> 
         rooted at the <a href="#the-map-element"><code>map</code></a> node, whose filter matches only <a href="#the-layer-element"><code>layer</code></a> child elements of this <a href="#the-map-element"><code>map</code></a> element.</p>
+        
+        <p>The <dfn id="attr-map-zoom"><code>zoom</code></dfn> attribute indirectly identifies an initial scale of the map.</p>
+        <p>The <a href="#dom-htmlmapelement-zoom"><code>zoom</code></a> IDL attribute must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the content attribute of the same name.</p>
+        
+        <p>The <dfn id="attr-map-lat"><code>lat</code></dfn></a> and <dfn id="attr-map-lon"><code>lon</code></dfn> attributes locate the initial center of the map.</p>
+        <p>The <a href="#dom-htmlmapelement-lat"><code>lat</code></a> and <a href="#dom-htmlmapelement-lon"><code>lon</code></a> IDL attributes must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the content attribute of the same name.</p>
 
         <p>The <code>controls</code> boolean attribute indicates whether default map controls should be displayed on the map.  The nature and position of the controls 
         is user agent implementation-defined.  The controls can be added or removed by toggling the controls property of the element.
@@ -717,7 +722,7 @@
         Unless otherwise specified, units are based on pixels projected and transformed from the units of the underlying projection system. The complete definition of these coordinate reference systems can be found in the
         <a href="#tiled-coordinate-reference-systems-table">Tiled Coordinate Reference Systems</a> table.
         </p>
-        <p>The location and zoom level of the map created with the <a href="#the-map-element"><code>map</code></a> element can be changed via the <code>zoomTo(...)</code> API method, which will change the <code>zoom</code>, <code>lat</code> and <code>lon</code> properties.</p>
+        
         <p>The <a href="#the-map-element"><code>map</code></a> element supports the <code>width</code> and <code>height</code> <a href="https://html.spec.whatwg.org/multipage/embedded-content-other.html#dimension-attributes">dimension attributes</a>. [[HTML]]</p>
         <p>The <a href="https://drafts.csswg.org/css-images/#default-object-size">default object size</a> is a width of 300 <a href="https://drafts.csswg.org/css-values/#px">CSS pixels</a> and a height of 150 <a href="https://drafts.csswg.org/css-values/#px">CSS pixels</a>. [[css-images-3]]</p>
         </div>
@@ -1587,7 +1592,7 @@
           element does not create any links.
         </p>
         <p>
-          The <dfn id="attr-link-projection"><code>projection</code></dfn> attribute value identifies the TCRS of the linked resource, with a value from the defined set of
+          The <code>projection</code> attribute value identifies the TCRS of the linked resource, with a value from the defined set of
           <a href="#tiled-coordinate-reference-systems-table">TCRS identifiers</a>. When <code>rel=alternate</code> is used together with the <code>projection</code> attribute, clients may be able to perform agent-driven content negotiation
           to provide a better user experience. For example, if an HTML author mistakenly enters the URL of an OSMTILE resource in their HTML <a href="#the-layer-element"><code>layer@src</code></a> attribute, but the <code>map</code> in which the layer takes part is
           declared to be <code>CBMTILE</code>, the MapML author can ease the potential for resultant confusion by providing appropriate <code>rel=alternate</code> links to equivalent MapML resources in other projections.
