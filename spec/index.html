@@ -27,11 +27,6 @@
     :root summary {
       cursor: pointer;
     }
-    :root summary h2 {
-      display: inline-block;
-      vertical-align: middle;
-      margin: 0;
-    }
     :root caption {
       text-align: left;
       text-align: start;
@@ -128,7 +123,11 @@
     :root summary h3 {
       display: inline;
       vertical-align: middle;
-      margin-left: 1rem;
+    }
+    @media (min-width: 768px) {
+      :root summary h3 {
+        margin-left: 1rem;
+      }
     }
     @media (max-width: 28em) {
       :root body {
