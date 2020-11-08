@@ -250,7 +250,12 @@
 
 
       <section id="abstract">
-
+        <p>
+          This specification describes Map Markup Language (MapML), which is a hypertext document format for maps.
+          This specification also extends the semantics of the standard [[HTML]] 
+          <a href="https://html.spec.whatwg.org/multipage/image-maps.html#the-map-element"><code>map</code></a> element.
+        </p>
+      <!--
       <p>Map Markup Language is a text format for encoding map information for the World Wide Web.</p>
       <p>The objective of MapML is to allow Web-based user agent software (browsers and others) to display and edit maps and map data without necessary customization.</p>
 
@@ -260,9 +265,10 @@
       <p>The applications of Web maps are diverse.  The wide scope of use of Web maps appears similarly broad to that of other Web media types, such as video or audio.  In other words, there are a multitude of reasons for wanting to include
       a map on your Web page.  The HTML <a href="#the-map-element"><code>map</code></a> element proposed by this document should be provider-agnostic, 
       and should only depend on Web standards, including Uniform Resource Identifiers, Document Object Model, Cascading Style Sheets and media types.</p>
+      -->
       </section>
       <section id="sotd">
-
+        <!-- (!) The intent should be clear from the "abstract" and "introduction" sections, as well as the linked explainer.
         <section>
         <h3>Intent of this Specification</h3>
         
@@ -283,6 +289,7 @@
           Web servers when map features are exchanged, in a manner based on the architectural style of the Web, in a similar way to how HTML provides (part of) the contract for documents.
         </p>
         </section>
+        -->
         <section>
         <h3>Implementation Experience</h3>
 
@@ -382,6 +389,8 @@
           implementation - whether that be native browser or custom elements.   
           Details specific to how to author a Web page using the 
           Custom Elements implementation can be found in the [[Web-Map-Custom-Element]] project.</p>
+          
+        <p>See the <a href="https://github.com/Maps4HTML/MapML-Proposal#the-mapml-map-markup-language-explainer">explainer</a> for more background and motivation.</p>
       </section>
 
       <section id="conformance">
