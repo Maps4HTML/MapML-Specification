@@ -393,128 +393,6 @@
         <p>See the <a href="https://github.com/Maps4HTML/MapML-Proposal#the-mapml-map-markup-language-explainer">explainer</a> for more background and motivation.</p>
       </section>
 
-      <section id="conformance">
-        <!-- https://github.com/w3c/respec/wiki/conformance -->
-        <section>
-        <h2 id="conforming-documents">Conforming documents</h2>
-
-        <p>
-          <dfn>Conforming documents</dfn> are documents that comply with all the conformance criteria for MapML documents. For readability, some of these conformance requirements are phrased as conformance
-          requirements on authors; such requirements are implicitly requirements on documents: by definition, all documents are assumed to have had an author. (In some cases, that author may itself be a user agent — such user agents are
-          subject to additional rules, as explained below.)
-        </p>
-        <p>User agents fall into several (overlapping) categories with different conformance requirements.</p>
-        <dl>
-          <dt id="interactive">Web browsers and other interactive user agents</dt>
-
-          <dd>
-            <p>
-              Web browsers are one of the primary client technologies anticipated for MapML, however other categories of interactive client could also be developed, for example as extensions to / plugins for traditional Geographic
-              Information Systems software.
-            </p>
-
-            <!--
-            <p class="example">A conforming XHTML processor would, upon finding an XHTML <code><a href="#the-script-element">script</a></code>
-              element in an XML document, execute the script contained in that element. However, if the
-              element is found within a transformation expressed in XSLT (assuming the user agent also
-              supports XSLT), then the processor would instead treat the <code><a href="#the-script-element">script</a></code> element as an
-              opaque element that forms part of the transform.</p>
-
-            <p>Web browsers that support <a href="#syntax">the HTML syntax</a> must process documents labeled with an
-              <a href="#html-mime-type">HTML MIME type</a> as described in this specification, so that users can interact with
-              them.</p>
-
-            <p class="note">Unless explicitly stated, specifications that override the semantics of HTML
-              elements do not override the requirements on DOM objects representing those elements. For
-              example, the <code><a href="#the-script-element">script</a></code> element in the example above would still implement the
-              <code><a href="#htmlscriptelement">HTMLScriptElement</a></code> interface.</p>
-            -->
-          </dd>
-
-          <dt id="non-interactive">Non-interactive presentation user agents</dt>
-
-          <dd>
-            <p>
-              User agents that process MapML documents purely to render non-interactive versions of them must comply to the same conformance criteria as map browsers, except that they are exempt from requirements regarding user interaction.
-            </p>
-
-            <p>
-              While MapML documents are thought to describe map semantics in a standard way, the scope of this specification is intended to not overlap that of HTML documents themselves. As such, this conformance class may not be relevant,
-              except when consuming MapML within the context of an HTML instance's user agent. For example, the legend and other supporting map related information is out of scope for MapML, whereas it is conceivably in-scope for HTML
-              documents.
-            </p>
-
-            <p class="note">Typical examples of non-interactive presentation user agents are printers.</p>
-          </dd>
-
-          <dt id="non-scripted">User agents with no scripting support</dt>
-
-          <dd>
-            <p>
-              Scripting can form an integral part of a Web application. User agents that do not support scripting, or that have scripting disabled, however should still be able to display and enable map-user interaction via the affordances
-              described in this document.
-            </p>
-          </dd>
-
-          <dt>Conformance checkers</dt>
-
-          <dd id="conformance-checkers">
-            <p>Conformance checkers must verify that a document conforms to the applicable conformance criteria described in this specification.</p>
-
-            <p>The term "MapML validator" can be used to refer to a conformance checker that conforms to the applicable requirements of this specification.</p>
-
-            <div class="note">
-              <p>Schemas cannot express all the conformance requirements of this specification. Therefore, a validating XML processor and a DTD cannot constitute a conformance checker.</p>
-
-              <p>To put it another way, there are three types of conformance criteria:</p>
-
-              <ol>
-                <li>Criteria that can be expressed in a schema (RelaxNG, XML Schema etc).</li>
-
-                <li>Criteria that cannot be expressed by a DTD, but can still be checked by a machine.</li>
-
-                <li>Criteria that can only be checked by a human.</li>
-              </ol>
-
-              <p>
-                A conformance checker must check for the first two. A simple RelaxNG-based validator only checks for the first class of errors and is therefore not a conforming conformance checker according to this specification.
-              </p>
-            </div>
-          </dd>
-
-          <dt>Data mining tools</dt>
-
-          <dd id="data-mining">
-            <p>
-              Applications and tools that process HTML and MapML documents for reasons other than to either render the documents or check them for conformance should act in accordance with the semantics of the documents that they process.
-            </p>
-          </dd>
-
-          <dt id="editors">Authoring tools and markup generators</dt>
-
-          <dd>
-            <p>Authoring tools and markup generators must generate <a href="#dfn-conforming-documents">conforming documents</a>. Conformance criteria that apply to authors also apply to authoring tools, where appropriate.</p>
-
-            <p class="note">For example, a markup generator must ensure that polygons have three or more vertices, the first and last of which have the same location.</p>
-
-            <p class="note">In terms of conformance checking, an editor has to output documents that conform to the same extent that a conformance checker will verify.</p>
-
-            <p>
-              When an authoring tool is used to edit a non-conforming document, it may preserve the conformance errors in sections of the document that were not edited during the editing session (i.e. an editing tool is allowed to
-              round-trip erroneous content). However, an authoring tool must not claim that the output is conformant if errors have been so preserved.
-            </p>
-
-            <p>
-              Authoring tools are expected to come in two broad varieties: tools that work from structured databases, and tools that work on an interactive What-You-See-Is-What-You-Get media-specific editing basis (WYSIWYG).
-            </p>
-
-            <p>All authoring tools, whether WYSIWYG or not, should make a best effort attempt at enabling users to create accessible, well-structured, and efficient content.</p>
-          </dd>
-        </dl>
-        <p>This document contains explicit conformance criteria that overlap with some RNG definitions in requirements. If there is any conflict between the two, the explicit conformance criteria are the definitive reference.</p>
-        </section>
-      </section>
-
       <section class="informative">
         <h2 id="use-cases-and-requirements">Use Cases and Requirements</h2>
 
@@ -2478,8 +2356,130 @@
 
         <p class="ednote">TODO: Provide a glossary of terms and datatypes used in this specification.</p>
       </section>
+      
+      <section id="conformance" class="appendix">
+        <!-- https://github.com/w3c/respec/wiki/conformance -->
+        <section>
+        <h2 id="conforming-documents">Conforming documents</h2>
 
-      <section>
+        <p>
+          <dfn>Conforming documents</dfn> are documents that comply with all the conformance criteria for MapML documents. For readability, some of these conformance requirements are phrased as conformance
+          requirements on authors; such requirements are implicitly requirements on documents: by definition, all documents are assumed to have had an author. (In some cases, that author may itself be a user agent — such user agents are
+          subject to additional rules, as explained below.)
+        </p>
+        <p>User agents fall into several (overlapping) categories with different conformance requirements.</p>
+        <dl>
+          <dt id="interactive">Web browsers and other interactive user agents</dt>
+
+          <dd>
+            <p>
+              Web browsers are one of the primary client technologies anticipated for MapML, however other categories of interactive client could also be developed, for example as extensions to / plugins for traditional Geographic
+              Information Systems software.
+            </p>
+
+            <!--
+            <p class="example">A conforming XHTML processor would, upon finding an XHTML <code><a href="#the-script-element">script</a></code>
+              element in an XML document, execute the script contained in that element. However, if the
+              element is found within a transformation expressed in XSLT (assuming the user agent also
+              supports XSLT), then the processor would instead treat the <code><a href="#the-script-element">script</a></code> element as an
+              opaque element that forms part of the transform.</p>
+
+            <p>Web browsers that support <a href="#syntax">the HTML syntax</a> must process documents labeled with an
+              <a href="#html-mime-type">HTML MIME type</a> as described in this specification, so that users can interact with
+              them.</p>
+
+            <p class="note">Unless explicitly stated, specifications that override the semantics of HTML
+              elements do not override the requirements on DOM objects representing those elements. For
+              example, the <code><a href="#the-script-element">script</a></code> element in the example above would still implement the
+              <code><a href="#htmlscriptelement">HTMLScriptElement</a></code> interface.</p>
+            -->
+          </dd>
+
+          <dt id="non-interactive">Non-interactive presentation user agents</dt>
+
+          <dd>
+            <p>
+              User agents that process MapML documents purely to render non-interactive versions of them must comply to the same conformance criteria as map browsers, except that they are exempt from requirements regarding user interaction.
+            </p>
+
+            <p>
+              While MapML documents are thought to describe map semantics in a standard way, the scope of this specification is intended to not overlap that of HTML documents themselves. As such, this conformance class may not be relevant,
+              except when consuming MapML within the context of an HTML instance's user agent. For example, the legend and other supporting map related information is out of scope for MapML, whereas it is conceivably in-scope for HTML
+              documents.
+            </p>
+
+            <p class="note">Typical examples of non-interactive presentation user agents are printers.</p>
+          </dd>
+
+          <dt id="non-scripted">User agents with no scripting support</dt>
+
+          <dd>
+            <p>
+              Scripting can form an integral part of a Web application. User agents that do not support scripting, or that have scripting disabled, however should still be able to display and enable map-user interaction via the affordances
+              described in this document.
+            </p>
+          </dd>
+
+          <dt>Conformance checkers</dt>
+
+          <dd id="conformance-checkers">
+            <p>Conformance checkers must verify that a document conforms to the applicable conformance criteria described in this specification.</p>
+
+            <p>The term "MapML validator" can be used to refer to a conformance checker that conforms to the applicable requirements of this specification.</p>
+
+            <div class="note">
+              <p>Schemas cannot express all the conformance requirements of this specification. Therefore, a validating XML processor and a DTD cannot constitute a conformance checker.</p>
+
+              <p>To put it another way, there are three types of conformance criteria:</p>
+
+              <ol>
+                <li>Criteria that can be expressed in a schema (RelaxNG, XML Schema etc).</li>
+
+                <li>Criteria that cannot be expressed by a DTD, but can still be checked by a machine.</li>
+
+                <li>Criteria that can only be checked by a human.</li>
+              </ol>
+
+              <p>
+                A conformance checker must check for the first two. A simple RelaxNG-based validator only checks for the first class of errors and is therefore not a conforming conformance checker according to this specification.
+              </p>
+            </div>
+          </dd>
+
+          <dt>Data mining tools</dt>
+
+          <dd id="data-mining">
+            <p>
+              Applications and tools that process HTML and MapML documents for reasons other than to either render the documents or check them for conformance should act in accordance with the semantics of the documents that they process.
+            </p>
+          </dd>
+
+          <dt id="editors">Authoring tools and markup generators</dt>
+
+          <dd>
+            <p>Authoring tools and markup generators must generate <a href="#dfn-conforming-documents">conforming documents</a>. Conformance criteria that apply to authors also apply to authoring tools, where appropriate.</p>
+
+            <p class="note">For example, a markup generator must ensure that polygons have three or more vertices, the first and last of which have the same location.</p>
+
+            <p class="note">In terms of conformance checking, an editor has to output documents that conform to the same extent that a conformance checker will verify.</p>
+
+            <p>
+              When an authoring tool is used to edit a non-conforming document, it may preserve the conformance errors in sections of the document that were not edited during the editing session (i.e. an editing tool is allowed to
+              round-trip erroneous content). However, an authoring tool must not claim that the output is conformant if errors have been so preserved.
+            </p>
+
+            <p>
+              Authoring tools are expected to come in two broad varieties: tools that work from structured databases, and tools that work on an interactive What-You-See-Is-What-You-Get media-specific editing basis (WYSIWYG).
+            </p>
+
+            <p>All authoring tools, whether WYSIWYG or not, should make a best effort attempt at enabling users to create accessible, well-structured, and efficient content.</p>
+          </dd>
+        </dl>
+        <p>This document contains explicit conformance criteria that overlap with some RNG definitions in requirements. If there is any conflict between the two, the explicit conformance criteria are the definitive reference.</p>
+        </section>
+      </section>
+
+      <section class="appendix">
         <h2 id="schema">Schema</h2>
 
         <p>A schema is useful for machine processing of documents, be it document creation, transformation, or validation.</p>
