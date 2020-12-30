@@ -200,8 +200,7 @@
             name: "Elf Pavlik",
           },
         ],
-        wg: "Maps for HTML Community Group",
-        wgURI: "https://www.w3.org/community/maps4html/",
+        group: "maps4html",
         wgPublicList: "public-maps4html",
         edDraftURI: "https://maps4html.org/MapML/spec/",
         copyrightStart: "2015",
@@ -234,7 +233,7 @@
       respecConfig.otherLinks = [
         {
           key: "Join the Community Group",
-          data: [{ value: respecConfig.wg, href: respecConfig.wgURI }],
+          data: [{ value: "Maps for HTML Community Group", href: "https://www.w3.org/community/maps4html/" }],
         },
       ];
     </script>
@@ -264,7 +263,7 @@
       </section>
       <section id="sotd">
 
-
+        <section>
         <h3>Intent of this Specification</h3>
         
         <p>This specification describes Map Markup Language (MapML), which is a hypertext document format for maps. This specification is also intended as a proposal to the HTML Working Group to extend the semantics of the <a href="https://html.spec.whatwg.org/multipage/image-maps.html#the-map-element">standard HTML <code>map</code></a> element.</p>
@@ -283,7 +282,8 @@
           directly, but which leverages existing standards where possible and desirable, such as Cascading Style Sheets and OGC Simple Features, for example. MapML will provide an essential part of the contract between Web user agents and
           Web servers when map features are exchanged, in a manner based on the architectural style of the Web, in a similar way to how HTML provides (part of) the contract for documents.
         </p>
-
+        </section>
+        <section>
         <h3>Implementation Experience</h3>
 
         <p>
@@ -296,7 +296,7 @@
         <p>The reader is requested to contact the <a href="mailto:public-maps4html@w3.org">editor</a> with any known implementations of
         Map Markup Language or other implemented support for this proposal.</p>
         <p>The customized built-in HTML <code>&lt;map&gt;</code> element and <code>&lt;mapml-viewer&gt;</code> autonomous custom element were built and are maintained by the Maps for HTML Community Group. [[Web-Map-Custom-Element]]</p>
-
+        </section>
         <details>
           <summary>
             <h3>Changes Since the Previous Draft</h3>
@@ -336,25 +336,28 @@
             
           </ul>
         </details>
-
+        <section>
         <h3>Level of Endorsement by the Community</h3>
 
         <p>Please <a href="https://www.w3.org/community/maps4html/">join</a> the W3C Maps for HTML Community Group if you would like to participate in the development and implementation of this specification.</p>
         <p>You can also star us on <a href="https://github.com/Maps4HTML/MapML">Github</a>.</p>
-
+        </section>
+        <section>
         <h3>Patent Information</h3>
 
         <p>
           Development of this specification together with implementations is done under the terms of the <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document">W3C Software Notice and License</a>, in accordance
           with the rules of the W3C Community Groups program.
         </p>
-
+        </section>
+        <section>
         <h3>How to provide feedback</h3>
 
         <p>
           Please send comments on this specification to <a href="mailto:public-maps4html@w3.org">public-maps4html@w3.org</a>, or <a href="https://discourse.wicg.io/t/map-markup-language/1267">WICG</a>, or open an
           <a href="https://github.com/Maps4HTML/MapML/issues">issue</a>.
         </p>
+        </section>
       </section>
 
       <section id="intro" class="informative">
@@ -765,7 +768,7 @@
         <dd>
           <pre class="idl">
           [Exposed=Window]
-          interface <dfn id="htmllayerelement">HTMLLayerElement</dfn> : HTMLElement {
+          interface HTMLLayerElement : HTMLElement {
             [HTMLConstructor] constructor();
             
             readonly attribute DOMString <a href="#attr-layer-src">src</a>;
@@ -1428,7 +1431,7 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface MAPMLMapMLElement : MAPMLElement {
+            interface HTMLMapmlElement : HTMLElement {
               [HTMLConstructor] constructor();
             };
             </pre>
@@ -1451,7 +1454,7 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface MAPMLHeadElement : MAPMLElement {
+            interface HTMLHeadElement : HTMLElement {
               [HTMLConstructor] constructor();
             };
             </pre>
@@ -1476,7 +1479,7 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface MAPMLTitleElement : MAPMLElement {
+            interface HTMLTitleElement : HTMLElement {
               [HTMLConstructor] constructor();
             };
           </pre>
@@ -1502,7 +1505,7 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface MAPMLBaseElement : MAPMLElement {
+            interface HTMLBaseElement : HTMLElement {
               [HTMLConstructor] constructor();
             };
             </pre>
@@ -1531,7 +1534,7 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface MAPMLMetaElement : MAPMLElement {
+            interface HTMLMetaElement : HTMLElement {
               [HTMLConstructor] constructor();
               
               attribute DOMString name;
@@ -1564,7 +1567,7 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface <dfn id="mapmllinkelement">MAPMLLinkElement</dfn> : MAPMLElement {
+            interface HTMLLinkElement : HTMLElement {
               [HTMLConstructor] constructor();
               
               attribute DOMString href;
@@ -1575,7 +1578,7 @@
               attribute DOMString type;
               attribute DOMString title;
             };
-            <a href="#the-link-element">MAPMLLinkElement</a> implements LinkStyle;
+            HTMLLinkElement implements LinkStyle;
           </pre>
           </dd>
         </dl>
@@ -1707,7 +1710,7 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface MAPMLBodyElement : MAPMLElement {
+            interface HTMLBodyElement : HTMLElement {
               [HTMLConstructor] constructor();
             };
             </pre>
@@ -1735,11 +1738,11 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface MAPMLExtentElement : MAPMLElement {
+            interface HTMLExtentElement : HTMLElement {
               [HTMLConstructor] constructor();
               
               attribute DOMString units;
-              readonly attribute MAPMLExtentControlsCollection elements;
+              readonly attribute HTMLExtentControlsCollection elements;
               readonly attribute long length;
               getter Element (unsigned long index);
               getter (RadioNodeList or Element) (DOMString name);
@@ -1792,13 +1795,13 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface MAPMLInputElement : MAPMLElement {
+            interface HTMLInputElement : HTMLElement {
               [HTMLConstructor] constructor();
               
               attribute DOMString type;
               attribute DOMString name;
               attribute boolean shard;
-              readonly attribute MAPMLElement? list;
+              readonly attribute HTMLElement? list;
               attribute DOMString min;
               attribute DOMString max;
               attribute DOMString step;
@@ -2060,7 +2063,7 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface MAPMLDatalistElement : MAPMLElement {
+            interface HTMLDatalistElement : HTMLElement {
               [HTMLConstructor] constructor();
               
               attribute DOMString id;
@@ -2087,7 +2090,7 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface MAPMLLabelElement : MAPMLElement {
+            interface HTMLLabelElement : HTMLElement {
               [HTMLConstructor] constructor();
               
               attribute DOMString for;
@@ -2117,7 +2120,7 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface MAPMLSelectElement : MAPMLElement {
+            interface HTMLSelectElement : HTMLElement {
               [HTMLConstructor] constructor();
               
               attribute DOMString id;
@@ -2146,7 +2149,7 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface MAPMLOptionElement : MAPMLElement {
+            interface HTMLOptionElement : HTMLElement {
               [HTMLConstructor] constructor();
               
               attribute DOMString value;
@@ -2175,7 +2178,7 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface MAPMLTileElement : MAPMLElement {
+            interface HTMLTileElement : HTMLElement {
               [HTMLConstructor] constructor();
               
               attribute long row;
@@ -2218,7 +2221,7 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface MAPMLImageElement : MAPMLElement {
+            interface HTMLImageElement : HTMLElement {
               [HTMLConstructor] constructor();
             };
             </pre>
@@ -2241,7 +2244,7 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface <dfn id="mapmlfeatureelement">MAPMLFeatureElement</dfn> : MAPMLElement {
+            interface HTMLFeatureElement : HTMLElement {
               [HTMLConstructor] constructor();
               
               attribute DOMString zoom;
@@ -2270,7 +2273,7 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface MAPMLPropertiesElement : MAPMLElement {
+            interface HTMLPropertiesElement : HTMLElement {
               [HTMLConstructor] constructor();
             };
             </pre>
@@ -2296,7 +2299,7 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface <dfn id="mapmlgeometryelement">MAPMLGeometryElement</dfn> : MAPMLElement {
+            interface HTMLGeometryElement : HTMLElement {
               [HTMLConstructor] constructor();
               
               readonly attribute DOMString type;
@@ -2397,7 +2400,7 @@
           <dd>
             <pre class="idl">
             [Exposed=Window]
-            interface MAPMLCoordinatesElement : MAPMLElement {
+            interface HTMLCoordinatesElement : HTMLElement {
               [HTMLConstructor] constructor();
             };
             </pre>
@@ -2451,6 +2454,14 @@
           and it is thought that similar security considerations apply.
           The author would be grateful if commenters could highlight such implications,
           so that they could be explicitly made part or the considerations of this draft.</p>
+          
+          <div class="issue" data-number="133">
+           [[CSP]] [[[CSP]]]
+          </div>
+          
+          <div class="issue" data-number="135">
+           [[secure-contexts]] [[[secure-contexts]]]
+          </div>
       </section>
 
       <section>
