@@ -564,10 +564,16 @@
         
         <p>The <dfn id="attr-map-controlslist"><code>controlslist</code></dfn> attribute, when specified, helps the user agent select what controls to show on the media element whenever the user agent shows its own set of controls.
           Its value must be an <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#unordered-set-of-unique-space-separated-tokens">unordered set of unique space-separated tokens</a> that are <a href="https://infra.spec.whatwg.org/#ascii-case-insensitive">ASCII case-insensitive</a>.
-          The allowed values are <dfn id="attr-map-controlslist-nofullscreen"><code>nofullscreen</code></dfn>, <dfn id="attr-map-controlslist-nolayer"><code>nolayer</code></dfn> and <dfn id="attr-map-controlslist-nozoom"><code>nozoom</code></dfn>.</p>
+          The allowed values are
+          <dfn id="attr-map-controlslist-nofullscreen"><code>nofullscreen</code></dfn>,
+          <dfn id="attr-map-controlslist-nolayer"><code>nolayer</code></dfn>,
+          <dfn id="attr-map-controlslist-noreload"><code>noreload</code></dfn>
+          and <dfn id="attr-map-controlslist-nozoom"><code>nozoom</code></dfn>.
+        </p>
           
         <p>The <a href="#attr-map-controlslist-nofullscreen"><code>nofullscreen</code></a> keyword hints that the fullscreen mode control should be hidden when using the user agent's own set of controls for the media element.</p>
         <p>The <a href="#attr-map-controlslist-nolayer"><code>nolayer</code></a> keyword hints that the layer control should be hidden when using the user agent's own set of controls for the media element.</p>
+        <p>The <a href="#attr-map-controlslist-noreload"><code>noreload</code></a> keyword hints that the reload control should be hidden when using the user agent's own set of controls for the media element.</p>
         <p>The <a href="#attr-map-controlslist-nozoom"><code>nozoom</code></a> keyword hints that the zoom controls should be hidden when using the user agent's own set of controls for the media element.</p>
         
         <p class="note"><em>Hiding these aspects of the user agent's own controls does not necessarily disable the related functionality. For example, the user agent might present the same functionality through a context menu or keyboard shortcut.</em></p>
