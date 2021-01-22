@@ -191,11 +191,6 @@
         xref: "web-platform",
         pluralize: true,
         localBiblio: {
-          MicroXML: {
-            title: "MicroXML",
-            href: "https://dvcs.w3.org/hg/microxml/raw-file/tip/spec/microxml.html",
-            publisher: "J. CLark, J. Cowan, eds. World Wide Web Consortium MicroXML Community Group, work in progress, 2012.",
-          },
           "Web-Map-Custom-Element": {
             title: "Web Map Custom Element",
             href: "https://github.com/Maps4HTML/Web-Map-Custom-Element",
@@ -215,6 +210,21 @@
             title: "Use Cases and Requirements for Standardizing Web Maps",
             href: "https://maps4html.org/HTML-Map-Element-UseCases-Requirements/",
             publisher: "W3C Maps for HTML Community Group",
+          },
+          "MapServer": {
+            title: "MS RFC 123: Support for MapML output in MapServer",
+            href: "https://mapserver.org/development/rfc/ms-rfc-123.html",
+            publisher: "The Open Source Geospatial Foundation"
+          },
+          "GeoServer": {
+            title: "GeoServer MapML Community Module",
+            href: "https://docs.geoserver.org/latest/en/user/community/mapml/index.html",
+            publisher: "W3C Maps for HTML Community Group"
+          },
+          "GDAL" : {
+            title: "GDAL MapML Driver",
+            href: "https://gdal.org/drivers/vector/mapml.html",
+            publisher: "The Open Source Geospatial Foundation"
           },
         },
       };
@@ -239,9 +249,15 @@
 
       <section id="abstract">
         <p>
-          This specification describes Map Markup Language (MapML), which is a hypertext document format for maps.
-          This specification also extends the semantics of the standard [[HTML]] 
-          <a href="https://html.spec.whatwg.org/multipage/image-maps.html#the-map-element"><code>map</code></a> element.
+          This specification describes Map Markup Language (MapML), which is an extended subset of HTML, for maps.
+          MapML extends the semantics of several  [[[HTML]]] elements, and specifies a small set of new, mapping-specific 
+          elements, in the HTML namespace ("http://www.w3.org/1999/xhtml/"). 
+        </p>
+
+        <p>MapML is designed to specify a declarative markup vocabulary that "implements" some of the capabilities 
+          laid out by the Use Cases and Requirements for Web Maps specification.  As capabilities are identified, 
+          they will be discussed in issues until they can be recognized as requirements, designed and subsequently specified 
+          through evolution of this document.  
         </p>
       <!--
       <p>Map Markup Language is a text format for encoding map information for the World Wide Web.</p>
@@ -282,15 +298,28 @@
         <h3>Implementation Experience</h3>
 
         <p>
-          MapML has been <a href="#examples">implemented</a> using custom elements by Natural Resources Canada, which participates in the <a href="https://www.w3.org/community/maps4html/">W3C Maps for HTML Community Group</a>, as well
-          as the <a href="https://opengeospatial.org/">Open Geospatial Consortium</a>. It is hoped that other organizations will also implement MapML and contribute their experience back to the community via the Community Group and
-          <a href="https://github.com/Maps4HTML/MapML">Github</a>.
+          MapML is <a href="#examples">implemented</a> using custom elements by Natural Resources Canada, 
+          which participates in the <a href="https://www.w3.org/community/maps4html/">W3C Maps for HTML 
+          Community Group</a>, as well as the <a href="https://opengeospatial.org/">Open Geospatial Consortium</a>. 
+          It is hoped that other organizations will also implement MapML and contribute their experience back 
+          to the community via the Community Group and <a href="https://github.com/Maps4HTML/MapML">Github</a>.
         </p>
-        <p>Map Markup Language <a href="https://geogratis.gc.ca/mapml/en/">services</a> are provided by Natural Resources Canada as part of the
-        Canadian Geospatial Data Infrastructure.</p>
-        <p>The reader is requested to contact the <a href="mailto:public-maps4html@w3.org">editor</a> with any known implementations of
-        Map Markup Language or other implemented support for this proposal.</p>
-        <p>The customized built-in HTML <code>&lt;map&gt;</code> element and <code>&lt;mapml-viewer&gt;</code> autonomous custom element were built and are maintained by the Maps for HTML Community Group. [[Web-Map-Custom-Element]]</p>
+
+        <p>Prototype Map Markup Language <a href="https://geogratis.gc.ca/mapml/en/">services</a> are provided by Natural 
+          Resources Canada as part of the Canadian Geospatial Data Infrastructure.</p>
+
+        <p>The reader is requested to contact the <a href="mailto:public-maps4html@w3.org">editor</a> with any other
+          known implementations of Map Markup Language or other implemented support for this proposal.</p>
+
+        <p>The customized built-in HTML <code>&lt;map&gt;</code> element and <code>&lt;mapml-viewer&gt;</code> 
+          autonomous custom element were built, and are maintained by the Maps for HTML Community Group. 
+          [[Web-Map-Custom-Element]]</p>
+
+        <p>MapML services are supported by the GeoServer MapML Community Module [[GeoServer]].</p>
+
+        <p>MapML is being integrated into [[MapServer]].</p>
+
+        <p>MapML can be created with the open source Geospatial Data Abstraction Library [[GDAL]].</p>
         </section>
         <details>
           <summary>
@@ -328,7 +357,9 @@
             <li>Remove feature <code>type</code> property from IDL</li>
             <li>Add feature zoom attribute</li>
             <li>Update feature content model to reflect implementation</li>
-            
+            <li>Update abstract to describe where MapML syntax and semantics fit into HTML.</li>
+            <li>Update Implementation Experience</li>
+            <li>Remove MicroXML references, update introduction to id MapML as an extension to HTML</li>
           </ul>
         </details>
       </section>
@@ -336,8 +367,13 @@
       <section id="intro" class="informative">
         <h1>Introduction</h1>
         <p>
-          Map Markup Language is a text-based format which is allows map authors to encode map information as hypertext documents exchanged over the Uniform Interface of the Web. The format is defined using some characteristics of the [[[HTML]]],
-          [[[MicroXML]]], and [[[rfc7946]]] and other standards. [[HTML]] [[MicroXML]] [[rfc7946]]
+          Map Markup Language is a text-based format which allows map authors to encode map information as 
+          hypertext documents exchanged over the Uniform Interface of the Web. The format is defined using some 
+          characteristics of [[[HTML]]], [[[rfc7946]]], [[[WMS]]], [[[WMTS]]], and other standards as noted. 
+          [[HTML]] [[rfc7946]] [[WMS]] [[WMTS]] Currently, there is only an XML syntax of
+          MapML. In the future, the intention is to extend the HTML parser to include the definitions of the new 
+          elements, and thereby enable an HTML syntax flavor of MapML, one that is compatible with existing 
+          browsers' HTML parser modes.
         </p>
         <p>This specification describes a proposed enhancement to the <a href="#the-map-element"><code>map</code></a> element syntax and processing model.  The semantics 
           of the existing standard <a href="#the-map-element"><code>map</code></a> element allow an HTML 
@@ -1275,8 +1311,12 @@
         <section>
         <h4 id="the-document-object">The <code>Document</code> object</h4>
         <p>
-          A MapML document is a [[MicroXML]] document. As such, it MUST have a single root element named <a href="#the-mapml-element"><code>mapml</code></a>. It MUST NOT have a <code>DOCTYPE</code> declaration; attributes named <code>xmlns</code> and names containing a colon
-          character ':' (U+003A) are not permitted. Other restrictions relative to [[XML]] syntax are enumerated in [[MicroXML]].
+          A MapML document is an XML document, with all elements assigned to the HTML namespace. As such, 
+          a MapML document MUST have a single root element named <a href="#the-mapml-element"><code>mapml
+          </code></a>, generally having a single attribute named "xmlns" with a value which MUST be equal 
+          to "http://www.w3.org/1999/xhtml/".  Assigning elements to namespaces using namepace prefixes 
+          is NOT recommended. At this time, there is only an XML syntax variety of MapML document, and 
+          documents conforming to this specification MUST NOT have a <code>DOCTYPE</code> declaration.
         </p>
         </section>
         <section>
