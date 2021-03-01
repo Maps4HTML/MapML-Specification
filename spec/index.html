@@ -2162,6 +2162,34 @@
         </p>
         </section>
         <section>
+        <h5>The <code>&lt;<dfn id="the-featurecaption-element">featurecaption</dfn>&gt;</code> element</h5>
+        <dl class="def">
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
+          <dd>Feature data.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
+          <dd>Child of the <a href="#the-body-element"><code>feature</code></a> element.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#flow-content-2">Flow content</a>.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
+          <dd>N/A.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
+          <dd>
+            <pre class="idl">
+            [Exposed=Window]
+            interface HTMLFeatureCaptionElement : HTMLElement {
+              [HTMLConstructor] constructor();
+              
+            };
+            </pre>
+          </dd>
+        </dl>
+        <p>
+          A <a href="#the-featurecaption-element"><code>featurecaption</code></a> element represents the accessible name of a geographic feature. 
+          Every geographic feature should be given an accessible name. If no accessible name is found, the term "Feature" will be used
+          as the accessible name.
+        </p>
+        </section>
+        <section>
         <h5>The <code>&lt;<dfn id="the-properties-element">properties</dfn>&gt;</code> element</h5>
         <dl class="def">
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
