@@ -79,7 +79,7 @@ feature = element feature {
     attribute id { text }?,
     attribute class { text }?,
     attribute zoom { text }?,
-    (geometry? & properties? & title?)
+    (geometry? & properties? & featurecaption?)
 }
 tile = element tile {
     attribute col { xsd:integer },
@@ -90,7 +90,7 @@ bbox = element bbox { twoPositions }
 image =    element image { ImageModel }
 geometry = element geometry { GeometryContent }
 properties = element properties { PropertyContent }
-title = element title { text? }
+featurecaption = element featurecaption { text? }
 
 ImageResourceMetadataAttributes =  
     attribute src { text },
