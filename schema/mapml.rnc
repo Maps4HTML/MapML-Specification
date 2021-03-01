@@ -1,4 +1,5 @@
 datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes" 
+default namespace = "https://www.w3.org/1999/xhtml/"
 start = mapml 
 mapml = element mapml { head?, attribute lang {text}?, body }
 head = element head { headContent }
@@ -78,7 +79,7 @@ feature = element feature {
     attribute id { text }?,
     attribute class { text }?,
     attribute zoom { text }?,
-    (geometry? & properties?)
+    (geometry? & properties? & title?)
 }
 tile = element tile {
     attribute col { xsd:integer },
@@ -89,6 +90,7 @@ bbox = element bbox { twoPositions }
 image =    element image { ImageModel }
 geometry = element geometry { GeometryContent }
 properties = element properties { PropertyContent }
+title = element title { text? }
 
 ImageResourceMetadataAttributes =  
     attribute src { text },
