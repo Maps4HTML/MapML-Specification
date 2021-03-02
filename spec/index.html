@@ -2139,7 +2139,9 @@
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>Child of the <a href="#the-body-element"><code>body</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-          <dd>An optional <a href="#the-geometry-element"><code>geometry</code></a> element and an optional <a href="#the-properties-element"><code>properties</code></a> element.</dd>
+          <dd>Optional <a href="#the-featurecaption-element"><code>featurecaption</code></a> element, 
+            optional <a href="#the-geometry-element"><code>geometry</code></a> element, 
+            optional <a href="#the-properties-element"><code>properties</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a></dd>
           <dd><code>zoom</code> — the 'native' zoom level of the feature geometry.</dd>
@@ -2157,8 +2159,36 @@
         </dl>
 
         <p>
-          A <a href="#the-feature-element"><code>feature</code></a> element represents a geographic feature. A <a href="#the-feature-element"><code>feature</code></a> element has an optional <a href="#the-properties-element"><code>properties</code></a> child element, and a required child
-          <a href="#the-geometry-element"><code>geometry</code></a> element.
+          A <a href="#the-feature-element"><code>feature</code></a> element represents a map feature. 
+        </p>
+        </section>
+        <section>
+        <h5>The <code>&lt;<dfn id="the-featurecaption-element">featurecaption</dfn>&gt;</code> element</h5>
+        <dl class="def">
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
+          <dd>Feature data.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
+          <dd>Child of the <a href="#the-feature-element"><code>feature</code></a> element.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#flow-content">Flow content</a>.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
+          <dd>N/A.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
+          <dd>
+            <pre class="idl">
+            [Exposed=Window]
+            interface HTMLFeaturecaptionElement : HTMLElement {
+              [HTMLConstructor] constructor();
+              
+            };
+            </pre>
+          </dd>
+        </dl>
+        <p>
+          The <a href="#the-featurecaption-element"><code>featurecaption</code></a> element 
+          represents a caption for the contents of the 
+          <a href="#the-featurecaption-element"><code>featurecaption</code></a> element's 
+          parent <a href="#the-feature-element"><code>feature</code></a> element.
         </p>
         </section>
         <section>
@@ -2167,9 +2197,9 @@
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>Feature data.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
-          <dd>A child of the <a href="#the-feature-element"><code>feature</code></a> element, containing elements representing the properties of the feature.</dd>
+          <dd>A child of the <a href="#the-feature-element"><code>feature</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-          <dd>One or more unknown elements with text values. <div class="ednote">TODO: Allow HTML content.</div></dd>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#palpable-content">Palpable content</a></dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd>N/A.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
@@ -2183,9 +2213,6 @@
           </dd>
         </dl>
 
-        <p>
-          A <a href="#the-feature-element"><code>feature</code></a> element can have zero or one <a href="#the-properties-element"><code>properties</code></a> element, which contains zero or more unknown elements, whose content is text.
-        </p>
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-geometry-element">geometry</dfn>&gt;</code> element</h5>
@@ -2211,8 +2238,14 @@
           </dd>
         </dl>
 
-        <p>A <a href="#the-geometry-element"><code>geometry</code></a> element has one child element, which can be a <a href="#the-point-element"><code>point</code></a>,
-        <a href="#the-linestring-element"><code>linestring</code></a>, <a href="#the-polygon-element"><code>polygon</code></a>, <a href="#the-multipoint-element"><code>multipoint</code></a>, <a href="#the-multilinestring-element"><code>multilinestring</code></a>, <a href="#the-multipolygon-element"><code>multipolygon</code></a>, or <a href="#the-geometrycollection-element"><code>geometrycollection</code></a>.</p>
+        <p>A <a href="#the-geometry-element"><code>geometry</code></a> element has one child element, 
+          which can be a <a href="#the-point-element"><code>point</code></a>,
+        <a href="#the-linestring-element"><code>linestring</code></a>, 
+        <a href="#the-polygon-element"><code>polygon</code></a>, 
+        <a href="#the-multipoint-element"><code>multipoint</code></a>, 
+        <a href="#the-multilinestring-element"><code>multilinestring</code></a>, 
+        <a href="#the-multipolygon-element"><code>multipolygon</code></a>, or 
+        <a href="#the-geometrycollection-element"><code>geometrycollection</code></a>.</p>
 
         <table id="geometry-values" class="def">
           <thead>
