@@ -2382,8 +2382,8 @@
         </section>
       </section>
 
-      <section class="informative">
-        <h2 id="security">Privacy & Security Considerations</h2>
+      <section>
+        <h2 id="security">Privacy &amp; Security Considerations</h2>
 
         <p class="ednote">This technology relies on web resources loaded over the internet, which carries security implications.
           The architecture is not unlike allowing embedded images encoded in SVG format,
@@ -2398,6 +2398,76 @@
           <div class="issue" data-number="135">
            [[secure-contexts]] [[[secure-contexts]]]
           </div>
+      </section>
+      
+      <section>
+        <h2 id="IANA-considerations">IANA Considerations</h2>
+
+        <p>
+          The following registrations are for community review and will be submitted to the
+          <a href="https://www.ietf.org/iesg/">IESG</a> for review, approval, and
+          <a href="https://www.w3.org/2020/01/registering-mediatypes">registration</a>
+          with <a href="https://www.iana.org/">IANA</a>.
+        </p>
+        
+        <section>
+          <h2 id="media-type-registration">Media Type Registration</h2>
+          
+          <p>
+            This section contains the required text for MIME media type registration
+            with <a href="https://www.iana.org/">IANA</a>.
+          </p>
+          
+          <p>
+            The <dfn>Map Markup Language MIME type</dfn> is <dfn><code>text/mapml</code></dfn>.
+          </p>
+          
+          <p>
+            If the protocol over which the MapML document is transferred supports the
+            [[MIME-TYPES]] specification (e.g. HTTP),
+            it is RECOMMENDED that the MapML document be labeled with the
+            Map Markup Language MIME type.
+          </p>
+          
+          <dl>
+            <dt>Type name:</dt>
+            <dd>text</dd>
+            <dt>Subtype name:</dt>
+            <dd>mapml</dd>
+            <dt>Required parameters:</dt>
+            <dd>N/A</dd>
+            <dt>Optional parameters:</dt>
+            <dd>N/A</dd>
+            <dt>Encoding considerations:</dt>
+            <dd>Same as for text/html</dd>
+            <dt>Privacy and security considerations:</dt>
+            <dd>See <a href="#security">Privacy & Security Considerations</a></dd>
+            <dt>Applications that use this MIME type:</dt>
+            <dd>Web browsers</dd>
+            <dt>Additional information:</dt>
+            <dd>
+              <dl>
+                <dt>Magic number(s):</dt>
+                <dd>N/A</dd>
+                <dt>File extension(s):</dt>
+                <dd>.mapml</dd>
+                <dt>Macintosh file type code(s):</dt>
+                <dd>TEXT</dd>
+              </dl>
+            </dd>
+            <dt>Person &amp; email address to contact for further information:</dt>
+            <dd>The <a href="https://www.w3.org/community/maps4html/">Maps for HTML Community Group</a>
+              can be contacted at <a href="mailto:public-maps4html@w3.org">public-maps4html@w3.org</a>.</dd>
+            <dt>Intended usage:</dt>
+            <dd>COMMON</dd>
+            <dt>Restrictions on usage:</dt>
+            <dd>None</dd>
+            <dt>Author:</dt>
+            <dd><abbr title="World Wide Web Consortium">W3C</abbr>'s Maps for HTML Community Group</dd>
+            <dt>Change controller:</dt>
+            <dd><abbr title="World Wide Web Consortium">W3C</abbr></dd>
+          </dl>
+        </section>
       </section>
       
       <section id="conformance" class="appendix">
