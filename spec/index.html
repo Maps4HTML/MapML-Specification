@@ -2437,7 +2437,27 @@
             <dt>Required parameters:</dt>
             <dd>N/A</dd>
             <dt>Optional parameters:</dt>
-            <dd>N/A</dd>
+            <dd>
+              <dl>
+                <dt>charset</dt>
+                <dd>
+                  The <code>charset</code> parameter may be provided to definitively
+                  specify the document's character encoding,
+                  overriding any character encoding declarations in the document.
+                  The parameter's value must be one of the labels of the character
+                  encoding used to serialize the file.
+                </dd>
+                <dt>projection</dt>
+                <dd>
+                  The <code>projection</code> parameter may be provided to definitively
+                  specify the document's associated Tiled Coordinate Reference System (TCRS),
+                  overriding any projection declarations in the document.
+                  The value may be one of the defined
+                  <a href="#tiled-coordinate-reference-systems-table">TCRS identifiers</a>
+                  or a custom projection identifier.
+                </dd>
+              </dl>
+            </dd>
             <dt>Encoding considerations:</dt>
             <dd>Same as for text/html</dd>
             <dt>Privacy and security considerations:</dt>
