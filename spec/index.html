@@ -217,8 +217,8 @@
             publisher: "The Open Source Geospatial Foundation",
           },
           "GeoServer": {
-            title: "GeoServer MapML Community Module",
-            href: "https://docs.geoserver.org/latest/en/user/community/mapml/index.html",
+            title: "GeoServer MapML Extension",
+            href: "https://docs.geoserver.org/latest/en/user/extensions/mapml/index.html",
             publisher: "W3C Maps for HTML Community Group",
           },
           "GDAL" : {
@@ -2451,7 +2451,18 @@
             <dt>Required parameters:</dt>
             <dd>N/A</dd>
             <dt>Optional parameters:</dt>
-            <dd>N/A</dd>
+            <dd>
+              <dl>
+                <dt>charset</dt>
+                <dd>
+                  The <code>charset</code> parameter may be provided to definitively
+                  specify the document's character encoding,
+                  overriding any character encoding declarations in the document.
+                  The parameter's value must be one of the labels of the character
+                  encoding used to serialize the file.
+                </dd>
+              </dl>
+            </dd>
             <dt>Encoding considerations:</dt>
             <dd>Same as for text/html</dd>
             <dt>Privacy and security considerations:</dt>
