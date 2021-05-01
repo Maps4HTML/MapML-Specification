@@ -240,6 +240,41 @@
         },
       ];
     </script>
+    <!-- Authoring examples map viewer polyfill -->
+    <script type="module" src="https://maps4html.org/web-map-doc/dist/mapml-viewer.js" crossorigin></script>
+    <style>
+      mapml-viewer {
+        content-visibility: auto;
+        contain-intrinsic-size: 300px 150px;
+        max-width: 100%;
+        max-height: 95vh;
+      }
+      mapml-viewer[controls] {
+        contain-intrinsic-size: 600px 350px;
+        width: 600px;
+        height: 350px;
+      }
+      /* Pre-style to avoid FOUC of inline layer- and fallback content. */
+      mapml-viewer:not(:defined) > * {
+        display: none;
+      }
+      /* Ensure inline layer content is hidden if custom/built-in elements isn't
+      supported, or if javascript is disabled. This needs to be defined separately
+      from the above, because the `:not(:defined)` selector invalidates the entire
+      declaration in browsers that do not support it. */
+      layer- {
+        display: none;
+      }
+    </style>
+    <noscript>
+      <style>
+        /* Ensure fallback content (children of the map element) is displayed if
+        custom/built-in elements is supported but javascript is disabled. */
+        mapml-viewer:not(:defined) > :not(layer-) {
+          display: initial;
+        }
+      </style>
+    </noscript>
   </head>
   <body>
     <aside id="google_translate_element"></aside>
@@ -518,8 +553,16 @@
         
         <h2 id="web-maps">Web Maps</h2>
         
-        <p>The <a href="#the-map-element"><code>map</code></a> element, in conjunction with any <a href="#the-layer-element"><code>layer</code></a> and <a href="#the-area-element"><code>area</code></a> element descendants, 
-  defines an interactive <a href="#the-map-element"><code>map</code></a> media element. </p>
+        <p>
+          A <dfn>Web map</dfn> is an embedded media element defined by
+          the <a href="#the-map-element"><code>map</code></a> element,
+          in conjunction with any
+          <a href="#the-layer-element"><code>layer</code></a> and
+          <a href="#the-area-element"><code>area</code></a> element descendants.
+          A Web map represents a region of the earth's surface in two dimensions,
+          and enables dynamic cartographic Web applications in [[HTML]] documents.
+        </p>
+  
         <section>
         <!-- initially copied from the HTML 5 spec -->
         <h3 id="web-mapping-elements-and-api">Web mapping elements and API</h3>
@@ -845,55 +888,90 @@
         [[HTML]] <a href="https://html.spec.whatwg.org/multipage/image-maps.html#the-area-element"><code>area</code></a> element.</p>
         </section>
       </section>
-        <section class="informative">
+      
+      <section class="informative">
         <h3 id="authoring">Authoring</h3>
-        <p>A <dfn id="map">Web map</dfn> is an embedded media element which enables dynamic cartographic Web applications in HTML documents.</p>
-        <p>A Web map is a rectangular page area, represented in HTML in the form of a <a href="#the-map-element"><code>map</code></a> element, containing a set of zero or more 
-          <a href="#the-layer-element"><code>layer</code></a> elements.  A Web map represents a region of the earth's surface in two dimensions.  A map's initial location 
-          (<a href="#attr-map-lat"><code>lat</code></a>, <a href="#attr-map-lon"><code>lon</code></a>), extent (<a href="#attr-map-width"><code>width</code></a> and <a href="#attr-map-height"><code>height</code></a>) 
-          and scale (<a href="#attr-map-zoom"><code>zoom</code></a>) are defined by its attributes.</p>
-        <aside class="example">
         
-           <p>Consider a map of Paris:</p>
+        <p>
+          A <a href="#dfn-web-map">Web map</a> is a rectangular page area,
+          represented in HTML in the form of a
+          <a href="#the-map-element"><code>map</code></a> element,
+          containing a set of zero or more
+          <a href="#the-layer-element"><code>layer</code></a> elements.
+          Map layers are drawn in document order of the
+          <a href="#the-layer-element"><code>layer</code></a> elements,
+          following the SVG
+          <a href="https://www.w3.org/TR/SVG/render.html#PaintersModel">painters model</a>.
+          If the author enables more than one layer,
+          all the layers will be painted, in document order.
+          Features in layers drawn earlier will be painted over by later layers.
+        </p>
         
-           <p>
-             <img src="images/paris.png" width="643" height="303" alt="Medium scale image of a street map of Paris, France">
-           </p>
+        <p>
+          A map's initial location
+          (<a href="#attr-map-lat"><code>lat</code></a>,
+          <a href="#attr-map-lon"><code>lon</code></a>),
+          extent
+          (<a href="#attr-map-width"><code>width</code></a>,
+          <a href="#attr-map-height"><code>height</code></a>)
+          and scale
+          (<a href="#attr-map-zoom"><code>zoom</code></a>)
+          are defined by its attributes.
+        </p>
         
-           <p>This map can be created with the following markup:</p>
-        
-           <pre>
-  &lt;map zoom="11" lat="48.85591" lon="2.3469543" width="640" height="300" controls&gt;
-     &lt;layer label="OpenStreetMap" src="https://example.com/mapml/osm/" checked crossorigin&gt;&lt;/layer&gt;
-  &lt;/map&gt;
-          </pre>
-           
-        </aside>
-        <p>A Web map can have zero or more layers.  Map layers are drawn in document order of the <a href="#the-layer-element"><code>layer</code></a> elements, following the <a href="https://www.w3.org/TR/SVG/render.html#PaintersModel">painters model</a>.  If the user 
-        (or author) enables more than one layer, all the layers will be painted, in document order.  Features in layers drawn earlier will be painted over by later layers.  Opacity of layers can be managed with CSS, if necessary. [[SVG2]] [[css-color-3]]</p>
-        
-        <aside class="example">
-        
-           <p>Here is a map of Ottawa, with two layers:</p>
-           <img src="images/ottawa.jpg" width="639" height="304" alt="Large scale image of a street map of part of Ottawa, Canada">
-        
-        
-           <p>This map can be created with the following markup:</p>
-        
-           <pre>
-   &lt;style&gt;
-     .transparency {
-       opacity: 0.2;
-     }
-   &lt;/style&gt;
-  &lt;map zoom="15" lat="45.398043" lon="-75.70683" width="640" height="300" projection="CBMTILE" controls&gt;
-    &lt;layer label="Canada Base Map" src="https://example.com/mapml/cbmt/" checked crossorigin&gt;&lt;/layer&gt;
-    &lt;layer label="CanVec+ 031G" src="https://example.com/mapml/canvec/50k/features/" crossorigin class="transparency"&gt;&lt;/layer&gt;
-  &lt;/map&gt;
-          </pre>
-        </aside>
+        <section>
+          <h4>Examples</h4>
+          
+          <p class="note">
+            The example maps are polyfilled using the
+            <code>&lt;mapml-viewer&gt;</code> custom element.
+            [[Web-Map-Custom-Element]]
+          </p>
+          
+          <aside class="example">
+            <p>
+              A basic map of Paris:
+            </p>
+            
+            <mapml-viewer projection="OSMTILE" zoom="11" lat="48.8566" lon="2.3522">
+              <layer- src="https://geogratis.gc.ca/mapml/en/osmtile/osm/" checked></layer->
+            </mapml-viewer>
+          
+            <p>
+              This map can be created with the following markup:
+            </p>
+            
+            <pre>
+              &lt;map zoom="11" lat="48.8566" lon="2.3522"&gt;
+                &lt;layer src="https://example.com/mapml/osm/" checked crossorigin&gt;&lt;/layer&gt;
+              &lt;/map&gt;
+            </pre>
+          </aside>
+          
+          <aside class="example">
+            <p>
+              A map of Ottawa,
+              with the default controls enabled and dimensions specified:
+            </p>
+            
+            <mapml-viewer projection="CBMTILE" zoom="15" lat="45.4215" lon="-75.6972" controls>
+              <layer- label="Canada Base Map - Transportation (CBMT)" src="https://geogratis.gc.ca/mapml/en/cbmtile/cbmt/" checked></layer->
+            </mapml-viewer>
+          
+            <p>
+              This map can be created with the following markup:
+            </p>
+            
+            <pre>
+              &lt;map projection="CBMTILE" zoom="15" lat="45.4215" lon="-75.6972" width="600" height="350" controls&gt;
+                &lt;layer label="Canada Base Map - Transportation (CBMT)" src="https://example.com/mapml/cbmt/" checked crossorigin&gt;&lt;/layer&gt;
+              &lt;/map&gt;
+            </pre>
+          </aside>
         </section>
-        <section class="informative">
+      </section>
+      
+      <section class="informative">
         <h3 id="syntax">Syntax</h3>
         <p>The <a href="#the-map-element"><code>map</code></a> element has a different content model defined by this specification, compared to that defined by the [[[HTML]]].</p>
         <p>At such a moment as is warranted, the standard definition of the [[HTML]] <code>map</code>
@@ -2382,7 +2460,7 @@
         <h2 id="examples">Examples</h2>
         <aside class="example">
         <figure>
-          <img src="images/mapml.png" width="830" height="467" alt="Origins, orientations and axis names of tcrs, pcrs, gcrs, tilematrix, map, and tile coordinate systems">
+          <img src="examples/mapml.png" width="830" height="467" alt="Origins, orientations and axis names of tcrs, pcrs, gcrs, tilematrix, map, and tile coordinate systems">
 
           <figcaption>
             Prototype MapML services are available, representing <a href="https://geogratis.gc.ca/mapml/en/osmtile/cbmt/">tiled</a> and
