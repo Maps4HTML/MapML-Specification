@@ -9,11 +9,23 @@
       height: auto;
       max-width: 100%;
     }
-    :root details {
+    :root #sotd details {
       margin: 2.5rem 0 1.5rem 0;
     }
     :root summary {
       cursor: pointer;
+    }
+    :root .a11y-details summary {
+      font-weight: normal;
+    }
+    :root .a11y-details details {
+      display: inline-block;
+    }
+    :root .a11y-details table {
+      margin: 0;
+    }
+    :root .a11y-details tbody th {
+      font-style: normal;
     }
     :root caption {
       text-align: left;
@@ -549,10 +561,38 @@
         <dd><code>height</code> — Vertical dimension.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
         <dd>Neither tag is omissible.</dd>
-        <dt>Allowed <a href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#aria-role-attribute">ARIA role attribute</a> values:</dt>
-        <dd><a href="https://www.w3.org/TR/html-aria/#index-aria-application"><code>application</code></a>.</dd>
-        <dt>Allowed <a href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#state-and-property-attributes">ARIA state and property attributes</a>:</dt>
-        <dd><a href="https://www.w3.org/TR/html-aria/#index-aria-global">Global aria-* attributes</a>.</dd>
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+        <dd>
+          <details class="a11y-details">
+            <summary>For authors</summary>
+            <table class="def">
+              <thead>
+                <tr>
+                  <th>Implicit ARIA semantics</th>
+                  <th>ARIA roles, states and properties which MAY be used</th>
+                </tr>
+                <tbody>
+                  <tr>
+                    <th>
+                      <code>role=map</code>
+                    </th>
+                    <td>
+                      <p><code>role</code>: <a href="https://www.w3.org/TR/html-aria/#index-aria-application"><code>application</code></a></p>
+                      <p><a href="https://www.w3.org/TR/html-aria/#index-aria-global">Global <code>aria-*</code> attributes</a>
+                      and any <code>aria-*</code> attributes applicable to the allowed roles and implied role (if any).</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </thead>
+            </table>
+          </details>
+        </dd>
+        <dd>
+          <details class="a11y-details">
+            <summary>For implementers</summary>
+            <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+          </details>
+        </dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
         <dd>
           <pre class="idl">
@@ -673,10 +713,36 @@
         <dd id="attr-layer-crossorigin"><code>crossorigin</code> — A <a href="https://html.spec.whatwg.org/multipage/urls-and-fetching.html#cors-settings-attribute">CORS settings attribute</a>, specifies how the element handles crossorigin requests.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
         <dd>Neither tag is omissible.</dd>
-        <dt>Allowed <a href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#aria-role-attribute">ARIA role attribute</a> values:</dt>
-        <dd>None.</dd>
-        <dt>Allowed <a href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#state-and-property-attributes">ARIA state and property attributes</a>:</dt>
-        <dd><a href="https://www.w3.org/TR/html-aria/#index-aria-global">Global aria-* attributes</a>.</dd>
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+        <dd>
+          <details class="a11y-details">
+            <summary>For authors</summary>
+            <table class="def">
+              <thead>
+                <tr>
+                  <th>Implicit ARIA semantics</th>
+                  <th>ARIA roles, states and properties which MAY be used</th>
+                </tr>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </thead>
+            </table>
+          </details>
+        </dd>
+        <dd>
+          <details class="a11y-details">
+            <summary>For implementers</summary>
+            <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+          </details>
+        </dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
         <dd>
           <pre class="idl">
@@ -742,11 +808,48 @@
         <dd id="attr-area-shape"><code>shape</code> — The kind of shape to be created on the map.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
         <dd>Neither tag is omissible.</dd>
-        <dt>Allowed <a href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#aria-role-attribute">ARIA role attribute</a> values:</dt>
-        <dd><a href="https://www.w3.org/TR/wai-aria-1.1/#link"><code>link</code></a> role (default - <a href="https://www.w3.org/TR/html-aria/#el-area">do not set</a>).</dd>
-        <dt>Allowed <a href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#state-and-property-attributes">ARIA state and property attributes</a>:</dt>
-        <dd><a href="https://www.w3.org/TR/html-aria/#index-aria-global">Global aria-* attributes</a>.</dd>
-        <dd>Any aria-* attributes <a href="https://www.w3.org/TR/html-aria/#allowed-aria-roles-states-and-properties">applicable to the allowed roles</a>.</dd>
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+        <dd>
+          <details class="a11y-details">
+            <summary>For authors</summary>
+            <table class="def">
+              <thead>
+                <tr>
+                  <th>Implicit ARIA semantics</th>
+                  <th>ARIA roles, states and properties which MAY be used</th>
+                </tr>
+                <tbody>
+                  <tr>
+                    <th>
+                      <code>area</code> with <code>href</code>: <code>role=link</code>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code></strong></p>
+                      <p><a href="https://www.w3.org/TR/html-aria/#index-aria-global">Global <code>aria-*</code> attributes</a>
+                      and any <code>aria-*</code> attributes applicable to the allowed roles and implied role (if any).</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>
+                      <code>area</code> without <code>href</code>: <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code></strong></p>
+                      <p><a href="https://www.w3.org/TR/html-aria/#index-aria-global">Global <code>aria-*</code> attributes</a>
+                      and any <code>aria-*</code> attributes applicable to the allowed roles and implied role (if any).</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </thead>
+            </table>
+          </details>
+        </dd>
+        <dd>
+          <details class="a11y-details">
+            <summary>For implementers</summary>
+            <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+          </details>
+        </dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
         <dd>
           <pre class="idl">
@@ -1344,6 +1447,36 @@
           <dd>One <a href="#the-head-element"><code>head</code></a> element, followed by one <a href="#the-body-element"><code>body</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><code>lang</code> — the language of the document, expressed as a BCP 47 language tag. [[BCP47]]</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -1367,6 +1500,36 @@
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd>One or more elements of metadata content, of which exactly one is a <code>title</code> element and no more than one is a <code>base</code> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -1392,6 +1555,36 @@
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#text-content">Text</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -1418,6 +1611,36 @@
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-content-nothing">Nothing</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><code>href</code> — The absolute URL to be used to resolve relative URLs in the document.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -1447,6 +1670,36 @@
           <dd><code>name</code> — Metadata name.</dd>
           <dd><code>http-equiv</code> — Pragma directive.</dd>
           <dd><code>content</code> — Value of the element.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -1480,6 +1733,36 @@
           <dd><code>hreflang</code> — Language of the linked resource.</dd>
           <dd><code>type</code> — Hint for the type of the referenced resource.</dd>
           <dd><code>title</code> — Title of the link.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -1623,6 +1906,36 @@
           <dd>Features and metadata.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd>N/A.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <code>role=<a href="https://www.w3.org/TR/html-aria/#index-aria-document">document</a></code>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -1650,6 +1963,36 @@
 
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><code>units</code> — The name of the coordinate reference system whose measurement units are to be used by values submitted by child <a href="#the-input-element"><code>input</code></a> elements.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -1707,6 +2050,44 @@
             default).
           </dd>
           <dd><code>position</code> — When <code>type</code> attribute is <code>location</code>, <a href="#attr-input-position-keywords">enumerated keyword string</a> identifies the relative position of a location.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <code>input</code> with <code>type</code>:
+                        <ul>
+                          <li><code>zoom</code></li>
+                          <li><code>location</code></li>
+                          <li><code>width</code></li>
+                          <li><code>height</code></li>
+                          <li><code>hidden</code></li>
+                        </ul>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -1975,6 +2356,36 @@
           </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><code>id</code> — Identifies the list within the current document.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -2002,6 +2413,36 @@
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><code>for</code> — Identifies by id reference the select for which the content of this element is the label.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -2032,6 +2473,36 @@
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><code>id</code> — Identifies the select within the current document.</dd>
           <dd><code>name</code> — The token to be used as a variable name in form serialization.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -2061,6 +2532,36 @@
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><code>value</code> — The value to be used in form submission.</dd>
           <dd><code>label</code> — The label to be presented to the user, if applicable.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -2090,6 +2591,36 @@
           <dd><code>col</code> — An integer (a X axis value / the tile size) in the domain of the tile coordinate reference system.</dd>
           <dd><code>src</code> — A URL from which the tile may be obtained.</dd>
           <dd><code>type</code> — A hint about the MIME type of the resource obtainable at the <code>src</code> URL.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -2134,6 +2665,36 @@
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><code>src</code> — Address of the hyperlink.</dd>
           <dd><code>type</code> — A hint as to the MIME type of the resource.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -2159,6 +2720,38 @@
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a></dd>
           <dd><code>zoom</code> — the 'native' zoom level of the feature geometry.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <code>role=feature</code>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code></strong></p>
+                        <p><a href="https://www.w3.org/TR/html-aria/#index-aria-global">Global <code>aria-*</code> attributes</a>
+                        and any <code>aria-*</code> attributes applicable to the allowed roles and implied role (if any).</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -2187,6 +2780,36 @@
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#flow-content">Flow content</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd>N/A.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -2216,6 +2839,36 @@
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#palpable-content">Palpable content</a></dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd>N/A.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -2239,6 +2892,36 @@
           <dd>A single geometry value, described in the <a href="#geometry-values">table</a> below.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -2346,6 +3029,36 @@
           <dd>One or more <a href="#position">position</a>s in x followed by y, separated by whitespace, with each position separated from the adjacent position by whitespace.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd>N/A.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
