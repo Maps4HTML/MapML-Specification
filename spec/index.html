@@ -119,51 +119,14 @@
       display: inline;
       vertical-align: middle;
     }
+    @media (max-width: 767px) {
+      :root div.head h1 {
+        padding-top: 9rem;
+      }
+    }
     @media (min-width: 768px) {
       :root summary h3 {
         margin-left: 1rem;
-      }
-    }
-    @media (max-width: 28em) {
-      :root body {
-        background-image: none;
-      }
-      :root div.head h1 {
-        margin-top: 1rem;
-      }
-      :root div.head .logo {
-        margin-top: -1rem;
-      }
-    }
-    @media (max-width: 48em) {
-      #google_translate_element [id*="targetLanguage"] {
-        display: block !important;
-      }
-    }
-    #google_translate_element {
-      position: absolute;
-      top: 0;
-      left: 1rem;
-      padding: 20px 0;
-      height: 30px;
-      margin-top: .5rem;
-    }
-    @media (min-width: 28em) {
-      #google_translate_element {
-        left: 160px;
-      }
-      :root div.head {
-        margin-top: 1rem;
-      }
-    }
-    @media (min-width: 28em) and (max-width: 48em) {
-      :root div.head .logo {
-        margin-top: -2rem;
-      }
-    }
-    @media (min-width: 78em) {
-      #google_translate_element {
-        left: 29em;
       }
     }
     :root #references :target {
@@ -289,16 +252,6 @@
     </noscript>
   </head>
   <body>
-    <aside id="google_translate_element"></aside>
-    <script>
-      function googleTranslateElementInit() {
-        new google.translate.TranslateElement({ pageLanguage: "en", layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL }, "google_translate_element");
-      }
-    </script>
-    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
-
-
-
       <section id="abstract">
         <p>
           This specification describes Map Markup Language (MapML), which is an extended subset of HTML, for maps.
