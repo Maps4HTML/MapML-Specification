@@ -11,6 +11,88 @@
     <link rel="preload" as="style" href="https://www.w3.org/StyleSheets/TR/2016/cg-draft">
     <link rel="preconnect" href="https://respec.org">
     <link rel="preconnect" href="https://api.specref.org">
+    <!-- ReSpec config -->
+    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" async></script>
+    <script class="remove">
+      var respecConfig = {
+        specStatus: "CG-DRAFT",
+        editors: [
+          {
+            name: "Peter Rushforth",
+            company: "Natural Resources Canada",
+          },
+          {
+            name: "Robert Linder",
+          },
+        ],
+        authors: [
+          {
+            name: "Robert Linder",
+          },
+          {
+            name: "Joan Masó",
+          },
+          {
+            name: "Elf Pavlik",
+          },
+        ],
+        group: "maps4html",
+        wgPublicList: "public-maps4html",
+        edDraftURI: "https://maps4html.org/MapML/spec/",
+        copyrightStart: "2015",
+        github: "https://github.com/Maps4HTML/MapML/",
+        xref: "web-platform",
+        pluralize: true,
+        localBiblio: {
+          "Web-Map-Custom-Element": {
+            title: "Web Map Custom Element",
+            href: "https://github.com/Maps4HTML/Web-Map-Custom-Element",
+            publisher: "W3C Maps for HTML Community Group",
+          },
+          "MAPML-SCHEMA": {
+            title: "MapML Schema",
+            href: "https://github.com/Maps4HTML/MapML/tree/gh-pages/schema",
+            publisher: "Peter Rushforth. W3C Maps for HTML Community Group",
+          },
+          "EPSG-REGISTRY": {
+            title: "EPSG Geodetic Parameter Dataset",
+            href: "https://epsg.org/home.html",
+            publisher: "International Association of Oil ans Gas Producers",
+          },
+          "UCR-Web-Maps": {
+            title: "Use Cases and Requirements for Standardizing Web Maps",
+            href: "https://maps4html.org/HTML-Map-Element-UseCases-Requirements/",
+            publisher: "W3C Maps for HTML Community Group",
+          },
+          "MapServer": {
+            title: "MS RFC 123: Support for MapML output in MapServer",
+            href: "https://mapserver.org/development/rfc/ms-rfc-123.html",
+            publisher: "The Open Source Geospatial Foundation",
+          },
+          "GeoServer": {
+            title: "GeoServer MapML Extension",
+            href: "https://docs.geoserver.org/latest/en/user/extensions/mapml/index.html",
+            publisher: "W3C Maps for HTML Community Group",
+          },
+          "GDAL" : {
+            title: "GDAL MapML Driver",
+            href: "https://gdal.org/drivers/vector/mapml.html",
+            publisher: "The Open Source Geospatial Foundation",
+          },
+          "UCR-MapML-Matrix": {
+            title: "MapML UCR Fullfillment Matrix",
+            href: "https://maps4html.org/UCR-MapML-Matrix/mapml-ucrs-fulfillment-matrix.html",
+            publisher: "W3C Maps for HTML Community Group",
+          },
+        },
+      };
+      respecConfig.otherLinks = [
+        {
+          key: "Join the Community Group",
+          data: [{ value: "Maps for HTML Community Group", href: "https://www.w3.org/community/maps4html/" }],
+        },
+      ];
+    </script>
     <style>
     :root img {
       height: auto;
@@ -145,88 +227,6 @@
       max-width: 100%;
     }
     </style>
-    <!-- ReSpec config -->
-    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
-    <script class="remove">
-      var respecConfig = {
-        specStatus: "CG-DRAFT",
-        editors: [
-          {
-            name: "Peter Rushforth",
-            company: "Natural Resources Canada",
-          },
-          {
-            name: "Robert Linder",
-          },
-        ],
-        authors: [
-          {
-            name: "Robert Linder",
-          },
-          {
-            name: "Joan Masó",
-          },
-          {
-            name: "Elf Pavlik",
-          },
-        ],
-        group: "maps4html",
-        wgPublicList: "public-maps4html",
-        edDraftURI: "https://maps4html.org/MapML/spec/",
-        copyrightStart: "2015",
-        github: "https://github.com/Maps4HTML/MapML/",
-        xref: "web-platform",
-        pluralize: true,
-        localBiblio: {
-          "Web-Map-Custom-Element": {
-            title: "Web Map Custom Element",
-            href: "https://github.com/Maps4HTML/Web-Map-Custom-Element",
-            publisher: "W3C Maps for HTML Community Group",
-          },
-          "MAPML-SCHEMA": {
-            title: "MapML Schema",
-            href: "https://github.com/Maps4HTML/MapML/tree/gh-pages/schema",
-            publisher: "Peter Rushforth. W3C Maps for HTML Community Group",
-          },
-          "EPSG-REGISTRY": {
-            title: "EPSG Geodetic Parameter Dataset",
-            href: "https://epsg.org/home.html",
-            publisher: "International Association of Oil ans Gas Producers",
-          },
-          "UCR-Web-Maps": {
-            title: "Use Cases and Requirements for Standardizing Web Maps",
-            href: "https://maps4html.org/HTML-Map-Element-UseCases-Requirements/",
-            publisher: "W3C Maps for HTML Community Group",
-          },
-          "MapServer": {
-            title: "MS RFC 123: Support for MapML output in MapServer",
-            href: "https://mapserver.org/development/rfc/ms-rfc-123.html",
-            publisher: "The Open Source Geospatial Foundation",
-          },
-          "GeoServer": {
-            title: "GeoServer MapML Extension",
-            href: "https://docs.geoserver.org/latest/en/user/extensions/mapml/index.html",
-            publisher: "W3C Maps for HTML Community Group",
-          },
-          "GDAL" : {
-            title: "GDAL MapML Driver",
-            href: "https://gdal.org/drivers/vector/mapml.html",
-            publisher: "The Open Source Geospatial Foundation",
-          },
-          "UCR-MapML-Matrix": {
-            title: "MapML UCR Fullfillment Matrix",
-            href: "https://maps4html.org/UCR-MapML-Matrix/mapml-ucrs-fulfillment-matrix.html",
-            publisher: "W3C Maps for HTML Community Group",
-          },
-        },
-      };
-      respecConfig.otherLinks = [
-        {
-          key: "Join the Community Group",
-          data: [{ value: "Maps for HTML Community Group", href: "https://www.w3.org/community/maps4html/" }],
-        },
-      ];
-    </script>
   </head>
   <body>
       <section id="abstract">
