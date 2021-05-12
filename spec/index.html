@@ -132,6 +132,11 @@
     :root #references :target {
       animation: none;
     }
+    
+    iframe.authoring-example {
+      border: 0;
+      max-width: 100%;
+    }
     </style>
     <!-- ReSpec config -->
     <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
@@ -215,41 +220,6 @@
         },
       ];
     </script>
-    <!-- Authoring examples map viewer polyfill -->
-    <script type="module" src="https://maps4html.org/web-map-doc/dist/mapml-viewer.js" crossorigin></script>
-    <style>
-      mapml-viewer {
-        content-visibility: auto;
-        contain-intrinsic-size: 300px 150px;
-        max-width: 100%;
-        max-height: 95vh;
-      }
-      mapml-viewer[controls] {
-        contain-intrinsic-size: 600px 350px;
-        width: 600px;
-        height: 350px;
-      }
-      /* Pre-style to avoid FOUC of inline layer- and fallback content. */
-      mapml-viewer:not(:defined) > * {
-        display: none;
-      }
-      /* Ensure inline layer content is hidden if custom elements isn't supported,
-      or if javascript is disabled. This needs to be defined separately from the above,
-      because the `:not(:defined)` selector invalidates the entire declaration
-      in browsers that do not support it. */
-      layer- {
-        display: none;
-      }
-    </style>
-    <noscript>
-      <style>
-        /* Ensure fallback content (children of the map element) is displayed if
-        custom elements is supported but javascript is disabled. */
-        mapml-viewer:not(:defined) > :not(layer-) {
-          display: initial;
-        }
-      </style>
-    </noscript>
   </head>
   <body>
       <section id="abstract">
@@ -989,9 +959,7 @@
               A basic map of Paris:
             </p>
             
-            <mapml-viewer projection="OSMTILE" zoom="11" lat="48.8566" lon="2.3522">
-              <layer- src="https://geogratis.gc.ca/mapml/en/osmtile/osm/" checked></layer->
-            </mapml-viewer>
+            <iframe class="authoring-example" title="Authoring example 1" src="examples/map-1.html" width="300" height="150" loading="lazy"></iframe>
           
             <p>
               This map can be created with the following markup:
@@ -1010,9 +978,7 @@
               with the default controls enabled and dimensions specified:
             </p>
             
-            <mapml-viewer projection="CBMTILE" zoom="15" lat="45.4215" lon="-75.6972" controls>
-              <layer- label="Canada Base Map - Transportation (CBMT)" src="https://geogratis.gc.ca/mapml/en/cbmtile/cbmt/" checked></layer->
-            </mapml-viewer>
+            <iframe class="authoring-example" title="Authoring example 2" src="examples/map-2.html" width="600" height="350" loading="lazy"></iframe>
           
             <p>
               This map can be created with the following markup:
