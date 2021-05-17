@@ -4,137 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Map Markup Language</title>
-    <style>
-    :root img {
-      height: auto;
-      max-width: 100%;
-    }
-    :root #sotd details {
-      margin: 2.5rem 0 1.5rem 0;
-    }
-    :root summary {
-      cursor: pointer;
-    }
-    :root .a11y-details summary {
-      font-weight: normal;
-    }
-    :root .a11y-details details {
-      display: inline-block;
-    }
-    :root .a11y-details table {
-      margin: 0;
-    }
-    :root .a11y-details tbody th {
-      font-style: normal;
-    }
-    :root caption {
-      text-align: left;
-      text-align: start;
-      padding: .75rem .65rem;
-    }
-    :root caption h3,
-    :root caption h4 {
-      margin: 0;
-    }
-    :root table {
-      border-spacing: 0;
-      overflow: auto;
-      display: block;
-      max-width: max-content;
-      border-collapse: collapse;
-      border-style: hidden hidden none hidden;
-    }
-    :root table th,
-    :root table.def th {
-      white-space: nowrap;
-      padding-left: 0;
-    }
-    :root .respec-button-copy-paste {
-      left: auto;
-      right: 0;
-      border: 0;
-      border-radius: 0;
-      border-bottom-left-radius: 2px;
-    }
-    :root pre.idl.def:not(#actual-idl-index) {
-      background-color: #edf6ff;
-      border: 0;
-      max-width: 100%;
-      margin-left: -1rem;
-      overflow-x: hidden;
-    }
-    :root .idlInterface {
-      overflow-x: auto;
-      display: block;
-    }
-    :root pre.idl.def:not(#actual-idl-index) .idlHeader {
-      background-color: unset;
-    }
-    :root h1 {
-      padding-top: 3rem;
-    }
-    :root dl.def dt,
-    :root dl.def dd {
-      margin: 0;
-    }
-    :root dl.def dt + dd {
-      margin-top: 0.5em;
-    }
-    :root dl.def dd {
-      margin-left: 1em;
-    }
-    :root dl.def dd + dt {
-      margin-top: 0.75em;
-    }
-    :root code,
-    :root .hljs-deletion,
-    :root .hljs-name,
-    :root .hljs-section,
-    :root .hljs-selector-tag,
-    :root .hljs-subst {
-      color: #cf2c2c;
-    }
-    :root .hljs-attr,
-    :root .hljs-number,
-    :root .hljs-selector-attr,
-    :root .hljs-selector-class,
-    :root .hljs-selector-pseudo,
-    :root .hljs-template-variable,
-    :root .hljs-type,
-    :root .hljs-variable {
-      color: #034575;
-    }
-    :root .hljs,
-    :root .hljs-addition,
-    :root .hljs-attribute,
-    :root .hljs-meta-string,
-    :root .hljs-regexp,
-    :root .hljs-string {
-      color: #000;
-    }
-    :root caption {
-      font-size: 100%;
-    }
-    :root summary h3 {
-      display: inline;
-      vertical-align: middle;
-    }
-    @media (max-width: 767px) {
-      :root div.head h1 {
-        padding-top: 9rem;
-      }
-    }
-    @media (min-width: 768px) {
-      :root summary h3 {
-        margin-left: 1rem;
-      }
-    }
-    :root #references :target {
-      animation: none;
-    }
-    </style>
+    <link rel="preload" as="script" href="https://www.w3.org/Tools/respec/respec-w3c">
+    <link rel="preload" as="script" href="https://www.w3.org/Tools/respec/respec-highlight">
+    <link rel="preload" as="script" href="https://www.w3.org/scripts/TR/2016/fixup.js">
+    <link rel="preload" as="style" href="https://www.w3.org/StyleSheets/TR/2016/base.css">
+    <link rel="preload" as="style" href="https://www.w3.org/StyleSheets/TR/2016/cg-draft">
+    <link rel="preconnect" href="https://respec.org">
+    <link rel="preconnect" href="https://api.specref.org">
     <!-- ReSpec config -->
-    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
+    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" async></script>
     <script class="remove">
       var respecConfig = {
         specStatus: "CG-DRAFT",
@@ -215,43 +93,148 @@
         },
       ];
     </script>
-    <!-- Authoring examples map viewer polyfill -->
-    <script type="module" src="https://maps4html.org/web-map-doc/dist/mapml-viewer.js" crossorigin></script>
     <style>
-      mapml-viewer {
-        content-visibility: auto;
-        contain-intrinsic-size: 300px 150px;
-        max-width: 100%;
-        max-height: 95vh;
+    :root img {
+      height: auto;
+      max-width: 100%;
+    }
+    :root #sotd details {
+      margin: 2.5rem 0 1.5rem 0;
+    }
+    :root summary {
+      cursor: pointer;
+    }
+    :root .a11y-details summary {
+      font-weight: normal;
+    }
+    :root .a11y-details details {
+      display: inline-block;
+    }
+    :root .a11y-details table {
+      margin: 0;
+    }
+    :root .a11y-details tbody th {
+      font-style: normal;
+    }
+    :root caption {
+      text-align: left;
+      text-align: start;
+      padding: .75rem .65rem;
+    }
+    :root caption h3,
+    :root caption h4 {
+      margin: 0;
+    }
+    :root table {
+      border-spacing: 0;
+      overflow: auto;
+      display: block;
+      max-width: max-content;
+      border-collapse: collapse;
+      border-style: hidden hidden none hidden;
+    }
+    :root table th,
+    :root table.def th {
+      white-space: nowrap;
+      padding-left: 0;
+    }
+    :root .respec-button-copy-paste {
+      left: auto;
+      right: 0;
+      border: 0;
+      border-radius: 0;
+      border-bottom-left-radius: 2px;
+    }
+    :root pre.idl.def:not(#actual-idl-index) {
+      background-color: #edf6ff;
+      border: 0;
+      max-width: 100%;
+      margin-left: -1rem;
+      overflow-x: hidden;
+    }
+    :root .idlInterface {
+      overflow-x: auto;
+      display: block;
+    }
+    :root pre.idl.def:not(#actual-idl-index) .idlHeader {
+      background-color: unset;
+    }
+    :root h1 {
+      color: #005a9c;
+      font-family: sans-serif;
+      font-size: 220%;
+      font-weight: bold;
+      margin: 0 0 .1em;
+      padding-top: 3rem;
+    }
+    :root dl.def dt,
+    :root dl.def dd {
+      margin: 0;
+    }
+    :root dl.def dt + dd {
+      margin-top: 0.5em;
+    }
+    :root dl.def dd {
+      margin-left: 1em;
+    }
+    :root dl.def dd + dt {
+      margin-top: 0.75em;
+    }
+    :root code,
+    :root .hljs-deletion,
+    :root .hljs-name,
+    :root .hljs-section,
+    :root .hljs-selector-tag,
+    :root .hljs-subst {
+      color: #cf2c2c;
+    }
+    :root .hljs-attr,
+    :root .hljs-number,
+    :root .hljs-selector-attr,
+    :root .hljs-selector-class,
+    :root .hljs-selector-pseudo,
+    :root .hljs-template-variable,
+    :root .hljs-type,
+    :root .hljs-variable {
+      color: #034575;
+    }
+    :root .hljs,
+    :root .hljs-addition,
+    :root .hljs-attribute,
+    :root .hljs-meta-string,
+    :root .hljs-regexp,
+    :root .hljs-string {
+      color: #000;
+    }
+    :root caption {
+      font-size: 100%;
+    }
+    :root summary h3 {
+      display: inline;
+      vertical-align: middle;
+    }
+    @media (max-width: 767px) {
+      :root div.head h1 {
+        padding-top: 9rem;
       }
-      mapml-viewer[controls] {
-        contain-intrinsic-size: 600px 350px;
-        width: 600px;
-        height: 350px;
+    }
+    @media (min-width: 768px) {
+      :root summary h3 {
+        margin-left: 1rem;
       }
-      /* Pre-style to avoid FOUC of inline layer- and fallback content. */
-      mapml-viewer:not(:defined) > * {
-        display: none;
-      }
-      /* Ensure inline layer content is hidden if custom elements isn't supported,
-      or if javascript is disabled. This needs to be defined separately from the above,
-      because the `:not(:defined)` selector invalidates the entire declaration
-      in browsers that do not support it. */
-      layer- {
-        display: none;
-      }
+    }
+    :root #references :target {
+      animation: none;
+    }
+    
+    iframe.authoring-example {
+      border: 0;
+      max-width: 100%;
+    }
     </style>
-    <noscript>
-      <style>
-        /* Ensure fallback content (children of the map element) is displayed if
-        custom elements is supported but javascript is disabled. */
-        mapml-viewer:not(:defined) > :not(layer-) {
-          display: initial;
-        }
-      </style>
-    </noscript>
   </head>
   <body>
+      <h1 id="title">Map Markup Language</h1>
       <section id="abstract">
         <p>
           This specification describes Map Markup Language (MapML), which is an extended subset of HTML, for maps.
@@ -989,9 +972,7 @@
               A basic map of Paris:
             </p>
             
-            <mapml-viewer projection="OSMTILE" zoom="11" lat="48.8566" lon="2.3522">
-              <layer- src="https://geogratis.gc.ca/mapml/en/osmtile/osm/" checked></layer->
-            </mapml-viewer>
+            <iframe class="authoring-example" title="Authoring example 1" src="examples/map-1.html" width="300" height="150" loading="lazy"></iframe>
           
             <p>
               This map can be created with the following markup:
@@ -1010,9 +991,7 @@
               with the default controls enabled and dimensions specified:
             </p>
             
-            <mapml-viewer projection="CBMTILE" zoom="15" lat="45.4215" lon="-75.6972" controls>
-              <layer- label="Canada Base Map - Transportation (CBMT)" src="https://geogratis.gc.ca/mapml/en/cbmtile/cbmt/" checked></layer->
-            </mapml-viewer>
+            <iframe class="authoring-example" title="Authoring example 2" src="examples/map-2.html" width="600" height="350" loading="lazy"></iframe>
           
             <p>
               This map can be created with the following markup:
@@ -3126,7 +3105,7 @@
         <h2 id="examples">Examples</h2>
         <aside class="example">
         <figure>
-          <img src="examples/mapml.png" width="830" height="467" alt="Origins, orientations and axis names of tcrs, pcrs, gcrs, tilematrix, map, and tile coordinate systems">
+          <img src="examples/mapml.png" width="3240" height="2016" loading="lazy" alt="Origins, orientations and axis names of tcrs, pcrs, gcrs, tilematrix, map, and tile coordinate systems">
 
           <figcaption>
             Prototype MapML services are available, representing <a href="https://geogratis.gc.ca/mapml/en/osmtile/cbmt/">tiled</a> and
