@@ -348,6 +348,7 @@
             <li>Update abstract to describe where MapML syntax and semantics fit into HTML.</li>
             <li>Update Implementation Experience</li>
             <li>Remove MicroXML references, update introduction to id MapML as an extension to HTML</li>
+            <li>Remove the <code>line</code> and <code>marker</code> values of the <code>shape</code> attribute.</li>
           </ul>
         </details>
       </section>
@@ -880,16 +881,6 @@
           <td><dfn id="attr-area-shape-keyword-rect"><code>rect</code></dfn></td>
           <td></td>
         </tr>
-        <tr>
-          <td><a href="#attr-area-shape-marker">Marker state</a></td>
-          <td><dfn id="attr-area-shape-keyword-marker"><code>marker</code></dfn></td>
-          <td>new</td>
-        </tr>
-        <tr>
-          <td><a href="#attr-area-shape-line">Line state</a></td>
-          <td><dfn id="attr-area-shape-keyword-line"><code>line</code></dfn></td>
-          <td>new</td>
-        </tr>
         </tbody>
         </table>
         <p>The <a href="#attr-area-shape"><code>shape</code></a> attribute may be omitted. The missing value default is the rectangle state.</p>
@@ -913,14 +904,6 @@
         the first of which must be less than the third, and the second of which must be less than the fourth. The four values must represent, respectively, the 
         distance from the left edge of the map to the left side of the rectangle, the distance from the top edge to the top side, the distance from the left edge 
         to the right side, and the distance from the top edge to the bottom side, all in CSS pixels.</p>
-
-        <p>In the <dfn id="attr-area-shape-marker">marker state</dfn>, <a href="#the-area-element"><code>area</code></a> elements must have a <a href="#attr-area-coords"><code>coords</code></a> attribute with exactly two integers. 
-        The first integer must be the distance in CSS pixels from the left edge of the map to the top left corner of the marker, the second integer must be the distance 
-        in CSS pixels from the top edge of the map to the top left corner of the marker.</p>
-
-        <p>In the <dfn id="attr-area-shape-line">line state</dfn>, <a href="#the-area-element"><code>area</code></a> elements must have a <a href="#attr-area-coords"><code>coords</code></a> attribute with at least four
-        integers, and the number of integers must be even.  Each pair of integers must represent a coordinate given as the distances from the left and the top of the 
-        map in CSS pixels respectively, and all the coordinates together must represent the points of the line, in order.</p>
 
         <p>The intention of the <a href="#the-area-element"><code>area</code></a> element is to extend the behavior of the existing [[HTML]] <a href="#the-area-element"><code>area</code></a> element. For information pertaining to
         the processing of various link types created by the <a href="#the-area-element"><code>area</code></a> element, please refer to the description of hyperlink processing for the 
