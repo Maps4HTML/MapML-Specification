@@ -627,8 +627,20 @@
 
         <p>The <dfn id="attr-map-controls"><code>controls</code></dfn> attribute is a <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attribute">boolean attribute</a>. If present, it indicates that the author has not provided scripted controls and would like the user agent to provide its own set of controls.</p>
         <!-- https://html.spec.whatwg.org/multipage/media.html#user-interface -->
-        <p>If the attribute is present, or if <a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-n-noscript">scripting is disabled</a> for the media element, then the user agent should <dfn id="expose-a-user-interface-to-the-user"><strong>expose a user interface to the user</strong></dfn>.
-          This user interface should include features to zoom in, zoom out, pan to an arbitrary position in the content, and show the media content in manners more suitable to the user (e.g. fullscreen map or in an independent resizable window). Other controls may also be made available.</p>
+        <p>
+          If the attribute is present,
+          or if <a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-n-noscript">scripting is disabled</a>
+          for the media element,
+          then the user agent should
+          <dfn id="expose-a-user-interface-to-the-user"><strong>expose a user interface to the user</strong></dfn>.
+          This user interface should include features to
+          zoom in,
+          zoom out,
+          pan to an arbitrary position in the content,
+          and show the media content in manners more suitable to the user
+          (e.g. fullscreen map or in an independent resizable window).
+          Other controls may also be made available.
+        </p>
         <p>The <a href="#dom-htmlmapelement-controls"><code>controls</code></a> IDL attribute must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the content attribute of the same name.</p>
         
         <p>The <dfn id="attr-map-controlslist"><code>controlslist</code></dfn> attribute, when specified, helps the user agent select what controls to show on the media element whenever the user agent shows its own set of controls.
