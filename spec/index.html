@@ -127,18 +127,24 @@
     :root caption h4 {
       margin: 0;
     }
-    :root table {
-      border-spacing: 0;
+    :root .table-responsive {
       overflow: auto;
       display: block;
-      max-width: max-content;
       border-collapse: collapse;
+    }
+    :root .table-responsive table {
+      margin: 0;
+      border-spacing: 0;
       border-style: hidden hidden none hidden;
     }
-    :root table th,
-    :root table.def th {
+    :root .table-responsive table th,
+    :root .table-responsive table.def th {
       white-space: nowrap;
       padding-left: 0;
+    }
+    :root .table-responsive caption {
+      background: inherit;
+      padding: 1rem 1.75rem;
     }
     :root .respec-button-copy-paste {
       left: auto;
@@ -547,6 +553,7 @@
         <dd>
           <details class="a11y-details">
             <summary>For authors</summary>
+            <div class="table-responsive">
             <table class="def">
               <thead>
                 <tr>
@@ -567,6 +574,7 @@
                 </tbody>
               </thead>
             </table>
+            </div>
           </details>
         </dd>
         <dd>
@@ -711,6 +719,7 @@
         <dd>
           <details class="a11y-details">
             <summary>For authors</summary>
+            <div class="table-responsive">
             <table class="def">
               <thead>
                 <tr>
@@ -729,6 +738,7 @@
                 </tbody>
               </thead>
             </table>
+            </div>
           </details>
         </dd>
         <dd>
@@ -806,6 +816,7 @@
         <dd>
           <details class="a11y-details">
             <summary>For authors</summary>
+            <div class="table-responsive">
             <table class="def">
               <thead>
                 <tr>
@@ -836,6 +847,7 @@
                 </tbody>
               </thead>
             </table>
+            </div>
           </details>
         </dd>
         <dd>
@@ -870,6 +882,7 @@
         encoded as coordinates in the <a href="#attr-area-coords"><code>coords</code></a> attribute.</p>
         <p>The shape attribute is an enumerated attribute. The following table lists the keywords defined for this attribute. The states given in the first cell of the rows with 
         keywords give the states to which those keywords map. </p>
+        <div class="table-responsive">
         <table class="def">
         <thead>
         <tr><th>State</th><th>Keywords</th><th>Notes</th></tr>
@@ -897,6 +910,7 @@
         </tr>
         </tbody>
         </table>
+        </div>
         <p>The <a href="#attr-area-shape"><code>shape</code></a> attribute may be omitted. The missing value default is the rectangle state.</p>
 
         <p>The <a href="#attr-area-coords"><code>coords</code></a> attribute must, if specified, contain a valid list of integers. This attribute gives the coordinates for the shape described by the 
@@ -1049,6 +1063,7 @@
         </p>
 
         <p>This document defines the following coordinate reference system types:</p>
+        <div class="table-responsive">
         <table id="CS-defs" class="def">
           <caption>
             <h2>Coordinate Reference System type codes and descriptions</h2>
@@ -1110,6 +1125,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
 
         <p>
           MapML documents are similar to other spatial information with regard to definition of projection and coordinate system requirements. However, MapML defines a system of communicating coordinate system information across the uniform
@@ -1117,6 +1133,7 @@
           table below, and exchanged in markup defined by this specification.
         </p>
 
+        <div class="table-responsive">
         <table id="tiled-coordinate-reference-systems-table" class="def">
           <caption>
             <h2>Tiled Coordinate Reference Systems</h2>
@@ -1361,6 +1378,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
         <p>
           * All coordinate reference systems' coordinate pairs, where not explicitly marked up or identified by axis (for example, in the <a href="#the-coordinates-element"><code>coordinates</code></a> element) are defined by this specification to be in "horizontal axis followed
           by vertical axis" order. Where axes order is defined differently by external definition, this specification MUST be taken to be correct <strong>for MapML documents</strong>.
@@ -1458,6 +1476,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -1476,6 +1495,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -1511,6 +1531,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -1529,6 +1550,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -1566,6 +1588,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -1584,6 +1607,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -1622,6 +1646,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -1640,6 +1665,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -1681,6 +1707,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -1699,6 +1726,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -1744,6 +1772,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -1762,6 +1791,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -1831,6 +1861,7 @@
         </p>
         <p>The content represented by <code>link[@tref]</code> elements should be painted in document order of the appearance of the <code>link[@tref]</code> elements.</p>
 
+        <div class="table-responsive">
         <table id="rel-values" class="def">
           <caption>
             <h2><code>@rel</code> values</h2>
@@ -1901,6 +1932,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-body-element">body</dfn>&gt;</code> element</h5>
@@ -1917,6 +1949,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -1935,6 +1968,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -1974,6 +2008,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -1992,6 +2027,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -2061,6 +2097,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -2087,6 +2124,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -2128,6 +2166,7 @@
           The <code>type</code> attribute controls the data type (and associated control) of the element. It is an enumerated attribute. The following table lists the keywords and states for the attribute — the keywords in the left column
           map to the states in the cell in the second column on the same row as the keyword.
         </p>
+        <div class="table-responsive">
         <table id="attr-input-type-keywords" class="def">
           <caption>
             <h2><code>input</code>@<code>type</code> values</h2>
@@ -2173,6 +2212,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
         <p>
           When the <code>type</code> attribute is in the "location" state, the <a href="#the-input-element"><code>input</code></a> may have three associated attributes: <code>units</code>, <code>axis</code> and <code>position</code>. <code>units</code> identifies the
           associated coordinate system that the <code>location</code> is referred to. Each Tiled Coordinate Reference System (TCRS) instance may have one or more associated coordinate systems that are coordinate reference system by virtue
@@ -2180,6 +2220,7 @@
           EPSG:3857 CRS plus a set of zoom level resolutions, and a transformation.
         </p>
 
+        <div class="table-responsive">
         <table id="attr-input-units-keywords" class="def">
           <caption>
             <h2><code>input</code>@<code>units</code> values</h2>
@@ -2237,6 +2278,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
 
         <p>
           The meaning of the <code>position</code> attribute value (keyword) depends upon the presence and value of the associated <code>rel</code> attribute. When the <code>rel</code> attribute is not present or has the value
@@ -2244,6 +2286,7 @@
           <code>tilematrix</code>), the <code>position</code> attribute values describe the input location relative to the tile at the location in question.
         </p>
 
+        <div class="table-responsive">
         <table id="attr-input-position-keywords" class="def">
           <caption>
             <h2><code>input</code>@<code>position</code> values</h2>
@@ -2293,7 +2336,11 @@
             </tr>
           </tbody>
         </table>
+        </div>
+        
         <p>The <code>axis</code> keyword identifies the axis of the coordinate that the <a href="#the-input-element"><code>input</code></a> variable represents. The coordinate system should be identified by the <code>units</code> attribute.</p>
+        
+        <div class="table-responsive">
         <table id="attr-input-axis-keywords" class="def">
           <caption>
             <h2><code>input</code>@<code>axis</code> values</h2>
@@ -2347,6 +2394,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-datalist-element">datalist</dfn>&gt;</code> element</h5>
@@ -2367,6 +2415,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -2385,6 +2434,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -2424,6 +2474,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -2442,6 +2493,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -2484,6 +2536,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -2502,6 +2555,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -2543,6 +2597,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -2561,6 +2616,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -2602,6 +2658,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -2620,6 +2677,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -2676,6 +2734,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -2694,6 +2753,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -2731,6 +2791,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -2751,6 +2812,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -2791,6 +2853,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -2809,6 +2872,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -2850,6 +2914,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -2868,6 +2933,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -2903,6 +2969,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -2921,6 +2988,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
@@ -2951,6 +3019,7 @@
         <a href="#the-multipolygon-element"><code>multipolygon</code></a>, or 
         <a href="#the-geometrycollection-element"><code>geometrycollection</code></a>.</p>
 
+        <div class="table-responsive">
         <table id="geometry-values" class="def">
           <thead>
             <tr>
@@ -3024,6 +3093,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-coordinates-element">coordinates</dfn>&gt;</code> element</h5>
@@ -3040,6 +3110,7 @@
           <dd>
             <details class="a11y-details">
               <summary>For authors</summary>
+              <div class="table-responsive">
               <table class="def">
                 <thead>
                   <tr>
@@ -3058,6 +3129,7 @@
                   </tbody>
                 </thead>
               </table>
+              </div>
             </details>
           </dd>
           <dd>
