@@ -1,5 +1,5 @@
 datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes" 
-default namespace = "https://www.w3.org/1999/xhtml/"
+default namespace = "http://www.w3.org/1999/xhtml"
 start = mapml 
 mapml = element mapml { head?, attribute lang {text}?, body }
 head = element head { headContent }
