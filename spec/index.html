@@ -95,14 +95,17 @@
       height: auto;
       max-width: 100%;
     }
-    :root #sotd details {
-      margin: 2.5rem 0 1.5rem 0;
-    }
     :root summary {
       cursor: pointer;
     }
+    :root #changes summary,
     :root .a11y-details summary {
       font-weight: normal;
+    }
+    :root #changes details ol[reversed] {
+      display: flex;
+      flex-direction: column-reverse;
+      list-style: none;
     }
     :root .a11y-details details {
       display: inline-block;
@@ -285,7 +288,7 @@
         </p>
         </section>
         -->
-        <section>
+        <section class="informative">
         <h3>Implementation Experience</h3>
 
         <p>
@@ -312,48 +315,54 @@
 
         <p>MapML can be created with the open source Geospatial Data Abstraction Library [[GDAL-MapML]].</p>
         </section>
-        <details>
-          <summary>
-            <h3>Changes Since the Previous Draft</h3>
-          </summary>
-          <ul>
-            <li>Merge the <a href="https://maps4html.org/HTML-Map-Element/spec/">HTML &lt;map&gt; element proposal</a> into this specification (Fix: <a href="https://github.com/Maps4HTML/MapML/issues/55">issue #55</a>).</li>
-            <li>Update schema, such as it is (needs more than a schema language can provide e.g. schematron or something like HTML has)</li>
-            <li>Deprecate input@type= xmin,ymin,xmax,ymax,projection.</li>
-            <li>Remove input@type=search for now (not implemented, nor yet discussed).</li>
-            <li>Add input@units=gcrs keyword.</li>
-            <li>Extend input@type=position keyword list to be based on CSS object-position property value domain</li>
-            <li>Add input@axis= latitude,longitude keywords</li>
-            <li>Remove reference to link@rel=search, which is not supported.</li>
-            <li>Add Figure 1 in examples. Change URLs to example services.</li>
-            <li>Update Abstract, status, intent, implementation experience,feedback and Change sections</li>
-            <li>Rename link@tcrs to link@projection</li>
-            <li>Add link@rel=style link relation</li>
-            <li>Add select element</li>
-            <li>Add label element</li>
-            <li>Add features link relation</li>
-            <li>Add Google Translate widget</li>
-            <li>Update links to schema directory on github.</li>
-            <li>Add WICG link</li>
-            <li>Changes in input@units descriptions about WGS84</li>
-            <li>Added an equirectangular tiling schema for WGS84</li>
-            <li>Added a table of the different Coordinate System used</li>
-            <li>Better connecting TCRS table with input@units values</li>
-            <li>Align prose for allowed link@href context with schema.</li>
-            <li>Fix <a href="https://github.com/Maps4HTML/MapML/issues/43#issuecomment-507018476">issue</a> with description of multi-geometries as being 'two or more', replace with 'One or more'</li>
-            <li>Fix <a href="https://github.com/Maps4HTML/MapML/issues/43#issue-428889785">issue</a> with CamelCase of geometry types, replace with lowercase</li>
-            <li>Fix <a href="https://github.com/Maps4HTML/MapML/issues/44">issue</a> with inconsistency with GeoJSON multipoint coordinate encoding</li>
-            <li>Fix the order of parameters to the LatLng(lat,lng) pseudofunction in the definition of WGS84</li>
-            <li>Remove rel=search value</li>
-            <li>Remove feature <code>type</code> property from IDL</li>
-            <li>Add feature zoom attribute</li>
-            <li>Update feature content model to reflect implementation</li>
-            <li>Update abstract to describe where MapML syntax and semantics fit into HTML.</li>
-            <li>Update Implementation Experience</li>
-            <li>Remove MicroXML references, update introduction to id MapML as an extension to HTML</li>
-            <li>Remove the <code>line</code> and <code>marker</code> values of the <code>shape</code> attribute.</li>
-          </ul>
-        </details>
+        
+        <section class="informative">
+          <h3>Changes</h3>
+          
+          <details>
+            <summary>
+              Substantial changes to this specification
+            </summary>
+            <ol reversed>
+              <li><time>2018-03-23</time>: Update schema, such as it is (needs more than a schema language can provide e.g. schematron or something like HTML has).</li>
+              <li><time>2018-03-23</time>: Deprecate <code>input@type</code> <code>xmin</code>, <code>ymin</code>, <code>xmax</code>, <code>ymax</code>, <code>projection</code>.</li>
+              <li><time>2018-03-23</time>: Remove <code>input@type=search</code> for now (not implemented, nor yet discussed).</li>
+              <li><time>2018-03-23</time>: Add <code>input@units</code> <code>gcrs</code> keyword.</li>
+              <li><time>2018-03-23</time>: Extend <code>input@type=position</code> keyword list to be based on CSS object-position property value domain.</li>
+              <li><time>2018-03-23</time>: Add <code>input@axis</code> <code>latitude</code>, <code>longitude</code> keywords.</li>
+              <li><time>2018-03-23</time>: Remove reference to <code>link@rel=search</code>, which is not supported.</li>
+              <li><time>2018-03-23</time>: Update Abstract, status, intent, implementation experience, feedback and Changes sections.</li>
+              <li><time>2018-03-23</time>: Add <code>link@tcrs</code> attribute.</li>
+              <li><time>2018-03-23</time>: Add <code>link@rel=style</code> link relation.</li>
+              <li><time>2018-07-18</time>: Add <code>select</code> element.</li>
+              <li><time>2018-07-19</time>: Add <code>label</code> element.</li>
+              <li><time>2018-09-07</time>: Rename <code>link@tcrs</code> to <code>link@projection</code>.</li>
+              <li><time>2018-09-06</time>: Add "<a href="#link-rel-features"><code>features</code></a>" link relation.</li>
+              <li><time>2018-10-17</time>: Changes in <code>input@units</code> descriptions about WGS84.</li>
+              <li><time>2018-10-17</time>: Added an equirectangular tiling schema for WGS84.</li>
+              <li><time>2018-10-17</time>: Added a table of the different Coordinate System used.</li>
+              <li><time>2018-10-17</time>: Better connecting TCRS table with <code>input@units</code> values.</li>
+              <li><time>2019-01-08</time>: Align prose for allowed <code>link@href</code> context with schema.</li>
+              <li><time>2019-07-02</time>: Fix <a href="https://github.com/Maps4HTML/MapML/issues/43#issuecomment-507018476">issue</a> with description of multi-geometries as being 'two or more', replace with 'One or more'.</li>
+              <li><time>2019-07-02</time>: Fix <a href="https://github.com/Maps4HTML/MapML/issues/43#issue-428889785">issue</a> with CamelCase of geometry types, replace with lowercase.</li>
+              <li><time>2019-07-02</time>: Fix <a href="https://github.com/Maps4HTML/MapML/issues/44">issue</a> with inconsistency with GeoJSON multipoint coordinate encoding.</li>
+              <li><time>2019-07-10</time>: Fix the order of parameters to the LatLng(lat,lng) pseudofunction in the definition of WGS84.</li>
+              <li><time>2020-07-21</time>: Merge <a href="https://maps4html.org/HTML-Map-Element/spec/">The HTML &lt;map&gt; element proposal</a> into this specification.</li>
+              <li><time>2020-08-19</time>: Remove <code>rel=search</code> value.</li>
+              <li><time>2020-08-19</time>: Remove feature <code>type</code> property from IDL.</li>
+              <li><time>2020-08-19</time>: Add <code>feature</code> element's <code>zoom</code> attribute.</li>
+              <li><time>2020-08-19</time>: Update <a href="#the-feature-element"><code>feature</code></a> element's content model to reflect implementation.</li>
+              <li><time>2020-09-28</time>: Add <a href="#attr-map-controlslist"><code>controlslist</code></a> attribute to the <code>map</code> element.
+              <li><time>2021-03-01</time>: Update abstract to describe where MapML syntax and semantics fit into HTML.</li>
+              <li><time>2021-03-01</time>: Update <a href="#implementation-experience">Implementation Experience</a>.</li>
+              <li><time>2021-03-01</time>: Remove MicroXML references, update introduction to id MapML as an extension to HTML.</li>
+              <li><time>2021-03-01</time>: Add <a href="#the-featurecaption-element"><code>featurecaption</code></a> element.</li>
+              <li><time>2021-03-15</time>: Add required text for <a href="#dfn-text-mapml"><code>text/mapml</code></a> MIME media type registration with IANA.</li>
+              <li><time>2021-06-15</time>: Remove the <code>line</code> and <code>marker</code> values of the <code>shape</code> attribute.</li>
+            </ol>
+          </details>
+        </section>
+        
       </section>
 
       <section id="intro" class="informative">
