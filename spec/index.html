@@ -359,6 +359,7 @@
               <li><time>2021-03-01</time>: Add <a href="#the-featurecaption-element"><code>featurecaption</code></a> element.</li>
               <li><time>2021-03-15</time>: Add required text for <a href="#dfn-text-mapml"><code>text/mapml</code></a> MIME media type registration with IANA.</li>
               <li><time>2021-06-15</time>: Remove the <code>line</code> and <code>marker</code> values of the <code>shape</code> attribute.</li>
+              <li><time>2021-08-13</time>: Update Categories, Content model and Content attributes of various elements.</li>
             </ol>
           </details>
         </section>
@@ -534,7 +535,7 @@
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#palpable-content-2">Palpable content</a>.</dd>
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#embedded-content-2">Embedded content</a>.</dd>
-        <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#interactive-content-2">Interactive content</a>.</dd>
+        <dd>If the element has a <code>controls</code> attribute: <a href="https://html.spec.whatwg.org/multipage/dom.html#interactive-content-2">Interactive content</a>.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
         <dd>Where <a href="https://html.spec.whatwg.org/multipage/dom.html#embedded-content-2">embedded content</a> is expected.</dd>
         <dt id="map-content"><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
@@ -1469,13 +1470,13 @@
         <h5>The <code>&lt;<dfn id="the-mapml-element">mapml</dfn>&gt;</code> element</h5>
         <dl class="def">
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd>N/A.</dd>
+          <dd>None.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>The root of a MapML document.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd>One <a href="#the-head-element"><code>head</code></a> element, followed by one <a href="#the-body-element"><code>body</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><code>lang</code> — the language of the document, expressed as a BCP 47 language tag. [[BCP47]]</dd>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
           <dd>
             <details class="a11y-details">
@@ -1525,12 +1526,13 @@
         <h5>The <code>&lt;<dfn id="the-head-element">head</dfn>&gt;</code> element</h5>
         <dl class="def">
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
+          <dd>None.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>As the first child element of the <a href="#the-mapml-element"><code>mapml</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd>One or more elements of metadata content, of which exactly one is a <code>title</code> element and no more than one is a <code>base</code> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
           <dd>
             <details class="a11y-details">
@@ -1586,8 +1588,9 @@
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>As a child of the <a href="#the-head-element"><code>head</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#text-content">Text</a>.</dd>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#text-content">Text</a> that is not <a href="https://html.spec.whatwg.org/multipage/dom.html#inter-element-whitespace">inter-element whitespace</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
           <dd>
             <details class="a11y-details">
@@ -1942,13 +1945,13 @@
         <h5>The <code>&lt;<dfn id="the-body-element">body</dfn>&gt;</code> element</h5>
         <dl class="def">
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd>N/A.</dd>
+          <dd><a href="https://html.spec.whatwg.org/multipage/sections.html#sectioning-root">Sectioning root</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>As the second child of the <a href="#the-mapml-element"><code>mapml</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd>Features and metadata.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd>N/A.</dd>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
           <dd>
             <details class="a11y-details">
@@ -2782,14 +2785,16 @@
         <dl class="def">
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>Feature data.</dd>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#interactive-content-2">Interactive content</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>Child of the <a href="#the-body-element"><code>body</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd>Optional <a href="#the-featurecaption-element"><code>featurecaption</code></a> element, 
             optional <a href="#the-geometry-element"><code>geometry</code></a> element, 
-            optional <a href="#the-properties-element"><code>properties</code></a> element.</dd>
+            optional <a href="#the-properties-element"><code>properties</code></a> element,
+            optional <a href="#the-image-element"><code>image</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a></dd>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
           <dd><code>zoom</code> — the 'native' zoom level of the feature geometry.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
           <dd>
