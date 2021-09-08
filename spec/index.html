@@ -360,6 +360,9 @@
               <li><time>2021-03-15</time>: Add required text for <a href="#dfn-text-mapml"><code>text/mapml</code></a> MIME media type registration with IANA.</li>
               <li><time>2021-06-15</time>: Remove the <code>line</code> and <code>marker</code> values of the <code>shape</code> attribute.</li>
               <li><time>2021-08-13</time>: Update Categories, Content model and Content attributes of various elements.</li>
+              <li><time>2021-09-08</time>: Remove <code>HTMLExtentControlsCollection</code> attribute, per <a href="https://github.com/Maps4HTML/MapML/issues/212">#212</a></li>
+              <li><time>2021-09-08</time>: Remove undefined and unresolved <code>LinkStyle</code> interface reference, per <a href="https://github.com/Maps4HTML/MapML/issues/212">#212</a></li>
+              <li><time>2021-09-08</time>: Remove <code>legendLinks</code> attribute and interface definition and reference, per <a href="https://github.com/Maps4HTML/MapML/issues/212">#212</a></li>
             </ol>
           </details>
         </section>
@@ -764,22 +767,8 @@
                      attribute boolean <a href="#attr-layer-checked">checked</a>;
             readonly attribute boolean <a href="#attr-layer-disabled">disabled</a>;
                      attribute boolean <a href="#attr-layer-hidden">hidden</a>;
-            readonly attribute <a href="#legendlink">LegendLink[]</a> legendLinks;
                      attribute DOMString <a href="#attr-layer-referrerpolicy">referrerPolicy</a>;
                      attribute DOMString? <a href="#attr-layer-crossorigin">crossOrigin</a>;
-          };
-            
-          [Exposed=Window]
-          interface <dfn id="legendlink">LegendLink</dfn> {
-            [HTMLConstructor] constructor();
-            
-            readonly attribute DOMString type;
-            readonly attribute DOMString rel;
-            readonly attribute DOMString href;
-            readonly attribute DOMString title;
-            readonly attribute DOMString lang;
-            readonly attribute DOMString hreflang;
-            readonly attribute DOMString sizes;
           };
           </pre>
         </dd>
@@ -795,7 +784,7 @@
         the <a href="#the-layer-element"><code>layer</code></a> is not drawn but should remain visible in the <a href="#the-map-element"><code>map</code></a> element's representation of <code>controls</code> in an "unchecked" state.</p>
         <p>The <a href="#attr-layer-src"><code>src</code></a> attribute value is the URL of a web resource encoded in <a href="#structure">Map Markup Language</a>.</p>
         <p>The <a href="#attr-layer-hidden"><code>hidden</code></a> boolean attribute can be set to remove the <a href="#the-layer-element"><code>layer</code></a> from the <em>map layer control, but it will remain displayed on the map</em>.  In order to
-        remove the <a href="#the-layer-element"><code>layer</code></a> from the map display, it can be have its <a href="#attr-layer-checked"><code>checked</code></a> property toggled, or be removed from the DOM.</p>
+        remove the <a href="#the-layer-element"><code>layer</code></a> from the map display, it can have its <a href="#attr-layer-checked"><code>checked</code></a> property toggled, or be removed from the DOM.</p>
         <p>The <a href="#attr-layer-disabled"><code>disabled</code></a> property is a read-only boolean indicator of the visibility of the layer on the map.  If the layer is not visible due to errors, including projection,
         zoom or extent mismatch, the property will be true and if the layer is present in the layer control (i.e. <a href="#attr-layer-hidden"><code>hidden</code></a> is false), it will be disabled in that control i.e. not checkable.</p>
 
@@ -1822,7 +1811,6 @@
               attribute DOMString type;
               attribute DOMString title;
             };
-            HTMLLinkElement implements LinkStyle;
           </pre>
           </dd>
         </dl>
@@ -2052,7 +2040,6 @@
               [HTMLConstructor] constructor();
               
               attribute DOMString units;
-              readonly attribute HTMLExtentControlsCollection elements;
               readonly attribute long length;
               getter Element (unsigned long index);
               getter (RadioNodeList or Element) (DOMString name);
