@@ -598,7 +598,6 @@
           interface HTMLMapElement : HTMLElement {
             [HTMLConstructor] constructor();
             
-            [SameObject] readonly attribute HTMLCollection layers;
             [SameObject] readonly attribute HTMLCollection areas;
             [CEReactions] attribute unsigned short zoom;
             [CEReactions] attribute double lat;
@@ -625,18 +624,10 @@
         <a href="#the-area-element"><code>area</code></a> elements in the
         <a href="#the-map-element"><code>map</code></a>.</p>
         </dd>
-        <dt><var>map</var> . <a href="#dom-layers"><code>layers</code></a></dt>
-        <dd>
-        <p>Returns an <a href="https://dom.spec.whatwg.org/#htmlcollection"><code>HTMLCollection</code></a> of the 
-        <a href="#the-layer-element"><code>layer</code></a> element children of the <a href="#the-map-element"><code>map</code></a>.</p>
-        </dd>
         </dl>
         
         <p>The <code id="dom-areas">areas</code> attribute must return an <a href="https://dom.spec.whatwg.org/#htmlcollection"><code>HTMLCollection</code></a> 
         rooted at the <a href="#the-map-element"><code>map</code></a> element, whose filter matches only  <a href="#the-area-element"><code>area</code></a> child elements.</p>
-
-        <p>The <code id="dom-layers">layers</code> attribute must return an <a href="https://dom.spec.whatwg.org/#htmlcollection"><code>HTMLCollection</code></a> 
-        rooted at the <a href="#the-map-element"><code>map</code></a> node, whose filter matches only <a href="#the-layer-element"><code>layer</code></a> child elements of this <a href="#the-map-element"><code>map</code></a> element.</p>
         
         <p>The <dfn id="attr-map-zoom"><code>zoom</code></dfn> attribute indirectly identifies an initial scale of the map.</p>
         <p>The <a href="#dom-htmlmapelement-zoom"><code>zoom</code></a> IDL attribute must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the content attribute of the same name.</p>
