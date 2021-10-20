@@ -636,6 +636,8 @@
         <p>The <dfn id="attr-map-lat"><code>lat</code></dfn></a> and <dfn id="attr-map-lon"><code>lon</code></dfn> attributes locate the initial center of the map.</p>
         <p>The <a href="#dom-htmlmapelement-lat"><code>lat</code></a> and <a href="#dom-htmlmapelement-lon"><code>lon</code></a> IDL attributes must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the content attribute of the same name.</p>
 
+        <p>The location and zoom level of the map created with the <code>map</code> element can be changed via the <code>zoomTo()</code> API method, which will change the <code>zoom</code>, <code>lat</code> and <code>lon</code> properties.</p>
+
         <p>The <dfn id="attr-map-controls"><code>controls</code></dfn> attribute is a <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attribute">boolean attribute</a>. If present, it indicates that the author has not provided scripted controls and would like the user agent to provide its own set of controls.</p>
         <!-- https://html.spec.whatwg.org/multipage/media.html#user-interface -->
         <p>
