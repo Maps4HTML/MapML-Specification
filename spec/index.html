@@ -3277,7 +3277,7 @@
         </section>
       </section>
       
-      <section id="conformance" class="appendix">
+      <section id="conformance">
         <!-- https://github.com/w3c/respec/wiki/conformance -->
         <section>
         <h2 id="conforming-documents">Conforming documents</h2>
@@ -3399,7 +3399,7 @@
         </section>
       </section>
 
-      <section class="appendix informative">
+      <section class="informative">
         <h2 id="schema">Schema</h2>
 
         <p>A schema is useful for machine processing of documents, be it document creation, transformation, or validation.</p>
@@ -3419,6 +3419,83 @@
         </p>
         
         <p><a href="https://github.com/Maps4HTML/MapML/tree/gh-pages/schema">MapML schema (under development).</a></p>
+      </section>
+      
+      <section>
+        <h2>Integrations with other specs</h2>
+        
+        <section class="informative">
+          <h3>The Open Graph Protocol</h3>
+          
+          <p>
+          <a href="https://ogp.me/">The Open Graph Protocol</a>
+          is the de-facto standard for marking up resources for sharing.
+          [[OGP]]
+          </p>
+          
+          <p>
+          This specification defines the
+          <dfn>map <a href="https://ogp.me/#types">object type</a></dfn>
+          and the following properties,
+          to enable the sharing of
+          <a href="#dfn-web-map">Web maps</a>
+          on various social platforms:
+          </p>
+          
+          <dl>
+            <dt><dfn>og:map:lat</dfn><dt>
+            <dd>Latitude</dd>
+            <dt><dfn>og:map:layer</dfn> (identical to <dfn>og:map:layer:url</dfn>)</dt>
+            <dd>URL of a layer source</dd>
+            <dt><dfn>og:map:layer:type</dfn></dt>
+            <dd>MIME type of the layer source</dd>
+            <dt><dfn>og:map:lon</dfn></dt>
+            <dd>Longitude</dd>
+            <dt><dfn>og:map:projection</dfn></dt>
+            <dd>Projection identifier (default is OSMTILE)</dd>
+            <dt><dfn>og:map:zoom</dfn></dt>
+            <dd>Zoom level</dd>
+          </dl>
+          
+          <aside class="example">
+            <p>
+            Given an HTML document with the following metadata,
+            a social platform embeds a
+            <a href="#the-map-element"><code>&lt;map&gt;</code></a>
+            with a child
+            <a href="#the-layer-element"><code>&lt;layer&gt;</code></a> element
+            with the corresponding attributes
+            in response to a user sharing the URL of the document:
+            </p>
+            
+            <pre>
+            &lt;meta property="og:url" content="https://example.com/maps/ca/ottawa.html"&gt;
+            &lt;meta property="og:title" content="Ottawa, Capital of Canada"&gt;
+            &lt;meta property="og:type" content="map"&gt;
+            &lt;meta property="og:map:projection" content="CBMTILE"&gt;
+            &lt;meta property="og:map:zoom" content="15"&gt;
+            &lt;meta property="og:map:lat" content="45.4215"&gt;
+            &lt;meta property="og:map:lon" content="-75.6972"&gt;
+            &lt;meta property="og:map:layer" content="https://geogratis.gc.ca/mapml/en/cbmtile/cbmt/"&gt;
+            &lt;meta property="og:map:layer:type" content="text/mapml"&gt;
+            </pre>
+            
+            <p>
+            In this example,
+            the <a href="https://ogp.me/#metadata">basic metadata</a> properties
+            <code>og:url</code> and <code>og:title</code>
+            are used to specify the location and title of the map object respectively.
+            </p>
+          </aside>
+        </section>
+        
+        <section>
+          <h3>WebVMT</h3>
+          
+          <p class="ednote">
+          Potential integration with [[[WebVMT]]]. [[WebVMT]]
+          </p>
+        </section>
       </section>
       
       <section id="idl-index" class="appendix">
