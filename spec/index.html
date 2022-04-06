@@ -712,9 +712,9 @@
         <dd>If the <a href="#attr-layer-src"><code>src</code></a> attribute is present: <a href="https://html.spec.whatwg.org/multipage/dom.html#concept-content-nothing">Nothing</a>.</dd>
         <dd>
           If no <a href="#attr-layer-src"><code>src</code></a> attribute is present:
-          <a href="#dfn-extent-content">Extent content</a>,
-          <a href="#dfn-feature-content">Feature content</a>,
           <a href="#dfn-metadata-content">Metadata content</a>,
+          optional <a href="#the-extent-element"><code>extent</code></a> element,
+          optional <a href="#the-feature-element"><code>feature</code></a> element,
           optional <a href="#the-tile-element"><code>tile</code></a> element.
         </dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
@@ -1994,9 +1994,9 @@
           <dd>As the second child of the <a href="#the-mapml-element"><code>mapml</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd>
-            <a href="#dfn-extent-content">Extent content</a>,
-            <a href="#dfn-feature-content">Feature content</a>,
             <a href="#dfn-metadata-content">Metadata content</a>,
+            optional <a href="#the-extent-element"><code>extent</code></a> element,
+            optional <a href="#the-feature-element"><code>feature</code></a> element,
             optional <a href="#the-tile-element"><code>tile</code></a> element.
           </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
@@ -2045,28 +2045,16 @@
         </dl>
         <p>The <a href="#the-body-element"><code>body</code></a> element represents the content of the document.</p>
         </section>
-        <section>
-        <h3>Extent content</h3>
-        <dl>
-          <dt>Elements categorized as <dfn>extent content</dfn>:</dt>
-          <dd>
-            <a href="#the-extent-element"><code>extent</code></a>,
-            <a href="#the-input-element"><code>input</code></a>,
-            <a href="#the-datalist-element"><code>datalist</code></a>,
-            <a href="#the-label-element"><code>label</code></a>,
-            <a href="#the-select-element"><code>select</code></a>,
-            <a href="#the-option-element"><code>option</code></a>.
-          </dd>
-        </dl>
         
         <section>
         <h5>The <code>&lt;<dfn id="the-extent-element">extent</dfn>&gt;</code> element</h5>
         <dl class="def">
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd><a href="#dfn-extent-content">Extent content</a>.</dd>
+          <dd>None.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>Required to be a child of the <a href="#the-body-element"><code>body</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
+          <dd><a href="#dfn-extent-content">Extent content</a>.</dd>
           <dd>
             A set of multiple <a href="#the-input-element"><code>input</code></a> and one or more <a href="#the-link-element"><code>link</code></a> elements with their <code>rel</code> attribute in either the "<a href="#link-rel-tile"><code>tile</code></a>", "<a href="#link-rel-image"><code>image</code></a>" or "<a href="#link-rel-features"><code>features</code></a>" state, and zero or one
             <a href="#the-link-element"><code>link</code></a> element with its <code>rel</code> attribute in the "<a href="#link-rel-query"><code>query</code></a>" state.
@@ -2126,8 +2114,21 @@
           The <a href="#the-extent-element"><code>extent</code></a> element is a map-associated affordance, which contains input and link elements, whose job it is to serialize location event properties that can be submitted to a server for processing. 
         </p>
         <p>The <code>units</code> attribute indicates the parent TCRS that location events shall be generated for, and serialized as requested by the <code>extent</code>'s contents.</p>
-
         </section>
+        
+        <section>
+        <h3>Extent content</h3>
+        <dl>
+          <dt>Elements categorized as <dfn>extent content</dfn>:</dt>
+          <dd>
+            <a href="#the-input-element"><code>input</code></a>,
+            <a href="#the-datalist-element"><code>datalist</code></a>,
+            <a href="#the-label-element"><code>label</code></a>,
+            <a href="#the-select-element"><code>select</code></a>,
+            <a href="#the-option-element"><code>option</code></a>.
+          </dd>
+        </dl>
+        
         <section>
         <h5>The <code>&lt;<dfn id="the-input-element">input</dfn>&gt;</code> element</h5>
         <dl class="def">
@@ -2710,33 +2711,16 @@
         </dl>
         </section>
         </section>
-        <section>
-        <h3>Feature content</h3>
-        <dl>
-          <dt>Elements categorized as <dfn>feature content</dfn>:</dt>
-          <dd>
-            <a href="#the-feature-element"><code>feature</code></a>,
-            <a href="#the-featurecaption-element"><code>featurecaption</code></a>,
-            <a href="#the-properties-element"><code>properties</code></a>,
-            <a href="#the-geometry-element"><code>geometry</code></a>,
-            <a href="#the-coordinates-element"><code>coordinates</code></a>,
-            <a href="#the-image-element"><code>image</code></a>.
-          </dd>
-        </dl>
         
         <section>
         <h5>The <code>&lt;<dfn id="the-feature-element">feature</dfn>&gt;</code> element</h5>
         <dl class="def">
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd><a href="#dfn-feature-content">Feature content</a>.</dd>
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#interactive-content-2">Interactive content</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>Child of the <a href="#the-body-element"><code>body</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-          <dd>Optional <a href="#the-featurecaption-element"><code>featurecaption</code></a> element, 
-            optional <a href="#the-geometry-element"><code>geometry</code></a> element, 
-            optional <a href="#the-properties-element"><code>properties</code></a> element,
-            optional <a href="#the-image-element"><code>image</code></a> element.</dd>
+          <dd><a href="#dfn-feature-content">Feature content</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
           <dd><code>zoom</code> — the 'native' zoom level of the feature geometry.</dd>
@@ -2791,6 +2775,20 @@
           A <a href="#the-feature-element"><code>feature</code></a> element represents a map feature. 
         </p>
         </section>
+        
+        <section>
+        <h3>Feature content</h3>
+        <dl>
+          <dt>Elements categorized as <dfn>feature content</dfn>:</dt>
+          <dd>
+            <a href="#the-featurecaption-element"><code>featurecaption</code></a>,
+            <a href="#the-properties-element"><code>properties</code></a>,
+            <a href="#the-geometry-element"><code>geometry</code></a>,
+            <a href="#the-coordinates-element"><code>coordinates</code></a>,
+            <a href="#the-image-element"><code>image</code></a>.
+          </dd>
+        </dl>
+        
         <section>
         <h5>The <code>&lt;<dfn id="the-featurecaption-element">featurecaption</dfn>&gt;</code> element</h5>
         <dl class="def">
