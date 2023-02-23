@@ -2061,10 +2061,7 @@
           <dd><code>name</code> — The token to be used as a variable name in form serialization.</dd>
           <dd><code>value</code> — The current or default value of the name/value pair represented by the <code>input</code>.</dd>
           <dd>
-            <code>shard</code> — A boolean attribute indicating associated <a href="#the-datalist-element"><code>datalist</code></a> values be used to shard map tile requests across subdomains (the values).
-          </dd>
-          <dd>
-            <code>list</code> — The id of an associated <a href="#the-datalist-element"><code>datalist</code></a> element to supply values for the input. Useful only with <code>shard</code> at this time.
+            <code>list</code> — The id of an associated <a href="#the-datalist-element"><code>datalist</code></a> element to supply values for the input.
           </dd>
           <dd><code>min</code> — The minimum value for the extent parameter acceptable by the server.</dd>
           <dd><code>max</code> — The maximum value for the extent parameter acceptable by the server.</dd>
@@ -2131,7 +2128,6 @@
               
               attribute DOMString type;
               attribute DOMString name;
-              attribute boolean shard;
               readonly attribute HTMLElement? list;
               attribute DOMString min;
               attribute DOMString max;
