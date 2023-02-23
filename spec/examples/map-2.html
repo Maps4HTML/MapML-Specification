@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Authoring example 2</title>
+    <script type="module" src="https://maps4html.org/web-map-doc/dist/mapml-viewer.js" crossorigin></script>
+    <link rel="preconnect" href="https://geogratis.gc.ca" crossorigin>
+    <style>
+      html {
+        overflow: hidden;
+      }
+      body {
+        margin: 0;
+      }
+      mapml-viewer[controls] {
+        box-sizing: border-box;
+        content-visibility: auto;
+        width: 600px;
+        height: 350px;
+        max-width: 100%;
+      }
+      /* Pre-style to avoid FOUC of inline layer- and fallback content. */
+      mapml-viewer:not(:defined) > * {
+        display: none;
+      }
+      /* Ensure inline layer content is hidden if custom elements isn't supported,
+      or if javascript is disabled. This needs to be defined separately from the above,
+      because the `:not(:defined)` selector invalidates the entire declaration
+      in browsers that do not support it. */
+      layer- {
+        display: none;
+      }
+    </style>
+    <noscript>
+      <style>
+        /* Ensure fallback content (children of the map element) is displayed if
+        custom elements is supported but javascript is disabled. */
+        mapml-viewer:not(:defined) > :not(layer-) {
+          display: initial;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body>
+    <mapml-viewer projection="CBMTILE" zoom="15" lat="45.4215" lon="-75.6972" controls>
+      <layer- label="Canada Base Map - Transportation (CBMT)" src="https://geogratis.gc.ca/mapml/en/cbmtile/cbmt/" checked></layer->
+    </mapml-viewer>
+  </body>
+</html>

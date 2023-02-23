@@ -4,28 +4,117 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Map Markup Language</title>
+    <link rel="preload" as="script" href="https://www.w3.org/Tools/respec/respec-w3c">
+    <link rel="preload" as="script" href="https://www.w3.org/Tools/respec/respec-highlight">
+    <link rel="preload" as="script" href="https://www.w3.org/scripts/TR/2016/fixup.js">
+    <link rel="preload" as="style" href="https://www.w3.org/StyleSheets/TR/2016/base.css">
+    <link rel="preload" as="style" href="https://www.w3.org/StyleSheets/TR/2016/cg-draft">
+    <link rel="preconnect" href="https://respec.org">
+    <link rel="preconnect" href="https://api.specref.org">
+    <!-- ReSpec config -->
+    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" async></script>
+    <script class="remove">
+      var respecConfig = {
+        specStatus: "CG-DRAFT",
+        latestVersion: null,
+        editors: [
+          {
+            name: "Peter Rushforth",
+            company: "Natural Resources Canada",
+          },
+          {
+            name: "Robert Linder",
+          },
+        ],
+        authors: [
+          {
+            name: "Peter Rushforth",
+            company: "Natural Resources Canada",
+          },
+          {
+            name: "Robert Linder",
+          },
+          {
+            name: "Joan Masó",
+          },
+        ],
+        group: "maps4html",
+        wgPublicList: "public-maps4html",
+        edDraftURI: "https://maps4html.org/MapML/spec/",
+        copyrightStart: "2015",
+        github: "https://github.com/Maps4HTML/MapML/",
+        xref: "web-platform",
+        pluralize: true,
+        localBiblio: {
+          "Web-Map-Custom-Element": {
+            title: "Web Map Custom Element",
+            href: "https://github.com/Maps4HTML/Web-Map-Custom-Element",
+            publisher: "W3C Maps for HTML Community Group",
+          },
+          "MAPML-SCHEMA": {
+            title: "MapML Schema",
+            href: "https://github.com/Maps4HTML/MapML/tree/gh-pages/schema",
+            publisher: "Peter Rushforth. W3C Maps for HTML Community Group",
+          },
+          "EPSG-REGISTRY": {
+            title: "EPSG Geodetic Parameter Dataset",
+            href: "https://epsg.org/home.html",
+            publisher: "International Association of Oil ans Gas Producers",
+          },
+          "MapServer-MapML": {
+            title: "MS RFC 123: Support for MapML output in MapServer",
+            href: "https://mapserver.org/development/rfc/ms-rfc-123.html",
+            publisher: "The Open Source Geospatial Foundation",
+          },
+          "GeoServer-MapML": {
+            title: "GeoServer MapML Extension",
+            href: "https://docs.geoserver.org/latest/en/user/extensions/mapml/index.html",
+            publisher: "W3C Maps for HTML Community Group",
+          },
+          "GDAL-MapML" : {
+            title: "GDAL MapML Driver",
+            href: "https://gdal.org/drivers/vector/mapml.html",
+            publisher: "The Open Source Geospatial Foundation",
+          },
+          "UCR-MapML-Matrix": {
+            title: "MapML UCR Fulfillment Matrix",
+            href: "https://maps4html.org/UCR-MapML-Matrix/mapml-ucrs-fulfillment-matrix.html",
+            publisher: "W3C Maps for HTML Community Group",
+          },
+        },
+      };
+      respecConfig.otherLinks = [
+        {
+          key: "Join the Community Group",
+          data: [{ value: "Maps for HTML Community Group", href: "https://www.w3.org/community/maps4html/" }],
+        },
+      ];
+    </script>
     <style>
     :root img {
       height: auto;
       max-width: 100%;
     }
-    :root .def dfn,
-    :root .idlSuperclass {
-      font-style: normal;
-      font-weight: normal;
-    }
-    :root h2,
-    :root h3,
-    :root h4,
-    :root h5,
-    :root h6 {
-      font-weight: normal;
-    }
-    :root details {
-      margin: 2.5rem 0 1.5rem 0;
-    }
     :root summary {
       cursor: pointer;
+    }
+    :root #changes summary,
+    :root .a11y-details summary {
+      font-weight: normal;
+    }
+    :root #changes details ol[reversed] {
+      display: flex;
+      flex-direction: column-reverse;
+      list-style: none;
+    }
+    :root .a11y-details details {
+      display: inline-block;
+    }
+    :root .a11y-details table {
+      margin: 0;
+    }
+    :root .a11y-details tbody th {
+      font-style: normal;
     }
     :root caption {
       text-align: left;
@@ -36,19 +125,24 @@
     :root caption h4 {
       margin: 0;
     }
-    :root table {
-      border-spacing: 0;
+    :root .table-responsive {
       overflow: auto;
       display: block;
-      max-width: max-content;
       border-collapse: collapse;
+    }
+    :root .table-responsive table {
+      margin: 0;
+      border-spacing: 0;
       border-style: hidden hidden none hidden;
     }
-    :root table th,
-    :root table.def th {
+    :root .table-responsive table th,
+    :root .table-responsive table.def th {
       white-space: nowrap;
       padding-left: 0;
-      font-style: normal;
+    }
+    :root .table-responsive caption {
+      background: inherit;
+      padding: 1rem 1.75rem;
     }
     :root .respec-button-copy-paste {
       left: auto;
@@ -72,6 +166,11 @@
       background-color: unset;
     }
     :root h1 {
+      color: #005a9c;
+      font-family: sans-serif;
+      font-size: 220%;
+      font-weight: bold;
+      margin: 0 0 .1em;
       padding-top: 3rem;
     }
     :root dl.def dt,
@@ -86,10 +185,6 @@
     }
     :root dl.def dd + dt {
       margin-top: 0.75em;
-    }
-    :root h5,
-    :root section h4 dfn {
-      font-style: normal;
     }
     :root code,
     :root .hljs-deletion,
@@ -124,141 +219,39 @@
       display: inline;
       vertical-align: middle;
     }
+    @media (max-width: 767px) {
+      :root div.head h1 {
+        padding-top: 9rem;
+      }
+    }
     @media (min-width: 768px) {
       :root summary h3 {
         margin-left: 1rem;
       }
     }
-    @media (max-width: 28em) {
-      :root body {
-        background-image: none;
-      }
-      :root div.head h1 {
-        margin-top: 1rem;
-      }
-      :root div.head .logo {
-        margin-top: -1rem;
-      }
-    }
-    @media (max-width: 48em) {
-      #google_translate_element [id*="targetLanguage"] {
-        display: block !important;
-      }
-    }
-    #google_translate_element {
-      position: absolute;
-      top: 0;
-      left: 1rem;
-      padding: 20px 0;
-      height: 30px;
-      margin-top: .5rem;
-    }
-    @media (min-width: 28em) {
-      #google_translate_element {
-        left: 160px;
-      }
-      :root div.head {
-        margin-top: 1rem;
-      }
-    }
-    @media (min-width: 28em) and (max-width: 48em) {
-      :root div.head .logo {
-        margin-top: -2rem;
-      }
-    }
-    @media (min-width: 78em) {
-      #google_translate_element {
-        left: 29em;
-      }
-    }
     :root #references :target {
       animation: none;
     }
+    
+    iframe.authoring-example {
+      border: 0;
+      max-width: 100%;
+    }
     </style>
-    <!-- ReSpec config -->
-    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
-    <script class="remove">
-      var respecConfig = {
-        specStatus: "CG-DRAFT",
-        editors: [
-          {
-            name: "Peter Rushforth",
-            company: "Natural Resources Canada",
-          },
-          {
-            name: "Robert Linder",
-          },
-        ],
-        authors: [
-          {
-            name: "Robert Linder",
-          },
-          {
-            name: "Joan Masó",
-          },
-          {
-            name: "Elf Pavlik",
-          },
-        ],
-        group: "maps4html",
-        wgPublicList: "public-maps4html",
-        edDraftURI: "https://maps4html.org/MapML/spec/",
-        copyrightStart: "2015",
-        github: "https://github.com/Maps4HTML/MapML/",
-        xref: "web-platform",
-        pluralize: true,
-        localBiblio: {
-          MicroXML: {
-            title: "MicroXML",
-            href: "https://dvcs.w3.org/hg/microxml/raw-file/tip/spec/microxml.html",
-            publisher: "J. CLark, J. Cowan, eds. World Wide Web Consortium MicroXML Community Group, work in progress, 2012.",
-          },
-          "Web-Map-Custom-Element": {
-            title: "Web Map Custom Element",
-            href: "https://github.com/Maps4HTML/Web-Map-Custom-Element",
-            publisher: "W3C Maps for HTML Community Group",
-          },
-          "MAPML-SCHEMA": {
-            title: "MapML Schema",
-            href: "https://github.com/Maps4HTML/MapML/tree/gh-pages/schema",
-            publisher: "Peter Rushforth. W3C Maps for HTML Community Group",
-          },
-          "EPSG-REGISTRY": {
-            title: "EPSG Geodetic Parameter Dataset",
-            href: "http://www.epsg-registry.org/",
-            publisher: "International Association of Oil ans Gas Producers",
-          },
-          "UCR-Web-Maps": {
-            title: "Use Cases and Requirements for Standardizing Web Maps",
-            href: "https://maps4html.org/HTML-Map-Element-UseCases-Requirements/",
-            publisher: "W3C Maps for HTML Community Group",
-          },
-        },
-      };
-      respecConfig.otherLinks = [
-        {
-          key: "Join the Community Group",
-          data: [{ value: "Maps for HTML Community Group", href: "https://www.w3.org/community/maps4html/" }],
-        },
-      ];
-    </script>
   </head>
   <body>
-    <aside id="google_translate_element"></aside>
-    <script>
-      function googleTranslateElementInit() {
-        new google.translate.TranslateElement({ pageLanguage: "en", layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL }, "google_translate_element");
-      }
-    </script>
-    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
-
-
-
+      <h1 id="title">Map Markup Language</h1>
       <section id="abstract">
         <p>
-          This specification describes Map Markup Language (MapML), which is a hypertext document format for maps.
-          This specification also extends the semantics of the standard [[HTML]] 
-          <a href="https://html.spec.whatwg.org/multipage/image-maps.html#the-map-element"><code>map</code></a> element.
+          This specification describes Map Markup Language (MapML), which is an extended subset of HTML, for maps.
+          MapML extends the semantics of several  [[[HTML]]] elements, and specifies a small set of new, mapping-specific 
+          elements, in the HTML namespace ("http://www.w3.org/1999/xhtml"). 
+        </p>
+
+        <p>MapML is designed to specify a declarative markup vocabulary that "implements" some of the capabilities 
+          laid out by the [[[UCR-Web-Maps]]] specification.  As capabilities are identified, 
+          they will be discussed in issues until they can be recognized as requirements, designed and subsequently specified 
+          through evolution of this document.  
         </p>
       <!--
       <p>Map Markup Language is a text format for encoding map information for the World Wide Web.</p>
@@ -295,66 +288,97 @@
         </p>
         </section>
         -->
-        <section>
+        <section class="informative">
         <h3>Implementation Experience</h3>
 
         <p>
-          MapML has been <a href="#examples">implemented</a> using custom elements by Natural Resources Canada, which participates in the <a href="https://www.w3.org/community/maps4html/">W3C Maps for HTML Community Group</a>, as well
-          as the <a href="https://opengeospatial.org/">Open Geospatial Consortium</a>. It is hoped that other organizations will also implement MapML and contribute their experience back to the community via the Community Group and
-          <a href="https://github.com/Maps4HTML/MapML">Github</a>.
+          MapML is <a href="#examples">implemented</a> using custom elements by Natural Resources Canada, 
+          which participates in the <a href="https://www.w3.org/community/maps4html/">W3C Maps for HTML 
+          Community Group</a>, as well as the <a href="https://opengeospatial.org/">Open Geospatial Consortium</a>. 
+          It is hoped that other organizations will also implement MapML and contribute their experience back 
+          to the community via the Community Group and <a href="https://github.com/Maps4HTML/MapML">Github</a>.
         </p>
-        <p>Map Markup Language <a href="https://geogratis.gc.ca/mapml/en/">services</a> are provided by Natural Resources Canada as part of the
-        Canadian Geospatial Data Infrastructure.</p>
-        <p>The reader is requested to contact the <a href="mailto:public-maps4html@w3.org">editor</a> with any known implementations of
-        Map Markup Language or other implemented support for this proposal.</p>
-        <p>The customized built-in HTML <code>&lt;map&gt;</code> element and <code>&lt;mapml-viewer&gt;</code> autonomous custom element were built and are maintained by the Maps for HTML Community Group. [[Web-Map-Custom-Element]]</p>
+
+        <p>Prototype Map Markup Language <a href="https://geogratis.gc.ca/mapml/en/">services</a> are provided by Natural 
+          Resources Canada as part of the Canadian Geospatial Data Infrastructure.</p>
+
+        <p>The reader is requested to contact the <a href="mailto:public-maps4html@w3.org">editor</a> with any other
+          known implementations of Map Markup Language or other implemented support for this proposal.</p>
+
+        <p>The customized built-in HTML <code>&lt;map&gt;</code> element and <code>&lt;mapml-viewer&gt;</code> 
+          autonomous custom element were built, and are maintained by the Maps for HTML Community Group. 
+          [[Web-Map-Custom-Element]]</p>
+
+        <p>MapML services are supported by the GeoServer MapML Extension [[GeoServer-MapML]].</p>
+
+        <p>MapML is being integrated into MapServer [[MapServer-MapML]].</p>
+
+        <p>MapML can be created with the open source Geospatial Data Abstraction Library [[GDAL-MapML]].</p>
         </section>
-        <details>
-          <summary>
-            <h3>Changes Since the Previous Draft</h3>
-          </summary>
-          <ul>
-            <li>Merge the <a href="https://maps4html.org/HTML-Map-Element/spec/">HTML &lt;map&gt; element proposal</a> into this specification (Fix: <a href="https://github.com/Maps4HTML/MapML/issues/55">issue #55</a>).</li>
-            <li>Update schema, such as it is (needs more than a schema language can provide e.g. schematron or something like HTML has)</li>
-            <li>Deprecate input@type= xmin,ymin,xmax,ymax,projection.</li>
-            <li>Remove input@type=search for now (not implemented, nor yet discussed).</li>
-            <li>Add input@units=gcrs keyword.</li>
-            <li>Extend input@type=position keyword list to be based on CSS object-position property value domain</li>
-            <li>Add input@axis= latitude,longitude keywords</li>
-            <li>Remove reference to link@rel=search, which is not supported.</li>
-            <li>Add Figure 1 in examples. Change URLs to example services.</li>
-            <li>Update Abstract, status, intent, implementation experience,feedback and Change sections</li>
-            <li>Rename link@tcrs to link@projection</li>
-            <li>Add link@rel=style link relation</li>
-            <li>Add select element</li>
-            <li>Add label element</li>
-            <li>Add features link relation</li>
-            <li>Add Google Translate widget</li>
-            <li>Update links to schema directory on github.</li>
-            <li>Add WICG link</li>
-            <li>Changes in input@units descriptions about WGS84</li>
-            <li>Added an equirectangular tiling schema for WGS84</li>
-            <li>Added a table of the different Coordinate System used</li>
-            <li>Better connecting TCRS table with input@units values</li>
-            <li>Align prose for allowed link@href context with schema.</li>
-            <li>Fix <a href="https://github.com/Maps4HTML/MapML/issues/43#issuecomment-507018476">issue</a> with description of multi-geometries as being 'two or more', replace with 'One or more'</li>
-            <li>Fix <a href="https://github.com/Maps4HTML/MapML/issues/43#issue-428889785">issue</a> with CamelCase of geometry types, replace with lowercase</li>
-            <li>Fix <a href="https://github.com/Maps4HTML/MapML/issues/44">issue</a> with inconsistency with GeoJSON multipoint coordinate encoding</li>
-            <li>Fix the order of parameters to the LatLng(lat,lng) pseudofunction in the definition of WGS84</li>
-            <li>Remove rel=search value</li>
-            <li>Remove feature <code>type</code> property from IDL</li>
-            <li>Add feature zoom attribute</li>
-            <li>Update feature content model to reflect implementation</li>
-            
-          </ul>
-        </details>
+        
+        <section class="informative">
+          <h3>Changes</h3>
+          
+          <details>
+            <summary>
+              Substantial changes to this specification
+            </summary>
+            <ol reversed>
+              <li><time>2018-03-23</time>: Update schema, such as it is (needs more than a schema language can provide e.g. schematron or something like HTML has).</li>
+              <li><time>2018-03-23</time>: Deprecate <code>input@type</code> <code>xmin</code>, <code>ymin</code>, <code>xmax</code>, <code>ymax</code>, <code>projection</code>.</li>
+              <li><time>2018-03-23</time>: Remove <code>input@type=search</code> for now (not implemented, nor yet discussed).</li>
+              <li><time>2018-03-23</time>: Add <code>input@units</code> <code>gcrs</code> keyword.</li>
+              <li><time>2018-03-23</time>: Extend <code>input@type=position</code> keyword list to be based on CSS object-position property value domain.</li>
+              <li><time>2018-03-23</time>: Add <code>input@axis</code> <code>latitude</code>, <code>longitude</code> keywords.</li>
+              <li><time>2018-03-23</time>: Remove reference to <code>link@rel=search</code>, which is not supported.</li>
+              <li><time>2018-03-23</time>: Update Abstract, status, intent, implementation experience, feedback and Changes sections.</li>
+              <li><time>2018-03-23</time>: Add <code>link@tcrs</code> attribute.</li>
+              <li><time>2018-03-23</time>: Add <code>link@rel=style</code> link relation.</li>
+              <li><time>2018-07-18</time>: Add <code>select</code> element.</li>
+              <li><time>2018-07-19</time>: Add <code>label</code> element.</li>
+              <li><time>2018-09-07</time>: Rename <code>link@tcrs</code> to <code>link@projection</code>.</li>
+              <li><time>2018-09-06</time>: Add "<a href="#link-rel-features"><code>features</code></a>" link relation.</li>
+              <li><time>2018-10-17</time>: Changes in <code>input@units</code> descriptions about WGS84.</li>
+              <li><time>2018-10-17</time>: Added an equirectangular tiling schema for WGS84.</li>
+              <li><time>2018-10-17</time>: Added a table of the different Coordinate System used.</li>
+              <li><time>2018-10-17</time>: Better connecting TCRS table with <code>input@units</code> values.</li>
+              <li><time>2019-01-08</time>: Align prose for allowed <code>link@href</code> context with schema.</li>
+              <li><time>2019-07-02</time>: Fix <a href="https://github.com/Maps4HTML/MapML/issues/43#issuecomment-507018476">issue</a> with description of multi-geometries as being 'two or more', replace with 'One or more'.</li>
+              <li><time>2019-07-02</time>: Fix <a href="https://github.com/Maps4HTML/MapML/issues/43#issue-428889785">issue</a> with CamelCase of geometry types, replace with lowercase.</li>
+              <li><time>2019-07-02</time>: Fix <a href="https://github.com/Maps4HTML/MapML/issues/44">issue</a> with inconsistency with GeoJSON multipoint coordinate encoding.</li>
+              <li><time>2019-07-10</time>: Fix the order of parameters to the LatLng(lat,lng) pseudofunction in the definition of WGS84.</li>
+              <li><time>2020-07-21</time>: Merge <a href="https://maps4html.org/HTML-Map-Element/spec/">The HTML &lt;map&gt; element proposal</a> into this specification.</li>
+              <li><time>2020-08-19</time>: Remove <code>rel=search</code> value.</li>
+              <li><time>2020-08-19</time>: Remove feature <code>type</code> property from IDL.</li>
+              <li><time>2020-08-19</time>: Add <code>feature</code> element's <code>zoom</code> attribute.</li>
+              <li><time>2020-08-19</time>: Update <a href="#the-feature-element"><code>feature</code></a> element's content model to reflect implementation.</li>
+              <li><time>2020-09-28</time>: Add <a href="#attr-map-controlslist"><code>controlslist</code></a> attribute to the <code>map</code> element.
+              <li><time>2021-03-01</time>: Update abstract to describe where MapML syntax and semantics fit into HTML.</li>
+              <li><time>2021-03-01</time>: Update <a href="#implementation-experience">Implementation Experience</a>.</li>
+              <li><time>2021-03-01</time>: Remove MicroXML references, update introduction to id MapML as an extension to HTML.</li>
+              <li><time>2021-03-01</time>: Add <a href="#the-featurecaption-element"><code>featurecaption</code></a> element.</li>
+              <li><time>2021-03-15</time>: Add required text for <a href="#dfn-text-mapml"><code>text/mapml</code></a> MIME media type registration with IANA.</li>
+              <li><time>2021-06-15</time>: Remove the <code>line</code> and <code>marker</code> values of the <code>shape</code> attribute.</li>
+              <li><time>2021-08-13</time>: Update Categories, Content model and Content attributes of various elements.</li>
+              <li><time>2021-09-08</time>: Remove <code>HTMLExtentControlsCollection</code> attribute, per <a href="https://github.com/Maps4HTML/MapML/issues/212">#212</a></li>
+              <li><time>2021-09-08</time>: Remove undefined and unresolved <code>LinkStyle</code> interface reference, per <a href="https://github.com/Maps4HTML/MapML/issues/212">#212</a></li>
+              <li><time>2021-09-08</time>: Remove <code>legendLinks</code> attribute and interface definition and reference, per <a href="https://github.com/Maps4HTML/MapML/issues/212">#212</a></li>
+            </ol>
+          </details>
+        </section>
+        
       </section>
 
       <section id="intro" class="informative">
         <h1>Introduction</h1>
         <p>
-          Map Markup Language is a text-based format which is allows map authors to encode map information as hypertext documents exchanged over the Uniform Interface of the Web. The format is defined using some characteristics of the [[[HTML]]],
-          [[[MicroXML]]], and [[[rfc7946]]] and other standards. [[HTML]] [[MicroXML]] [[rfc7946]]
+          Map Markup Language is a text-based format which allows map authors to encode map information as 
+          hypertext documents exchanged over the Uniform Interface of the Web. The format is defined using some 
+          characteristics of [[[HTML]]], [[[rfc7946]]], [[[WMS]]], [[[WMTS]]], and other standards as noted. 
+          [[HTML]] [[rfc7946]] [[WMS]] [[WMTS]] Currently, there is only an XML syntax of
+          MapML. In the future, the intention is to extend the HTML parser to include the definitions of the new 
+          elements, and thereby enable an HTML syntax flavor of MapML, one that is compatible with existing 
+          browsers' HTML parser modes.
         </p>
         <p>This specification describes a proposed enhancement to the <a href="#the-map-element"><code>map</code></a> element syntax and processing model.  The semantics 
           of the existing standard <a href="#the-map-element"><code>map</code></a> element allow an HTML 
@@ -379,7 +403,16 @@
       <section class="informative">
         <h2 id="use-cases-and-requirements">Use Cases and Requirements</h2>
         
-        <p>This document is being <a href="https://github.com/Maps4HTML/MapML/issues?q=is%3Aissue+is%3Aopen+label%3A%22Requirements+Evaluation%22">evaluated</a> against the [[[UCR-Web-Maps]]].</p>
+        <p>
+          This document is being
+          <a href="https://github.com/Maps4HTML/MapML/issues?q=is%3Aissue+is%3Aopen+label%3A%22Requirements+Evaluation%22">evaluated</a>
+          against the [[[UCR-Web-Maps]]].
+        </p>
+        
+        <p>
+          See the [[[UCR-MapML-Matrix]]] for how MapML compares in capabilities
+          in contrast to existing popular web mapping libraries.
+        </p>
         
         <!-- Move this section into a separate document (https://github.com/Maps4HTML/MapML/issues/3)
         <section>
@@ -485,8 +518,16 @@
         
         <h2 id="web-maps">Web Maps</h2>
         
-        <p>The <a href="#the-map-element"><code>map</code></a> element, in conjunction with any <a href="#the-layer-element"><code>layer</code></a> and <a href="#the-area-element"><code>area</code></a> element descendants, 
-  defines an interactive <a href="#the-map-element"><code>map</code></a> media element. </p>
+        <p>
+          A <dfn>Web map</dfn> is an embedded media element defined by
+          the <a href="#the-map-element"><code>map</code></a> element,
+          in conjunction with any
+          <a href="#the-layer-element"><code>layer</code></a> and
+          <a href="#the-area-element"><code>area</code></a> element descendants.
+          A Web map represents a region of the earth's surface in two dimensions,
+          and enables dynamic cartographic Web applications in [[HTML]] documents.
+        </p>
+  
         <section>
         <!-- initially copied from the HTML 5 spec -->
         <h3 id="web-mapping-elements-and-api">Web mapping elements and API</h3>
@@ -497,7 +538,7 @@
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#palpable-content-2">Palpable content</a>.</dd>
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#embedded-content-2">Embedded content</a>.</dd>
-        <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#interactive-content-2">Interactive content</a>.</dd>
+        <dd>If the element has a <code>controls</code> attribute: <a href="https://html.spec.whatwg.org/multipage/dom.html#interactive-content-2">Interactive content</a>.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
         <dd>Where <a href="https://html.spec.whatwg.org/multipage/dom.html#embedded-content-2">embedded content</a> is expected.</dd>
         <dt id="map-content"><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
@@ -516,10 +557,40 @@
         <dd><code>height</code> — Vertical dimension.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
         <dd>Neither tag is omissible.</dd>
-        <dt>Allowed <a href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#aria-role-attribute">ARIA role attribute</a> values:</dt>
-        <dd><a href="https://www.w3.org/TR/html-aria/#index-aria-application"><code>application</code></a>.</dd>
-        <dt>Allowed <a href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#state-and-property-attributes">ARIA state and property attributes</a>:</dt>
-        <dd><a href="https://www.w3.org/TR/html-aria/#index-aria-global">Global aria-* attributes</a>.</dd>
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+        <dd>
+          <details class="a11y-details">
+            <summary>For authors</summary>
+            <div class="table-responsive">
+            <table class="def">
+              <thead>
+                <tr>
+                  <th>Implicit ARIA semantics</th>
+                  <th>ARIA roles, states and properties which MAY be used</th>
+                </tr>
+                <tbody>
+                  <tr>
+                    <th>
+                      <code>role=map</code>
+                    </th>
+                    <td>
+                      <p><code>role</code>: <a href="https://www.w3.org/TR/html-aria/#index-aria-application"><code>application</code></a></p>
+                      <p><a href="https://www.w3.org/TR/html-aria/#index-aria-global">Global <code>aria-*</code> attributes</a>
+                      and any <code>aria-*</code> attributes applicable to the allowed roles and implied role (if any).</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </thead>
+            </table>
+            </div>
+          </details>
+        </dd>
+        <dd>
+          <details class="a11y-details">
+            <summary>For implementers</summary>
+            <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+          </details>
+        </dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
         <dd>
           <pre class="idl">
@@ -527,7 +598,6 @@
           interface HTMLMapElement : HTMLElement {
             [HTMLConstructor] constructor();
             
-            [SameObject] readonly attribute HTMLCollection layers;
             [SameObject] readonly attribute HTMLCollection areas;
             [CEReactions] attribute unsigned short zoom;
             [CEReactions] attribute double lat;
@@ -548,24 +618,17 @@
         <p id="implementation">The <a href="#the-map-element"><code>map</code></a> element, in conjunction with child <a href="#the-layer-element"><code>layer</code></a> and optionally 
         <a href="#the-area-element"><code>area</code></a> elements, defines a map media element.</p>
           
-        <dl class="def"><dt><var>map</var> . <a href="#dom-areas"><code>areas</code></a></dt>
+        <dl class="note" title="For web developers (non-normative)">
+        <dt><var>map</var>.<a href="#dom-areas"><code>areas</code></a></dt>
         <dd>
         <p>Returns an <a href="https://dom.spec.whatwg.org/#htmlcollection"><code>HTMLCollection</code></a> of the 
         <a href="#the-area-element"><code>area</code></a> elements in the
         <a href="#the-map-element"><code>map</code></a>.</p>
         </dd>
-        <dt><var>map</var> . <a href="#dom-layers"><code>layers</code></a></dt>
-        <dd>
-        <p>Returns an <a href="https://dom.spec.whatwg.org/#htmlcollection"><code>HTMLCollection</code></a> of the 
-        <a href="#the-layer-element"><code>layer</code></a> element children of the <a href="#the-map-element"><code>map</code></a>.</p>
-        </dd>
         </dl>
         
         <p>The <code id="dom-areas">areas</code> attribute must return an <a href="https://dom.spec.whatwg.org/#htmlcollection"><code>HTMLCollection</code></a> 
         rooted at the <a href="#the-map-element"><code>map</code></a> element, whose filter matches only  <a href="#the-area-element"><code>area</code></a> child elements.</p>
-
-        <p>The <code id="dom-layers">layers</code> attribute must return an <a href="https://dom.spec.whatwg.org/#htmlcollection"><code>HTMLCollection</code></a> 
-        rooted at the <a href="#the-map-element"><code>map</code></a> node, whose filter matches only <a href="#the-layer-element"><code>layer</code></a> child elements of this <a href="#the-map-element"><code>map</code></a> element.</p>
         
         <p>The <dfn id="attr-map-zoom"><code>zoom</code></dfn> attribute indirectly identifies an initial scale of the map.</p>
         <p>The <a href="#dom-htmlmapelement-zoom"><code>zoom</code></a> IDL attribute must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the content attribute of the same name.</p>
@@ -573,18 +636,41 @@
         <p>The <dfn id="attr-map-lat"><code>lat</code></dfn></a> and <dfn id="attr-map-lon"><code>lon</code></dfn> attributes locate the initial center of the map.</p>
         <p>The <a href="#dom-htmlmapelement-lat"><code>lat</code></a> and <a href="#dom-htmlmapelement-lon"><code>lon</code></a> IDL attributes must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the content attribute of the same name.</p>
 
+        <p>The location and zoom level of the map created with the <code>map</code> element can be changed via the <code>zoomTo()</code> API method, which will change the <code>zoom</code>, <code>lat</code> and <code>lon</code> properties.</p>
+
         <p>The <dfn id="attr-map-controls"><code>controls</code></dfn> attribute is a <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attribute">boolean attribute</a>. If present, it indicates that the author has not provided scripted controls and would like the user agent to provide its own set of controls.</p>
         <!-- https://html.spec.whatwg.org/multipage/media.html#user-interface -->
-        <p>If the attribute is present, or if <a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-n-noscript">scripting is disabled</a> for the media element, then the user agent should <dfn id="expose-a-user-interface-to-the-user"><strong>expose a user interface to the user</strong></dfn>.
-          This user interface should include features to zoom in, zoom out, pan to an arbitrary position in the content, and show the media content in manners more suitable to the user (e.g. fullscreen map or in an independent resizable window). Other controls may also be made available.</p>
+        <p>
+          If the attribute is present,
+          or if <a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-n-noscript">scripting is disabled</a>
+          for the media element,
+          then the user agent should
+          <dfn id="expose-a-user-interface-to-the-user"><strong>expose a user interface to the user</strong></dfn>.
+          This user interface should include features to
+          zoom in,
+          zoom out,
+          pan to an arbitrary position in the content,
+          toggle the "on/off" status of layers,
+          and show the media content in manners more suitable to the user
+          (e.g. fullscreen map or in an independent resizable window).
+          Other controls may also be made available.
+        </p>
         <p>The <a href="#dom-htmlmapelement-controls"><code>controls</code></a> IDL attribute must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the content attribute of the same name.</p>
         
         <p>The <dfn id="attr-map-controlslist"><code>controlslist</code></dfn> attribute, when specified, helps the user agent select what controls to show on the media element whenever the user agent shows its own set of controls.
           Its value must be an <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#unordered-set-of-unique-space-separated-tokens">unordered set of unique space-separated tokens</a> that are <a href="https://infra.spec.whatwg.org/#ascii-case-insensitive">ASCII case-insensitive</a>.
-          The allowed values are <dfn id="attr-map-controlslist-nofullscreen"><code>nofullscreen</code></dfn>, <dfn id="attr-map-controlslist-nolayer"><code>nolayer</code></dfn> and <dfn id="attr-map-controlslist-nozoom"><code>nozoom</code></dfn>.</p>
+          The allowed values are
+          <dfn id="attr-map-controlslist-nofullscreen"><code>nofullscreen</code></dfn>,
+          <dfn id="attr-map-controlslist-nolayer"><code>nolayer</code></dfn>,
+          <dfn id="attr-map-controlslist-nopan"><code>nopan</code></dfn>,
+          <dfn id="attr-map-controlslist-noreload"><code>noreload</code></dfn>
+          and <dfn id="attr-map-controlslist-nozoom"><code>nozoom</code></dfn>.
+        </p>
           
         <p>The <a href="#attr-map-controlslist-nofullscreen"><code>nofullscreen</code></a> keyword hints that the fullscreen mode control should be hidden when using the user agent's own set of controls for the media element.</p>
         <p>The <a href="#attr-map-controlslist-nolayer"><code>nolayer</code></a> keyword hints that the layer control should be hidden when using the user agent's own set of controls for the media element.</p>
+        <p>The <a href="#attr-map-controlslist-nopan"><code>nopan</code></a> keyword hints that the pan controls should be hidden when using the user agent's own set of controls for the media element.</p>
+        <p>The <a href="#attr-map-controlslist-noreload"><code>noreload</code></a> keyword hints that the reload control should be hidden when using the user agent's own set of controls for the media element.</p>
         <p>The <a href="#attr-map-controlslist-nozoom"><code>nozoom</code></a> keyword hints that the zoom controls should be hidden when using the user agent's own set of controls for the media element.</p>
         
         <p class="note"><em>Hiding these aspects of the user agent's own controls does not necessarily disable the related functionality. For example, the user agent might present the same functionality through a context menu or keyboard shortcut.</em></p>
@@ -611,12 +697,9 @@
         </section>
         <section>
         <h4>The <code>&lt;<dfn id="the-layer-element">layer</dfn>&gt;</code> element</h4>
-        <dl class="def"><dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-        <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#flow-content-2">Flow content</a>.</dd>
-        <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
-        <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#palpable-content-2">Palpable content</a>.</dd>
-        <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#embedded-content-2">Embedded content</a>.</dd>
-        <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#interactive-content-2">Interactive content</a>.</dd>
+        <dl class="def">
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
+        <dd>None.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
         <dd>As a child of the <a href="#the-map-element"><code>map</code></a> element.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
@@ -634,10 +717,38 @@
         <dd id="attr-layer-crossorigin"><code>crossorigin</code> — A <a href="https://html.spec.whatwg.org/multipage/urls-and-fetching.html#cors-settings-attribute">CORS settings attribute</a>, specifies how the element handles crossorigin requests.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
         <dd>Neither tag is omissible.</dd>
-        <dt>Allowed <a href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#aria-role-attribute">ARIA role attribute</a> values:</dt>
-        <dd>None.</dd>
-        <dt>Allowed <a href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#state-and-property-attributes">ARIA state and property attributes</a>:</dt>
-        <dd><a href="https://www.w3.org/TR/html-aria/#index-aria-global">Global aria-* attributes</a>.</dd>
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+        <dd>
+          <details class="a11y-details">
+            <summary>For authors</summary>
+            <div class="table-responsive">
+            <table class="def">
+              <thead>
+                <tr>
+                  <th>Implicit ARIA semantics</th>
+                  <th>ARIA roles, states and properties which MAY be used</th>
+                </tr>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </thead>
+            </table>
+            </div>
+          </details>
+        </dd>
+        <dd>
+          <details class="a11y-details">
+            <summary>For implementers</summary>
+            <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+          </details>
+        </dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
         <dd>
           <pre class="idl">
@@ -650,22 +761,8 @@
                      attribute boolean <a href="#attr-layer-checked">checked</a>;
             readonly attribute boolean <a href="#attr-layer-disabled">disabled</a>;
                      attribute boolean <a href="#attr-layer-hidden">hidden</a>;
-            readonly attribute <a href="#legendlink">LegendLink[]</a> legendLinks;
                      attribute DOMString <a href="#attr-layer-referrerpolicy">referrerPolicy</a>;
                      attribute DOMString? <a href="#attr-layer-crossorigin">crossOrigin</a>;
-          };
-            
-          [Exposed=Window]
-          interface <dfn id="legendlink">LegendLink</dfn> {
-            [HTMLConstructor] constructor();
-            
-            readonly attribute DOMString type;
-            readonly attribute DOMString rel;
-            readonly attribute DOMString href;
-            readonly attribute DOMString title;
-            readonly attribute DOMString lang;
-            readonly attribute DOMString hreflang;
-            readonly attribute DOMString sizes;
           };
           </pre>
         </dd>
@@ -681,7 +778,7 @@
         the <a href="#the-layer-element"><code>layer</code></a> is not drawn but should remain visible in the <a href="#the-map-element"><code>map</code></a> element's representation of <code>controls</code> in an "unchecked" state.</p>
         <p>The <a href="#attr-layer-src"><code>src</code></a> attribute value is the URL of a web resource encoded in <a href="#structure">Map Markup Language</a>.</p>
         <p>The <a href="#attr-layer-hidden"><code>hidden</code></a> boolean attribute can be set to remove the <a href="#the-layer-element"><code>layer</code></a> from the <em>map layer control, but it will remain displayed on the map</em>.  In order to
-        remove the <a href="#the-layer-element"><code>layer</code></a> from the map display, it can be have its <a href="#attr-layer-checked"><code>checked</code></a> property toggled, or be removed from the DOM.</p>
+        remove the <a href="#the-layer-element"><code>layer</code></a> from the map display, it can have its <a href="#attr-layer-checked"><code>checked</code></a> property toggled, or be removed from the DOM.</p>
         <p>The <a href="#attr-layer-disabled"><code>disabled</code></a> property is a read-only boolean indicator of the visibility of the layer on the map.  If the layer is not visible due to errors, including projection,
         zoom or extent mismatch, the property will be true and if the layer is present in the layer control (i.e. <a href="#attr-layer-hidden"><code>hidden</code></a> is false), it will be disabled in that control i.e. not checkable.</p>
 
@@ -703,11 +800,50 @@
         <dd id="attr-area-shape"><code>shape</code> — The kind of shape to be created on the map.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
         <dd>Neither tag is omissible.</dd>
-        <dt>Allowed <a href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#aria-role-attribute">ARIA role attribute</a> values:</dt>
-        <dd><a href="https://www.w3.org/TR/wai-aria-1.1/#link"><code>link</code></a> role (default - <a href="https://www.w3.org/TR/html-aria/#el-area">do not set</a>).</dd>
-        <dt>Allowed <a href="https://www.w3.org/TR/2014/REC-html5-20141028/dom.html#state-and-property-attributes">ARIA state and property attributes</a>:</dt>
-        <dd><a href="https://www.w3.org/TR/html-aria/#index-aria-global">Global aria-* attributes</a>.</dd>
-        <dd>Any aria-* attributes <a href="https://www.w3.org/TR/html-aria/#allowed-aria-roles-states-and-properties">applicable to the allowed roles</a>.</dd>
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+        <dd>
+          <details class="a11y-details">
+            <summary>For authors</summary>
+            <div class="table-responsive">
+            <table class="def">
+              <thead>
+                <tr>
+                  <th>Implicit ARIA semantics</th>
+                  <th>ARIA roles, states and properties which MAY be used</th>
+                </tr>
+                <tbody>
+                  <tr>
+                    <th>
+                      <code>area</code> with <code>href</code>: <code>role=link</code>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code></strong></p>
+                      <p><a href="https://www.w3.org/TR/html-aria/#index-aria-global">Global <code>aria-*</code> attributes</a>
+                      and any <code>aria-*</code> attributes applicable to the allowed roles and implied role (if any).</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>
+                      <code>area</code> without <code>href</code>: <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code></strong></p>
+                      <p><a href="https://www.w3.org/TR/html-aria/#index-aria-global">Global <code>aria-*</code> attributes</a>
+                      and any <code>aria-*</code> attributes applicable to the allowed roles and implied role (if any).</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </thead>
+            </table>
+            </div>
+          </details>
+        </dd>
+        <dd>
+          <details class="a11y-details">
+            <summary>For implementers</summary>
+            <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+          </details>
+        </dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
         <dd>
           <pre class="idl">
@@ -734,6 +870,7 @@
         encoded as coordinates in the <a href="#attr-area-coords"><code>coords</code></a> attribute.</p>
         <p>The shape attribute is an enumerated attribute. The following table lists the keywords defined for this attribute. The states given in the first cell of the rows with 
         keywords give the states to which those keywords map. </p>
+        <div class="table-responsive">
         <table class="def">
         <thead>
         <tr><th>State</th><th>Keywords</th><th>Notes</th></tr>
@@ -759,18 +896,9 @@
           <td><dfn id="attr-area-shape-keyword-rect"><code>rect</code></dfn></td>
           <td></td>
         </tr>
-        <tr>
-          <td><a href="#attr-area-shape-marker">Marker state</a></td>
-          <td><dfn id="attr-area-shape-keyword-marker"><code>marker</code></dfn></td>
-          <td>new</td>
-        </tr>
-        <tr>
-          <td><a href="#attr-area-shape-line">Line state</a></td>
-          <td><dfn id="attr-area-shape-keyword-line"><code>line</code></dfn></td>
-          <td>new</td>
-        </tr>
         </tbody>
         </table>
+        </div>
         <p>The <a href="#attr-area-shape"><code>shape</code></a> attribute may be omitted. The missing value default is the rectangle state.</p>
 
         <p>The <a href="#attr-area-coords"><code>coords</code></a> attribute must, if specified, contain a valid list of integers. This attribute gives the coordinates for the shape described by the 
@@ -793,68 +921,91 @@
         distance from the left edge of the map to the left side of the rectangle, the distance from the top edge to the top side, the distance from the left edge 
         to the right side, and the distance from the top edge to the bottom side, all in CSS pixels.</p>
 
-        <p>In the <dfn id="attr-area-shape-marker">marker state</dfn>, <a href="#the-area-element"><code>area</code></a> elements must have a <a href="#attr-area-coords"><code>coords</code></a> attribute with exactly two integers. 
-        The first integer must be the distance in CSS pixels from the left edge of the map to the top left corner of the marker, the second integer must be the distance 
-        in CSS pixels from the top edge of the map to the top left corner of the marker.</p>
-
-        <p>In the <dfn id="attr-area-shape-line">line state</dfn>, <a href="#the-area-element"><code>area</code></a> elements must have a <a href="#attr-area-coords"><code>coords</code></a> attribute with at least four
-        integers, and the number of integers must be even.  Each pair of integers must represent a coordinate given as the distances from the left and the top of the 
-        map in CSS pixels respectively, and all the coordinates together must represent the points of the line, in order.</p>
-
         <p>The intention of the <a href="#the-area-element"><code>area</code></a> element is to extend the behavior of the existing [[HTML]] <a href="#the-area-element"><code>area</code></a> element. For information pertaining to
         the processing of various link types created by the <a href="#the-area-element"><code>area</code></a> element, please refer to the description of hyperlink processing for the 
         [[HTML]] <a href="https://html.spec.whatwg.org/multipage/image-maps.html#the-area-element"><code>area</code></a> element.</p>
         </section>
       </section>
-        <section class="informative">
+      
+      <section class="informative">
         <h3 id="authoring">Authoring</h3>
-        <p>A <dfn id="map">Web map</dfn> is an embedded media element which enables dynamic cartographic Web applications in HTML documents.</p>
-        <p>A Web map is a rectangular page area, represented in HTML in the form of a <a href="#the-map-element"><code>map</code></a> element, containing a set of zero or more 
-          <a href="#the-layer-element"><code>layer</code></a> elements.  A Web map represents a region of the earth's surface in two dimensions.  A map's initial location 
-          (<a href="#attr-map-lat"><code>lat</code></a>, <a href="#attr-map-lon"><code>lon</code></a>), extent (<a href="#attr-map-width"><code>width</code></a> and <a href="#attr-map-height"><code>height</code></a>) 
-          and scale (<a href="#attr-map-zoom"><code>zoom</code></a>) are defined by its attributes.</p>
-        <aside class="example">
         
-           <p>Consider a map of Paris:</p>
+        <p>
+          A <a href="#dfn-web-map">Web map</a> is a rectangular page area,
+          represented in HTML in the form of a
+          <a href="#the-map-element"><code>map</code></a> element,
+          containing a set of zero or more
+          <a href="#the-layer-element"><code>layer</code></a> elements.
+          Map layers are drawn in document order of the
+          <a href="#the-layer-element"><code>layer</code></a> elements,
+          following the SVG
+          <a href="https://www.w3.org/TR/SVG/render.html#PaintersModel">painters model</a>.
+          If the author enables more than one layer,
+          all the layers will be painted, in document order.
+          Features in layers drawn earlier will be painted over by later layers.
+        </p>
         
-           <p>
-             <img src="images/paris.png" width="643" height="303" alt="Medium scale image of a street map of Paris, France">
-           </p>
+        <p>
+          A map's initial location
+          (<a href="#attr-map-lat"><code>lat</code></a>,
+          <a href="#attr-map-lon"><code>lon</code></a>),
+          extent
+          (<a href="#attr-map-width"><code>width</code></a>,
+          <a href="#attr-map-height"><code>height</code></a>)
+          and scale
+          (<a href="#attr-map-zoom"><code>zoom</code></a>)
+          are defined by its attributes.
+        </p>
         
-           <p>This map can be created with the following markup:</p>
-        
-           <pre>
-  &lt;map zoom="11" lat="48.85591" lon="2.3469543" width="640" height="300" controls&gt;
-     &lt;layer label="OpenStreetMap" src="https://example.com/mapml/osm/" checked crossorigin&gt;&lt;/layer&gt;
-  &lt;/map&gt;
-          </pre>
-           
-        </aside>
-        <p>A Web map can have zero or more layers.  Map layers are drawn in document order of the <a href="#the-layer-element"><code>layer</code></a> elements, following the <a href="https://www.w3.org/TR/SVG/render.html#PaintersModel">painters model</a>.  If the user 
-        (or author) enables more than one layer, all the layers will be painted, in document order.  Features in layers drawn earlier will be painted over by later layers.  Opacity of layers can be managed with CSS, if necessary. [[SVG2]] [[css-color-3]]</p>
-        
-        <aside class="example">
-        
-           <p>Here is a map of Ottawa, with two layers:</p>
-           <img src="images/ottawa.jpg" width="639" height="304" alt="Large scale image of a street map of part of Ottawa, Canada">
-        
-        
-           <p>This map can be created with the following markup:</p>
-        
-           <pre>
-   &lt;style&gt;
-     .transparency {
-       opacity: 0.2;
-     }
-   &lt;/style&gt;
-  &lt;map zoom="15" lat="45.398043" lon="-75.70683" width="640" height="300" projection="CBMTILE" controls&gt;
-    &lt;layer label="Canada Base Map" src="https://example.com/mapml/cbmt/" checked crossorigin&gt;&lt;/layer&gt;
-    &lt;layer label="CanVec+ 031G" src="https://example.com/mapml/canvec/50k/features/" crossorigin class="transparency"&gt;&lt;/layer&gt;
-  &lt;/map&gt;
-          </pre>
-        </aside>
+        <section>
+          <h4>Examples</h4>
+          
+          <p class="note">
+            The example maps are polyfilled using the
+            <code>&lt;mapml-viewer&gt;</code> custom element.
+            [[Web-Map-Custom-Element]]
+          </p>
+          
+          <aside class="example">
+            <p>
+              A basic map of Paris:
+            </p>
+            
+            <iframe class="authoring-example" title="Authoring example 1" src="examples/map-1.html" width="300" height="150" loading="lazy"></iframe>
+          
+            <p>
+              This map can be created with the following markup:
+            </p>
+            
+            <pre>
+              &lt;map zoom="11" lat="48.8566" lon="2.3522"&gt;
+                &lt;layer src="https://example.com/mapml/osm/" checked crossorigin&gt;&lt;/layer&gt;
+              &lt;/map&gt;
+            </pre>
+          </aside>
+          
+          <aside class="example">
+            <p>
+              A map of Ottawa,
+              with the default controls enabled and dimensions specified:
+            </p>
+            
+            <iframe class="authoring-example" title="Authoring example 2" src="examples/map-2.html" width="600" height="350" loading="lazy"></iframe>
+          
+            <p>
+              This map can be created with the following markup:
+            </p>
+            
+            <pre>
+              &lt;map projection="CBMTILE" zoom="15" lat="45.4215" lon="-75.6972" width="600" height="350" controls&gt;
+                &lt;layer label="Canada Base Map - Transportation (CBMT)" src="https://example.com/mapml/cbmt/" checked crossorigin&gt;&lt;/layer&gt;
+              &lt;/map&gt;
+            </pre>
+          </aside>
         </section>
-        <section class="informative">
+      </section>
+      
+      <section class="informative">
         <h3 id="syntax">Syntax</h3>
         <p>The <a href="#the-map-element"><code>map</code></a> element has a different content model defined by this specification, compared to that defined by the [[[HTML]]].</p>
         <p>At such a moment as is warranted, the standard definition of the [[HTML]] <code>map</code>
@@ -900,6 +1051,7 @@
         </p>
 
         <p>This document defines the following coordinate reference system types:</p>
+        <div class="table-responsive">
         <table id="CS-defs" class="def">
           <caption>
             <h2>Coordinate Reference System type codes and descriptions</h2>
@@ -961,6 +1113,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
 
         <p>
           MapML documents are similar to other spatial information with regard to definition of projection and coordinate system requirements. However, MapML defines a system of communicating coordinate system information across the uniform
@@ -968,6 +1121,7 @@
           table below, and exchanged in markup defined by this specification.
         </p>
 
+        <div class="table-responsive">
         <table id="tiled-coordinate-reference-systems-table" class="def">
           <caption>
             <h2>Tiled Coordinate Reference Systems</h2>
@@ -1212,6 +1366,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
         <p>
           * All coordinate reference systems' coordinate pairs, where not explicitly marked up or identified by axis (for example, in the <a href="#the-coordinates-element"><code>coordinates</code></a> element) are defined by this specification to be in "horizontal axis followed
           by vertical axis" order. Where axes order is defined differently by external definition, this specification MUST be taken to be correct <strong>for MapML documents</strong>.
@@ -1269,7 +1424,7 @@
         <h4 id="extent-semantics">Extents</h4>
         <p>
           A MapML document is a representation of a defined portion of a two dimensional 
-          map area. In MapML, this is called an 'extent' (see below), the extremes 
+          map area. In MapML, this is called an 'extent' (represented by the <a href="#the-extent-element"><code>extent</code></a> element), the extremes 
           of which can be described in terms of locations coordinates specified 
           in the TCRS (pcrs, gcrs, tilematrix, etc.).
           The <code>extent/@units</code> value SHALL be taken to be the authoritative 
@@ -1286,21 +1441,57 @@
         <section>
         <h4 id="the-document-object">The <code>Document</code> object</h4>
         <p>
-          A MapML document is a [[MicroXML]] document. As such, it MUST have a single root element named <a href="#the-mapml-element"><code>mapml</code></a>. It MUST NOT have a <code>DOCTYPE</code> declaration; attributes named <code>xmlns</code> and names containing a colon
-          character ':' (U+003A) are not permitted. Other restrictions relative to [[XML]] syntax are enumerated in [[MicroXML]].
+          A MapML document is an XML document, with all elements assigned to the HTML namespace. As such, 
+          a MapML document MUST have a single root element named <a href="#the-mapml-element"><code>mapml
+          </code></a>, generally having a single attribute named "xmlns" with a value which MUST be equal 
+          to "http://www.w3.org/1999/xhtml".  Assigning elements to namespaces using namepace prefixes 
+          is NOT recommended. At this time, there is only an XML syntax variety of MapML document, and 
+          documents conforming to this specification MUST NOT have a <code>DOCTYPE</code> declaration.
         </p>
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-mapml-element">mapml</dfn>&gt;</code> element</h5>
         <dl class="def">
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd>N/A.</dd>
+          <dd>None.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>The root of a MapML document.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd>One <a href="#the-head-element"><code>head</code></a> element, followed by one <a href="#the-body-element"><code>body</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><code>lang</code> — the language of the document, expressed as a BCP 47 language tag. [[BCP47]]</dd>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -1318,12 +1509,45 @@
         <h5>The <code>&lt;<dfn id="the-head-element">head</dfn>&gt;</code> element</h5>
         <dl class="def">
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
+          <dd>None.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>As the first child element of the <a href="#the-mapml-element"><code>mapml</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd>One or more elements of metadata content, of which exactly one is a <code>title</code> element and no more than one is a <code>base</code> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -1347,8 +1571,41 @@
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>As a child of the <a href="#the-head-element"><code>head</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#text-content">Text</a>.</dd>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#text-content">Text</a> that is not <a href="https://html.spec.whatwg.org/multipage/dom.html#inter-element-whitespace">inter-element whitespace</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -1375,6 +1632,38 @@
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-content-nothing">Nothing</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><code>href</code> — The absolute URL to be used to resolve relative URLs in the document.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -1404,6 +1693,38 @@
           <dd><code>name</code> — Metadata name.</dd>
           <dd><code>http-equiv</code> — Pragma directive.</dd>
           <dd><code>content</code> — Value of the element.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -1437,6 +1758,38 @@
           <dd><code>hreflang</code> — Language of the linked resource.</dd>
           <dd><code>type</code> — Hint for the type of the referenced resource.</dd>
           <dd><code>title</code> — Title of the link.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -1452,7 +1805,6 @@
               attribute DOMString type;
               attribute DOMString title;
             };
-            HTMLLinkElement implements LinkStyle;
           </pre>
           </dd>
         </dl>
@@ -1498,6 +1850,7 @@
         </p>
         <p>The content represented by <code>link[@tref]</code> elements should be painted in document order of the appearance of the <code>link[@tref]</code> elements.</p>
 
+        <div class="table-responsive">
         <table id="rel-values" class="def">
           <caption>
             <h2><code>@rel</code> values</h2>
@@ -1568,18 +1921,51 @@
             </tr>
           </tbody>
         </table>
+        </div>
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-body-element">body</dfn>&gt;</code> element</h5>
         <dl class="def">
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd>N/A.</dd>
+          <dd><a href="https://html.spec.whatwg.org/multipage/sections.html#sectioning-root">Sectioning root</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>As the second child of the <a href="#the-mapml-element"><code>mapml</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd>Features and metadata.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd>N/A.</dd>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <code>role=<a href="https://www.w3.org/TR/html-aria/#index-aria-document">document</a></code>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -1607,6 +1993,38 @@
 
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><code>units</code> — The name of the coordinate reference system whose measurement units are to be used by values submitted by child <a href="#the-input-element"><code>input</code></a> elements.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -1616,7 +2034,6 @@
               [HTMLConstructor] constructor();
               
               attribute DOMString units;
-              readonly attribute HTMLExtentControlsCollection elements;
               readonly attribute long length;
               getter Element (unsigned long index);
               getter (RadioNodeList or Element) (DOMString name);
@@ -1664,6 +2081,46 @@
             default).
           </dd>
           <dd><code>position</code> — When <code>type</code> attribute is <code>location</code>, <a href="#attr-input-position-keywords">enumerated keyword string</a> identifies the relative position of a location.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <code>input</code> with <code>type</code>:
+                        <ul>
+                          <li><code>zoom</code></li>
+                          <li><code>location</code></li>
+                          <li><code>width</code></li>
+                          <li><code>height</code></li>
+                          <li><code>hidden</code></li>
+                        </ul>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -1697,6 +2154,7 @@
           The <code>type</code> attribute controls the data type (and associated control) of the element. It is an enumerated attribute. The following table lists the keywords and states for the attribute — the keywords in the left column
           map to the states in the cell in the second column on the same row as the keyword.
         </p>
+        <div class="table-responsive">
         <table id="attr-input-type-keywords" class="def">
           <caption>
             <h2><code>input</code>@<code>type</code> values</h2>
@@ -1742,6 +2200,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
         <p>
           When the <code>type</code> attribute is in the "location" state, the <a href="#the-input-element"><code>input</code></a> may have three associated attributes: <code>units</code>, <code>axis</code> and <code>position</code>. <code>units</code> identifies the
           associated coordinate system that the <code>location</code> is referred to. Each Tiled Coordinate Reference System (TCRS) instance may have one or more associated coordinate systems that are coordinate reference system by virtue
@@ -1749,6 +2208,7 @@
           EPSG:3857 CRS plus a set of zoom level resolutions, and a transformation.
         </p>
 
+        <div class="table-responsive">
         <table id="attr-input-units-keywords" class="def">
           <caption>
             <h2><code>input</code>@<code>units</code> values</h2>
@@ -1806,6 +2266,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
 
         <p>
           The meaning of the <code>position</code> attribute value (keyword) depends upon the presence and value of the associated <code>rel</code> attribute. When the <code>rel</code> attribute is not present or has the value
@@ -1813,6 +2274,7 @@
           <code>tilematrix</code>), the <code>position</code> attribute values describe the input location relative to the tile at the location in question.
         </p>
 
+        <div class="table-responsive">
         <table id="attr-input-position-keywords" class="def">
           <caption>
             <h2><code>input</code>@<code>position</code> values</h2>
@@ -1862,7 +2324,11 @@
             </tr>
           </tbody>
         </table>
+        </div>
+        
         <p>The <code>axis</code> keyword identifies the axis of the coordinate that the <a href="#the-input-element"><code>input</code></a> variable represents. The coordinate system should be identified by the <code>units</code> attribute.</p>
+        
+        <div class="table-responsive">
         <table id="attr-input-axis-keywords" class="def">
           <caption>
             <h2><code>input</code>@<code>axis</code> values</h2>
@@ -1916,6 +2382,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-datalist-element">datalist</dfn>&gt;</code> element</h5>
@@ -1932,6 +2399,38 @@
           </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><code>id</code> — Identifies the list within the current document.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -1959,6 +2458,38 @@
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><code>for</code> — Identifies by id reference the select for which the content of this element is the label.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -1989,6 +2520,38 @@
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><code>id</code> — Identifies the select within the current document.</dd>
           <dd><code>name</code> — The token to be used as a variable name in form serialization.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -2018,6 +2581,38 @@
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><code>value</code> — The value to be used in form submission.</dd>
           <dd><code>label</code> — The label to be presented to the user, if applicable.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -2047,6 +2642,38 @@
           <dd><code>col</code> — An integer (a X axis value / the tile size) in the domain of the tile coordinate reference system.</dd>
           <dd><code>src</code> — A URL from which the tile may be obtained.</dd>
           <dd><code>type</code> — A hint about the MIME type of the resource obtainable at the <code>src</code> URL.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd></dd>
           <dd>
@@ -2091,6 +2718,38 @@
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><code>src</code> — Address of the hyperlink.</dd>
           <dd><code>type</code> — A hint as to the MIME type of the resource.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -2107,13 +2766,51 @@
         <dl class="def">
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>Feature data.</dd>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#interactive-content-2">Interactive content</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>Child of the <a href="#the-body-element"><code>body</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-          <dd>An optional <a href="#the-geometry-element"><code>geometry</code></a> element and an optional <a href="#the-properties-element"><code>properties</code></a> element.</dd>
+          <dd>Optional <a href="#the-featurecaption-element"><code>featurecaption</code></a> element, 
+            optional <a href="#the-geometry-element"><code>geometry</code></a> element, 
+            optional <a href="#the-properties-element"><code>properties</code></a> element,
+            optional <a href="#the-image-element"><code>image</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a></dd>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
           <dd><code>zoom</code> — the 'native' zoom level of the feature geometry.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <code>role=feature</code>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code></strong></p>
+                        <p><a href="https://www.w3.org/TR/html-aria/#index-aria-global">Global <code>aria-*</code> attributes</a>
+                        and any <code>aria-*</code> attributes applicable to the allowed roles and implied role (if any).</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -2128,8 +2825,68 @@
         </dl>
 
         <p>
-          A <a href="#the-feature-element"><code>feature</code></a> element represents a geographic feature. A <a href="#the-feature-element"><code>feature</code></a> element has an optional <a href="#the-properties-element"><code>properties</code></a> child element, and a required child
-          <a href="#the-geometry-element"><code>geometry</code></a> element.
+          A <a href="#the-feature-element"><code>feature</code></a> element represents a map feature. 
+        </p>
+        </section>
+        <section>
+        <h5>The <code>&lt;<dfn id="the-featurecaption-element">featurecaption</dfn>&gt;</code> element</h5>
+        <dl class="def">
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
+          <dd>Feature data.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
+          <dd>As a child of a <a href="#the-feature-element"><code>feature</code></a> element containing no other <a href="#the-featurecaption-element"><code>featurecaption</code></a> elements.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#text-content">Text</a> that is not <a href="https://html.spec.whatwg.org/multipage/dom.html#inter-element-whitespace">inter-element whitespace</a>.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
+          <dd>
+            <pre class="idl">
+            [Exposed=Window]
+            interface HTMLFeaturecaptionElement : HTMLElement {
+              [HTMLConstructor] constructor();
+              
+            };
+            </pre>
+          </dd>
+        </dl>
+        <p>
+          The <a href="#the-featurecaption-element"><code>featurecaption</code></a> element 
+          represents a caption for the contents of the 
+          <a href="#the-featurecaption-element"><code>featurecaption</code></a> element's 
+          parent <a href="#the-feature-element"><code>feature</code></a> element.
         </p>
         </section>
         <section>
@@ -2138,11 +2895,43 @@
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd>Feature data.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
-          <dd>A child of the <a href="#the-feature-element"><code>feature</code></a> element, containing elements representing the properties of the feature.</dd>
+          <dd>A child of the <a href="#the-feature-element"><code>feature</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-          <dd>One or more unknown elements with text values. <div class="ednote">TODO: Allow HTML content.</div></dd>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#palpable-content">Palpable content</a></dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd>N/A.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -2154,9 +2943,6 @@
           </dd>
         </dl>
 
-        <p>
-          A <a href="#the-feature-element"><code>feature</code></a> element can have zero or one <a href="#the-properties-element"><code>properties</code></a> element, which contains zero or more unknown elements, whose content is text.
-        </p>
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-geometry-element">geometry</dfn>&gt;</code> element</h5>
@@ -2169,6 +2955,38 @@
           <dd>A single geometry value, described in the <a href="#geometry-values">table</a> below.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -2182,9 +3000,16 @@
           </dd>
         </dl>
 
-        <p>A <a href="#the-geometry-element"><code>geometry</code></a> element has one child element, which can be a <a href="#the-point-element"><code>point</code></a>,
-        <a href="#the-linestring-element"><code>linestring</code></a>, <a href="#the-polygon-element"><code>polygon</code></a>, <a href="#the-multipoint-element"><code>multipoint</code></a>, <a href="#the-multilinestring-element"><code>multilinestring</code></a>, <a href="#the-multipolygon-element"><code>multipolygon</code></a>, or <a href="#the-geometrycollection-element"><code>geometrycollection</code></a>.</p>
+        <p>A <a href="#the-geometry-element"><code>geometry</code></a> element has one child element, 
+          which can be a <a href="#the-point-element"><code>point</code></a>,
+        <a href="#the-linestring-element"><code>linestring</code></a>, 
+        <a href="#the-polygon-element"><code>polygon</code></a>, 
+        <a href="#the-multipoint-element"><code>multipoint</code></a>, 
+        <a href="#the-multilinestring-element"><code>multilinestring</code></a>, 
+        <a href="#the-multipolygon-element"><code>multipolygon</code></a>, or 
+        <a href="#the-geometrycollection-element"><code>geometrycollection</code></a>.</p>
 
+        <div class="table-responsive">
         <table id="geometry-values" class="def">
           <thead>
             <tr>
@@ -2258,6 +3083,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-coordinates-element">coordinates</dfn>&gt;</code> element</h5>
@@ -2270,6 +3096,38 @@
           <dd>One or more <a href="#position">position</a>s in x followed by y, separated by whitespace, with each position separated from the adjacent position by whitespace.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd>N/A.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                      </th>
+                      <td>
+                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </thead>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
           <dd>
             <pre class="idl">
@@ -2295,6 +3153,33 @@
         </p>
         </section>
         </section>
+        
+        <section class="informative">
+        <h3>Authoring</h3>
+        <p>
+        While MapML is human-readable and can be written by hand,
+        authors typically will use conversion programs
+        and other specialized software tools to generate MapML.
+        </p>
+        
+        <section>
+        <h4 id="examples">Examples</h4>
+          <aside class="example">
+            <figure>
+              <a href="examples/mapml.png" style="cursor:zoom-in;">
+                <img src="examples/mapml.png" width="3240" height="2016" loading="lazy" alt="Origins, orientations and axis names of tcrs, pcrs, gcrs, tilematrix, map, and tile coordinate systems">
+              </a>
+              <figcaption>
+              Prototype MapML services are available,
+              representing
+              <a href="https://geogratis.gc.ca/mapml/en/osmtile/cbmt/">tiled</a>
+              and vector data.
+              </figcaption>
+            </figure>
+          </aside>
+        </section>
+        </section>
+        
         <section>
         <h2 id="styling">Styling</h2>
         <p>MapML documents can be styled with Cascading Style Sheets.</p>
@@ -2302,26 +3187,10 @@
          <!-- https://github.com/w3c/respec/wiki/data-number -->
         </div>
         </section>
-        <section class="informative">
-        <h2 id="examples">Examples</h2>
-        <aside class="example">
-        <figure>
-          <img src="images/mapml.png" width="830" height="467" alt="Origins, orientations and axis names of tcrs, pcrs, gcrs, tilematrix, map, and tile coordinate systems">
-
-          <figcaption>
-            Prototype MapML services are available, representing <a href="https://geogratis.gc.ca/mapml/en/osmtile/cbmt/">tiled</a> and
-            <a href="https://geogratis.gc.ca/api/beta/vectors/canvec/50k/features/?entry-type=full&xmin=-75.6088650226593&ymin=45.39715420088217&xmax=-75.59665560722351&ymax=45.401975540403974&zoom=17&projection=WGS84&alt=xml">
-              vector
-            </a>
-            data.
-          </figcaption>
-        </figure>
-        </aside>
-        </section>
       </section>
 
-      <section class="informative">
-        <h2 id="security">Privacy & Security Considerations</h2>
+      <section>
+        <h2 id="security">Privacy &amp; Security Considerations</h2>
 
         <p class="ednote">This technology relies on web resources loaded over the internet, which carries security implications.
           The architecture is not unlike allowing embedded images encoded in SVG format,
@@ -2337,11 +3206,86 @@
            [[secure-contexts]] [[[secure-contexts]]]
           </div>
       </section>
+      
+      <section>
+        <h2 id="iana-considerations">IANA Considerations</h2>
 
-      <section class="informative">
-        <h2 id="glossary">Glossary of Terms and Datatypes</h2>
-
-        <p class="ednote">TODO: Provide a glossary of terms and datatypes used in this specification.</p>
+        <p>
+          The following registrations are for community review and will be submitted to the
+          <a href="https://www.ietf.org/iesg/">IESG</a> for review, approval, and
+          <a href="https://www.w3.org/2020/01/registering-mediatypes">registration</a>
+          with <a href="https://www.iana.org/">IANA</a>.
+        </p>
+        
+        <section>
+          <h2 id="media-type-registration">Media Type Registration</h2>
+          
+          <p>
+            This section contains the required text for MIME media type registration
+            with <a href="https://www.iana.org/">IANA</a>.
+          </p>
+          
+          <p>
+            The <dfn>Map Markup Language MIME type</dfn> is <dfn><code>text/mapml</code></dfn>.
+          </p>
+          
+          <p>
+            If the protocol over which the MapML document is transferred supports the
+            [[MIME-TYPES]] specification (e.g. HTTP),
+            it is RECOMMENDED that the MapML document be labeled with the
+            Map Markup Language MIME type.
+          </p>
+          
+          <dl>
+            <dt>Type name:</dt>
+            <dd>text</dd>
+            <dt>Subtype name:</dt>
+            <dd>mapml</dd>
+            <dt>Required parameters:</dt>
+            <dd>N/A</dd>
+            <dt>Optional parameters:</dt>
+            <dd>
+              <dl>
+                <dt>charset</dt>
+                <dd>
+                  The <code>charset</code> parameter may be provided to definitively
+                  specify the document's character encoding,
+                  overriding any character encoding declarations in the document.
+                  The parameter's value must be one of the labels of the character
+                  encoding used to serialize the file.
+                </dd>
+              </dl>
+            </dd>
+            <dt>Encoding considerations:</dt>
+            <dd>Same as for text/html</dd>
+            <dt>Privacy and security considerations:</dt>
+            <dd>See <a href="#security">Privacy & Security Considerations</a></dd>
+            <dt>Applications that use this MIME type:</dt>
+            <dd>Web browsers</dd>
+            <dt>Additional information:</dt>
+            <dd>
+              <dl>
+                <dt>Magic number(s):</dt>
+                <dd>N/A</dd>
+                <dt>File extension(s):</dt>
+                <dd>.mapml</dd>
+                <dt>Macintosh file type code(s):</dt>
+                <dd>TEXT</dd>
+              </dl>
+            </dd>
+            <dt>Person &amp; email address to contact for further information:</dt>
+            <dd>The <a href="https://www.w3.org/community/maps4html/">Maps for HTML Community Group</a>
+              can be contacted at <a href="mailto:public-maps4html@w3.org">public-maps4html@w3.org</a>.</dd>
+            <dt>Intended usage:</dt>
+            <dd>COMMON</dd>
+            <dt>Restrictions on usage:</dt>
+            <dd>None</dd>
+            <dt>Author:</dt>
+            <dd><abbr title="World Wide Web Consortium">W3C</abbr>'s Maps for HTML Community Group</dd>
+            <dt>Change controller:</dt>
+            <dd><abbr title="World Wide Web Consortium">W3C</abbr></dd>
+          </dl>
+        </section>
       </section>
       
       <section id="conformance" class="appendix">

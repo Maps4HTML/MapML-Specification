@@ -1,4 +1,5 @@
 datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes" 
+default namespace = "http://www.w3.org/1999/xhtml"
 start = mapml 
 mapml = element mapml { head?, attribute lang {text}?, body }
 head = element head { headContent }
@@ -32,9 +33,6 @@ body = element body { bodyContent }
 bodyContent =  extent? & links & (feature | tile | image)*  
 extent = element extent {
   attribute units  { "OSMTILE" | "CBMTILE" | "APSTILE" | "WGS84" }?,
-  attribute action { xsd:anyURI }?, 
-  attribute method { "get" | "GET" }?,
-  attribute enctype { "application/x-www-form-urlencoded" }?,
   (inputs* & datalist* & links* & select* & label*)?
 }
 inputs = (element input {
@@ -50,10 +48,10 @@ inputs = (element input {
   # https://developer.mozilla.org/en-US/docs/Web/CSS/object-position 
   attribute position { "top-left" | "top-right" | "bottom-left" | "bottom-right" | "center-left" | "center-right" | "top-center" | "bottom-center" | "center" }?,
   attribute axis { "latitude" | "longitude" | "easting" | "northing" | "x" | "y" | "row" | "column" | "i" | "j" }?,
-  attribute units {"tilematrix" | "pcrs" | "tcrs" | "map" | "gcrs" | "tile" }?,
+  attribute units {"gcrs" | "pcrs" | "tcrs" | "map" | "tilematrix" | "tile" }?,
   attribute required { xsd:boolean }?,
-  attribute min { xsd:decimal }?,
-  attribute max { xsd:decimal }?,
+  attribute min { xsd:double }?,
+  attribute max { xsd:double }?,
   attribute step { text }?
 })
 datalist = element datalist {
@@ -78,7 +76,7 @@ feature = element feature {
     attribute id { text }?,
     attribute class { text }?,
     attribute zoom { text }?,
-    (geometry? & properties?)
+    (geometry? & properties? & featurecaption?)
 }
 tile = element tile {
     attribute col { xsd:integer },
@@ -87,8 +85,13 @@ tile = element tile {
 }
 bbox = element bbox { twoPositions }
 image =    element image { ImageModel }
-geometry = element geometry { GeometryContent }
+
+geometry = element geometry {
+  attribute cs { "gcrs" | "pcrs" | "tcrs" | "map" | "tilematrix" | "tile" }?,
+  (GeometryContent | map-a)
+  }
 properties = element properties { PropertyContent }
+featurecaption = element featurecaption { text? }
 
 ImageResourceMetadataAttributes =  
     attribute src { text },
@@ -105,23 +108,28 @@ any_attribute = attribute * { text }
 imageLocation = attribute x { xsd:double }, attribute y { xsd:double }
 imageSize = attribute width { xsd:integer },attribute height { xsd:integer }
 
-GeometryContent = point | linestring | polygon | multipoint | multilinestring | multipolygon | geometrycollection   
-point = element point { coordinates_mixed }
-linestring = element linestring { coordinates_mixed }
-polygon = element polygon { coordinates_mixed+ }
-multipoint = element multipoint { coordinates_mixed }
-multilinestring = element multilinestring { coordinates_mixed+ }
-multipolygon = element multipolygon { polygon+ }
+GeometryContent =  point | linestring | polygon | multipoint | multilinestring | multipolygon | geometrycollection
+map-a = element map-a { 
+  attribute href { text },
+  attribute target { "_self" | "_top" | "_blank" | "_parent" }?,
+  attribute type { "text/mapml" | "text/html" }?,
+  (GeometryContent | text | span_element | coordinates_mixed)}
+point = element point { map-a | coordinates_mixed }
+linestring = element linestring { map-a | coordinates_mixed }
+polygon = element polygon { map-a* & coordinates_mixed+ }
+multipoint = element multipoint { map-a | coordinates_mixed }
+multilinestring = element multilinestring { map-a* & coordinates_mixed+ }
+multipolygon = element multipolygon { map-a* & polygon+ }
 geometrycollection = element geometrycollection {
     (point* & linestring* & polygon* & multipoint* & multilinestring* & multipolygon*)
 }
-# TODO: allow either span OR a, and possibly others.
 span_element = element span { 
                   mixed {
                     attribute * { text }*&
-                    span_element* 
+                    span_element* &
+                    map-a*
                   }
                }
-coordinates_mixed = element coordinates  { mixed { span_element* } } 
+coordinates_mixed = element coordinates  { mixed { span_element* & map-a* } } 
 # for bbox content, omits coordinates element
 twoPositions =  list  { (xsd:double, xsd:double, xsd:double, xsd:double) } 
