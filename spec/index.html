@@ -363,6 +363,7 @@
               <li><time>2021-09-08</time>: Remove <code>HTMLExtentControlsCollection</code> attribute, per <a href="https://github.com/Maps4HTML/MapML/issues/212">#212</a></li>
               <li><time>2021-09-08</time>: Remove undefined and unresolved <code>LinkStyle</code> interface reference, per <a href="https://github.com/Maps4HTML/MapML/issues/212">#212</a></li>
               <li><time>2021-09-08</time>: Remove <code>legendLinks</code> attribute and interface definition and reference, per <a href="https://github.com/Maps4HTML/MapML/issues/212">#212</a></li>
+              <li><time>2023-02-24</time>: Remove <code>datalist</code> element and associated input <code>shard</code> and <code>list</code> attributes.
             </ol>
           </details>
         </section>
@@ -2060,9 +2061,6 @@
           <dd><code>type</code> — <a href="#attr-input-type-keywords">Enumerated keyword string</a> identifies the type of input.</dd>
           <dd><code>name</code> — The token to be used as a variable name in form serialization.</dd>
           <dd><code>value</code> — The current or default value of the name/value pair represented by the <code>input</code>.</dd>
-          <dd>
-            <code>list</code> — The id of an associated <a href="#the-datalist-element"><code>datalist</code></a> element to supply values for the input.
-          </dd>
           <dd><code>min</code> — The minimum value for the extent parameter acceptable by the server.</dd>
           <dd><code>max</code> — The maximum value for the extent parameter acceptable by the server.</dd>
           <dd><code>step</code> — The increment by which a value may vary between the <code>min</code> and <code>max</code> values.</dd>
@@ -2128,7 +2126,6 @@
               
               attribute DOMString type;
               attribute DOMString name;
-              readonly attribute HTMLElement? list;
               attribute DOMString min;
               attribute DOMString max;
               attribute DOMString step;
@@ -2381,67 +2378,6 @@
         </div>
         </section>
         <section>
-        <h5>The <code>&lt;<dfn id="the-datalist-element">datalist</dfn>&gt;</code> element</h5>
-        <dl class="def">
-          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-          <dd>N/A.</dd>
-          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
-          <dd>
-            As a child of the <a href="#the-extent-element"><code>extent</code></a> element, associated to an <a href="#the-input-element"><code>input</code></a> element via that element's <code>list</code> attribute.
-          </dd>
-          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-          <dd>
-            One or more <a href="#the-option-element"><code>option</code></a> elements.
-          </dd>
-          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><code>id</code> — Identifies the list within the current document.</dd>
-          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
-          <dd>
-            <details class="a11y-details">
-              <summary>For authors</summary>
-              <div class="table-responsive">
-              <table class="def">
-                <thead>
-                  <tr>
-                    <th>Implicit ARIA semantics</th>
-                    <th>ARIA roles, states and properties which MAY be used</th>
-                  </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </thead>
-              </table>
-              </div>
-            </details>
-          </dd>
-          <dd>
-            <details class="a11y-details">
-              <summary>For implementers</summary>
-              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
-            </details>
-          </dd>
-          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
-          <dd></dd>
-          <dd>
-            <pre class="idl">
-            [Exposed=Window]
-            interface HTMLDatalistElement : HTMLElement {
-              [HTMLConstructor] constructor();
-              
-              attribute DOMString id;
-            };
-            </pre>
-          </dd>
-        </dl>
-        </section>
-        <section>
         <h5>The <code>&lt;<dfn id="the-label-element">label</dfn>&gt;</code> element</h5>
         <dl class="def">
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -2570,7 +2506,7 @@
           <dd>N/A.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>
-            As a child of the <a href="#the-select-element"><code>select</code></a> element or the <a href="#the-datalist-element"><code>datalist</code></a> element.
+            As a child of the <a href="#the-select-element"><code>select</code></a> element.
           </dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-content-nothing">Nothing</a>.</dd>
