@@ -364,6 +364,7 @@
               <li><time>2021-09-08</time>: Remove undefined and unresolved <code>LinkStyle</code> interface reference, per <a href="https://github.com/Maps4HTML/MapML/issues/212">#212</a></li>
               <li><time>2021-09-08</time>: Remove <code>legendLinks</code> attribute and interface definition and reference, per <a href="https://github.com/Maps4HTML/MapML/issues/212">#212</a></li>
               <li><time>2023-02-24</time>: Remove <code>datalist</code> element and associated input <code>shard</code> and <code>list</code> attributes.
+              <li><time>2023-03-13</time>: Remove <code>nopan</code> from <code>controlslist</code> attribute. Add <code>label</code>, <label>opacity</label>, and <code>checked</code> attributes to <code>extent</code> element
             </ol>
           </details>
         </section>
@@ -663,14 +664,12 @@
           The allowed values are
           <dfn id="attr-map-controlslist-nofullscreen"><code>nofullscreen</code></dfn>,
           <dfn id="attr-map-controlslist-nolayer"><code>nolayer</code></dfn>,
-          <dfn id="attr-map-controlslist-nopan"><code>nopan</code></dfn>,
           <dfn id="attr-map-controlslist-noreload"><code>noreload</code></dfn>
           and <dfn id="attr-map-controlslist-nozoom"><code>nozoom</code></dfn>.
         </p>
           
         <p>The <a href="#attr-map-controlslist-nofullscreen"><code>nofullscreen</code></a> keyword hints that the fullscreen mode control should be hidden when using the user agent's own set of controls for the media element.</p>
         <p>The <a href="#attr-map-controlslist-nolayer"><code>nolayer</code></a> keyword hints that the layer control should be hidden when using the user agent's own set of controls for the media element.</p>
-        <p>The <a href="#attr-map-controlslist-nopan"><code>nopan</code></a> keyword hints that the pan controls should be hidden when using the user agent's own set of controls for the media element.</p>
         <p>The <a href="#attr-map-controlslist-noreload"><code>noreload</code></a> keyword hints that the reload control should be hidden when using the user agent's own set of controls for the media element.</p>
         <p>The <a href="#attr-map-controlslist-nozoom"><code>nozoom</code></a> keyword hints that the zoom controls should be hidden when using the user agent's own set of controls for the media element.</p>
         
@@ -1985,7 +1984,7 @@
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
-          <dd>Required to be a child of the <a href="#the-body-element"><code>body</code></a> element.</dd>
+          <dd>A child of the <a href="#the-body-element"><code>body</code></a> element when loaded over the network, or a child of the <a href="#the-layer-element"><code>layer</code></a> element when loaded inline.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd>
             A set of multiple <a href="#the-input-element"><code>input</code></a> and one or more <a href="#the-link-element"><code>link</code></a> elements with their <code>rel</code> attribute in either the "<a href="#link-rel-tile"><code>tile</code></a>", "<a href="#link-rel-image"><code>image</code></a>" or "<a href="#link-rel-features"><code>features</code></a>" state, and zero or one
@@ -1993,7 +1992,10 @@
           </dd>
 
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><code>units</code> — The name of the coordinate reference system whose measurement units are to be used by values submitted by child <a href="#the-input-element"><code>input</code></a> elements.</dd>
+          <dd><code>units</code> — The name of the coordinate reference system whose measurement units are to be used by values supplied by child <a href="#the-input-element"><code>input</code></a> elements.</dd>
+          <dd><code>label</code> — A text label to be applied to the user interface for the <a href="#the-extent-element"><code>extent</code></a> in the layer control. If no label is supplied, the <a href="#the-extent-element"><code>extent</code></a> will not expose a user interface in the layer control, but will still be displayed on the map.</dd>
+          <dd><code>opacity</code> — An initial opacity value, that will be applied to the content retrieved by the <a href="#the-extent-element"><code>extent</code></a>, and which is reflected to the exposed user interface for opacity. Opacity values have a decimal range from 0 (transparent) to 1.0 (opaque).</dd>
+          <dd><code>checked</code> — A boolean attribute that sets the initial state of the exposed user interface in the layer control. If checked, the <a href="#the-extent-element"><code>extent</code></a> content is displayed on the map.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
           <dd>
             <details class="a11y-details">
