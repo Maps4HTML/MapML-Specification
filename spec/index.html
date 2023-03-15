@@ -365,6 +365,7 @@
               <li><time>2021-09-08</time>: Remove <code>legendLinks</code> attribute and interface definition and reference, per <a href="https://github.com/Maps4HTML/MapML/issues/212">#212</a></li>
               <li><time>2023-02-24</time>: Remove <code>datalist</code> element and associated input <code>shard</code> and <code>list</code> attributes.
               <li><time>2023-03-13</time>: Add <code>layer.zoomTo()</code> method.
+              <li><time>2023-03-15</time>: Change behaviour of lat,lon,zoom IDL; remove reflection, add setter behavior.
             </ol>
           </details>
         </section>
@@ -632,13 +633,15 @@
         <p>The <code id="dom-areas">areas</code> attribute must return an <a href="https://dom.spec.whatwg.org/#htmlcollection"><code>HTMLCollection</code></a> 
         rooted at the <a href="#the-map-element"><code>map</code></a> element, whose filter matches only  <a href="#the-area-element"><code>area</code></a> child elements.</p>
         
-        <p>The <dfn id="attr-map-zoom"><code>zoom</code></dfn> attribute indirectly identifies an initial scale of the map.</p>
-        <p>The <a href="#dom-htmlmapelement-zoom"><code>zoom</code></a> IDL attribute must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the content attribute of the same name.</p>
+        <p>The <dfn id="attr-map-zoom"><code>zoom</code></dfn> content attribute indirectly identifies an initial scale of the map at document load.  The <a href="#attr-map-zoom"><code>zoom</code></a> content attribute is not updated; it represents the initial map state only.</p>
         
-        <p>The <dfn id="attr-map-lat"><code>lat</code></dfn></a> and <dfn id="attr-map-lon"><code>lon</code></dfn> attributes locate the initial center of the map.</p>
-        <p>The <a href="#dom-htmlmapelement-lat"><code>lat</code></a> and <a href="#dom-htmlmapelement-lon"><code>lon</code></a> IDL attributes must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the content attribute of the same name.</p>
+        <p>The <a href="#dom-htmlmapelement-zoom"><code>zoom</code></a> IDL attribute gets and sets the live map scale, by re-drawing the map at the requested zoom, if applicable.  The <a href="#dom-htmlmapelement-zoom"><code>zoom</code></a> IDL attribute does not reflect its value to the <a href="#attr-map-zoom"><code>zoom</code></a> content attribute.</p>
+        
+        <p>The <dfn id="attr-map-lat"><code>lat</code></dfn></a> and <dfn id="attr-map-lon"><code>lon</code></dfn> content attributes locate the initial center of the map at document load. The <a href="#attr-map-lat"><code>lat</code></a> and <a href="#attr-map-lon"><code>lon</code></a> content attributes are not updated; they represent the initial map state only.  </p>
+        
+        <p>The <a href="#dom-htmlmapelement-lat"><code>lat</code></a> and <a href="#dom-htmlmapelement-lon"><code>lon</code></a> IDL attributes get and set the live map center location, by re-centering the map at the specified location. The <a href="#dom-htmlmapelement-lat"><code>lat</code></a> and <a href="#dom-htmlmapelement-lon"><code>lon</code></a> IDL attributes do not reflect their values to the <a href="#attr-map-lat"><code>lat</code></a> and <a href="#attr-map-lon"><code>lon</code></a> content attributes.</p>
 
-        <p>The location and zoom level of the map created with the <code>map</code> element can be changed via the <code>zoomTo()</code> API method, which will change the <code>zoom</code>, <code>lat</code> and <code>lon</code> properties.</p>
+        <p>The location and scale of the map created with the map element can be changed via the <a href="#dom-htmlmapelement-zoomto"><code>zoomTo(lat,lon,zoom)</code></a> API method, which will set the <a href="#dom-htmlmapelement-lat"><code>lat</code></a>, <a href="#dom-htmlmapelement-lon"><code>lon</code></a> and <a href="#dom-htmlmapelement-zoom"><code>zoom</code></a> IDL attributes.</p>
 
         <p>The <dfn id="attr-map-controls"><code>controls</code></dfn> attribute is a <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attribute">boolean attribute</a>. If present, it indicates that the author has not provided scripted controls and would like the user agent to provide its own set of controls.</p>
         <!-- https://html.spec.whatwg.org/multipage/media.html#user-interface -->
