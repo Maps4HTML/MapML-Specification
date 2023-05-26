@@ -1,8 +1,28 @@
 datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes" 
 default namespace = "http://www.w3.org/1999/xhtml"
-start = mapml 
-mapml = element mapml- { map-head?, attribute lang {text}?, body }
-map-head = element map-head { headContent }
+start = mapml-viewer
+mapml-viewer = element mapml-viewer { layer-*, 
+    attribute lat {text},  
+    attribute lon {text}, 
+    attribute zoom {text}, 
+    attribute projection { "OSMTILE" | "CBMTILE" | "APSTILE" | "WGS84" },
+    attribute controls {text}?,
+    attribute controlslist { text }?,
+    attribute height {text}?,
+    attribute width {text}?,
+    attribute static {text}?,
+    map-caption?,
+    layer-*
+}
+map-caption = element map-caption { text }
+layer- = element layer- {
+    attribute src { xsd:anyURI }?,
+    attribute label {text}?,
+    attribute checked {text}?,
+    attribute hidden {text}?,
+    attribute opacity {text}?,
+    (headContent?, bodyContent+)
+}*
 map-link = element map-link { 
         attribute href { xsd:anyURI }?,
         # can have a tref (when in extent) or an href (but not both)
@@ -28,8 +48,6 @@ headContent =
     element map-style { text }? &
     element map-title { text }? &
     map-links
-
-body = element map-body { bodyContent }
 bodyContent =  map-extent? & map-links & (map-feature | map-tile | map-image)*  
 map-extent = element map-extent {
   attribute units  { "OSMTILE" | "CBMTILE" | "APSTILE" | "WGS84" }?,
@@ -131,3 +149,4 @@ span_element = element map-span {
 coordinates_mixed = element map-coordinates  { mixed { span_element* & map-a* } } 
 # for bbox content, omits coordinates element
 twoPositions =  list  { (xsd:double, xsd:double, xsd:double, xsd:double) } 
+

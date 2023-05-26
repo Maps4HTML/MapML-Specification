@@ -1,0 +1,59 @@
+<!-- validate with mapml-viewer.rnc, then mapml-viewer.sch. <mapml-viewer> is a
+custom element that goes in the <body> element of an HTML document -->
+<mapml-viewer lat="45" lon="180" projection="CBMTILE" zoom="11" controls="controls" height="240" controlslist="nofullscreen geolocation noscale"  xmlns="http://www.w3.org/1999/xhtml">
+    <map-caption>A pleasing map of Canada</map-caption>
+    <layer- src=""></layer->
+    <layer- label="CBMT" src="https://geogratis.gc.ca/mapml/en/cbmtile/cbmt/" checked="foo"></layer->
+    <layer- label="Hat Guy" checked="foo">
+        <map-meta name="foo" content="CBMTILE"></map-meta>
+        <map-feature id="twohats" zoom="15" class="twohats">
+            <map-properties>
+                <table>
+                    <tr>
+                        <th>code</th>
+                        <td>1200020</td>
+                    </tr>
+                    <tr>
+                        <th>accuracy</th>
+                        <td>26</td>
+                    </tr>
+                    <tr>
+                        <th>valdate</th>
+                        <td>1995</td>
+                    </tr>
+                    <tr>
+                        <th>image</th>
+                        <td><a
+                                href="https://www.veterans.gc.ca/eng/remembrance/memorials/national-inventory-canadian-memorials/details/9304">
+                                <img
+                                    src="https://www.veterans.gc.ca/images/remembrance/memorials/national-inventory-canadian-memorials/mem/35059-173a.jpg"
+                                    width="60" height="60" />
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>theme</th>
+                        <td>FO</td>
+                    </tr>
+                    <tr>
+                        <th>type</th>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <th>elevation</th>
+                        <td>61</td>
+                    </tr>
+                    <tr>
+                        <th>altiaccu</th>
+                        <td>5</td>
+                    </tr>
+                </table>
+            </map-properties>
+            <map-geometry cs="gcrs">
+                <map-point>
+                    <map-coordinates>-75.705278 45.397778</map-coordinates>
+                </map-point>
+            </map-geometry>
+        </map-feature>
+    </layer->
+</mapml-viewer>
