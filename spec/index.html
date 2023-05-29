@@ -818,16 +818,16 @@
             </p>
             
             <pre>
-              &lt;map zoom="11" lat="48.8566" lon="2.3522"&gt;
+              &lt;mapml-viewer zoom="11" lat="48.8566" lon="2.3522"&gt;
                 &lt;layer src="https://example.com/mapml/osm/" checked crossorigin&gt;&lt;/layer&gt;
-              &lt;/map&gt;
+              &lt;/mapml-viewer&gt;
             </pre>
           </aside>
           
           <aside class="example">
             <p>
               A map of Ottawa,
-              with the default controls enabled and dimensions specified:
+              with default and non-default controls enabled, and dimensions specified:
             </p>
             
             <iframe class="authoring-example" title="Authoring example 2" src="examples/map-2.html" width="600" height="350" loading="lazy"></iframe>
@@ -837,7 +837,7 @@
             </p>
             
             <pre>
-              &lt;mapml-viewer projection="CBMTILE" zoom="15" lat="45.4215" lon="-75.6972" width="600" height="350" controls&gt;
+              &lt;mapml-viewer projection="CBMTILE" zoom="15" lat="45.4215" lon="-75.6972" width="600" height="350" controls controlslist="geolocation"&gt;
                 &lt;layer label="Canada Base Map - Transportation (CBMT)" src="https://example.com/mapml/cbmt/" checked crossorigin&gt;&lt;/layer&gt;
               &lt;/mapml-viewer&gt;
             </pre>
