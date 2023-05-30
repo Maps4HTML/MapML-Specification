@@ -367,6 +367,7 @@
               <li><time>2023-03-13</time>: Add <code>layer.zoomTo()</code> method.
               <li><time>2023-03-13</time>: Remove <code>nopan</code> from <code>controlslist</code> attribute. Add <code>label</code>, <label>opacity</label>, and <code>checked</code> attributes to <code>extent</code> element
               <li><time>2023-05-26</time>: Remove <code>map</code> and <code>area</code> element discussion, to focus on <code>mapml-viewer</code>.
+              <li><time>2023-05-29</time>: Add <code>map-caption</code> element.  Add static attribute to <code>mapml-viewer</code> element. Add <code>noscale</code>, <code>geolocation</code> to controlslist values. Add HTMLMapmlViewerElement methods forward(), back(), reload(), geojson2mapml to WebIDL interface.  General edits up to line 928.
             </ol>
           </details>
         </section>
@@ -377,11 +378,12 @@
         <h1>Introduction</h1>
         <p>
           Map Markup Language is a text-based format which allows map authors to encode map information as 
-          hypertext documents exchanged over the Uniform Interface of the Web. The format is defined using some 
+          hypertext documents exchanged over HTTP [[rfc2616]]. The format is defined using some 
           characteristics of [[[HTML]]], [[[rfc7946]]], [[[WMS]]], [[[WMTS]]], and other standards as noted. 
-          [[HTML]] [[rfc7946]] [[WMS]] [[WMTS]] Currently, there is only an XML syntax of
-          MapML. In the future, the intention is to extend the HTML parser to include the definitions of the new 
-          elements, and thereby enable an HTML syntax flavor of MapML, one that is compatible with existing 
+          [[HTML]] [[rfc7946]] [[WMS]] [[WMTS]] Currently, there is only an XHTML syntax of
+          MapML, that relies on custom elements' standard syntax. In the future, 
+          the intention is to extend the HTML parser to include the definitions of the new 
+          elements, and thereby enable an HTML syntax of MapML, one that is compatible with existing 
           browsers' HTML parser modes.
         </p>
         <p>This specification describes a proposed syntax and behavior for a new 
@@ -401,7 +403,7 @@
         <h2 id="use-cases-and-requirements">Use Cases and Requirements</h2>
         
         <p>
-          This document is being
+          This document is guided by, and should be
           <a href="https://github.com/Maps4HTML/MapML/issues?q=is%3Aissue+is%3Aopen+label%3A%22Requirements+Evaluation%22">evaluated</a>
           against the [[[UCR-Web-Maps]]].
         </p>
@@ -521,13 +523,12 @@
           A <dfn>Web map</dfn> is an embedded media element defined by
           the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element,
           in conjunction with any
-          <a href="#the-layer-element"><code>layer</code></a>element descendants.
-          A Web map represents a region of the earth's surface in two dimensions,
+          <a href="#the-layer-element"><code>layer</code></a> element descendants.
+          A Web map normally represents a region of the earth's surface in two dimensions,
           and enables dynamic cartographic Web applications in [[HTML]] documents.
         </p>
   
         <section>
-        <!-- initially copied from the HTML 5 spec -->
         <h3 id="web-mapping-elements-and-api">Web mapping elements and API</h3>
         <section>
         <h4>The <code>&lt;<dfn id="the-mapml-viewer-element">mapml-viewer</dfn>&gt;</code> element</h4>
@@ -539,20 +540,22 @@
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#interactive-content-2">Interactive content</a>.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
         <dd>Where <a href="https://html.spec.whatwg.org/multipage/dom.html#embedded-content-2">embedded content</a> is expected.</dd>
-        <dt id="map-content"><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-        <dd>If <a href="#attr-map-lat"><code>lat</code></a>, <a href="#attr-map-lon"><code>lon</code></a>, and <a href="#attr-map-zoom"><code>zoom</code></a>
-         are NOT present: <a href="https://html.spec.whatwg.org/multipage/dom.html#transparent">Transparent</a>; otherwise: Zero or more <a href="#the-layer-element"><code>layer</code></a> elements.</dd>
-
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
+        <dd>Zero or more <a href="#the-layer-element"><code>layer</code></a> elements, preceded or followed by zero or one <a href="#the-map-caption-element"><code>map-caption</code></a> elements.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
-        <dd><code>zoom</code> — A positive integer zoom (scale) value.</dd>
+        <dd><code>zoom</code> — A non-negative integer zoom value.</dd>
         <dd><code>lat</code> — A decimal WGS84 latitude value for the map center.</dd>
         <dd><code>lon</code> — A decimal WGS84 longitude value for the map center.</dd>
-        <dd><code>projection</code> — A case-sensitive string <a href="#tiled-coordinate-reference-systems-table">identifier</a> of the MapML coordinate reference system used by the map. Default is <a href="#tcrs-OSMTILE"><code>OSMTILE</code></a>.</dd>
+        <dd><code>projection</code> — A case-sensitive string 
+          <a href="#tiled-coordinate-reference-systems-table">identifier</a> of 
+          the MapML coordinate reference system used by the map. Default is 
+          <a href="#tcrs-OSMTILE"><code>OSMTILE</code></a>.</dd>
         <dd><code>controls</code> — Show user agent controls.</dd>
         <dd><code>controlslist</code> — Show/hide specific user agent controls.</dd>
         <dd><code>width</code> — Horizontal dimension.</dd>
         <dd><code>height</code> — Vertical dimension.</dd>
+        <dd><code>static</code> — Disable map interactivity.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
         <dd>Neither tag is omissible.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
@@ -591,8 +594,12 @@
         </dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
         <dd>
+        <!-- re: _static below, the property (provisional) name is actually 'static'.
+        Prefixing a WebIDL attribute name with an _ underscore is supposed to 
+        allow you to use a WebIDL keyword (such as static) as an attribute name: 
+        https://webidl.spec.whatwg.org/#ref-for-dfn-identifier:~:text=(_)%20is%20used%20to%20escape%20an%20identifier%20from%20looking%20like%20a%20reserved%20word -->
           <pre class="idl">
-          [Exposed=Window, LegacyFactoryFunction=Map(unsigned long width, unsigned long height, double lat, double lon, unsigned short zoom, optional DOMString projection, boolean controls)]
+          [Exposed=Window]
           interface HTMLMapmlViewerElement : HTMLElement {
             [HTMLConstructor] constructor();
             
@@ -605,22 +612,33 @@
                 DOMTokenList controlsList;
             [CEReactions] attribute unsigned long width;
             [CEReactions] attribute unsigned long height;
+            [CEReactions] attribute boolean _static; 
             undefined zoomTo(double latitude, double longitude, optional unsigned short zoom);
+            undefined back();
+            undefined forward();
+            undefined reload();
+            [NewObject] HTMLLayerElement geojson2mapml(Object geojson, Object options); 
           };
           </pre>
         </dd>
         </dl>
         <div>
+        <p id="implementation">The <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> 
+          element, in conjunction with child 
+          <a href="#the-layer-element"><code>layer</code></a> defines a map media element.</p>
           
-        <p id="implementation">The <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element, in conjunction with child <a href="#the-layer-element"><code>layer</code></a>defines a map media element.</p>
-          
-        <p>The <dfn id="attr-map-zoom"><code>zoom</code></dfn> attribute indirectly identifies an initial scale of the map.</p>
-        <p>The <a href="#dom-htmlmapmlviewerelement-zoom"><code>zoom</code></a> IDL attribute must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the content attribute of the same name.</p>
+        <p>The <dfn id="attr-map-zoom"><code>zoom</code></dfn> content attribute 
+          indirectly identifies an initial scale of the map.</p>
+        <p>The <a href="#dom-htmlmapmlviewerelement-zoom"><code>zoom</code></a> 
+          IDL attribute must 
+          <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> 
+          the content attribute of the same name.</p>
         
-        <p>The <dfn id="attr-map-lat"><code>lat</code></dfn></a> and <dfn id="attr-map-lon"><code>lon</code></dfn> attributes locate the initial center of the map.</p>
+        <p>The <dfn id="attr-map-lat"><code>lat</code></dfn></a> and <dfn id="attr-map-lon"><code>lon</code></dfn> content attributes locate the initial center of the map.</p>
         <p>The <a href="#dom-htmlmapmlviewerelement-lat"><code>lat</code></a> and <a href="#dom-htmlmapmlviewerelement-lon"><code>lon</code></a> IDL attributes must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the content attribute of the same name.</p>
+        <p class="note"><em>The <a href="#dom-htmlmapmlviewerelement-lat"><code>lat</code></a>, <a href="#dom-htmlmapmlviewerelement-lon"><code>lon</code></a> and <a href="#dom-htmlmapmlviewerelement-zoom"><code>zoom</code></a> attributes have no dynamic effect (they only control the default initial state of the element).</em></p>
 
-        <p>The location and zoom level of the map created with the <code>mapml-viewer</code> element can be changed via the <code>zoomTo()</code> API method, which will change the <code>zoom</code>, <code>lat</code> and <code>lon</code> properties.</p>
+        <p>The location and zoom level of the map created with the <code>mapml-viewer</code> element can be dynamically changed via the <code>zoomTo()</code> API method, which will also change the <code>zoom</code>, <code>lat</code> and <code>lon</code> attributes.</p>
 
         <p>The <dfn id="attr-map-controls" class="lint-ignore"><code>controls</code></dfn> attribute is a <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attribute">boolean attribute</a>. If present, it indicates that the author has not provided scripted controls and would like the user agent to provide its own set of controls.</p>
         <!-- https://html.spec.whatwg.org/multipage/media.html#user-interface -->
@@ -633,7 +651,6 @@
           This user interface should include features to
           zoom in,
           zoom out,
-          pan to an arbitrary position in the content,
           toggle the "on/off" status of layers,
           and show the media content in manners more suitable to the user
           (e.g. fullscreen map or in an independent resizable window).
@@ -646,14 +663,23 @@
           The allowed values are
           <dfn id="attr-map-controlslist-nofullscreen"><code>nofullscreen</code></dfn>,
           <dfn id="attr-map-controlslist-nolayer"><code>nolayer</code></dfn>,
-          <dfn id="attr-map-controlslist-noreload"><code>noreload</code></dfn>
-          and <dfn id="attr-map-controlslist-nozoom"><code>nozoom</code></dfn>.
+          <dfn id="attr-map-controlslist-noreload"><code>noreload</code></dfn>,
+          <dfn id="attr-map-controlslist-nozoom"><code>nozoom</code></dfn>,
+          <dfn id="attr-map-controlslist-noscale"><code>noscale</code></dfn>, and 
+          <dfn id="attr-map-controlslist-geolocation"><code>geolocation</code></dfn>.
         </p>
           
         <p>The <a href="#attr-map-controlslist-nofullscreen"><code>nofullscreen</code></a> keyword hints that the fullscreen mode control should be hidden when using the user agent's own set of controls for the media element.</p>
         <p>The <a href="#attr-map-controlslist-nolayer"><code>nolayer</code></a> keyword hints that the layer control should be hidden when using the user agent's own set of controls for the media element.</p>
         <p>The <a href="#attr-map-controlslist-noreload"><code>noreload</code></a> keyword hints that the reload control should be hidden when using the user agent's own set of controls for the media element.</p>
         <p>The <a href="#attr-map-controlslist-nozoom"><code>nozoom</code></a> keyword hints that the zoom controls should be hidden when using the user agent's own set of controls for the media element.</p>
+        <p>The <a href="#attr-map-controlslist-noscale"><code>noscale</code></a> keyword hints that the scalebar control should be hidden when using the user agent's own set of controls for the media element.</p>
+        <p>The <a href="#attr-map-controlslist-geolocation"><code>geolocation</code></a> 
+        keyword hints that a control to allow the user to enable client-side representation 
+        of the user agent's location should be presented.  Triggering the control 
+        should invoke an interaction to obtain a time-limited 
+        <a href="https://www.w3.org/TR/permissions/#dfn-express-permission">express 
+        permission</a> [permissions] to display the user agent's location on the viewer.</p>
         
         <p class="note"><em>Hiding these aspects of the user agent's own controls does not necessarily disable the related functionality. For example, the user agent might present the same functionality through a context menu or keyboard shortcut.</em></p>
         
@@ -767,6 +793,63 @@
         <p>The location and zoom level of the map can be changed via the <a href="#dom-htmllayerelement-zoomto"><code>layer</code>.<code>zoomTo()</code></a> API method.</p>
 
         </section>
+        <section>
+        <h4>The <code>&lt;<dfn id="the-map-caption-element">map-caption</dfn>&gt;</code> element</h4>
+        <dl class="def">
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
+        <dd>None.</dd>
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
+        <dd>As the first or last child of a <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element.</dd>
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
+        <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
+        <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
+        <dd>Neither tag is omissible.</dd>
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+        <dd>
+          <details class="a11y-details">
+            <summary>For authors</summary>
+            <div class="table-responsive">
+            <table class="def">
+              <thead>
+                <tr>
+                  <th>Implicit ARIA semantics</th>
+                  <th>ARIA roles, states and properties which MAY be used</th>
+                </tr>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </thead>
+            </table>
+            </div>
+          </details>
+        </dd>
+        <dd>
+          <details class="a11y-details">
+            <summary>For implementers</summary>
+            <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+          </details>
+        </dd>
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
+        <dd>Uses <a href="https://html.spec.whatwg.org/multipage/dom.html#htmlelement">HTMLElement</a>.</dd>
+        </dl>
+        <p>The <a href="#the-map-caption-element"><code>map-caption</code></a> element
+        allows the HTML author to assign an accessible name to a map viewer.  If the
+        viewer is part of a generic mapping application that allows the user to 
+        navigate any location in the world, a location-specific <code>map-caption</code>
+        may not be appropriate, and a more generic caption may be necessary.</p>
+        <p>In other situations, the <code>map-caption</code> element allows the 
+        author to describe the central reason for the map. Often that reason is a
+        combination of a location and a theme.</p>
+      </section>
       <section class="informative">
         <h3 id="authoring">Authoring</h3>
         
@@ -775,12 +858,15 @@
           represented in HTML in the form of a
           <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element,
           containing a set of zero or more
-          <a href="#the-layer-element"><code>layer</code></a> elements.
+          <a href="#the-layer-element"><code>layer</code></a> elements, with an
+          optional accessible name assigned by a first or last child 
+          <a href="#the-map-caption-element"><code>map-caption</code></a> element.
           Map layers are drawn in document order of the
           <a href="#the-layer-element"><code>layer</code></a> elements,
           following the SVG
           <a href="https://www.w3.org/TR/SVG/render.html#PaintersModel">painters model</a>.
-          If the author enables more than one layer,
+          If the author enables, via the  <a href="#the-layer-element"><code>layer</code></a> 
+          <a href="#attr-layer-checked"><code>checked</code></a> attribute, more than one layer,
           all the layers will be painted, in document order.
           Features in layers drawn earlier will be painted over by later layers.
         </p>
@@ -819,6 +905,7 @@
             
             <pre>
               &lt;mapml-viewer zoom="11" lat="48.8566" lon="2.3522"&gt;
+                &lt;map-caption&gt;Paris, the City of Lights&lt;/map-caption&gt;
                 &lt;layer src="https://example.com/mapml/osm/" checked crossorigin&gt;&lt;/layer&gt;
               &lt;/mapml-viewer&gt;
             </pre>
@@ -838,6 +925,7 @@
             
             <pre>
               &lt;mapml-viewer projection="CBMTILE" zoom="15" lat="45.4215" lon="-75.6972" width="600" height="350" controls controlslist="geolocation"&gt;
+                &lt;map-caption&gt;A map of downtown Ottawa, Canada&lt;/map-caption&gt;
                 &lt;layer label="Canada Base Map - Transportation (CBMT)" src="https://example.com/mapml/cbmt/" checked crossorigin&gt;&lt;/layer&gt;
               &lt;/mapml-viewer&gt;
             </pre>
