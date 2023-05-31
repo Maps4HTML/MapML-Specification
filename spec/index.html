@@ -368,6 +368,7 @@
               <li><time>2023-03-13</time>: Remove <code>nopan</code> from <code>controlslist</code> attribute. Add <code>label</code>, <label>opacity</label>, and <code>checked</code> attributes to <code>extent</code> element
               <li><time>2023-05-26</time>: Remove <code>map</code> and <code>area</code> element discussion, to focus on <code>mapml-viewer</code>.
               <li><time>2023-05-29</time>: Add <code>map-caption</code> element.  Add static attribute to <code>mapml-viewer</code> element. Add <code>noscale</code>, <code>geolocation</code> to controlslist values. Add HTMLMapmlViewerElement methods forward(), back(), reload(), geojson2mapml to WebIDL interface.  General edits up to line 928.
+              <li><time>2023-05-30</time>: Remove discussion of WGS84 from projection attribute definition.  
             </ol>
           </details>
         </section>
@@ -691,11 +692,22 @@
         
         <p class="note">A user agent might ignore the <a href="#attr-map-controlslist-nofullscreen"><code>nofullscreen</code></a> keyword if the content area containing the map is small, such as on a mobile device.</p>
         
-        <p>The <dfn id="attr-map-projection" class="lint-ignore"><code>projection</code></dfn> attribute value identifies the coordinate system for the map and all the <a href="#the-layer-element"><code>layer</code></a> element children, with the exception of
-        <a href="#the-layer-element"><code>layer</code></a> children in the WGS84 projection.  WGS84 serves as a "wild-card" projection; features encoded in longitude, latitude values according to this projection can often be re-projected for
-        use on maps encoded in other projections.  As such, <a href="#the-layer-element"><code>layer</code></a> children do not have a projection attribute, in that they are verified to share the projection declared by their
-        parent <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element.  Once established, the projection of the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> is read-only.
-        Unless otherwise specified, units are based on pixels projected and transformed from the units of the underlying projection system. The complete definition of these coordinate reference systems can be found in the
+        <p>The <dfn id="attr-map-projection" class="lint-ignore"><code>projection</code></dfn> 
+          attribute value identifies the tiled coordinate reference system for 
+          the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a>
+          and the fallback tiled coordinate reference system for its content 
+          <a href="the-layer-element"><code>layer</code></a> elements. 
+          Layers share the projection declared by their parent 
+          <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> 
+          either by using the fallback <a href="#attr-map-projection"><code>
+          projection</code></a> value from the parent, or via an optional child 
+          <a href="#the-meta-element"><code>meta</code></a>
+          element specifying the <code>projection</code> via that element's 
+          <code>name</code> and <code>content</code> attribute values. 
+          The default value of the <a href="#attr-map-projection"><code>
+          projection</code></a>, if the content attribute is not present, is 
+          <a href="#tcrs-OSMTILE"><code>OSMTILE</code></a>.
+          The complete set of defined tiled coordinate reference systems can be found in the
         <a href="#tiled-coordinate-reference-systems-table">Tiled Coordinate Reference Systems</a> table.
         </p>
         
@@ -704,6 +716,63 @@
         </div>
         </section>
         <section>
+        <h4>The <code>&lt;<dfn id="the-map-caption-element">map-caption</dfn>&gt;</code> element</h4>
+        <dl class="def">
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
+        <dd>None.</dd>
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
+        <dd>As the first or last child of a <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element.</dd>
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
+        <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
+        <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
+        <dd>Neither tag is omissible.</dd>
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+        <dd>
+          <details class="a11y-details">
+            <summary>For authors</summary>
+            <div class="table-responsive">
+            <table class="def">
+              <thead>
+                <tr>
+                  <th>Implicit ARIA semantics</th>
+                  <th>ARIA roles, states and properties which MAY be used</th>
+                </tr>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </thead>
+            </table>
+            </div>
+          </details>
+        </dd>
+        <dd>
+          <details class="a11y-details">
+            <summary>For implementers</summary>
+            <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+          </details>
+        </dd>
+        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
+        <dd>Uses <a href="https://html.spec.whatwg.org/multipage/dom.html#htmlelement">HTMLElement</a>.</dd>
+        </dl>
+        <p>The <a href="#the-map-caption-element"><code>map-caption</code></a> element
+        allows the HTML author to assign an accessible name to a map viewer.  If the
+        viewer is part of a generic mapping application that allows the user to 
+        navigate any location in the world, a location-specific <code>map-caption</code>
+        may not be appropriate, and a more generic caption may be necessary.</p>
+        <p>In other situations, the <code>map-caption</code> element allows the 
+        author to describe the central reason for the map. Often that reason is a
+        combination of a location and a theme.</p>
+      </section>
+      <section>
         <h4>The <code>&lt;<dfn id="the-layer-element">layer</dfn>&gt;</code> element</h4>
         <dl class="def">
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
@@ -793,63 +862,6 @@
         <p>The location and zoom level of the map can be changed via the <a href="#dom-htmllayerelement-zoomto"><code>layer</code>.<code>zoomTo()</code></a> API method.</p>
 
         </section>
-        <section>
-        <h4>The <code>&lt;<dfn id="the-map-caption-element">map-caption</dfn>&gt;</code> element</h4>
-        <dl class="def">
-        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
-        <dd>None.</dd>
-        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
-        <dd>As the first or last child of a <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element.</dd>
-        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-        <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
-        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-        <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
-        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
-        <dd>Neither tag is omissible.</dd>
-        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
-        <dd>
-          <details class="a11y-details">
-            <summary>For authors</summary>
-            <div class="table-responsive">
-            <table class="def">
-              <thead>
-                <tr>
-                  <th>Implicit ARIA semantics</th>
-                  <th>ARIA roles, states and properties which MAY be used</th>
-                </tr>
-                <tbody>
-                  <tr>
-                    <th>
-                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                    </th>
-                    <td>
-                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                    </td>
-                  </tr>
-                </tbody>
-              </thead>
-            </table>
-            </div>
-          </details>
-        </dd>
-        <dd>
-          <details class="a11y-details">
-            <summary>For implementers</summary>
-            <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
-          </details>
-        </dd>
-        <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
-        <dd>Uses <a href="https://html.spec.whatwg.org/multipage/dom.html#htmlelement">HTMLElement</a>.</dd>
-        </dl>
-        <p>The <a href="#the-map-caption-element"><code>map-caption</code></a> element
-        allows the HTML author to assign an accessible name to a map viewer.  If the
-        viewer is part of a generic mapping application that allows the user to 
-        navigate any location in the world, a location-specific <code>map-caption</code>
-        may not be appropriate, and a more generic caption may be necessary.</p>
-        <p>In other situations, the <code>map-caption</code> element allows the 
-        author to describe the central reason for the map. Often that reason is a
-        combination of a location and a theme.</p>
-      </section>
       <section class="informative">
         <h3 id="authoring">Authoring</h3>
         
