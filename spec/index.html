@@ -786,11 +786,10 @@
         <a href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a> describing nested <a href="#structure">Map Markup Language</a> content.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
-        <dd id="attr-layer-src"><code>src</code> — Address of the resource.</dd>
-        <dd id="attr-layer-label"><code>label</code> — String label for the layer in the layer control, if displayed.</dd>
-        <dd id="attr-layer-checked"><code>checked</code> — Layer on/off status.</dd>
-        <dd id="attr-layer-disabled"><code>disabled</code> — Sets the disabled state of the layer in the layer control.</dd>
-        <dd id="attr-layer-hidden"><code>hidden</code> — Visibility status of the layer in the layer control.</dd>
+        <dd id="attr-layer-src"><code>src</code> — The URL of the layer resource.</dd>
+        <dd id="attr-layer-label"><code>label</code> — A label for the layer in the layer control, if the layer is not not <code>hidden</code>. The map author's <code>title</code> element takes precedence over <code>label</code>, if available.</dd>
+        <dd id="attr-layer-checked"><code>checked</code> — Turn the layer on/off dynamically on the map. </dd>
+        <dd id="attr-layer-hidden"><code>hidden</code> — Visibility status of the layer in the layer control. Does not affect visibility of the layer on the map.</dd>
         <dd id="attr-layer-referrerpolicy"><code>referrerpolicy</code> — <a href="https://w3c.github.io/webappsec-referrer-policy/#referrer-policy">Referrer policy</a> for <a href="https://fetch.spec.whatwg.org/#concept-fetch">fetches</a> initiated by the element.</dd>
         <dd id="attr-layer-crossorigin"><code>crossorigin</code> — A <a href="https://html.spec.whatwg.org/multipage/urls-and-fetching.html#cors-settings-attribute">CORS settings attribute</a>, specifies how the element handles crossorigin requests.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
@@ -834,7 +833,7 @@
           interface HTMLLayerElement : HTMLElement {
             [HTMLConstructor] constructor();
             
-            readonly attribute DOMString <a href="#attr-layer-src">src</a>;
+                     attribute DOMString <a href="#attr-layer-src">src</a>;
                      attribute DOMString <a href="#attr-layer-label">label</a>;
                      attribute boolean <a href="#attr-layer-checked">checked</a>;
             readonly attribute boolean <a href="#attr-layer-disabled">disabled</a>;
@@ -844,11 +843,11 @@
                                undefined zoomTo();
             object? mapml2geojson(optional GeoJSONGenerationOptions options = {}); 
           };
-          callback propertyFunction =  object ( HTMLPropertiesElement properties); <!-- https://webidl.spec.whatwg.org/#idl-callback-functions -->
           dictionary GeoJSONGenerationOptions {
                     object propertyFunction;
                     boolean transform = false;
           };
+          callback propertyFunction =  object ( HTMLPropertiesElement properties); <!-- https://webidl.spec.whatwg.org/#idl-callback-functions -->
           </pre>
         </dd>
         </dl>
@@ -864,7 +863,7 @@
         <p>The <a href="#attr-layer-src"><code>src</code></a> attribute value is the URL of a web resource encoded in <a href="#structure">Map Markup Language</a>.</p>
         <p>The <a href="#attr-layer-hidden"><code>hidden</code></a> boolean attribute can be set to remove the <a href="#the-layer-element"><code>layer</code></a> from the <em>map layer control, but it will remain displayed on the map</em>.  In order to
         remove the <a href="#the-layer-element"><code>layer</code></a> from the map display, it can have its <a href="#attr-layer-checked"><code>checked</code></a> property toggled, or be removed from the DOM.</p>
-        <p>The <a href="#attr-layer-disabled"><code>disabled</code></a> property is a read-only boolean indicator of the visibility of the layer on the map.  If the layer is not visible due to errors, including projection,
+        <p>The <a href="#dom-htmllayerelement-disabled"><code>disabled</code></a> property is a read-only boolean indicator of the visibility of the layer on the map.  If the layer is not visible due to errors, including projection,
         zoom or extent mismatch, the property will be true and if the layer is present in the layer control (i.e. <a href="#attr-layer-hidden"><code>hidden</code></a> is false), it will be disabled in that control i.e. not checkable.</p>
         <p>The location and zoom level of the map can be changed via the <a href="#dom-htmllayerelement-zoomto"><code>layer</code>.<code>zoomTo()</code></a> API method.</p>
         <p>A layer's features may be converted to a GeoJSON-encoded feature collection [[rfc7946]]
