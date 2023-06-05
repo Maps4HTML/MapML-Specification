@@ -369,6 +369,7 @@
               <li><time>2023-05-26</time>: Remove <code>map</code> and <code>area</code> element discussion, to focus on <code>mapml-viewer</code>.
               <li><time>2023-05-29</time>: Add <code>map-caption</code> element.  Add static attribute to <code>mapml-viewer</code> element. Add <code>noscale</code>, <code>geolocation</code> to controlslist values. Add HTMLMapmlViewerElement methods forward(), back(), reload(), geojson2mapml to WebIDL interface.  General edits up to line 928.
               <li><time>2023-05-30</time>: Remove discussion of WGS84 from projection attribute definition.  
+              <li><time>2023-06-05</time>: Add initial draft spec for <code>mapml2geojson</code>().
             </ol>
           </details>
         </section>
@@ -523,7 +524,7 @@
         <p>
           A <dfn>Web map</dfn> is an embedded media element defined by
           the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element,
-          in conjunction with any
+          in conjunction with any <a href="#the-map-caption-element"><code>map-caption</code></a> and
           <a href="#the-layer-element"><code>layer</code></a> element descendants.
           A Web map normally represents a region of the earth's surface in two dimensions,
           and enables dynamic cartographic Web applications in [[HTML]] documents.
@@ -618,15 +619,15 @@
             undefined back();
             undefined forward();
             undefined reload();
-            [NewObject] HTMLLayerElement geojson2mapml(Object geojson, Object options); 
+            [NewObject] HTMLLayerElement geojson2mapml(object geojson, object? options); 
           };
           </pre>
         </dd>
         </dl>
         <div>
         <p id="implementation">The <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> 
-          element, in conjunction with child 
-          <a href="#the-layer-element"><code>layer</code></a> defines a map media element.</p>
+          element, in conjunction with child <a href="#the-map-caption-element"><code>map-caption</code></a>
+          and <a href="#the-layer-element"><code>layer</code></a> elements, defines a map media element.</p>
           
         <p>The <dfn id="attr-map-zoom"><code>zoom</code></dfn> content attribute 
           indirectly identifies an initial scale of the map.</p>
@@ -841,11 +842,17 @@
                      attribute DOMString <a href="#attr-layer-referrerpolicy">referrerPolicy</a>;
                      attribute DOMString? <a href="#attr-layer-crossorigin">crossOrigin</a>;
                                undefined zoomTo();
+            object? mapml2geojson(optional GeoJSONGenerationOptions options = {}); 
+          };
+          callback propertyFunction =  object ( HTMLPropertiesElement properties); <!-- https://webidl.spec.whatwg.org/#idl-callback-functions -->
+          dictionary GeoJSONGenerationOptions {
+                    object propertyFunction;
+                    boolean transform = false;
           };
           </pre>
         </dd>
         </dl>
-        <p>The <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element displays its child <a href="#the-layer-element"><code>layer</code></a> elements similarly to "acetate" layers on a (paper) map.  The layers follow the <a href="https://www.w3.org/TR/SVG/render.html#PaintersModel">painters model</a>, whereby
+        <p>The <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element displays its child <a href="#the-layer-element"><code>layer</code></a> elements similarly to (partially) transparent "acetate" layers on a (paper) map.  The layers follow the <a href="https://www.w3.org/TR/SVG/render.html#PaintersModel">painters model</a>, whereby
         <a href="#the-layer-element"><code>layer</code></a> elements are displayed on top of earlier siblings according to their document order.  <a href="#the-layer-element"><code>layer</code></a> transparency is controlled by the CSS opacity property. [[SVG2]] [[css-color-3]]</p>
 
         <p>In contrast to the <a href="https://html.spec.whatwg.org/multipage/media.html#media-element">HTML media elements' <code>source</code></a> child element where a single 
@@ -860,6 +867,69 @@
         <p>The <a href="#attr-layer-disabled"><code>disabled</code></a> property is a read-only boolean indicator of the visibility of the layer on the map.  If the layer is not visible due to errors, including projection,
         zoom or extent mismatch, the property will be true and if the layer is present in the layer control (i.e. <a href="#attr-layer-hidden"><code>hidden</code></a> is false), it will be disabled in that control i.e. not checkable.</p>
         <p>The location and zoom level of the map can be changed via the <a href="#dom-htmllayerelement-zoomto"><code>layer</code>.<code>zoomTo()</code></a> API method.</p>
+        <p>A layer's features may be converted to a GeoJSON-encoded feature collection [[rfc7946]]
+          with the <a href="#dom-htmllayerelement-mapml2geojson">mapml2geojson 
+          method</a>. The method accepts parameters via the 
+          <a href="#dom-htmllayerelement-mapml2geojson">dictionary-valued <code>options</code>
+          parameter</a>. Options include a <a href="https://webidl.spec.whatwg.org/#idl-callback-functions">callback</a> 
+          function, passed as the value of the 
+          <a href="#dom-geojsongenerationoptions-propertyfunction"><code>propertyFunction</code></a> 
+          option, which accepts a single <a href="#the-properties-element"><code>properties</code></a> 
+          element argument. The 
+          <a href="#dom-geojsongenerationoptions-propertyfunction"><code>propertyFunction</code></a>
+          will be invoked once for each feature in the layer, and the value of 
+          the argument passed to it will be the 
+          <a href="#the-properties-element"><code>properties</code></a> element 
+          child of the currently-processing 
+          <a href="#the-feature-element"><code>feature</code></a> element. If 
+          no <a href="#dom-geojsongenerationoptions-propertyfunction"><code>propertyFunction</code></a> 
+          option is supplied, a default mapping of properties content to the 
+          <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">GeoJSON "properties" member</a>
+          will be attempted, which may produce imperfect output, depending on the
+          structure of the <a href="#the-properties-element"><code>properties</code></a> 
+          element that is passed. The default 
+          <a href="#dom-geojsongenerationoptions-propertyfunction"><code>propertyFunction</code></a> 
+          attempts to reverse an HTML table that would be generated by the 
+          <a href="#dom-htmlmapmlviewerelement-geojson2mapml"><code>geojson2mapml</code></a> 
+          function.  If the input <a href="#the-properties-element"><code>properties</code></a>
+          element does not conform to that structure, incorrect output MAY result.
+        </p>
+        <p>
+          The <a href="#dom-geojsongenerationoptions-transform"><code>transform</code></a> option, 
+          allows the author to trigger the reverse projection transformation of 
+          the coordinates of feature geometries when converting to the GeoJSON 
+          [[rfc7946]] format. By default 
+          (<a href="#dom-geojsongenerationoptions-transform"><code>transform</code></a> === <code>false</code>),
+          no reverse projection transformation of coordinates will be performed. 
+        </p>
+        <p>
+            <a href="#the-coordinates-element"><code>coordinates</code></a> element contents may be 
+            encoded according to a coordinate system specified by the <a href="#the-geometry-element"><code>geometry</code></a> 
+            element <a href="#attr-geometry-cs"><code>cs</code></a> attribute, or 
+            relevant context-based fallback.
+        </p>
+        <p>
+          If the input <a href="#the-feature-element"><code>feature</code></a> 
+          <a href="#the-geometry-element"><code>geometry</code></a> element's 
+          <a href="#the-coordinates-element"><code>coordinates</code></a> elements 
+          are in a non-<a href="#coordinate-reference-system-type-codes-and-descriptions"><code>gcrs</code></a> 
+          coordinate system, if the <a href="#dom-geojsongenerationoptions-transform"><code>transform</code></a> option value supplied 
+          is <code>true</code>, the <a href="#the-coordinates-element"><code>coordinates</code></a> 
+          content will be transformed via a reverse projection transformation to 
+          longitude and latitude position arrays according to the 
+          <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.1">GeoJSON format requirements</a>, 
+          otherwise (by default), <a href="#the-coordinates-element"><code>coordinates</code></a> 
+          values will be encoded as GeoJSON position arrays without transformation, 
+          regardless of their input coordinate system.
+        </p>
+        <p class="note"><em>          Note that because 
+          <a href="https://www.rfc-editor.org/rfc/rfc7946#section-4">GeoJSON 
+          recommends that coordinates be encoded as WGS84 (CRS84)</a>,
+          and because it is not possible to perform datum transformations in this 
+          specification, the resulting coordinates of the output GeoJSON 
+          MAY NOT be WGS84-compliant, regardless of input projection and coordinate
+          system. </em>
+        </p>
 
         </section>
       <section class="informative">
@@ -2816,6 +2886,8 @@
           <dd>A single geometry value, described in the <a href="#geometry-values">table</a> below.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
+          <dd id="attr-geometry-cs"><code>cs</code> — The <a href="#coordinate-reference-system-type-codes-and-descriptions"><code>coordinate system</code></a>,
+            used to interpret <a href="#the-coordinates-element"><code>coordinates</code></a> defining the content of the child geometry value.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
           <dd>
             <details class="a11y-details">
