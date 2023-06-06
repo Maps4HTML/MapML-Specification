@@ -654,7 +654,8 @@
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
         <dd id="attr-layer-src"><code>src</code> — The URL of the layer resource.</dd>
-        <dd id="attr-layer-label"><code>label</code> — A label for the layer in the layer control, if the layer is not not <code>hidden</code>. The map author's <code>title</code> element takes precedence over <code>label</code>, if available.</dd>
+        <dd id="attr-layer-label"><code>label</code> — A label for the layer in the layer control, 
+          if the layer is not not <a href="#attr-layer-hidden"><code>hidden</code></a>. The map author's <a href="#the-title-element"><code>title</code></a> element takes precedence over <code>label</code>, if available.</dd>
         <dd id="attr-layer-checked"><code>checked</code> — Turn the layer on/off dynamically on the map. </dd>
         <dd id="attr-layer-hidden"><code>hidden</code> — Visibility status of the layer in the layer control. Does not affect visibility of the layer on the map.</dd>
         <dd id="attr-layer-referrerpolicy"><code>referrerpolicy</code> — <a href="https://w3c.github.io/webappsec-referrer-policy/#referrer-policy">Referrer policy</a> for <a href="https://fetch.spec.whatwg.org/#concept-fetch">fetches</a> initiated by the element.</dd>
@@ -712,7 +713,7 @@
           };
           dictionary GeoJSONGenerationOptions {
                     object propertyFunction;
-                    boolean transform = false;
+                    boolean transform = true;
           };
           callback propertyFunction =  object ( HTMLPropertiesElement properties); <!-- https://webidl.spec.whatwg.org/#idl-callback-functions -->
           </pre>
@@ -762,17 +763,15 @@
         </p>
         <p>
           The <a href="#dom-geojsongenerationoptions-transform"><code>transform</code></a> option, 
-          allows the author to trigger the reverse projection transformation of 
+          allows the author to prevent or trigger the reverse projection transformation of 
           the coordinates of feature geometries when converting to the GeoJSON 
-          [[rfc7946]] format. By default 
-          (<a href="#dom-geojsongenerationoptions-transform"><code>transform</code></a> === <code>false</code>),
-          no reverse projection transformation of coordinates will be performed. 
+          [[rfc7946]] format. 
         </p>
         <p>
-            <a href="#the-coordinates-element"><code>coordinates</code></a> element contents may be 
-            encoded according to a coordinate system specified by the <a href="#the-geometry-element"><code>geometry</code></a> 
-            element <a href="#attr-geometry-cs"><code>cs</code></a> attribute, or 
-            relevant context-based fallback.
+          <a href="#the-coordinates-element"><code>coordinates</code></a> element contents are 
+          encoded according to the coordinate system specified by the <a href="#the-geometry-element"><code>geometry</code></a> 
+          element <a href="#attr-geometry-cs"><code>cs</code></a> attribute, or 
+          the relevant document context fallback coordinate system.
         </p>
         <p>
           If the input <a href="#the-feature-element"><code>feature</code></a> 
@@ -780,20 +779,21 @@
           <a href="#the-coordinates-element"><code>coordinates</code></a> elements 
           are in a non-<a href="#coordinate-reference-system-type-codes-and-descriptions"><code>gcrs</code></a> 
           coordinate system, if the <a href="#dom-geojsongenerationoptions-transform"><code>transform</code></a> option value supplied 
-          is <code>true</code>, the <a href="#the-coordinates-element"><code>coordinates</code></a> 
+          is <code>true</code> (the default), the <a href="#the-coordinates-element"><code>coordinates</code></a> 
           content will be transformed via a reverse projection transformation to 
           longitude and latitude position arrays according to the 
-          <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.1">GeoJSON format requirements</a>, 
-          otherwise (by default), <a href="#the-coordinates-element"><code>coordinates</code></a> 
+          <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.1">GeoJSON format requirements</a>. 
+          If the <a href="#dom-geojsongenerationoptions-transform"><code>transform</code></a> option value
+          is <code>false</code>, <a href="#the-coordinates-element"><code>coordinates</code></a> 
           values will be encoded as GeoJSON position arrays without transformation, 
           regardless of their input coordinate system.
         </p>
-        <p class="note"><em>          Note that because 
+        <p class="warning"><em>          Note that because 
           <a href="https://www.rfc-editor.org/rfc/rfc7946#section-4">GeoJSON 
           recommends that coordinates be encoded as WGS84 (CRS84)</a>,
           and because it is not possible to perform datum transformations in this 
-          specification, the resulting coordinates of the output GeoJSON 
-          MAY NOT be WGS84-compliant, regardless of input projection and coordinate
+          specification, the output GeoJSON coordinates from mapml2geojson
+          MAY NOT be WGS84-compliant, regardless of input projection or coordinate
           system. </em>
         </p>
 
