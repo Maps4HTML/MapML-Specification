@@ -414,16 +414,16 @@
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
         <dd><code>zoom</code> — A non-negative integer zoom value.</dd>
-        <dd><code>lat</code> — A decimal WGS84 latitude value for the map center.</dd>
-        <dd><code>lon</code> — A decimal WGS84 longitude value for the map center.</dd>
+        <dd><code>lat</code> — A decimal degrees latitude value for the map center.</dd>
+        <dd><code>lon</code> — A decimal degrees longitude value for the map center.</dd>
         <dd><code>projection</code> — A case-sensitive string 
           <a href="#tiled-coordinate-reference-systems-table">identifier</a> of 
-          the MapML coordinate reference system used by the map. Default is 
-          <a href="#tcrs-OSMTILE"><code>OSMTILE</code></a>.</dd>
+          the MapML coordinate reference system used by the map. The default if
+          not present is <a href="#tcrs-OSMTILE"><code>OSMTILE</code></a>.</dd>
         <dd><code>controls</code> — Show user agent controls.</dd>
         <dd><code>controlslist</code> — Show/hide specific user agent controls.</dd>
-        <dd><code>width</code> — Horizontal dimension.</dd>
-        <dd><code>height</code> — Vertical dimension.</dd>
+        <dd><code>width</code> — Horizontal dimension in pixels.</dd>
+        <dd><code>height</code> — Vertical dimension in pixels.</dd>
         <dd><code>static</code> — Disable map interactivity.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
         <dd>Neither tag is omissible.</dd>
@@ -486,7 +486,21 @@
             undefined back();
             undefined forward();
             undefined reload();
-            [NewObject] HTMLLayerElement geojson2mapml(object geojson, object? options); 
+            [NewObject] HTMLLayerElement geojson2mapml(object json, optional MapMLGenerationOptions options = {});
+          }; 
+          dictionary MapMLGenerationOptions {
+                    DOMString label;
+                    DOMString projection = "OSMTILE";
+                    undefined featureCaptionInterface;
+                    object propertiesFunction;
+                    object geometryFunction;
+          };
+<!--          callback propertiesFunction = HTMLElement (object geojsonFeature);
+          callback geometryFunction = HTMLGeometryElement (object geometryElement, object geojsonFeature);-->
+          [Exposed=geojson2mapml]
+          interface featureCaptionInterface {
+            stringifier attribute DOMString? featurecaptionPropertyName;
+            DOMString featurecaptionFunction ( object geojsonFeature );
           };
           </pre>
         </dd>
