@@ -253,41 +253,8 @@
           they will be discussed in issues until they can be recognized as requirements, designed and subsequently specified 
           through evolution of this document.  
         </p>
-      <!--
-      <p>Map Markup Language is a text format for encoding map information for the World Wide Web.</p>
-      <p>The objective of MapML is to allow Web-based user agent software (browsers and others) to display and edit maps and map data without necessary customization.</p>
-
-      <p>The <a href="https://html.spec.whatwg.org/multipage/image-maps.html#the-map-element">standard HTML <code>map</code></a> element allows the HTML author to designate sub-areas of an image to be used as hyperlinks, creating a two-dimensional "image map".  
-        This functionality, while useful, is limited to the simplest of mapping applications.  A more generally useful <a href="#the-map-element"><code>map</code></a> element would enable (functions like) zooming and panning of the map 
-          in a traditional Web mapping way, while simultaneously being simple and declarative for an HTML author to include on their Web page.  This specification proposes the syntax and semantics of an extended <code>map</code> element.</p>
-      <p>The applications of Web maps are diverse.  The wide scope of use of Web maps appears similarly broad to that of other Web media types, such as video or audio.  In other words, there are a multitude of reasons for wanting to include
-      a map on your Web page.  The HTML <a href="#the-map-element"><code>map</code></a> element proposed by this document should be provider-agnostic, 
-      and should only depend on Web standards, including Uniform Resource Identifiers, Document Object Model, Cascading Style Sheets and media types.</p>
-      -->
       </section>
       <section id="sotd">
-        <!-- (!) The intent should be clear from the "abstract" and "introduction" sections, as well as the linked explainer.
-        <section>
-        <h3>Intent of this Specification</h3>
-        
-        <p>This specification describes Map Markup Language (MapML), which is a hypertext document format for maps. This specification is also intended as a proposal to the HTML Working Group to extend the semantics of the <a href="https://html.spec.whatwg.org/multipage/image-maps.html#the-map-element">standard HTML <code>map</code></a> element.</p>
-
-        <p>
-          MapML is needed because while Web browsers implement HTML and SVG, including the <code>&lt;map&gt;</code> element, those implementations do not meet the requirements of the broader Web mapping community. On the one hand, the
-          semantics of maps are quite different from those of Scalable Vector Graphics, while on the other hand, the semantics of the HTML <code>map</code> element are incomplete or insufficient relative to modern Web maps and mapping in
-          general. Robust web maps are implemented by a variety of non-standard technologies. Web maps do not work without script support, making their creation a job beyond the realm of beginners' skill sets, while making them potentially
-          inaccessible due to developer inattention. In order to improve collaboration and integration of the mapping and Web communities, it is desirable to enhance or augment the functionality of the &lt;map&gt; (or a similar &lt;new&gt;)
-          element in HTML to include the accessible user interface functions of modern web maps (e.g. panning, zooming, searching for, and zooming to, styling, identifying feature properties, etc.), while maintaining a simple, declarative,
-          accessible interface for HTML authors. At the same time, the DOM interface to the new or improved elements should provide low-level programmable mapping hooks in the style of the Web.
-        </p>
-        <p>To achieve this it is necessary to define a new hypertext format (MapML) and media type which encodes map semantics.</p>
-        <p>
-          This document is an evolving proposal to the Web and Mapping communities. Collaborators and implementation experience is requested. The intention is to define a new hypertext format (MapML) which encodes map layer semantics
-          directly, but which leverages existing standards where possible and desirable, such as Cascading Style Sheets and OGC Simple Features, for example. MapML will provide an essential part of the contract between Web user agents and
-          Web servers when map features are exchanged, in a manner based on the architectural style of the Web, in a similar way to how HTML provides (part of) the contract for documents.
-        </p>
-        </section>
-        -->
         <section class="informative">
         <h3>Implementation Experience</h3>
 
@@ -369,6 +336,7 @@
               <li><time>2023-05-26</time>: Remove <code>map</code> and <code>area</code> element discussion, to focus on <code>mapml-viewer</code>.
               <li><time>2023-05-29</time>: Add <code>map-caption</code> element.  Add static attribute to <code>mapml-viewer</code> element. Add <code>noscale</code>, <code>geolocation</code> to controlslist values. Add HTMLMapmlViewerElement methods forward(), back(), reload(), geojson2mapml to WebIDL interface.  General edits up to line 928.
               <li><time>2023-05-30</time>: Remove discussion of WGS84 from projection attribute definition.  
+              <li><time>2023-06-05</time>: Add initial draft spec for <code>mapml2geojson</code>().
             </ol>
           </details>
         </section>
@@ -376,7 +344,7 @@
       </section>
 
       <section id="intro" class="informative">
-        <h1>Introduction</h1>
+        <h2>Introduction</h2>
         <p>
           Map Markup Language is a text-based format which allows map authors to encode map information as 
           hypertext documents exchanged over HTTP [[rfc2616]]. The format is defined using some 
@@ -416,114 +384,14 @@
           the documented requirements</a> that the particular feature relates to.
         </p>
         
-        <!-- Move this section into a separate document (https://github.com/Maps4HTML/MapML/issues/3)
-        <section>
-        <h3 id="use-cases">Use Cases</h3>
-        <p>The following usage scenarios illustrate some of the ways in which <strong>Map Markup Language</strong> might be used for various applications:</p>
-
-        <ul>
-          <li>
-            <strong>Tiled maps</strong> <p>Modern map services are dominantly created by composing adjacent map 'tiles' (often bitmapped images) into a coherent and unified image of a map.</p>
-          </li>
-          <li>
-            <strong>Image-based maps</strong> <p>Web services typically produce a single geo-referenced image which constitutes a map. MapML encodes URL references to such images, together with appropriate georeferencing metadata.</p>
-          </li>
-          <li>
-            <strong>Vector-based maps</strong> <p>Geospatial databases, for example PostGIS, are able to serve and manipulate vector representations of features which can be symbolized according to their properties.</p>
-          </li>
-          <li>
-            <strong>Multi-layer maps</strong> <p>Maps are often required to overlay information in such a way as to enable both visual and automatated spatial relationship processing. MapML will support the layering of information using the
-          <a href="https://www.w3.org/TR/SVG/render.html#PaintersModel">painters model</a>, wherein elements are drawn in document order overtop of earlier elements, together with CSS styling (transparency) techniques.</p>
-          </li>
-          <li>
-            <strong>Use CSS for map styles</strong> <p>MapML elements should be style-able with CSS rules supplied by the MapML author. For example, the MapML author should be able to link to a stylesheet from a MapML document.</p>
-          </li>
-          <li>
-            <strong>Location search</strong> <p>A MapML service might want to allow service consumers to search within the contents of a service for a place name or an address, over which the map is repositioned when a selection is made. MapML
-          should provide (markup) facilities to enable such searches without forcing the client download large amounts of geospatial data.</p>
-          </li>
-          <li>
-            <strong>Hyperlinks between and within services</strong> <p>MapML should allow service-level links such that service providers can link together / federate to provide apparently seamless spatial coverage.</p>
-          </li>
-          <li>
-            <strong>Feature identification</strong> <p>If a MapML document includes features, the MapML author should be able to markup any or all of those features in a way which lends itself to feature identification and property display.</p>
-          </li>
-          <li>
-            <strong>Attribution</strong> <p>MapML documents encode citation information on a per-request basis, making it available as markup in the response.</p>
-          </li>
-        </ul>      
-
-        <p>The following use cases illustrate some of the ways in which <strong>the <a href="#the-map-element"><code>map</code></a> element</strong> might be used in Web mapping applications:</p>
-      
-        <ul>
-          <li id="uc-multiple-layers"><strong>Multiple, user-controllable map layers</strong>
-            <p>The <a href="#the-map-element"><code>map</code></a> element allows HTML authors to add zero or more map layers to the map, with optional controls enabled declaratively.</p>
-          </li>
-          
-          <li id="uc-feature-identification"><strong>Selection / identification / description of map features</strong>
-            <p>
-              The user should be able to interact with individual map features as individual elements, with or without hyperlinks.
-            </p>
-          </li>
-          <li id="uc-zooming"><strong>Rescaling to expose greater detail (zooming)</strong>
-            <p>The user should be able to zoom in or out on the map to expose more or less detail as desired / possible.</p>
-             
-          </li>
-          <li id="uc-panning"><strong>Repositioning to examine relationships between places (panning)</strong>
-            <p>The user should be able to pan the map so as to examine locations other than the default or initial location displayed, as desired / possible.</p>
-          </li>
-          <li id="uc-css"><strong>Using Cascading Style Sheets to enable HTML authors to control the style of their own map content.</strong>
-            <p>The HTML author should be able to use Cascading Style Sheets on the <code>map</code> element and its children so as to create the user experience desired, 
-              with the caveat that the style of features in map sources / services should be under the control of the exclusive control of the map content author, per MapML requirements. In brief, the HTML author 
-            should not be able to style content that does not belong to them, but should be able to create and style features displayed on the map from their own domain.</p>
-          </li>
-          <li id="uc-features"><strong>Map links of various shapes, including points, lines, polygons, circles and rectangles</strong>
-            <p>HTML authors should be able to place and style links on a web map, allowing navigation of the browser through user selection.  </p>
-          </li>
-          <li id="uc-map-links"><strong>Links within and between services to enable a "Web of maps"</strong>
-            <p>A map layer could be "distributed" over many URLs, and the user agent would seamlessly present the contents of those URLs to the user, possibly although not necessarily as though
-            they were a single end point.  For example, a response document should be able to communicate a link to an adjacent zoom level or geographic area in the response entity and the user agent 
-            could conditionally follow that link depending on the gestures of the user. </p>
-          </li>
-          <li id="uc-api"><strong>API-level access to the map, its layers, features and events</strong>
-            <p>Scripting has an important place in the presentation of map information.  Declarative web maps should be able to be progressively enhanced through the use of script.
-            Furthermore, web maps should emit map- and control-specific events which support progressive enhancement.</p>
-          </li>
-          <li id="uc-crawlable"><strong>Crawler-generated location-enabled, searchable indexes of Web content</strong>
-            <p>Web maps should serve to geocode content in a Web page, such that crawlers may be able to augment their indexes with location information, leading to enhanced discovery possibilities for
-            Web search users.</p>
-          </li>
-        </ul>
-        </section>
-        <section>
-        <h3 id="requirements">Requirements</h3>
-        <ul>
-          <li id="req-uniform-interface">
-          <strong>Uniform interface</strong><p>No URL recipes should be required to be supported by clients - support for simple opaque URLs and standardized media types should be all that is required clients. Application state / state
-          transitions should be conveyed in markup.</p>
-          </li>
-          <li id="req-implementation-commitments">
-            <strong>Implementation commitments</strong><p>Simple, lightweight server software should be available to allow authors to serve spatial resources as MapML.</p>
-          </li>
-          <li id="req-accessible-custom-element">
-            <strong>Accessible custom element</strong><p>One or more accessible Custom Element clients should be available to demonstrate client functionality.</p>
-          </li>
-          <li id="req-ease-of-authoring">
-            <strong>Ease of authoring</strong><p>A range of authoring situations should be supported, from simple single file services to robust MapML services over large volumes of framework data.</p>
-          </li>
-        </ul>
-        </section>
-        -->
       </section>
-      
       <section>
-        
         <h2 id="web-maps">Web Maps</h2>
         
         <p>
           A <dfn>Web map</dfn> is an embedded media element defined by
           the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element,
-          in conjunction with any
+          in conjunction with any <a href="#the-map-caption-element"><code>map-caption</code></a> and
           <a href="#the-layer-element"><code>layer</code></a> element descendants.
           A Web map normally represents a region of the earth's surface in two dimensions,
           and enables dynamic cartographic Web applications in [[HTML]] documents.
@@ -570,7 +438,8 @@
                   <th>Implicit ARIA semantics</th>
                   <th>ARIA roles, states and properties which MAY be used</th>
                 </tr>
-                <tbody>
+              </thead>
+              <tbody>
                   <tr>
                     <th>
                       <code>role=map</code>
@@ -582,7 +451,6 @@
                     </td>
                   </tr>
                 </tbody>
-              </thead>
             </table>
             </div>
           </details>
@@ -618,15 +486,15 @@
             undefined back();
             undefined forward();
             undefined reload();
-            [NewObject] HTMLLayerElement geojson2mapml(Object geojson, Object options); 
+            [NewObject] HTMLLayerElement geojson2mapml(object geojson, object? options); 
           };
           </pre>
         </dd>
         </dl>
         <div>
         <p id="implementation">The <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> 
-          element, in conjunction with child 
-          <a href="#the-layer-element"><code>layer</code></a> defines a map media element.</p>
+          element, in conjunction with child <a href="#the-map-caption-element"><code>map-caption</code></a>
+          and <a href="#the-layer-element"><code>layer</code></a> elements, defines a map media element.</p>
           
         <p>The <dfn id="attr-map-zoom"><code>zoom</code></dfn> content attribute 
           indirectly identifies an initial scale of the map.</p>
@@ -635,7 +503,7 @@
           <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> 
           the content attribute of the same name.</p>
         
-        <p>The <dfn id="attr-map-lat"><code>lat</code></dfn></a> and <dfn id="attr-map-lon"><code>lon</code></dfn> content attributes locate the initial center of the map.</p>
+        <p>The <dfn id="attr-map-lat"><code>lat</code></dfn> and <dfn id="attr-map-lon"><code>lon</code></dfn> content attributes locate the initial center of the map.</p>
         <p>The <a href="#dom-htmlmapmlviewerelement-lat"><code>lat</code></a> and <a href="#dom-htmlmapmlviewerelement-lon"><code>lon</code></a> IDL attributes must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the content attribute of the same name.</p>
         <p class="note"><em>The <a href="#dom-htmlmapmlviewerelement-lat"><code>lat</code></a>, <a href="#dom-htmlmapmlviewerelement-lon"><code>lon</code></a> and <a href="#dom-htmlmapmlviewerelement-zoom"><code>zoom</code></a> attributes have no dynamic effect (they only control the default initial state of the element).</em></p>
 
@@ -739,17 +607,17 @@
                   <th>Implicit ARIA semantics</th>
                   <th>ARIA roles, states and properties which MAY be used</th>
                 </tr>
-                <tbody>
-                  <tr>
-                    <th>
-                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                    </th>
-                    <td>
-                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                    </td>
-                  </tr>
-                </tbody>
               </thead>
+              <tbody>
+                <tr>
+                  <th>
+                    <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                  </th>
+                  <td>
+                    <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                  </td>
+                </tr>
+              </tbody>
             </table>
             </div>
           </details>
@@ -785,11 +653,11 @@
         <a href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a> describing nested <a href="#structure">Map Markup Language</a> content.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
-        <dd id="attr-layer-src"><code>src</code> — Address of the resource.</dd>
-        <dd id="attr-layer-label"><code>label</code> — String label for the layer in the layer control, if displayed.</dd>
-        <dd id="attr-layer-checked"><code>checked</code> — Layer on/off status.</dd>
-        <dd id="attr-layer-disabled"><code>disabled</code> — Sets the disabled state of the layer in the layer control.</dd>
-        <dd id="attr-layer-hidden"><code>hidden</code> — Visibility status of the layer in the layer control.</dd>
+        <dd id="attr-layer-src"><code>src</code> — The URL of the layer resource.</dd>
+        <dd id="attr-layer-label"><code>label</code> — A label for the layer in the layer control, 
+          if the layer is not not <a href="#attr-layer-hidden"><code>hidden</code></a>. The map author's <a href="#the-title-element"><code>title</code></a> element takes precedence over <code>label</code>, if available.</dd>
+        <dd id="attr-layer-checked"><code>checked</code> — Turn the layer on/off dynamically on the map. </dd>
+        <dd id="attr-layer-hidden"><code>hidden</code> — Visibility status of the layer in the layer control. Does not affect visibility of the layer on the map.</dd>
         <dd id="attr-layer-referrerpolicy"><code>referrerpolicy</code> — <a href="https://w3c.github.io/webappsec-referrer-policy/#referrer-policy">Referrer policy</a> for <a href="https://fetch.spec.whatwg.org/#concept-fetch">fetches</a> initiated by the element.</dd>
         <dd id="attr-layer-crossorigin"><code>crossorigin</code> — A <a href="https://html.spec.whatwg.org/multipage/urls-and-fetching.html#cors-settings-attribute">CORS settings attribute</a>, specifies how the element handles crossorigin requests.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
@@ -805,6 +673,7 @@
                   <th>Implicit ARIA semantics</th>
                   <th>ARIA roles, states and properties which MAY be used</th>
                 </tr>
+                </thead>
                 <tbody>
                   <tr>
                     <th>
@@ -815,7 +684,6 @@
                     </td>
                   </tr>
                 </tbody>
-              </thead>
             </table>
             </div>
           </details>
@@ -833,7 +701,7 @@
           interface HTMLLayerElement : HTMLElement {
             [HTMLConstructor] constructor();
             
-            readonly attribute DOMString <a href="#attr-layer-src">src</a>;
+                     attribute DOMString <a href="#attr-layer-src">src</a>;
                      attribute DOMString <a href="#attr-layer-label">label</a>;
                      attribute boolean <a href="#attr-layer-checked">checked</a>;
             readonly attribute boolean <a href="#attr-layer-disabled">disabled</a>;
@@ -841,11 +709,17 @@
                      attribute DOMString <a href="#attr-layer-referrerpolicy">referrerPolicy</a>;
                      attribute DOMString? <a href="#attr-layer-crossorigin">crossOrigin</a>;
                                undefined zoomTo();
+            object? mapml2geojson(optional GeoJSONGenerationOptions options = {}); 
           };
+          dictionary GeoJSONGenerationOptions {
+                    object propertyFunction;
+                    boolean transform = true;
+          };
+          callback propertyFunction =  object ( HTMLPropertiesElement properties); <!-- https://webidl.spec.whatwg.org/#idl-callback-functions -->
           </pre>
         </dd>
         </dl>
-        <p>The <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element displays its child <a href="#the-layer-element"><code>layer</code></a> elements similarly to "acetate" layers on a (paper) map.  The layers follow the <a href="https://www.w3.org/TR/SVG/render.html#PaintersModel">painters model</a>, whereby
+        <p>The <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element displays its child <a href="#the-layer-element"><code>layer</code></a> elements similarly to (partially) transparent "acetate" layers on a (paper) map.  The layers follow the <a href="https://www.w3.org/TR/SVG/render.html#PaintersModel">painters model</a>, whereby
         <a href="#the-layer-element"><code>layer</code></a> elements are displayed on top of earlier siblings according to their document order.  <a href="#the-layer-element"><code>layer</code></a> transparency is controlled by the CSS opacity property. [[SVG2]] [[css-color-3]]</p>
 
         <p>In contrast to the <a href="https://html.spec.whatwg.org/multipage/media.html#media-element">HTML media elements' <code>source</code></a> child element where a single 
@@ -857,11 +731,75 @@
         <p>The <a href="#attr-layer-src"><code>src</code></a> attribute value is the URL of a web resource encoded in <a href="#structure">Map Markup Language</a>.</p>
         <p>The <a href="#attr-layer-hidden"><code>hidden</code></a> boolean attribute can be set to remove the <a href="#the-layer-element"><code>layer</code></a> from the <em>map layer control, but it will remain displayed on the map</em>.  In order to
         remove the <a href="#the-layer-element"><code>layer</code></a> from the map display, it can have its <a href="#attr-layer-checked"><code>checked</code></a> property toggled, or be removed from the DOM.</p>
-        <p>The <a href="#attr-layer-disabled"><code>disabled</code></a> property is a read-only boolean indicator of the visibility of the layer on the map.  If the layer is not visible due to errors, including projection,
+        <p>The <a href="#dom-htmllayerelement-disabled"><code>disabled</code></a> property is a read-only boolean indicator of the visibility of the layer on the map.  If the layer is not visible due to errors, including projection,
         zoom or extent mismatch, the property will be true and if the layer is present in the layer control (i.e. <a href="#attr-layer-hidden"><code>hidden</code></a> is false), it will be disabled in that control i.e. not checkable.</p>
         <p>The location and zoom level of the map can be changed via the <a href="#dom-htmllayerelement-zoomto"><code>layer</code>.<code>zoomTo()</code></a> API method.</p>
+        <p>A layer's features may be converted to a GeoJSON-encoded feature collection [[rfc7946]]
+          with the <a href="#dom-htmllayerelement-mapml2geojson">mapml2geojson 
+          method</a>. The method accepts parameters via the 
+          <a href="#dom-htmllayerelement-mapml2geojson">dictionary-valued <code>options</code>
+          parameter</a>. Options include a <a href="https://webidl.spec.whatwg.org/#idl-callback-functions">callback</a> 
+          function, passed as the value of the 
+          <a href="#dom-geojsongenerationoptions-propertyfunction"><code>propertyFunction</code></a> 
+          option, which accepts a single <a href="#the-properties-element"><code>properties</code></a> 
+          element argument. The 
+          <a href="#dom-geojsongenerationoptions-propertyfunction"><code>propertyFunction</code></a>
+          will be invoked once for each feature in the layer, and the value of 
+          the argument passed to it will be the 
+          <a href="#the-properties-element"><code>properties</code></a> element 
+          child of the currently-processing 
+          <a href="#the-feature-element"><code>feature</code></a> element. If 
+          no <a href="#dom-geojsongenerationoptions-propertyfunction"><code>propertyFunction</code></a> 
+          option is supplied, a default mapping of properties content to the 
+          <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">GeoJSON "properties" member</a>
+          will be attempted, which may produce imperfect output, depending on the
+          structure of the <a href="#the-properties-element"><code>properties</code></a> 
+          element that is passed. The default 
+          <a href="#dom-geojsongenerationoptions-propertyfunction"><code>propertyFunction</code></a> 
+          attempts to reverse an HTML table that would be generated by the 
+          <a href="#dom-htmlmapmlviewerelement-geojson2mapml"><code>geojson2mapml</code></a> 
+          function.  If the input <a href="#the-properties-element"><code>properties</code></a>
+          element does not conform to that structure, incorrect output MAY result.
+        </p>
+        <p>
+          The <a href="#dom-geojsongenerationoptions-transform"><code>transform</code></a> option, 
+          allows the author to prevent or trigger the reverse projection transformation of 
+          the coordinates of feature geometries when converting to the GeoJSON 
+          [[rfc7946]] format. 
+        </p>
+        <p>
+          <a href="#the-coordinates-element"><code>coordinates</code></a> element contents are 
+          encoded according to the coordinate system specified by the <a href="#the-geometry-element"><code>geometry</code></a> 
+          element <a href="#attr-geometry-cs"><code>cs</code></a> attribute, or 
+          the relevant document context fallback coordinate system.
+        </p>
+        <p>
+          If the input <a href="#the-feature-element"><code>feature</code></a> 
+          <a href="#the-geometry-element"><code>geometry</code></a> element's 
+          <a href="#the-coordinates-element"><code>coordinates</code></a> elements 
+          are in a non-<a href="#coordinate-reference-system-type-codes-and-descriptions"><code>gcrs</code></a> 
+          coordinate system, if the <a href="#dom-geojsongenerationoptions-transform"><code>transform</code></a> option value supplied 
+          is <code>true</code> (the default), the <a href="#the-coordinates-element"><code>coordinates</code></a> 
+          content will be transformed via a reverse projection transformation to 
+          longitude and latitude position arrays according to the 
+          <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.1">GeoJSON format requirements</a>. 
+          If the <a href="#dom-geojsongenerationoptions-transform"><code>transform</code></a> option value
+          is <code>false</code>, <a href="#the-coordinates-element"><code>coordinates</code></a> 
+          values will be encoded as GeoJSON position arrays without transformation, 
+          regardless of their input coordinate system.
+        </p>
+        <p class="warning"><em>          Note that because 
+          <a href="https://www.rfc-editor.org/rfc/rfc7946#section-4">GeoJSON 
+          recommends that coordinates be encoded as WGS84 (CRS84)</a>,
+          and because it is not possible to perform datum transformations in this 
+          specification, the output GeoJSON coordinates from mapml2geojson
+          MAY NOT be WGS84-compliant, regardless of input projection or coordinate
+          system. </em>
+        </p>
 
         </section>
+        </section>
+      </section>
       <section class="informative">
         <h3 id="authoring">Authoring</h3>
         
@@ -1031,7 +969,7 @@
               </td>
             </tr>
             <tr>
-              <td><code>mapml-viewer</code></td>
+              <td><code>map</code></td>
               <td>Map CRS</td>
               <td>
                 A CRS that is associated to the state of the map (the actual view port in the computer screen) measured in pixels, with the origin at the upper left corner of the map and increasing (i axis, horizontal) and downwards (j
@@ -1398,17 +1336,17 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -1454,17 +1392,17 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -1512,17 +1450,17 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -1570,17 +1508,17 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -1631,17 +1569,17 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -1696,17 +1634,17 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -1872,17 +1810,17 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <code>role=<a href="https://www.w3.org/TR/html-aria/#index-aria-document">document</a></code>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <code>role=<a href="https://www.w3.org/TR/html-aria/#index-aria-document">document</a></code>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -1934,17 +1872,17 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -2016,25 +1954,25 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <code>input</code> with <code>type</code>:
-                        <ul>
-                          <li><code>zoom</code></li>
-                          <li><code>location</code></li>
-                          <li><code>width</code></li>
-                          <li><code>height</code></li>
-                          <li><code>hidden</code></li>
-                        </ul>
-                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <code>input</code> with <code>type</code>:
+                      <ul>
+                        <li><code>zoom</code></li>
+                        <li><code>location</code></li>
+                        <li><code>width</code></li>
+                        <li><code>height</code></li>
+                        <li><code>hidden</code></li>
+                      </ul>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -2330,17 +2268,17 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -2392,17 +2330,17 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -2453,17 +2391,17 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -2514,17 +2452,17 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -2590,17 +2528,17 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -2649,19 +2587,19 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <code>role=feature</code>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code></strong></p>
-                        <p><a href="https://www.w3.org/TR/html-aria/#index-aria-global">Global <code>aria-*</code> attributes</a>
-                        and any <code>aria-*</code> attributes applicable to the allowed roles and implied role (if any).</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <code>role=feature</code>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code></strong></p>
+                      <p><a href="https://www.w3.org/TR/html-aria/#index-aria-global">Global <code>aria-*</code> attributes</a>
+                      and any <code>aria-*</code> attributes applicable to the allowed roles and implied role (if any).</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -2711,17 +2649,17 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -2772,17 +2710,17 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -2816,6 +2754,8 @@
           <dd>A single geometry value, described in the <a href="#geometry-values">table</a> below.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
+          <dd id="attr-geometry-cs"><code>cs</code> — The <a href="#coordinate-reference-system-type-codes-and-descriptions"><code>coordinate system</code></a>,
+            used to interpret <a href="#the-coordinates-element"><code>coordinates</code></a> defining the content of the child geometry value.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
           <dd>
             <details class="a11y-details">
@@ -2827,17 +2767,17 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -2968,17 +2908,17 @@
                     <th>Implicit ARIA semantics</th>
                     <th>ARIA roles, states and properties which MAY be used</th>
                   </tr>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
-                      </th>
-                      <td>
-                        <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
-                      </td>
-                    </tr>
-                  </tbody>
                 </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               </div>
             </details>
@@ -3151,7 +3091,6 @@
       
       <section id="conformance" class="appendix">
         <!-- https://github.com/w3c/respec/wiki/conformance -->
-        <section>
         <h2 id="conforming-documents">Conforming documents</h2>
 
         <p>
@@ -3269,7 +3208,6 @@
         </dl>
         <p>This document contains explicit conformance criteria that overlap with some RNG definitions in requirements. If there is any conflict between the two, the explicit conformance criteria are the definitive reference.</p>
         </section>
-      </section>
 
       <section class="appendix informative">
         <h2 id="schema">Schema</h2>
