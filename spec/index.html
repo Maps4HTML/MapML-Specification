@@ -498,20 +498,24 @@
                             FeaturePropertiesOptionInterface properties;
                             FeatureGeometryOptionInterface geometryFunction;
           };
+          callback CaptionCallback = DOMString (object geojsonFeature);
+          callback PropertiesCallback = HTMLElement ( object geojsonFeature );
+          callback GeometryCallback = HTMLGeometryElement ( 
+                                          Element htmlGeometryChildElement, 
+                                          object geojsonFeature );
           [Exposed=caption]
           interface FeatureCaptionOptionInterface {
                     stringifier;
-                    setter DOMString ( object geojsonFeature );
+                    attribute DOMString CaptionCallback;
           };
           [Exposed=properties]
           interface FeaturePropertiesOptionInterface {
                     stringifier;
-                    setter HTMLElement ( object geojsonFeature );
+                    attribute HTMLElement PropertiesCallback;
           };
           [Exposed=geometryFunction]
           interface FeatureGeometryOptionInterface {
-                    setter HTMLGeometryElement ( Element htmlGeometryChildElement, 
-                            object geojsonFeature );
+                    attribute HTMLGeometryElement GeometryCallback;
           };
           </pre>
         </dd>
