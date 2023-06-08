@@ -337,6 +337,7 @@
               <li><time>2023-05-29</time>: Add <code>map-caption</code> element.  Add static attribute to <code>mapml-viewer</code> element. Add <code>noscale</code>, <code>geolocation</code> to controlslist values. Add HTMLMapmlViewerElement methods forward(), back(), reload(), geojson2mapml to WebIDL interface.  General edits up to line 928.
               <li><time>2023-05-30</time>: Remove discussion of WGS84 from projection attribute definition.  
               <li><time>2023-06-05</time>: Add initial draft spec for <code>mapml2geojson</code>().
+              <li><time>2023-06-08</time>: Add initial draft WebIDL for <code>geojson2mapml</code>(). Add prose for <code>back</code>, <code>forward</code>, <code>reload</code>.
             </ol>
           </details>
         </section>
@@ -487,22 +488,30 @@
             undefined back();
             undefined forward();
             undefined reload();
-            [NewObject] HTMLLayerElement geojson2mapml(object json, 
-                              optional MapMLGenerationOptions options = {});
+            [NewObject] HTMLLayerElement geojson2mapml( object json, 
+                              optional MapMLGenerationOptions options = {} );
           }; 
           dictionary MapMLGenerationOptions {
                             DOMString label;
                             DOMString projection = "OSMTILE";
-                            FeatureCaptionInterface caption;
-                            object propertiesFunction;
-                            object geometryFunction;
+                            FeatureCaptionOptionInterface caption;
+                            FeaturePropertiesOptionInterface properties;
+                            FeatureGeometryOptionInterface geometryFunction;
           };
-<!--          callback propertiesFunction = HTMLElement (object geojsonFeature);
-          callback geometryFunction = HTMLGeometryElement (object geometryElement, object geojsonFeature);-->
-          [Exposed=geojson2mapml]
-          interface FeatureCaptionInterface {
-            stringifier;
-            DOMString featurecaptionFunction ( object geojsonFeature );
+          [Exposed=caption]
+          interface FeatureCaptionOptionInterface {
+                    stringifier;
+                    setter DOMString ( object geojsonFeature );
+          };
+          [Exposed=properties]
+          interface FeaturePropertiesOptionInterface {
+                    stringifier;
+                    setter HTMLElement ( object geojsonFeature );
+          };
+          [Exposed=geometryFunction]
+          interface FeatureGeometryOptionInterface {
+                    setter HTMLGeometryElement ( Element htmlGeometryChildElement, 
+                            object geojsonFeature );
           };
           </pre>
         </dd>
@@ -597,6 +606,29 @@
         
         <p>The <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element supports the <dfn id="attr-map-width"><code>width</code></dfn> and <dfn id="attr-map-height"><code>height</code></dfn> <a href="https://html.spec.whatwg.org/multipage/embedded-content-other.html#dimension-attributes">dimension attributes</a>. [[HTML]]</p>
         <p>The <a href="https://drafts.csswg.org/css-images/#default-object-size">default object size</a> is a width of 300 <a href="https://drafts.csswg.org/css-values/#px">CSS pixels</a> and a height of 150 <a href="https://drafts.csswg.org/css-values/#px">CSS pixels</a>. [[css-images-3]]</p>
+        
+        <p>
+          The <a href="#dom-htmlmapmlviewerelement-back"><code>back</code></a>, 
+          <a href="#dom-htmlmapmlviewerelement-forward"><code>forward</code></a> 
+          and <a href="#dom-htmlmapmlviewerelement-reload"><code>reload</code></a> 
+          operations allow the manipulation of the <code>mapml-viewer</code>'s
+          viewport history stack.  Each time the <code>mapml-viewer</code>'s viewport 
+          comes to rest, its location (center coordinates and zoom level) is pushed 
+          onto the viewport history stack.  
+          The <a href="#dom-htmlmapmlviewerelement-back"><code>back</code></a> 
+          operation will go back (down the stack) one increment in the viewport 
+          history stack. 
+          The <a href="#dom-htmlmapmlviewerelement-forward"><code>forward</code></a> 
+          operation will go forward (up the stack) by one increment, if there are 
+          more recent viewport locations on the stack. The viewport history content 
+          is erased, having all its entries deleted,
+          through the <a href="#dom-htmlmapmlviewerelement-reload"><code>reload</code></a> 
+          operation. The state of the viewport history stack is reflected by the 
+          interactive or disabled state of the Forward, Back and Reload viewer 
+          context menu items, as well as by the interactive state of the viewer 
+          reload control button.
+        </p>
+        
         </div>
         </section>
         <section>
