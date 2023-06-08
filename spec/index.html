@@ -477,29 +477,31 @@
             [CEReactions] attribute double lon;
             readonly attribute DOMString projection;
             [CEReactions] attribute boolean controls;
-            [SameObject, PutForwards=value] readonly attribute
-                DOMTokenList controlsList;
+            [SameObject, PutForwards=value] readonly attribute 
+                              DOMTokenList controlsList;
             [CEReactions] attribute unsigned long width;
             [CEReactions] attribute unsigned long height;
             [CEReactions] attribute boolean _static; 
-            undefined zoomTo(double latitude, double longitude, optional unsigned short zoom);
+            undefined zoomTo( double latitude, double longitude, 
+                              optional unsigned short zoom);
             undefined back();
             undefined forward();
             undefined reload();
-            [NewObject] HTMLLayerElement geojson2mapml(object json, optional MapMLGenerationOptions options = {});
+            [NewObject] HTMLLayerElement geojson2mapml(object json, 
+                              optional MapMLGenerationOptions options = {});
           }; 
           dictionary MapMLGenerationOptions {
-                    DOMString label;
-                    DOMString projection = "OSMTILE";
-                    undefined featureCaptionInterface;
-                    object propertiesFunction;
-                    object geometryFunction;
+                            DOMString label;
+                            DOMString projection = "OSMTILE";
+                            FeatureCaptionInterface caption;
+                            object propertiesFunction;
+                            object geometryFunction;
           };
 <!--          callback propertiesFunction = HTMLElement (object geojsonFeature);
           callback geometryFunction = HTMLGeometryElement (object geometryElement, object geojsonFeature);-->
           [Exposed=geojson2mapml]
-          interface featureCaptionInterface {
-            stringifier attribute DOMString? featurecaptionPropertyName;
+          interface FeatureCaptionInterface {
+            stringifier;
             DOMString featurecaptionFunction ( object geojsonFeature );
           };
           </pre>
