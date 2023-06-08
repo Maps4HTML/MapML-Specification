@@ -492,7 +492,7 @@
                               optional MapMLGenerationOptions options = {} );
           }; 
           dictionary MapMLGenerationOptions {
-                            DOMString label;
+                            DOMString label = "json.title | json.name | 'Layer'";
                             DOMString projection = "OSMTILE";
                             FeatureCaptionOptionInterface caption;
                             FeaturePropertiesOptionInterface properties;
@@ -631,6 +631,14 @@
           interactive or disabled state of the Forward, Back and Reload viewer 
           context menu items, as well as by the interactive state of the viewer 
           reload control button.
+        </p>
+        <p>
+          The <a href="#dom-htmlmapmlviewerelement-geojson2mapml"><code>geojson2mapml</code></a> 
+          operation transcribes a GeoJSON FeatureCollection or Feature in a JSON 
+          object or string into a <a href="#the-layer-element"><code>layer</code></a> 
+          element containing one <a href="#the-feature-element"><code>feature</code></a> 
+          element for each GeoJSON Feature object from the input JSON object or 
+          string.
         </p>
         
         </div>
