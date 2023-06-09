@@ -493,7 +493,6 @@
           }; 
           dictionary MapMLGenerationOptions {
                             DOMString label = "json.title | json.name | 'Layer'";
-                            DOMString projection = "OSMTILE";
                             FeatureCaptionOptionInterface caption;
                             FeaturePropertiesOptionInterface properties;
                             FeatureGeometryOptionInterface geometryFunction;
@@ -510,7 +509,6 @@
           };
           [Exposed=properties]
           interface FeaturePropertiesOptionInterface {
-                    stringifier;
                     attribute HTMLElement PropertiesCallback;
           };
           [Exposed=geometryFunction]
@@ -615,8 +613,8 @@
           The <a href="#dom-htmlmapmlviewerelement-back"><code>back</code></a>, 
           <a href="#dom-htmlmapmlviewerelement-forward"><code>forward</code></a> 
           and <a href="#dom-htmlmapmlviewerelement-reload"><code>reload</code></a> 
-          operations allow the manipulation of the <code>mapml-viewer</code>'s
-          viewport history stack.  Each time the <code>mapml-viewer</code>'s viewport 
+          operations allow the manipulation of the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a>'s
+          viewport history stack.  Each time the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a>'s viewport 
           comes to rest, its location (center coordinates and zoom level) is pushed 
           onto the viewport history stack.  
           The <a href="#dom-htmlmapmlviewerelement-back"><code>back</code></a> 
@@ -634,12 +632,160 @@
         </p>
         <p>
           The <a href="#dom-htmlmapmlviewerelement-geojson2mapml"><code>geojson2mapml</code></a> 
-          operation transcribes a GeoJSON FeatureCollection or Feature in a JSON 
-          object or string into a <a href="#the-layer-element"><code>layer</code></a> 
-          element containing one <a href="#the-feature-element"><code>feature</code></a> 
-          element for each GeoJSON Feature object from the input JSON object or 
-          string.
+          operation transcribes a GeoJSON [[rfc7946]] 
+          <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.3">FeatureCollection</a> or 
+          <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">Feature</a> 
+          object into a  <a href="#the-layer-element"><code>layer</code></a> element. 
+
+          <a href="#dom-htmlmapmlviewerelement-geojson2mapml"><code>geojson2mapml</code></a>
+          accepts two arguments: the required JSON object, conforming to a GeoJSON [[rfc7946]]
+          <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.3">FeatureCollection</a> or 
+          <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">Feature</a>, 
+          and an optional dictionary object of options. 
+          <a href="#dom-htmlmapmlviewerelement-geojson2mapml"><code>geojson2mapml</code></a> 
+          creates and adds a <a href=""><code>layer</code></a> element as the last 
+          child of the <a href=""><code>mapml-viewer</code></a> element on which
+          it is invoked. The created <a href="#the-layer-element"><code>layer</code></a> 
+          element contains one <a href="#the-feature-element"><code>feature</code></a> 
+          element for each GeoJSON [[rfc7946]] <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">Feature</a> from the input JSON object.
+          
         </p>
+        <section>
+          <h5 id="mapml2geojson-options">mapml2geojson options</h5>
+          <p>
+            The <a href="#dom-mapmlgenerationoptions"><code>label</code></a> option
+            specifies the title of the output <code>layer</code> element. The 
+            default used will be, in order of preference, the 
+            <a href="https://www.rfc-editor.org/rfc/rfc7946#section-6.1">name</a> 
+            foreign member value, the <a href="https://www.rfc-editor.org/rfc/rfc7946#section-6.1">title</a>
+            foreign member value of the FeatureCollection or Feature object, or the fixed 
+            <code>'Layer'</code> DOMString value. 
+          </p>
+          <p>
+            The <a href="#dom-mapmlgenerationoptions-caption"><code>caption</code></a> option specifies the source
+            of the output <a href="#the-featurecaption-element"><code>featurecaption</code></a> value for 
+            each output <a href="#the-feature-element"><code>feature</code></a>.  
+            If <a href="#dom-mapmlgenerationoptions-caption"><code>caption</code></a>
+            is set to a DOMString value, that value will be sought as the name of
+            a <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">properties</a> 
+            member, the value of which property will be used as the output 
+            <a href="#the-featurecaption-element"><code>featurecaption</code></a>.  
+            If no such <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">properties</a> 
+            member exists, the fixed DOMString value itself will be used as
+            the output <a href="#the-featurecaption-element"><code>featurecaption</code></a> value.
+            
+            If <a href="#dom-mapmlgenerationoptions-caption"><code>caption</code></a> 
+            is set to a function value matching <a href="#dom-captioncallback"><code>CaptionCallback</code></a>,
+            that function will be called for each output <a href="#the-feature-element"><code>feature</code></a>,
+            and its return DOMString value will be used as the <a href="#the-feature-element"><code>feature</code></a>s' 
+            <a href="#the-featurecaption-element"><code>featurecaption</code></a> 
+            value.
+            
+            If no <a href="#dom-mapmlgenerationoptions-caption"><code>caption</code></a> value is provided, the 
+            default source of <a href="#the-featurecaption-element"><code>featurecaption</code></a> in output
+            <a href="#the-feature-element"><code>feature</code></a> elements will be, in order of preference,
+            the <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">Feature</a>
+            object's <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">id</a> member, it's <a href="https://www.rfc-editor.org/rfc/rfc7946#section-6.1">name</a> 
+            foreign member value, or its <a href="https://www.rfc-editor.org/rfc/rfc7946#section-6.1">title</a>
+            foreign member value.
+          </p>
+          <p>
+            The <a href=""><code>properties</code></a> option specifies how 
+            <a hre=""><code>Feature</code></a>s' <a href=""><code>properties</code></a>
+            members are mapped to the <a href=""><code>properties</code></a> element
+            content. It accepts a callback function value. The default function, 
+            if no <a href=""><code>properties</code></a> option is set, maps input 
+            <a href=""><code>Feature</code></a> <code>properties</code> members
+            to a two-column HTML table element, corresponding to the following 
+            Relax NG compact grammar.
+          </p>
+          <pre>
+default namespace = "http://www.w3.org/1999/xhtml"
+namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+start =
+  element table {
+    element thead {
+      element tr {
+        element th {
+          attribute role {
+            ## The value of the role attribute is set to "columnheader", 
+            ## designating the meaning of contained cell text ("Property name") 
+            ## as a column header value
+            text
+          },
+          attribute scope {
+            ## The value of the scope attribute is set to "col",
+            ## designating that what is contained in corresponding table cells 
+            ## as a column value of the "Property name" column. 
+            text
+          },
+          ## The en value of this th is set to "Property name". 
+          ## This string shall be localized to the locale of the user agent.
+          text
+        },
+        element th {
+          attribute role {
+            ## The value of the role attribute is set to "columnheader", 
+            ## designating the meaning of contained table text 
+            ## as a column header value
+            text
+          },
+          attribute scope {
+            ## The value of the scope attribute is set to "col", 
+            ## designating that what is contained is a column value. 
+            text
+          },
+          ## The en value of this th is set to "Property value". 
+          ## This string shall be localized to the locale of the user agent.
+          text
+        }
+      }
+    },
+    element tbody {
+      element tr {
+        element th {
+          attribute scope {
+            ## The value of the scope attribute is set to "row", 
+            ## designating this as a table data row
+            text
+          },
+          ## The text value of this cell is set to the properties' 
+          ## property member name from the input Feature
+          text
+        },
+        element td {
+          attribute itemprop {
+            ## The text value of the itemprop attribute is set to the 
+            ## properties' property member name from the input Feature
+            text
+          },
+          ## The text value of this cell is set to the value of the GeoJSON 
+          ## properties' property member from the input Feature
+          text
+        }
+      }
+    }
+  }
+          </pre>
+          <p>
+            The <a href="#dom-mapmlgenerationoptions-geometryfunction"><code>
+            geometryFunction</code></a> option allows control over the 
+            output <a href="#the-geometry-element"><code>geometry</code></a> 
+            element content.  The default function transcribes the 
+            <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">GeoJSON 
+            geometry Feature member</a> to a corresponding <a href="#the-geometry-element">
+            <code>geometry</code></a> element.  The <a href="#dom-geometrycallback">
+            function</a> receives two arguments: the default <a href="#the-geometry-element">
+            <code>geometry</code></a> child element calculated that represents the 
+            input <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">
+            GeoJSON Feature's geometry</a> 
+            <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.1">member 
+            value</a>, and the input <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">
+            GeoJSON Feature object</a>. The function returns a 
+            <a href="#the-geometry-element"><code>geometry</code></a> element.
+          </p>
+         
+        </section>
         
         </div>
         </section>
