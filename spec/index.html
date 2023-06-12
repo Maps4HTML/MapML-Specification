@@ -499,8 +499,8 @@
           };
           callback CaptionCallback = DOMString (object geojsonFeature);
           callback PropertiesCallback = HTMLElement ( object geojsonFeature );
-          callback GeometryCallback = HTMLGeometryElement ( 
-                                          Element htmlGeometryChildElement, 
+          callback GeometryCallback = HTMLGeometryChildElement ( 
+                                          HTMLGeometryChildElement element, 
                                           object geojsonFeature );
           [Exposed=caption]
           interface FeatureCaptionOptionInterface {
@@ -513,7 +513,7 @@
           };
           [Exposed=geometryFunction]
           interface FeatureGeometryOptionInterface {
-                    attribute HTMLGeometryElement GeometryCallback;
+                    attribute HTMLGeometryChildElement GeometryCallback;
           };
           </pre>
         </dd>
@@ -773,16 +773,17 @@ start =
             output <a href="#the-geometry-element"><code>geometry</code></a> 
             element content.  The default function transcribes the 
             <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">GeoJSON 
-            geometry Feature member</a> to a corresponding <a href="#the-geometry-element">
-            <code>geometry</code></a> element.  The <a href="#dom-geometrycallback">
-            function</a> receives two arguments: the default <a href="#the-geometry-element">
-            <code>geometry</code></a> child element calculated that represents the 
-            input <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">
-            GeoJSON Feature's geometry</a> 
-            <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.1">member 
+            Feature member's geometry value</a> to the corresponding <a href="#the-geometry-element">
+            <code>geometry</code></a> <a href="#geometry-child-elements">child element</a>.  
+            The <a href="#dom-geometrycallback"> function</a> receives two 
+            arguments: the default <a href="#the-geometry-element"><code>geometry</code></a> 
+            <a href="#geometry-values">child element</a> calculated that represents 
+            the input <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">
+            GeoJSON Feature's geometry</a> <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.1">member 
             value</a>, and the input <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">
             GeoJSON Feature object</a>. The function returns a 
-            <a href="#the-geometry-element"><code>geometry</code></a> element.
+            <a href="#the-geometry-element"><code>geometry</code></a> 
+            <a href="#geometry-child-elements">child element</a>.
           </p>
          
         </section>
@@ -2957,7 +2958,7 @@ start =
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>Child of the <a href="#the-feature-element"><code>feature</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-          <dd>A single geometry value, described in the <a href="#geometry-values">table</a> below.</dd>
+          <dd>A single <a href="#geometry-child-elements">geometry child element</a>, described in the <a href="#geometry-values">table</a> below.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
           <dd id="attr-geometry-cs"><code>cs</code> — The <a href="#coordinate-reference-system-type-codes-and-descriptions"><code>coordinate system</code></a>,
@@ -3001,96 +3002,150 @@ start =
             interface HTMLGeometryElement : HTMLElement {
               [HTMLConstructor] constructor();
               
-              readonly attribute DOMString type;
+              attribute DOMString cs;
             };
             </pre>
           </dd>
         </dl>
+        <section id="geometry-child-elements">
+          <h6>Geometry Child Elements</h6>
+        <dl class="def">
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
+          <dd>Feature data.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
+          <dd>Child of the <a href="#the-geometry-element"><code>geometry</code></a> element.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
+          <dd>Described in the <a href="#geometry-values">table</a> below.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
+          <dd>
+            <pre class="idl">
+            [Exposed=Window]
+            interface HTMLGeometryChildElement : HTMLElement {
+              [HTMLConstructor] constructor();
+              
+            };
+            </pre>
+          </dd>
+        </dl>
+          <p>A <a href="#the-geometry-element"><code>geometry</code></a> element has one child element, 
+            which can be a <a href="#the-point-element"><code>point</code></a>,
+          <a href="#the-linestring-element"><code>linestring</code></a>, 
+          <a href="#the-polygon-element"><code>polygon</code></a>, 
+          <a href="#the-multipoint-element"><code>multipoint</code></a>, 
+          <a href="#the-multilinestring-element"><code>multilinestring</code></a>, 
+          <a href="#the-multipolygon-element"><code>multipolygon</code></a>, or 
+          <a href="#the-geometrycollection-element"><code>geometrycollection</code></a>.</p>
 
-        <p>A <a href="#the-geometry-element"><code>geometry</code></a> element has one child element, 
-          which can be a <a href="#the-point-element"><code>point</code></a>,
-        <a href="#the-linestring-element"><code>linestring</code></a>, 
-        <a href="#the-polygon-element"><code>polygon</code></a>, 
-        <a href="#the-multipoint-element"><code>multipoint</code></a>, 
-        <a href="#the-multilinestring-element"><code>multilinestring</code></a>, 
-        <a href="#the-multipolygon-element"><code>multipolygon</code></a>, or 
-        <a href="#the-geometrycollection-element"><code>geometrycollection</code></a>.</p>
+          <div class="table-responsive">
+          <table id="geometry-values" class="def">
+            <thead>
+              <tr>
+                <th><a href="#the-geometry-element"><code>geometry</code></a> child element name</th>
+                <th>Content model</th>
+                <th>Non-schema constraints</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code><dfn id="the-point-element">point</dfn></code></td>
+                <td>
+                  A <a href="#the-coordinates-element"><code>coordinates</code></a> element containing a single position.
+                </td>
+                <td>Axis order - x followed by y, separated by whitespace.</td>
+              </tr>
+              <tr>
+                <td><code><dfn id="the-linestring-element">linestring</dfn></code></td>
+                <td>
+                  A <a href="#the-coordinates-element"><code>coordinates</code></a> element containing two or more positions.
+                </td>
+                <td>Axis order - x followed by y, separated by whitespace.</td>
+              </tr>
+              <tr>
+                <td><code><dfn id="the-polygon-element">polygon</dfn></code></td>
+                <td>
+                  One or more <a href="#the-coordinates-element"><code>coordinates</code></a> elements, each containing three or more positions.
+                </td>
+                <td>
+                  <p>Axis order - x followed by y, separated by whitespace.</p>
+                  <p>The first and last positions in every child <a href="#the-coordinates-element"><code>coordinates</code></a> element are equal / at the same position.</p>
+                  <p>
+                    The first <a href="#the-coordinates-element"><code>coordinates</code></a> element represents the outside of the polygon, and subsequent <a href="#the-coordinates-element"><code>coordinates</code></a> elements represent holes.
+                  </p>
+                  <p>
+                    The "winding order" of positions in child <a href="#the-coordinates-element"><code>coordinates</code></a> should depend on the axis orientation of the coordinate reference system in use, and whether the <a href="#the-coordinates-element"><code>coordinates</code></a> element represents the exterior
+                    of a polygon, or a hole. For WGS84, the exterior should be counterclockwise and holes should be clockwise.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td><code><dfn id="the-multipoint-element">multipoint</dfn></code></td>
+                <td>
+                  One <a href="#the-coordinates-element"><code>coordinates</code></a> element, containing one or more positions.
+                </td>
+                <td>Axis order - x followed by y, separated by whitespace.</td>
+              </tr>
+              <tr>
+                <td><code><dfn id="the-multilinestring-element">multilinestring</dfn></code></td>
+                <td>
+                  One or more <a href="#the-coordinates-element"><code>coordinates</code></a> elements, each containing two or more positions.
+                </td>
+                <td>Axis order - x followed by y, separated by whitespace.</td>
+              </tr>
+              <tr>
+                <td><code><dfn id="the-multipolygon-element">multipolygon</dfn></code></td>
+                <td>
+                  One or more <a href="#the-polygon-element"><code>polygon</code></a> elements.
+                </td>
+                <td>
+                  <p>Axis order - x followed by y, separated by whitespace.</p>
+                  <p>For each member polygon, the same non-schema constraints apply to multipolygon descendant <a href="#the-coordinates-element"><code>coordinates</code></a> elements, as for polygon <a href="#the-coordinates-element"><code>coordinates</code></a> descendant elements.</p>
+                </td>
+              </tr>
+              <tr>
+                <td><code><dfn id="the-geometrycollection-element">geometrycollection</dfn></code></td>
+                <td> One or more <a href="#the-point-element"><code>point</code></a>,
+                  <a href="#the-linestring-element"><code>linestring</code></a>, <a href="#the-polygon-element"><code>polygon</code></a>, <a href="#the-multipoint-element"><code>multipoint</code></a>, <a href="#the-multilinestring-element"><code>multilinestring</code></a>, <a href="#the-multipolygon-element"><code>multipolygon</code></a> elements.</td>
 
-        <div class="table-responsive">
-        <table id="geometry-values" class="def">
-          <thead>
-            <tr>
-              <th><code>geometry</code> value</th>
-              <th>Content model</th>
-              <th>Non-schema constraints</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code><dfn id="the-point-element">point</dfn></code></td>
-              <td>
-                A <a href="#the-coordinates-element"><code>coordinates</code></a> element containing a single position.
-              </td>
-              <td>Axis order - x followed by y, separated by whitespace.</td>
-            </tr>
-            <tr>
-              <td><code><dfn id="the-linestring-element">linestring</dfn></code></td>
-              <td>
-                A <a href="#the-coordinates-element"><code>coordinates</code></a> element containing two or more positions.
-              </td>
-              <td>Axis order - x followed by y, separated by whitespace.</td>
-            </tr>
-            <tr>
-              <td><code><dfn id="the-polygon-element">polygon</dfn></code></td>
-              <td>
-                One or more <a href="#the-coordinates-element"><code>coordinates</code></a> elements, each containing three or more positions.
-              </td>
-              <td>
-                <p>Axis order - x followed by y, separated by whitespace.</p>
-                <p>The first and last positions in every child <a href="#the-coordinates-element"><code>coordinates</code></a> element are equal / at the same position.</p>
-                <p>
-                  The first <a href="#the-coordinates-element"><code>coordinates</code></a> element represents the outside of the polygon, and subsequent <a href="#the-coordinates-element"><code>coordinates</code></a> elements represent holes.
-                </p>
-                <p>
-                  The "winding order" of positions in child <a href="#the-coordinates-element"><code>coordinates</code></a> should depend on the axis orientation of the coordinate reference system in use, and whether the <a href="#the-coordinates-element"><code>coordinates</code></a> element represents the exterior
-                  of a polygon, or a hole. For WGS84, the exterior should be counterclockwise and holes should be clockwise.
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td><code><dfn id="the-multipoint-element">multipoint</dfn></code></td>
-              <td>
-                One <a href="#the-coordinates-element"><code>coordinates</code></a> element, containing one or more positions.
-              </td>
-              <td>Axis order - x followed by y, separated by whitespace.</td>
-            </tr>
-            <tr>
-              <td><code><dfn id="the-multilinestring-element">multilinestring</dfn></code></td>
-              <td>
-                One or more <a href="#the-coordinates-element"><code>coordinates</code></a> elements, each containing two or more positions.
-              </td>
-              <td>Axis order - x followed by y, separated by whitespace.</td>
-            </tr>
-            <tr>
-              <td><code><dfn id="the-multipolygon-element">multipolygon</dfn></code></td>
-              <td>
-                One or more <a href="#the-polygon-element"><code>polygon</code></a> elements.
-              </td>
-              <td>
-                <p>Axis order - x followed by y, separated by whitespace.</p>
-                <p>For each member polygon, the same non-schema constraints apply to multipolygon descendant <a href="#the-coordinates-element"><code>coordinates</code></a> elements, as for polygon <a href="#the-coordinates-element"><code>coordinates</code></a> descendant elements.</p>
-              </td>
-            </tr>
-            <tr>
-              <td><code><dfn id="the-geometrycollection-element">geometrycollection</dfn></code></td>
-              <td> One or more <a href="#the-point-element"><code>point</code></a>,
-                <a href="#the-linestring-element"><code>linestring</code></a>, <a href="#the-polygon-element"><code>polygon</code></a>, <a href="#the-multipoint-element"><code>multipoint</code></a>, <a href="#the-multilinestring-element"><code>multilinestring</code></a>, <a href="#the-multipolygon-element"><code>multipolygon</code></a> elements.</td>
-                
-              <td>For each member geometry, the same non-schema constraints apply as to the unique geometry type above.</td>
-            </tr>
-          </tbody>
-        </table>
-        </div>
+                <td>For each member geometry, the same non-schema constraints apply as to the unique geometry type above.</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </section>
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-coordinates-element">coordinates</dfn>&gt;</code> element</h5>
