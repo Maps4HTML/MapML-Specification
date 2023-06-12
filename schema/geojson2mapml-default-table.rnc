@@ -1,0 +1,67 @@
+default namespace = "http://www.w3.org/1999/xhtml"
+namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+
+start =
+  element table {
+    element thead {
+      element tr {
+        element th {
+          attribute role {
+            ## The value of the role attribute is set to "columnheader", 
+            ## designating the meaning of contained cell text ("Property name") 
+            ## as a column header value
+            text
+          },
+          attribute scope {
+            ## The value of the scope attribute is set to "col",
+            ## designating that what is contained in corresponding table cells 
+            ## as a column value of the "Property name" column. 
+            text
+          },
+          ## The en value of this th is set to "Property name". 
+          ## This string shall be localized to the locale of the user agent.
+          text
+        },
+        element th {
+          attribute role {
+            ## The value of the role attribute is set to "columnheader", 
+            ## designating the meaning of contained table text 
+            ## as a column header value
+            text
+          },
+          attribute scope {
+            ## The value of the scope attribute is set to "col", 
+            ## designating that what is contained is a column value. 
+            text
+          },
+          ## The en value of this th is set to "Property value". 
+          ## This string shall be localized to the locale of the user agent.
+          text
+        }
+      }
+    },
+    element tbody {
+      element tr {
+        element th {
+          attribute scope {
+            ## The value of the scope attribute is set to "row", 
+            ## designating this as a table data row
+            text
+          },
+          ## The text value of this cell is set to the properties' 
+          ## property member name from the input Feature
+          text
+        },
+        element td {
+          attribute itemprop {
+            ## The text value of the itemprop attribute is set to the 
+            ## properties' property member name from the input Feature
+            text
+          },
+          ## The text value of this cell is set to the value of the GeoJSON 
+          ## properties' property member from the input Feature
+          text
+        }
+      }
+    }
+  }

@@ -337,6 +337,8 @@
               <li><time>2023-05-29</time>: Add <code>map-caption</code> element.  Add static attribute to <code>mapml-viewer</code> element. Add <code>noscale</code>, <code>geolocation</code> to controlslist values. Add HTMLMapmlViewerElement methods forward(), back(), reload(), geojson2mapml to WebIDL interface.  General edits up to line 928.
               <li><time>2023-05-30</time>: Remove discussion of WGS84 from projection attribute definition.  
               <li><time>2023-06-05</time>: Add initial draft spec for <code>mapml2geojson</code>().
+              <li><time>2023-06-08</time>: Add initial draft WebIDL for <code>geojson2mapml</code>(). Add prose for <code>back</code>, <code>forward</code>, <code>reload</code>.
+              <li><time>2023-06-12</time>: Add <code>HTMLGeometryChildElement</code> abstract interface
             </ol>
           </details>
         </section>
@@ -414,16 +416,16 @@
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
         <dd><code>zoom</code> — A non-negative integer zoom value.</dd>
-        <dd><code>lat</code> — A decimal WGS84 latitude value for the map center.</dd>
-        <dd><code>lon</code> — A decimal WGS84 longitude value for the map center.</dd>
+        <dd><code>lat</code> — A decimal degrees latitude value for the map center.</dd>
+        <dd><code>lon</code> — A decimal degrees longitude value for the map center.</dd>
         <dd><code>projection</code> — A case-sensitive string 
           <a href="#tiled-coordinate-reference-systems-table">identifier</a> of 
-          the MapML coordinate reference system used by the map. Default is 
-          <a href="#tcrs-OSMTILE"><code>OSMTILE</code></a>.</dd>
+          the MapML coordinate reference system used by the map. The default if
+          not present is <a href="#tcrs-OSMTILE"><code>OSMTILE</code></a>.</dd>
         <dd><code>controls</code> — Show user agent controls.</dd>
         <dd><code>controlslist</code> — Show/hide specific user agent controls.</dd>
-        <dd><code>width</code> — Horizontal dimension.</dd>
-        <dd><code>height</code> — Vertical dimension.</dd>
+        <dd><code>width</code> — Horizontal dimension in pixels.</dd>
+        <dd><code>height</code> — Vertical dimension in pixels.</dd>
         <dd><code>static</code> — Disable map interactivity.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
         <dd>Neither tag is omissible.</dd>
@@ -477,16 +479,42 @@
             [CEReactions] attribute double lon;
             readonly attribute DOMString projection;
             [CEReactions] attribute boolean controls;
-            [SameObject, PutForwards=value] readonly attribute
-                DOMTokenList controlsList;
+            [SameObject, PutForwards=value] readonly attribute 
+                              DOMTokenList controlsList;
             [CEReactions] attribute unsigned long width;
             [CEReactions] attribute unsigned long height;
             [CEReactions] attribute boolean _static; 
-            undefined zoomTo(double latitude, double longitude, optional unsigned short zoom);
+            undefined zoomTo( double latitude, double longitude, 
+                              optional unsigned short zoom);
             undefined back();
             undefined forward();
             undefined reload();
-            [NewObject] HTMLLayerElement geojson2mapml(object geojson, object? options); 
+            [NewObject] HTMLLayerElement geojson2mapml( object json, 
+                              optional MapMLGenerationOptions options = {} );
+          }; 
+          dictionary MapMLGenerationOptions {
+                            DOMString label = "json.title | json.name | 'Layer'";
+                            FeatureCaptionOptionInterface caption;
+                            FeaturePropertiesOptionInterface properties;
+                            FeatureGeometryOptionInterface geometryFunction;
+          };
+          callback CaptionCallback = DOMString (object geojsonFeature);
+          callback PropertiesCallback = HTMLElement ( object geojsonFeature );
+          callback GeometryCallback = HTMLGeometryChildElement ( 
+                                          HTMLGeometryChildElement element, 
+                                          object geojsonFeature );
+          [Exposed=caption]
+          interface FeatureCaptionOptionInterface {
+                    stringifier;
+                    attribute DOMString CaptionCallback;
+          };
+          [Exposed=properties]
+          interface FeaturePropertiesOptionInterface {
+                    attribute HTMLElement PropertiesCallback;
+          };
+          [Exposed=geometryFunction]
+          interface FeatureGeometryOptionInterface {
+                    attribute HTMLGeometryChildElement GeometryCallback;
           };
           </pre>
         </dd>
@@ -581,6 +609,190 @@
         
         <p>The <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element supports the <dfn id="attr-map-width"><code>width</code></dfn> and <dfn id="attr-map-height"><code>height</code></dfn> <a href="https://html.spec.whatwg.org/multipage/embedded-content-other.html#dimension-attributes">dimension attributes</a>. [[HTML]]</p>
         <p>The <a href="https://drafts.csswg.org/css-images/#default-object-size">default object size</a> is a width of 300 <a href="https://drafts.csswg.org/css-values/#px">CSS pixels</a> and a height of 150 <a href="https://drafts.csswg.org/css-values/#px">CSS pixels</a>. [[css-images-3]]</p>
+        
+        <p>
+          The <a href="#dom-htmlmapmlviewerelement-back"><code>back</code></a>, 
+          <a href="#dom-htmlmapmlviewerelement-forward"><code>forward</code></a> 
+          and <a href="#dom-htmlmapmlviewerelement-reload"><code>reload</code></a> 
+          operations allow the manipulation of the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a>'s
+          viewport history stack.  Each time the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a>'s viewport 
+          comes to rest, its location (center coordinates and zoom level) is pushed 
+          onto the viewport history stack.  
+          The <a href="#dom-htmlmapmlviewerelement-back"><code>back</code></a> 
+          operation will go back (down the stack) one increment in the viewport 
+          history stack. 
+          The <a href="#dom-htmlmapmlviewerelement-forward"><code>forward</code></a> 
+          operation will go forward (up the stack) by one increment, if there are 
+          more recent viewport locations on the stack. The viewport history content 
+          is erased, having all its entries deleted,
+          through the <a href="#dom-htmlmapmlviewerelement-reload"><code>reload</code></a> 
+          operation. The state of the viewport history stack is reflected by the 
+          interactive or disabled state of the Forward, Back and Reload viewer 
+          context menu items, as well as by the interactive state of the viewer 
+          reload control button.
+        </p>
+        <p>
+          The <a href="#dom-htmlmapmlviewerelement-geojson2mapml"><code>geojson2mapml</code></a> 
+          operation transcribes a GeoJSON [[rfc7946]] 
+          <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.3">FeatureCollection</a> or 
+          <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">Feature</a> 
+          object into a  <a href="#the-layer-element"><code>layer</code></a> element. 
+
+          <a href="#dom-htmlmapmlviewerelement-geojson2mapml"><code>geojson2mapml</code></a>
+          accepts two arguments: the required JSON object, conforming to a GeoJSON [[rfc7946]]
+          <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.3">FeatureCollection</a> or 
+          <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">Feature</a>, 
+          and an optional dictionary object of options. 
+          <a href="#dom-htmlmapmlviewerelement-geojson2mapml"><code>geojson2mapml</code></a> 
+          creates and adds a <a href="#the-layer-element"><code>layer</code></a> element as the last 
+          child of the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element on which
+          it is invoked. The created <a href="#the-layer-element"><code>layer</code></a> 
+          element contains one <a href="#the-feature-element"><code>feature</code></a> 
+          element for each GeoJSON [[rfc7946]] <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">Feature</a> from the input JSON object.
+          
+        </p>
+        <section>
+          <h5 id="mapml2geojson-options">mapml2geojson options</h5>
+          <p>
+            The <a href="#dom-mapmlgenerationoptions"><code>label</code></a> option
+            specifies the title of the output <code>layer</code> element. The 
+            default used will be, in order of preference, the 
+            <a href="https://www.rfc-editor.org/rfc/rfc7946#section-6.1">name</a> 
+            foreign member value, the <a href="https://www.rfc-editor.org/rfc/rfc7946#section-6.1">title</a>
+            foreign member value of the FeatureCollection or Feature object, or the fixed 
+            <code>'Layer'</code> DOMString value. 
+          </p>
+          <p>
+            The <a href="#dom-mapmlgenerationoptions-caption"><code>caption</code></a> option specifies the source
+            of the output <a href="#the-featurecaption-element"><code>featurecaption</code></a> value for 
+            each output <a href="#the-feature-element"><code>feature</code></a>.  
+            If <a href="#dom-mapmlgenerationoptions-caption"><code>caption</code></a>
+            is set to a DOMString value, that value will be sought as the name of
+            a <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">properties</a> 
+            member, the value of which property will be used as the output 
+            <a href="#the-featurecaption-element"><code>featurecaption</code></a>.  
+            If no such <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">properties</a> 
+            member exists, the fixed DOMString value itself will be used as
+            the output <a href="#the-featurecaption-element"><code>featurecaption</code></a> value.
+            
+            If <a href="#dom-mapmlgenerationoptions-caption"><code>caption</code></a> 
+            is set to a function value matching <a href="#dom-captioncallback"><code>CaptionCallback</code></a>,
+            that function will be called for each output <a href="#the-feature-element"><code>feature</code></a>,
+            and its return DOMString value will be used as the <a href="#the-feature-element"><code>feature</code></a>s' 
+            <a href="#the-featurecaption-element"><code>featurecaption</code></a> 
+            value.
+            
+            If no <a href="#dom-mapmlgenerationoptions-caption"><code>caption</code></a> value is provided, the 
+            default source of <a href="#the-featurecaption-element"><code>featurecaption</code></a> in output
+            <a href="#the-feature-element"><code>feature</code></a> elements will be, in order of preference,
+            the <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">Feature</a>
+            object's <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">id</a> member, it's <a href="https://www.rfc-editor.org/rfc/rfc7946#section-6.1">name</a> 
+            foreign member value, or its <a href="https://www.rfc-editor.org/rfc/rfc7946#section-6.1">title</a>
+            foreign member value.
+          </p>
+          <p>
+            The <a href="#dom-mapmlgenerationoptions-properties"><code>properties</code></a> 
+            option specifies how GeoJSON [[rfc7946]]
+            <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">Feature</a>s' 
+            <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">properties</a>
+            members are mapped to the <a href="#the-properties-element"><code>
+            properties</code></a> element content. It accepts a callback function 
+            value. The default function, if no <a href="#dom-mapmlgenerationoptions-properties">
+            <code>properties</code></a> option is set, maps input 
+            <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">Feature</a> 
+            member <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">properties</a> members
+            to a two-column HTML table element, corresponding to the following 
+            Relax NG compact syntax grammar:
+          </p>
+          <pre>
+default namespace = "http://www.w3.org/1999/xhtml"
+namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+start =
+  element table {
+    element thead {
+      element tr {
+        element th {
+          attribute role {
+            ## The value of the role attribute is set to "columnheader", 
+            ## designating the meaning of contained cell text ("Property name") 
+            ## as a column header value
+            text
+          },
+          attribute scope {
+            ## The value of the scope attribute is set to "col",
+            ## designating that what is contained in corresponding table cells 
+            ## as a column value of the "Property name" column. 
+            text
+          },
+          ## The en value of this th is set to "Property name". 
+          ## This string shall be localized to the locale of the user agent.
+          text
+        },
+        element th {
+          attribute role {
+            ## The value of the role attribute is set to "columnheader", 
+            ## designating the meaning of contained table text 
+            ## as a column header value
+            text
+          },
+          attribute scope {
+            ## The value of the scope attribute is set to "col", 
+            ## designating that what is contained is a column value. 
+            text
+          },
+          ## The en value of this th is set to "Property value". 
+          ## This string shall be localized to the locale of the user agent.
+          text
+        }
+      }
+    },
+    element tbody {
+      element tr {
+        element th {
+          attribute scope {
+            ## The value of the scope attribute is set to "row", 
+            ## designating this as a table data row
+            text
+          },
+          ## The text value of this cell is set to the properties' 
+          ## property member name from the input Feature
+          text
+        },
+        element td {
+          attribute itemprop {
+            ## The text value of the itemprop attribute is set to the 
+            ## properties' property member name from the input Feature
+            text
+          },
+          ## The text value of this cell is set to the value of the GeoJSON 
+          ## properties' property member from the input Feature
+          text
+        }
+      }
+    }
+  }
+          </pre>
+          <p>
+            The <a href="#dom-mapmlgenerationoptions-geometryfunction"><code>
+            geometryFunction</code></a> option allows control over the 
+            output <a href="#the-geometry-element"><code>geometry</code></a> 
+            element content.  The default function transcribes the 
+            <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">GeoJSON [[rfc7946]]
+            Feature member's geometry value</a> to the corresponding <a href="#the-geometry-element">
+            <code>geometry</code></a> <a href="#geometry-child-elements">child element</a>.  
+            The <a href="#dom-geometrycallback"> function</a> receives two 
+            arguments: the default <a href="#the-geometry-element"><code>geometry</code></a> 
+            <a href="#geometry-values">child element</a> calculated that represents 
+            the input <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">
+            GeoJSON [[rfc7946]] Feature's geometry</a> <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.1">member 
+            value</a>, and the input <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">
+            GeoJSON Feature object</a>. The function returns a 
+            <a href="#the-geometry-element"><code>geometry</code></a> 
+            <a href="#geometry-child-elements">child element</a>.
+          </p>
+         
+        </section>
+        
         </div>
         </section>
         <section>
@@ -2751,7 +2963,7 @@
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>Child of the <a href="#the-feature-element"><code>feature</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-          <dd>A single geometry value, described in the <a href="#geometry-values">table</a> below.</dd>
+          <dd>A single <a href="#geometry-child-elements">geometry child element</a>, described in the <a href="#geometry-values">table</a> below.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
           <dd id="attr-geometry-cs"><code>cs</code> — The <a href="#coordinate-reference-system-type-codes-and-descriptions"><code>coordinate system</code></a>,
@@ -2795,96 +3007,150 @@
             interface HTMLGeometryElement : HTMLElement {
               [HTMLConstructor] constructor();
               
-              readonly attribute DOMString type;
+              attribute DOMString cs;
             };
             </pre>
           </dd>
         </dl>
+        <section id="geometry-child-elements">
+          <h6>Geometry Child Elements</h6>
+        <dl class="def">
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
+          <dd>Feature data.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
+          <dd>Child of the <a href="#the-geometry-element"><code>geometry</code></a> element.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
+          <dd>Described in the <a href="#geometry-values">table</a> below.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
+          <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
+          <dd>
+            <details class="a11y-details">
+              <summary>For authors</summary>
+              <div class="table-responsive">
+              <table class="def">
+                <thead>
+                  <tr>
+                    <th>Implicit ARIA semantics</th>
+                    <th>ARIA roles, states and properties which MAY be used</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      <a href="https://www.w3.org/TR/html-aria/#dfn-no-corresponding-role">No corresponding <code>role</code></a>
+                    </th>
+                    <td>
+                      <p><strong>No <code>role</code> or <code>aria-*</code> attributes</strong>.</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+            </details>
+          </dd>
+          <dd>
+            <details class="a11y-details">
+              <summary>For implementers</summary>
+              <div class="issue" data-number="165"><!-- empty comment to avoid generating more than the GH issue's title --></div>
+            </details>
+          </dd>
+          <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
+          <dd>
+            <pre class="idl">
+            [Exposed=Window]
+            interface HTMLGeometryChildElement : HTMLElement {
+              [HTMLConstructor] constructor();
+              
+            };
+            </pre>
+          </dd>
+        </dl>
+          <p>A <a href="#the-geometry-element"><code>geometry</code></a> element has one child element, 
+            which can be a <a href="#the-point-element"><code>point</code></a>,
+          <a href="#the-linestring-element"><code>linestring</code></a>, 
+          <a href="#the-polygon-element"><code>polygon</code></a>, 
+          <a href="#the-multipoint-element"><code>multipoint</code></a>, 
+          <a href="#the-multilinestring-element"><code>multilinestring</code></a>, 
+          <a href="#the-multipolygon-element"><code>multipolygon</code></a>, or 
+          <a href="#the-geometrycollection-element"><code>geometrycollection</code></a>.</p>
 
-        <p>A <a href="#the-geometry-element"><code>geometry</code></a> element has one child element, 
-          which can be a <a href="#the-point-element"><code>point</code></a>,
-        <a href="#the-linestring-element"><code>linestring</code></a>, 
-        <a href="#the-polygon-element"><code>polygon</code></a>, 
-        <a href="#the-multipoint-element"><code>multipoint</code></a>, 
-        <a href="#the-multilinestring-element"><code>multilinestring</code></a>, 
-        <a href="#the-multipolygon-element"><code>multipolygon</code></a>, or 
-        <a href="#the-geometrycollection-element"><code>geometrycollection</code></a>.</p>
+          <div class="table-responsive">
+          <table id="geometry-values" class="def">
+            <thead>
+              <tr>
+                <th><a href="#the-geometry-element"><code>geometry</code></a> child element name</th>
+                <th>Content model</th>
+                <th>Non-schema constraints</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code><dfn id="the-point-element">point</dfn></code></td>
+                <td>
+                  A <a href="#the-coordinates-element"><code>coordinates</code></a> element containing a single position.
+                </td>
+                <td>Axis order - x followed by y, separated by whitespace.</td>
+              </tr>
+              <tr>
+                <td><code><dfn id="the-linestring-element">linestring</dfn></code></td>
+                <td>
+                  A <a href="#the-coordinates-element"><code>coordinates</code></a> element containing two or more positions.
+                </td>
+                <td>Axis order - x followed by y, separated by whitespace.</td>
+              </tr>
+              <tr>
+                <td><code><dfn id="the-polygon-element">polygon</dfn></code></td>
+                <td>
+                  One or more <a href="#the-coordinates-element"><code>coordinates</code></a> elements, each containing three or more positions.
+                </td>
+                <td>
+                  <p>Axis order - x followed by y, separated by whitespace.</p>
+                  <p>The first and last positions in every child <a href="#the-coordinates-element"><code>coordinates</code></a> element are equal / at the same position.</p>
+                  <p>
+                    The first <a href="#the-coordinates-element"><code>coordinates</code></a> element represents the outside of the polygon, and subsequent <a href="#the-coordinates-element"><code>coordinates</code></a> elements represent holes.
+                  </p>
+                  <p>
+                    The "winding order" of positions in child <a href="#the-coordinates-element"><code>coordinates</code></a> should depend on the axis orientation of the coordinate reference system in use, and whether the <a href="#the-coordinates-element"><code>coordinates</code></a> element represents the exterior
+                    of a polygon, or a hole. For WGS84, the exterior should be counterclockwise and holes should be clockwise.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td><code><dfn id="the-multipoint-element">multipoint</dfn></code></td>
+                <td>
+                  One <a href="#the-coordinates-element"><code>coordinates</code></a> element, containing one or more positions.
+                </td>
+                <td>Axis order - x followed by y, separated by whitespace.</td>
+              </tr>
+              <tr>
+                <td><code><dfn id="the-multilinestring-element">multilinestring</dfn></code></td>
+                <td>
+                  One or more <a href="#the-coordinates-element"><code>coordinates</code></a> elements, each containing two or more positions.
+                </td>
+                <td>Axis order - x followed by y, separated by whitespace.</td>
+              </tr>
+              <tr>
+                <td><code><dfn id="the-multipolygon-element">multipolygon</dfn></code></td>
+                <td>
+                  One or more <a href="#the-polygon-element"><code>polygon</code></a> elements.
+                </td>
+                <td>
+                  <p>Axis order - x followed by y, separated by whitespace.</p>
+                  <p>For each member polygon, the same non-schema constraints apply to multipolygon descendant <a href="#the-coordinates-element"><code>coordinates</code></a> elements, as for polygon <a href="#the-coordinates-element"><code>coordinates</code></a> descendant elements.</p>
+                </td>
+              </tr>
+              <tr>
+                <td><code><dfn id="the-geometrycollection-element">geometrycollection</dfn></code></td>
+                <td> One or more <a href="#the-point-element"><code>point</code></a>,
+                  <a href="#the-linestring-element"><code>linestring</code></a>, <a href="#the-polygon-element"><code>polygon</code></a>, <a href="#the-multipoint-element"><code>multipoint</code></a>, <a href="#the-multilinestring-element"><code>multilinestring</code></a>, <a href="#the-multipolygon-element"><code>multipolygon</code></a> elements.</td>
 
-        <div class="table-responsive">
-        <table id="geometry-values" class="def">
-          <thead>
-            <tr>
-              <th><code>geometry</code> value</th>
-              <th>Content model</th>
-              <th>Non-schema constraints</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code><dfn id="the-point-element">point</dfn></code></td>
-              <td>
-                A <a href="#the-coordinates-element"><code>coordinates</code></a> element containing a single position.
-              </td>
-              <td>Axis order - x followed by y, separated by whitespace.</td>
-            </tr>
-            <tr>
-              <td><code><dfn id="the-linestring-element">linestring</dfn></code></td>
-              <td>
-                A <a href="#the-coordinates-element"><code>coordinates</code></a> element containing two or more positions.
-              </td>
-              <td>Axis order - x followed by y, separated by whitespace.</td>
-            </tr>
-            <tr>
-              <td><code><dfn id="the-polygon-element">polygon</dfn></code></td>
-              <td>
-                One or more <a href="#the-coordinates-element"><code>coordinates</code></a> elements, each containing three or more positions.
-              </td>
-              <td>
-                <p>Axis order - x followed by y, separated by whitespace.</p>
-                <p>The first and last positions in every child <a href="#the-coordinates-element"><code>coordinates</code></a> element are equal / at the same position.</p>
-                <p>
-                  The first <a href="#the-coordinates-element"><code>coordinates</code></a> element represents the outside of the polygon, and subsequent <a href="#the-coordinates-element"><code>coordinates</code></a> elements represent holes.
-                </p>
-                <p>
-                  The "winding order" of positions in child <a href="#the-coordinates-element"><code>coordinates</code></a> should depend on the axis orientation of the coordinate reference system in use, and whether the <a href="#the-coordinates-element"><code>coordinates</code></a> element represents the exterior
-                  of a polygon, or a hole. For WGS84, the exterior should be counterclockwise and holes should be clockwise.
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td><code><dfn id="the-multipoint-element">multipoint</dfn></code></td>
-              <td>
-                One <a href="#the-coordinates-element"><code>coordinates</code></a> element, containing one or more positions.
-              </td>
-              <td>Axis order - x followed by y, separated by whitespace.</td>
-            </tr>
-            <tr>
-              <td><code><dfn id="the-multilinestring-element">multilinestring</dfn></code></td>
-              <td>
-                One or more <a href="#the-coordinates-element"><code>coordinates</code></a> elements, each containing two or more positions.
-              </td>
-              <td>Axis order - x followed by y, separated by whitespace.</td>
-            </tr>
-            <tr>
-              <td><code><dfn id="the-multipolygon-element">multipolygon</dfn></code></td>
-              <td>
-                One or more <a href="#the-polygon-element"><code>polygon</code></a> elements.
-              </td>
-              <td>
-                <p>Axis order - x followed by y, separated by whitespace.</p>
-                <p>For each member polygon, the same non-schema constraints apply to multipolygon descendant <a href="#the-coordinates-element"><code>coordinates</code></a> elements, as for polygon <a href="#the-coordinates-element"><code>coordinates</code></a> descendant elements.</p>
-              </td>
-            </tr>
-            <tr>
-              <td><code><dfn id="the-geometrycollection-element">geometrycollection</dfn></code></td>
-              <td> One or more <a href="#the-point-element"><code>point</code></a>,
-                <a href="#the-linestring-element"><code>linestring</code></a>, <a href="#the-polygon-element"><code>polygon</code></a>, <a href="#the-multipoint-element"><code>multipoint</code></a>, <a href="#the-multilinestring-element"><code>multilinestring</code></a>, <a href="#the-multipolygon-element"><code>multipolygon</code></a> elements.</td>
-                
-              <td>For each member geometry, the same non-schema constraints apply as to the unique geometry type above.</td>
-            </tr>
-          </tbody>
-        </table>
-        </div>
+                <td>For each member geometry, the same non-schema constraints apply as to the unique geometry type above.</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </section>
         </section>
         <section>
         <h5>The <code>&lt;<dfn id="the-coordinates-element">coordinates</dfn>&gt;</code> element</h5>

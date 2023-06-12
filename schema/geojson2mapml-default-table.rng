@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar 
+    xmlns="http://relaxng.org/ns/structure/1.0"
+    xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+    datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <start ns="http://www.w3.org/1999/xhtml">
+        <choice>
+            <element name="table">
+                <element name="thead">
+                    <element name="tr">
+                        <element name="th">
+                            <attribute name="role"><text><a:documentation>The value of the role attribute is set to "columnheader", designating the meaning of contained cell text ("Property name") as a column header value</a:documentation></text></attribute>
+                            <attribute name="scope"><text><a:documentation>The value of the scope attribute is set to "col", designating that what is contained in corresponding table cells as a column value of the "Property name" column. </a:documentation>
+                            </text></attribute>
+                            <text><a:documentation>The en value of this th is set to "Property name". This string shall be localized to the locale of the user agent.</a:documentation>
+                            </text>
+                        </element>
+                        <element name="th">
+                            <attribute name="role"><text><a:documentation>The value of the role attribute is set to "columnheader", designating the meaning of contained table text as a column header value</a:documentation></text></attribute>
+                            <attribute name="scope"><text><a:documentation>The value of the scope attribute is set to "col", designating that what is contained is a column value. </a:documentation>
+                            </text></attribute>
+                            <text><a:documentation>The en value of this th is set to "Property value". This string shall be localized to the locale of the user agent.</a:documentation>
+                            </text>
+                        </element>
+                    </element>
+                </element>
+                <element name="tbody">
+                    <element name="tr">
+                        <element name="th">
+                            <attribute name="scope">
+                                <text><a:documentation>The value of the scope attribute is set to "row", designating this as a table data row</a:documentation></text>
+                            </attribute>
+                            <text><a:documentation>The text value of this cell is set to the properties' property member name from the input Feature</a:documentation>
+                            </text>
+                        </element>
+                    <element name="td">
+                        <attribute name="itemprop">
+                            <text><a:documentation>The text value of the itemprop attribute is set to the properties' property member name from the input Feature</a:documentation></text>
+                        </attribute>
+                        <text><a:documentation>The text value of this cell is set to the value of the GeoJSON properties' property member from the input Feature</a:documentation>
+                        </text>
+                    </element>
+                </element>
+                </element>
+            </element>
+        </choice>
+    </start>
+</grammar>
