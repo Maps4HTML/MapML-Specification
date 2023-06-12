@@ -644,8 +644,8 @@
           <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">Feature</a>, 
           and an optional dictionary object of options. 
           <a href="#dom-htmlmapmlviewerelement-geojson2mapml"><code>geojson2mapml</code></a> 
-          creates and adds a <a href=""><code>layer</code></a> element as the last 
-          child of the <a href=""><code>mapml-viewer</code></a> element on which
+          creates and adds a <a href="#the-layer-element"><code>layer</code></a> element as the last 
+          child of the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element on which
           it is invoked. The created <a href="#the-layer-element"><code>layer</code></a> 
           element contains one <a href="#the-feature-element"><code>feature</code></a> 
           element for each GeoJSON [[rfc7946]] <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">Feature</a> from the input JSON object.
@@ -691,14 +691,18 @@
             foreign member value.
           </p>
           <p>
-            The <a href=""><code>properties</code></a> option specifies how 
-            <a href=""><code>Feature</code></a>s' <a href=""><code>properties</code></a>
-            members are mapped to the <a href=""><code>properties</code></a> element
-            content. It accepts a callback function value. The default function, 
-            if no <a href=""><code>properties</code></a> option is set, maps input 
-            <a href=""><code>Feature</code></a> <code>properties</code> members
+            The <a href="#dom-mapmlgenerationoptions-properties"><code>properties</code></a> 
+            option specifies how GeoJSON [[rfc7946]]
+            <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">Feature</a>s' 
+            <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">properties</a>
+            members are mapped to the <a href="#the-properties-element"><code>
+            properties</code></a> element content. It accepts a callback function 
+            value. The default function, if no <a href="#dom-mapmlgenerationoptions-properties">
+            <code>properties</code></a> option is set, maps input 
+            <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">Feature</a> 
+            member <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">properties</a> members
             to a two-column HTML table element, corresponding to the following 
-            Relax NG compact grammar.
+            Relax NG compact syntax grammar:
           </p>
           <pre>
 default namespace = "http://www.w3.org/1999/xhtml"
@@ -773,14 +777,14 @@ start =
             geometryFunction</code></a> option allows control over the 
             output <a href="#the-geometry-element"><code>geometry</code></a> 
             element content.  The default function transcribes the 
-            <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">GeoJSON 
+            <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">GeoJSON [[rfc7946]]
             Feature member's geometry value</a> to the corresponding <a href="#the-geometry-element">
             <code>geometry</code></a> <a href="#geometry-child-elements">child element</a>.  
             The <a href="#dom-geometrycallback"> function</a> receives two 
             arguments: the default <a href="#the-geometry-element"><code>geometry</code></a> 
             <a href="#geometry-values">child element</a> calculated that represents 
             the input <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">
-            GeoJSON Feature's geometry</a> <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.1">member 
+            GeoJSON [[rfc7946]] Feature's geometry</a> <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.1">member 
             value</a>, and the input <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">
             GeoJSON Feature object</a>. The function returns a 
             <a href="#the-geometry-element"><code>geometry</code></a> 
