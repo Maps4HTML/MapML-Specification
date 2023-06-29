@@ -943,6 +943,19 @@ start =
         <p>The <a href="#attr-layer-src"><code>src</code></a> attribute value is the URL of a web resource encoded in <a href="#structure">Map Markup Language</a>.</p>
         <p>The <a href="#attr-layer-hidden"><code>hidden</code></a> boolean attribute can be set to remove the <a href="#the-layer-element"><code>layer</code></a> from the <em>map layer control, but it will remain displayed on the map</em>.  In order to
         remove the <a href="#the-layer-element"><code>layer</code></a> from the map display, it can have its <a href="#attr-layer-checked"><code>checked</code></a> property toggled, or be removed from the DOM.</p>
+        <p>The <a href="#attr-layer-label"><code>label</code></a> attribute sets 
+          a fallback value for the 
+          <a href="https://www.w3.org/TR/accname/#dfn-accessible-name">accessible name</a>
+          [[accname-1.1]] of the layer as represented in the user agent's representation of map 
+          viewer <a href="#the-mapml-viewer-element"><code>controls</code></a>. 
+          The fallback <a href="#attr-layer-label"><code>label</code></a> 
+        value is used as the <a href="https://www.w3.org/TR/accname/#dfn-accessible-name">accessible name</a>
+          [[accname-1.1]] of the layer if the map document author has not supplied 
+          a non-empty <a href="#the-title-element"><code>title</code></a> element 
+          value in the <a href="#the-layer-element"><code>layer</code></a> content.
+        The <a href="#dom-htmllayerelement-label"><code>label</code></a> IDL
+        attribute must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> 
+        the <a href="#attr-layer-label"><code>label</code></a> content attribute.</p>
         <p>The <a href="#dom-htmllayerelement-disabled"><code>disabled</code></a> property is a read-only boolean indicator of the visibility of the layer on the map.  If the layer is not visible due to errors, including projection,
         zoom or extent mismatch, the property will be true and if the layer is present in the layer control (i.e. <a href="#attr-layer-hidden"><code>hidden</code></a> is false), it will be disabled in that control i.e. not checkable.</p>
         <p>The location and zoom level of the map can be changed via the <a href="#dom-htmllayerelement-zoomto"><code>layer</code>.<code>zoomTo()</code></a> API method.</p>
