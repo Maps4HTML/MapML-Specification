@@ -1185,6 +1185,19 @@ start =
           conforming to this specification, we override any externally defined axis order. Coordinates are serialized as <i>horizontal axis followed by vertical axis</i>, separated by whitespace. Where applicable, coordinate pairs are
           separated by whitespace. The axis names of a coordinate system are identified by this document.
         </p>
+        <aside class="example" title="Relations between coordinate systems, coordinate reference systems and viewport">
+          <figure>
+            <a href="examples/mapml.png" style="cursor:zoom-in;">
+              <img src="examples/mapml.png" width="3240" height="2016" loading="lazy" alt="Origins, orientations and axis names of tcrs, pcrs, gcrs, tilematrix, map, and tile coordinate systems">
+            </a>
+            <figcaption>
+            Prototype MapML services are available,
+            representing
+            <a href="https://geogratis.gc.ca/mapml/en/osmtile/cbmt/">tiled</a>
+            and vector data.
+            </figcaption>
+          </figure>
+        </aside>
         </section>
         <section>
         <h4 id="coordinate-reference-systems">Coordinate Reference Systems</h4>
@@ -3187,32 +3200,6 @@ start =
           specification neither assigns nor requires special ordering or other constraints, apart from the axis order described above. For <a href="#the-geometry-element"><code>geometry</code></a> elements whose value is a <a href="#the-polygon-element"><code>polygon</code></a> or
           <a href="#the-multipolygon-element"><code>multipolygon</code></a> element, the descendant <a href="#the-coordinates-element"><code>coordinates</code></a> elements must follow additional constraints.
         </p>
-        </section>
-        </section>
-        
-        <section class="informative">
-        <h3>Authoring</h3>
-        <p>
-        While MapML is human-readable and can be written by hand,
-        authors typically will use conversion programs
-        and other specialized software tools to generate MapML.
-        </p>
-        
-        <section>
-        <h4 id="examples">Examples</h4>
-          <aside class="example">
-            <figure>
-              <a href="examples/mapml.png" style="cursor:zoom-in;">
-                <img src="examples/mapml.png" width="3240" height="2016" loading="lazy" alt="Origins, orientations and axis names of tcrs, pcrs, gcrs, tilematrix, map, and tile coordinate systems">
-              </a>
-              <figcaption>
-              Prototype MapML services are available,
-              representing
-              <a href="https://geogratis.gc.ca/mapml/en/osmtile/cbmt/">tiled</a>
-              and vector data.
-              </figcaption>
-            </figure>
-          </aside>
         </section>
         </section>
         
