@@ -340,6 +340,7 @@
               <li><time>2023-06-05</time>: Add initial draft spec for <code>mapml2geojson</code>().
               <li><time>2023-06-08</time>: Add initial draft WebIDL for <code>geojson2mapml</code>(). Add prose for <code>back</code>, <code>forward</code>, <code>reload</code>.
               <li><time>2023-06-12</time>: Add <code>HTMLGeometryChildElement</code> abstract interface
+              <li><time>2023-06-29</time>: Update Authoring section. Include definitions of local and remote content.
             </ol>
           </details>
         </section>
@@ -1069,10 +1070,12 @@ start =
           it is possible to replace or augment the set of controls and their arrangement, 
           it is not recommended to do so, since such changes will necessarily change the 
           accessibility and usability of the map for users.</p> 
-
+          
+          <h4>Local and remote content</h4>
+          
           <p>Map layers are created and managed with the <a href="#the-layer-element"><code>layer</code></a> 
           element.  The <a href="#the-layer-element"><code>layer</code></a> element represents 
-          map content by one of two mechanisms.  The first mechanism is the content of the 
+          map content by one of two mechanisms.  The first mechanism is as the child or descendant content of the 
           <a href="#the-layer-element"><code>layer</code></a> element directly.  This 
           configuration of content is called <dfn id="dfn-local-content">local content</dfn> throughout this specification. 
           The second mechanism for representing map content is by URL reference; this 
@@ -1100,7 +1103,8 @@ start =
             [[Web-Map-Custom-Element]]
           </p>
           
-          <aside class="example">
+          <h4>Local content</h4>
+          <aside class="example" title="Example using local content">
             <p>
               A basic map of Paris:
             </p>
@@ -1108,18 +1112,27 @@ start =
             <iframe class="authoring-example" title="Authoring example 1" src="examples/map-1.html" width="300" height="150" loading="lazy"></iframe>
           
             <p>
-              This map can be created with the following markup:
+              This map can be created with the following markup that demonstrates <a href="#dfn-local-content">local content</a>:
             </p>
             
             <pre>
               &lt;mapml-viewer zoom="11" lat="48.8566" lon="2.3522"&gt;
                 &lt;map-caption&gt;Paris, the City of Lights&lt;/map-caption&gt;
-                &lt;layer src="https://example.com/mapml/osm/" checked crossorigin&gt;&lt;/layer&gt;
+                &lt;layer checked&gt;
+                  &lt;map-link rel="license" href="https://www.openstreetmap.org/copyright" title="© OpenStreetMap contributors CC BY-SA"/&gt;
+                  &lt;map-extent units="OSMTILE" &gt;
+                    &lt;map-input name="z" type="zoom"  value="18" min="0" max="18"&gt;&lt;/map-input&gt;
+                    &lt;map-input name="x" type="location" units="tilematrix" axis="column"&gt;&lt;/map-input&gt;
+                    &lt;map-input name="y" type="location" units="tilematrix" axis="row"&gt;&lt;/map-input&gt;
+                    &lt;map-link rel="tile" tref="https://tile.openstreetmap.org/{z}/{x}/{y}.png" /&gt;
+                  &lt;/map-extent&gt;
+                &lt;/layer&gt;
               &lt;/mapml-viewer&gt;
             </pre>
           </aside>
           
-          <aside class="example">
+          <h4>Remote content</h4>          
+          <aside class="example" title="Example using remote content">
             <p>
               A map of Ottawa,
               with default and non-default controls enabled, and dimensions specified:
@@ -1128,7 +1141,7 @@ start =
             <iframe class="authoring-example" title="Authoring example 2" src="examples/map-2.html" width="600" height="350" loading="lazy"></iframe>
           
             <p>
-              This map can be created with the following markup:
+              This map can be created with the following markup that demonstrates <a href="#dfn-remote-content">remote content</a>:
             </p>
             
             <pre>
@@ -1136,6 +1149,25 @@ start =
                 &lt;map-caption&gt;A map of downtown Ottawa, Canada&lt;/map-caption&gt;
                 &lt;layer label="Canada Base Map - Transportation (CBMT)" src="https://example.com/mapml/cbmt/" checked crossorigin&gt;&lt;/layer&gt;
               &lt;/mapml-viewer&gt;
+            </pre>
+            <p>The document that is found at the <code>src</code> URL above has content MIME media type "text/mapml" and is as follows:</p>
+            <pre>
+              &lt;mapml- xmlns="http://www.w3.org/1999/xhtml"&gt;
+                &lt;map-head&gt;
+                  &lt;map-title&gt;Canada Base Map - Transportation (CBMT)&lt;/map-title&gt;
+                  &lt;map-meta http-equiv="Content-Type" content="text/mapml;charset=UTF-8"&gt;&lt;/map-meta&gt;
+                  &lt;map-meta charset="utf-8"&gt;&lt;/map-meta&gt;
+                  &lt;map-link rel="license" href="https://www.nrcan.gc.ca/earth-sciences/geography/topographic-information/free-data-geogratis/licence/17285" title="Canada Base Map © Natural Resources Canada"&gt;&lt;/map-link&gt;
+                &lt;/map-head&gt;
+                &lt;map-body&gt;
+                  &lt;map-extent units="CBMTILE"&gt;
+                    &lt;map-input name="z" type="zoom" value="17" min="0" max="17"&gt;&lt;/map-input&gt;
+                    &lt;map-input name="y" type="location" units="tilematrix" axis="row"&gt;&lt;/map-input&gt;
+                    &lt;map-input name="x" type="location" units="tilematrix" axis="column"&gt;&lt;/map-input&gt;
+                    &lt;map-link rel="tile" tref="https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT3978/MapServer/tile/{z}/{y}/{x}"&gt;&lt;/map-link&gt;
+                  &lt;/map-extent&gt;
+                &lt;/map-body&gt;
+              &lt;/mapml-&gt;
             </pre>
           </aside>
         </section>
