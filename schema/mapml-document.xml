@@ -10,10 +10,10 @@
             title="Open Government Licence - Canada"/>
         <map-link rel="legend"
             href="https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer/legend"
-        />
+            ></map-link>
     </map-head>
     <map-body>
-        <map-extent units="CBMTILE">
+        <map-extent units="CBMTILE" checked="checked">
             <map-input name="z" type="zoom" value="18" min="0" max="18"/>
             <map-input name="y" type="location" units="tilematrix" axis="row" min="51599"
                 max="61455"/>
@@ -21,7 +21,7 @@
                 max="56244"/>
             <map-link rel="tile"
                 tref="https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer/tile/{z}/{y}/{x}?m4h=t"
-            />
+                ></map-link>
         </map-extent>
     </map-body>
 </mapml->
