@@ -22,21 +22,6 @@
           {
             name: "Peter Rushforth",
             company: "Natural Resources Canada"
-          },
-          {
-            name: "Robert Linder"
-          }
-        ],
-        authors: [
-          {
-            name: "Peter Rushforth",
-            company: "Natural Resources Canada"
-          },
-          {
-            name: "Robert Linder"
-          },
-          {
-            name: "Joan Masó"
           }
         ],
         group: "maps4html",
@@ -341,6 +326,7 @@
               <li><time>2023-06-08</time>: Add initial draft WebIDL for <code>geojson2mapml</code>(). Add prose for <code>back</code>, <code>forward</code>, <code>reload</code>.
               <li><time>2023-06-12</time>: Add <code>HTMLGeometryChildElement</code> abstract interface
               <li><time>2023-06-29</time>: Update Authoring section. Include definitions of local and remote content.
+              <li><time>2023-11-05</time>: Correct error in contexts in which <code>extent</code> is found. Add opacity attribute to layer. Update editors.  Add WebIDL for <code>layer</code> <code>opacity</code>; Add or update <code>extent</code> attributes for <code>label</code>, <code>checked</code>, <code>hidden</code>, <code>opacity</code> and <code>disabled</code>. Update <code>extent</code> content model to add allowed metadata content for <code>zoom</code> and <code>extent</code>.
             </ol>
           </details>
         </section>
@@ -479,7 +465,7 @@
             [CEReactions] attribute unsigned short zoom;
             [CEReactions] attribute double lat;
             [CEReactions] attribute double lon;
-            readonly attribute DOMString projection;
+            [CEReactions] attribute DOMString projection;
             [CEReactions] attribute boolean controls;
             [SameObject, PutForwards=value] readonly attribute 
                               DOMTokenList controlsList;
@@ -870,9 +856,10 @@ start =
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
         <dd id="attr-layer-src"><code>src</code> — The URL of the layer resource.</dd>
         <dd id="attr-layer-label"><code>label</code> — A label for the layer in the layer control, 
-          if the layer is not not <a href="#attr-layer-hidden"><code>hidden</code></a>. The map author's <a href="#the-title-element"><code>title</code></a> element takes precedence over <code>label</code>, if available.</dd>
+          if the layer is not <a href="#attr-layer-hidden"><code>hidden</code></a>. The map author's <a href="#the-title-element"><code>title</code></a> element takes precedence over <code>label</code>, if available.</dd>
         <dd id="attr-layer-checked"><code>checked</code> — Turn the layer on/off dynamically on the map. </dd>
         <dd id="attr-layer-hidden"><code>hidden</code> — Visibility status of the layer in the layer control. Does not affect visibility of the layer on the map.</dd>
+        <dd id="attr-layer-opacity"><code>opacity</code> — An initial opacity value which is reflected to the exposed user interface in the layer control for opacity. Opacity values have a decimal range from 0 (transparent) to 1.0 (opaque)</dd>
         <dd id="attr-layer-referrerpolicy"><code>referrerpolicy</code> — <a href="https://w3c.github.io/webappsec-referrer-policy/#referrer-policy">Referrer policy</a> for <a href="https://fetch.spec.whatwg.org/#concept-fetch">fetches</a> initiated by the element.</dd>
         <dd id="attr-layer-crossorigin"><code>crossorigin</code> — A <a href="https://html.spec.whatwg.org/multipage/urls-and-fetching.html#cors-settings-attribute">CORS settings attribute</a>, specifies how the element handles crossorigin requests.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
@@ -921,6 +908,7 @@ start =
                      attribute boolean <a href="#attr-layer-checked">checked</a>;
             readonly attribute boolean <a href="#attr-layer-disabled">disabled</a>;
                      attribute boolean <a href="#attr-layer-hidden">hidden</a>;
+                     attribute double <a href="attr-layer-opacity">opacity</a>;
                      attribute DOMString <a href="#attr-layer-referrerpolicy">referrerPolicy</a>;
                      attribute DOMString? <a href="#attr-layer-crossorigin">crossOrigin</a>;
                                undefined zoomTo();
@@ -935,7 +923,7 @@ start =
         </dd>
         </dl>
         <p>The <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element displays its child <a href="#the-layer-element"><code>layer</code></a> elements similarly to (partially) transparent "acetate" layers on a (paper) map.  The layers follow the <a href="https://www.w3.org/TR/SVG/render.html#PaintersModel">painters model</a>, whereby
-        <a href="#the-layer-element"><code>layer</code></a> elements are displayed on top of earlier siblings according to their document order.  <a href="#the-layer-element"><code>layer</code></a> transparency is controlled by the CSS opacity property. [[SVG2]] [[css-color-3]]</p>
+          <a href="#the-layer-element"><code>layer</code></a> elements are displayed on top of previous siblings according to their document order.  <a href="#the-layer-element"><code>layer</code></a> transparency is controlled by the <a href="attr-layer-opacity">opacity</a> attribute.</p>
 
         <p>In contrast to the <a href="https://html.spec.whatwg.org/multipage/media.html#media-element">HTML media elements' <code>source</code></a> child element where a single 
         <a href="https://html.spec.whatwg.org/multipage/media.html#media-element"><code>source</code></a> element is selected by the user agent for play, the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element's child <a href="#the-layer-element"><code>layer</code></a> elements are 
@@ -1083,9 +1071,9 @@ start =
           the <a href="#the-layer-element"><code>layer</code></a> <a href="#attr-layer-src"><code>src</code></a> 
           attribute. <a href="#the-layer-element"><code>layer</code></a> element content 
           may be local or remote, but a <a href="#the-layer-element"><code>layer</code></a> 
-          element may not have both <a href="#dfn-local-content">local content</a> and <a href="#dfn-remote-content">remote content</a>; if a 
+          element MUST NOT have both <a href="#dfn-local-content">local content</a> and <a href="#dfn-remote-content">remote content</a>; if a 
           <a href="#the-layer-element"><code>layer</code></a> element has both <a href="#dfn-local-content">local content</a>
-          and a <a href="#attr-layer-src"><code>src</code></a> attribute, the (which one?) 
+          and a <a href="#attr-layer-src"><code>src</code></a> attribute (<a href="#dfn-remote-content">remote content</a>), the <a href="#dfn-local-content">local content</a> 
           will be ignored.  In the element descriptions of this document, each contains a 
           "Contexts in which this element can be used" section.  The terms "<a href="#dfn-local-content">local content</a>" 
           and "<a href="#dfn-remote-content">remote content</a>" in that section is intended to describe the appropriate 
@@ -1120,11 +1108,11 @@ start =
                 &lt;map-caption&gt;Paris, the City of Lights&lt;/map-caption&gt;
                 &lt;layer checked&gt;
                   &lt;map-link rel="license" href="https://www.openstreetmap.org/copyright" title="© OpenStreetMap contributors CC BY-SA"/&gt;
-                  &lt;map-extent units="OSMTILE" &gt;
+                  &lt;map-extent units="OSMTILE"  checked&gt;
                     &lt;map-input name="z" type="zoom"  value="18" min="0" max="18"&gt;&lt;/map-input&gt;
                     &lt;map-input name="x" type="location" units="tilematrix" axis="column"&gt;&lt;/map-input&gt;
                     &lt;map-input name="y" type="location" units="tilematrix" axis="row"&gt;&lt;/map-input&gt;
-                    &lt;map-link rel="tile" tref="https://tile.openstreetmap.org/{z}/{x}/{y}.png" /&gt;
+                    &lt;map-link rel="tile" tref="https://tile.openstreetmap.org/{z}/{x}/{y}.png" &gt;&lt;/map-link&gt;
                   &lt;/map-extent&gt;
                 &lt;/layer&gt;
               &lt;/mapml-viewer&gt;
@@ -1147,7 +1135,7 @@ start =
             <pre>
               &lt;mapml-viewer projection="CBMTILE" zoom="15" lat="45.4215" lon="-75.6972" width="600" height="350" controls controlslist="geolocation"&gt;
                 &lt;map-caption&gt;A map of downtown Ottawa, Canada&lt;/map-caption&gt;
-                &lt;layer label="Canada Base Map - Transportation (CBMT)" src="https://example.com/mapml/cbmt/" checked crossorigin&gt;&lt;/layer&gt;
+                &lt;layer- label="Canada Base Map - Transportation (CBMT)" src="https://example.com/mapml/cbmt/" checked crossorigin&gt;&lt;/layer-&gt;
               &lt;/mapml-viewer&gt;
             </pre>
             <p>The document that is found at the <code>src</code> URL above has content MIME media type "text/mapml" and is as follows:</p>
@@ -1160,7 +1148,7 @@ start =
                   &lt;map-link rel="license" href="https://www.nrcan.gc.ca/earth-sciences/geography/topographic-information/free-data-geogratis/licence/17285" title="Canada Base Map © Natural Resources Canada"&gt;&lt;/map-link&gt;
                 &lt;/map-head&gt;
                 &lt;map-body&gt;
-                  &lt;map-extent units="CBMTILE"&gt;
+                  &lt;map-extent units="CBMTILE" checked="checked"&gt;
                     &lt;map-input name="z" type="zoom" value="17" min="0" max="17"&gt;&lt;/map-input&gt;
                     &lt;map-input name="y" type="location" units="tilematrix" axis="row"&gt;&lt;/map-input&gt;
                     &lt;map-input name="x" type="location" units="tilematrix" axis="column"&gt;&lt;/map-input&gt;
@@ -1856,14 +1844,14 @@ start =
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
-          <dd>In <a href="#dfn-remote-content">remote content</a>, as a child element of the <a href="#the-head-element"><code>head</code></a> element.</dd>
-          <dd>In <a href="#dfn-local-content">local content</a>, as a child of the <a href="#the-layer-element"><code>layer</code></a> element.</dd>
+          <dd>In <a href="#dfn-remote-content">remote content</a>, as a child element of the <a href="#the-head-element"><code>head</code></a> or <a href="#the-extent-element"><code>extent</code></a> elements.</dd>
+          <dd>In <a href="#dfn-local-content">local content</a>, as a child of the <a href="#the-layer-element"><code>layer</code></a> or <a href="#the-extent-element"><code>extent</code></a> elements.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-content-nothing">Nothing</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><code>name</code> — Metadata name.</dd>
-          <dd><code>http-equiv</code> — Pragma directive.</dd>
-          <dd><code>content</code> — Value of the element.</dd>
+          <dd id="attr-meta-name"><code>name</code> — Metadata name.</dd>
+          <dd id="attr-meta-http-equiv"><code>http-equiv</code> — Pragma directive.</dd>
+          <dd id="attr-meta-content"><code>content</code> — Value of the element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
           <dd>
             <details class="a11y-details">
@@ -2155,19 +2143,20 @@ start =
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
-          <dd>In <a href="#dfn-remote-content">remote content</a>, as a child of the <a href="#the-head-element"><code>head</code></a> element.</dd>
+          <dd>In <a href="#dfn-remote-content">remote content</a>, as a child of the <a href="#the-body-element"><code>body</code></a> element.</dd>
           <dd>In <a href="#dfn-local-content">local content</a>, as a child of the <a href="#the-layer-element"><code>layer</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd>
             A set of multiple <a href="#the-input-element"><code>input</code></a> and one or more <a href="#the-link-element"><code>link</code></a> elements with their <code>rel</code> attribute in either the "<a href="#link-rel-tile"><code>tile</code></a>", "<a href="#link-rel-image"><code>image</code></a>" or "<a href="#link-rel-features"><code>features</code></a>" state, and zero or one
-            <a href="#the-link-element"><code>link</code></a> element with its <code>rel</code> attribute in the "<a href="#link-rel-query"><code>query</code></a>" state.
+            <a href="#the-link-element"><code>link</code></a> element with its <code>rel</code> attribute in the "<a href="#link-rel-query"><code>query</code></a>" state.  Optional metadata content describing server-side <code>extent</code> content, in the form of zero or more <a href="#the-meta-element"><code>meta</code></a> elements with <a href="#attr-meta-name"><code>name</code></a> attribute in the <code>zoom</code> or <code>extent</code> state.
           </dd>
 
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
-          <dd><code>units</code> — The name of the coordinate reference system whose measurement units are to be used by values supplied by child <a href="#the-input-element"><code>input</code></a> elements.</dd>
-          <dd><code>label</code> — A text label to be applied to the user interface for the <a href="#the-extent-element"><code>extent</code></a> in the layer control. If no label is supplied, the <a href="#the-extent-element"><code>extent</code></a> will not expose a user interface in the layer control, but will still be displayed on the map.</dd>
-          <dd><code>opacity</code> — An initial opacity value, that will be applied to the content retrieved by the <a href="#the-extent-element"><code>extent</code></a>, and which is reflected to the exposed user interface for opacity. Opacity values have a decimal range from 0 (transparent) to 1.0 (opaque).</dd>
-          <dd><code>checked</code> — A boolean attribute that sets the initial state of the exposed user interface in the layer control. If checked, the <a href="#the-extent-element"><code>extent</code></a> content is displayed on the map.</dd>
+          <dd id="attr-extent-units"><code>units</code> — The name of the coordinate reference system whose measurement units are to be used by values supplied by child <a href="#the-input-element"><code>input</code></a> elements.</dd>
+          <dd id="attr-extent-label"><code>label</code> — A text label to be applied to the user interface for the <a href="#the-extent-element"><code>extent</code></a> in the layer control. If no <code>label</code> content attribute is supplied, a default internationalized string value will be generated and rendered for non-hidden extents.</dd>
+          <dd id="attr-extent-opacity"><code>opacity</code> — An initial opacity value, that will be applied to the content retrieved by the <a href="#the-extent-element"><code>extent</code></a>, and which is reflected to the exposed layer control user interface for opacity. Opacity values have a decimal range from 0 (transparent) to 1.0 (opaque).</dd>
+          <dd id="attr-extent-checked"><code>checked</code> — A boolean attribute that sets the state of the exposed user interface in the layer control. If the attribute is present, the <a href="#the-extent-element"><code>extent</code></a> content is rendered on the map; if the <code>checked</code> attribute is not present, the <code>extent</code> may be represented in  the layer control, but its content will not be rendered.</dd>
+          <dd id="attr-extent-hidden"><code>hidden</code> — Visibility status of the extent in the layer control. Does not affect visibility of the extent on the map.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
           <dd>
             <details class="a11y-details">
@@ -2208,18 +2197,27 @@ start =
             interface HTMLExtentElement : HTMLElement {
               [HTMLConstructor] constructor();
               
-              attribute DOMString units;
-              readonly attribute long length;
-              getter Element (unsigned long index);
-              getter (RadioNodeList or Element) (DOMString name);
-            };
+                     attribute DOMString <a href="#attr-extent-units">units</a>;
+                     attribute DOMString <a href="#attr-extent-label">label</a>;
+                     attribute boolean <a href="#attr-extent-checked">checked</a>;
+            readonly attribute boolean <a href="#attr-extent-disabled">disabled</a>;
+                     attribute boolean <a href="#attr-extent-hidden">hidden</a>;
+                     attribute double <a href="attr-extent-opacity">opacity</a>;            };
             </pre>
           </dd>
         </dl>
         <p>
-          The <a href="#the-extent-element"><code>extent</code></a> element is a map-associated affordance, which contains input and link elements, whose job it is to serialize location event properties that can be submitted to a server for processing. 
+          The <a href="#the-extent-element"><code>extent</code></a> element is a map-associated affordance, which contains <a href="#the-input-element"><code>input</code></a> and <a href="#the-link-element"><code>link</code></a> elements, whose job it is to serialize location event properties that can be submitted to a server for processing.  Returned content is rendered on the map in the DOM sequence order of the <code>extent</code> child element among its siblings in the parent element.  The <code>extent</code>'s content rendered transparency is controlled by the <code>opacity</code> attribute.
         </p>
         <p>The <code>units</code> attribute indicates the parent TCRS that location events shall be generated for, and serialized as requested by the <code>extent</code>'s contents.</p>
+        
+        <p>The <code>label</code> IDL attribute reflects the content attribute, if present.  If no content attribute is present, the IDL attribute returns an internationalized string for 'Sub-layer'.</p>
+        
+        <p>The display state (on / off) of the content represented by the <code>extent</code> element is controlled by the <code>checked</code> boolean attribute. If <code>checked</code> is true, the <code>extent</code> is rendered on the map; if not <code>checked</code> the <code>extent</code> is not rendered but should remain visible in the <code>mapml-viewer</code> element's representation of controls, in an un-checked state.</p>
+        
+        <p>The <code>hidden</code> boolean attribute can be set to remove the <code>extent</code> from the map layer control, but it will remain displayed on the map. In order to remove the <code>extent</code> content from the map, it can have its <code>checked</code> property toggled, or the element can be removed from the DOM.</p>
+        
+        <p>The <code>disabled</code> IDL attribute is a read-only boolean representation of the visibility of the <code>extent</code> contents on the map. If the <code>extent</code> is not visible due to errors, including projection, zoom or bounds mismatch, the <code>disabled</code> IDL attribute will return true. If the <code>extent</code> is present in the layer control (i.e. <code>hidden</code> is false), its <code>checked</code> state will be disabled until the error condition is corrected, for example by zooming to the <code>extent</code>'s bounds.</p>
 
         </section>
         <section>
@@ -3463,6 +3461,10 @@ start =
 
       <section id="references" class="appendix">
         <!-- https://github.com/w3c/respec/wiki/references -->
+      </section>
+      <section id="contributors" class="appendix">
+        <h2>Contributors</h2>
+        Thanks to all our contributors: <span>Robert Linder, Joan Masó and elf Pavlik</span>
       </section>
 </body>
 </html>
