@@ -1,6 +1,6 @@
 # MapML
 
-[Map Markup Language](https://maps4html.org/MapML/spec/) is a proposed HTML vocabulary for maps. 
+[Map Markup Language](https://maps4html.org/MapML-Specification/spec/) is a proposed HTML vocabulary for maps. 
 Although document validity is not a concept that can be strictly enforced on the internet, 
 the documents in this directory are an attempt to provide guidance to map authors on what 
 constitutes markup that is understood as being within scope of the MapML specification.
