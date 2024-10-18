@@ -2,9 +2,9 @@
 custom element that goes in the <body> element of an HTML document -->
 <mapml-viewer lat="45" lon="180" projection="CBMTILE" zoom="11" controls="controls" height="240" controlslist="nofullscreen geolocation noscale"  xmlns="http://www.w3.org/1999/xhtml">
     <map-caption>A pleasing map of Canada</map-caption>
-    <layer- src=""></layer->
-    <layer- label="CBMT" src="https://geogratis.gc.ca/mapml/en/cbmtile/cbmt/" checked="foo"></layer->
-    <layer- label="Hat Guy" checked="foo">
+    <map-layer src=""></map-layer>
+    <map-layer label="CBMT" src="https://geogratis.gc.ca/mapml/en/cbmtile/cbmt/" checked="foo"></map-layer>
+    <map-layer label="Hat Guy" checked="foo">
         <map-meta name="foo" content="CBMTILE"></map-meta>
         <map-feature id="twohats" zoom="15" class="twohats">
             <map-properties>
@@ -55,5 +55,5 @@ custom element that goes in the <body> element of an HTML document -->
                 </map-point>
             </map-geometry>
         </map-feature>
-    </layer->
+    </map-layer>
 </mapml-viewer>

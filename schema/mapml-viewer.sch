@@ -3,15 +3,15 @@
     xmlns:sqf="http://www.schematron-quickfix.com/validator/process" xmlns:xs="http://www.w3.org/2001/XMLSchema-datatypes" xmlns="http://www.w3.org/1999/xhtml">
     <sch:ns uri="http://www.w3.org/1999/xhtml"  prefix="h"/>
     <sch:pattern>
-        <sch:rule context="h:layer-">
-            <sch:assert test="local-name(parent::*) eq 'mapml-viewer'">The layer- element must be a child of the mapml-viewer element</sch:assert>
-            <sch:assert test="((exists(@src) and not(exists(./*))) or (not(exists(@src)) and exists(./*)))">The &lt;layer-&gt; element must have either a src attribute or inline content</sch:assert>
+        <sch:rule context="h:map-layer">
+            <sch:assert test="local-name(parent::*) eq 'mapml-viewer'">The map-layer element must be a child of the mapml-viewer element</sch:assert>
+            <sch:assert test="((exists(@src) and not(exists(./*))) or (not(exists(@src)) and exists(./*)))">The &lt;map-layer&gt; element must have either a src attribute or inline content</sch:assert>
         </sch:rule>
-        <sch:rule context="h:layer-[child::h:map-title]/@label">
+        <sch:rule context="h:map-layer[child::h:map-title]/@label">
             <sch:assert test="false()">In the case that a label attribute exists and a map-title element is present, the map-title will be preferred.</sch:assert>
         </sch:rule>
         <sch:rule context="h:layer">
-            <sch:assert test="false()">The layer- element MUST have a trailing hyphen: layer-</sch:assert>
+            <sch:assert test="false()">The map-layer element MUST have a trailing hyphen: map-layer</sch:assert>
         </sch:rule>
     </sch:pattern>
     <sch:pattern>

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Authoring example 1</title>
-    <script type="module" src="https://maps4html.org/web-map-doc/dist/mapml-viewer.js" crossorigin></script>
+    <script type="module" src="https://unpkg.com/@maps4html/mapml@latest/dist/mapml.js" crossorigin></script>
     <link rel="preconnect" href="https://geogratis.gc.ca" crossorigin>
     <style>
       html {
@@ -20,7 +20,7 @@
         height: 150px;
         max-width: 100%;
       }
-      /* Pre-style to avoid FOUC of inline layer- and fallback content. */
+      /* Pre-style to avoid FOUC of inline map-layer and fallback content. */
       mapml-viewer:not(:defined) > * {
         display: none;
       }
@@ -28,7 +28,7 @@
       or if javascript is disabled. This needs to be defined separately from the above,
       because the `:not(:defined)` selector invalidates the entire declaration
       in browsers that do not support it. */
-      layer- {
+      map-layer {
         display: none;
       }
     </style>
@@ -36,7 +36,7 @@
       <style>
         /* Ensure fallback content (children of the map element) is displayed if
         custom elements is supported but javascript is disabled. */
-        mapml-viewer:not(:defined) > :not(layer-) {
+        mapml-viewer:not(:defined) > :not(map-layer) {
           display: initial;
         }
       </style>
@@ -45,7 +45,7 @@
   <body>
     <mapml-viewer projection="OSMTILE" zoom="11" lat="48.8566" lon="2.3522">
       <map-caption>Paris, the City of Lights</map-caption>
-      <layer- label="OpenStreetMap" checked>
+      <map-layer label="OpenStreetMap" checked>
         <link rel="license" title="© OpenStreetMap contributors CC BY-SA" href="https://www.openstreetmap.org/copyright"></link>
         <map-extent units="OSMTILE" checked>
           <map-input name="z" type="zoom"  value="18" min="0" max="18"></map-input>
@@ -53,7 +53,7 @@
           <map-input name="y" type="location" units="tilematrix" axis="row" min="0"  max="262144" ></map-input>
           <map-link rel="tile" tref="https://tile.openstreetmap.org/{z}/{x}/{y}.png" ></map-link>
         </map-extent>
-      </layer->
+      </map-layer>
     </mapml-viewer>
   </body>
 </html>

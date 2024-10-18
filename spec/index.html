@@ -328,6 +328,7 @@
               <li><time>2023-06-29</time>: Update Authoring section. Include definitions of local and remote content.
               <li><time>2023-11-05</time>: Correct error in contexts in which <code>extent</code> is found. Add opacity attribute to layer. Update editors.  Add WebIDL for <code>layer</code> <code>opacity</code>; Add or update <code>extent</code> attributes for <code>label</code>, <code>checked</code>, <code>hidden</code>, <code>opacity</code> and <code>disabled</code>. Update <code>extent</code> content model to add allowed metadata content for <code>zoom</code> and <code>extent</code>.
               <li><time>2024-08-21</time>: Rename Web-Map-Custom-Element repo to MapML.js polyfill
+              <li><time>2024-10-18</time>: Rename &lt;layer-&gt; custom element to &lt;map-layer&gt;
             </ol>
           </details>
         </section>
@@ -1136,7 +1137,7 @@ start =
             <pre>
               &lt;mapml-viewer projection="CBMTILE" zoom="15" lat="45.4215" lon="-75.6972" width="600" height="350" controls controlslist="geolocation"&gt;
                 &lt;map-caption&gt;A map of downtown Ottawa, Canada&lt;/map-caption&gt;
-                &lt;layer- label="Canada Base Map - Transportation (CBMT)" src="https://example.com/mapml/cbmt/" checked crossorigin&gt;&lt;/layer-&gt;
+                &lt;map-layer label="Canada Base Map - Transportation (CBMT)" src="https://example.com/mapml/cbmt/" checked crossorigin&gt;&lt;/map-layer&gt;
               &lt;/mapml-viewer&gt;
             </pre>
             <p>The document that is found at the <code>src</code> URL above has content MIME media type "text/mapml" and is as follows:</p>
