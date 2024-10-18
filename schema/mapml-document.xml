@@ -1,4 +1,4 @@
-<!-- validate with mapml.rnc, then mapml.sch. Use via <layer- src="..."> attribute -->
+<!-- validate with mapml.rnc, then mapml.sch. Use via <map-layer src="..."> attribute -->
 <mapml- xmlns="http://www.w3.org/1999/xhtml">
     <map-head>
         <map-title>Canada Base Map - Geometry</map-title>

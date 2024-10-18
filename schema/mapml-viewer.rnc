@@ -1,7 +1,7 @@
 datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes" 
 default namespace = "http://www.w3.org/1999/xhtml"
 start = mapml-viewer
-mapml-viewer = element mapml-viewer { layer-*, 
+mapml-viewer = element mapml-viewer { map-layer*, 
     attribute lat {text},  
     attribute lon {text}, 
     attribute zoom {text}, 
@@ -12,10 +12,10 @@ mapml-viewer = element mapml-viewer { layer-*,
     attribute width {text}?,
     attribute static {text}?,
     map-caption?,
-    layer-*
+    map-layer*
 }
 map-caption = element map-caption { text }
-layer- = element layer- {
+map-layer = element map-layer {
     attribute src { xsd:anyURI }?,
     attribute label {text}?,
     attribute checked {text}?,

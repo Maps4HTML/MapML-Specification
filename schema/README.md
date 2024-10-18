@@ -21,13 +21,13 @@ evolve as the concept of MapML evolves.
 mapml.rnc (a [RelaxNG](http://www.relaxng.org/compact-tutorial-20030326.html) compact syntax schema) 
 and mapml.sch (post-schema validation MapML schematron rules) are intended to be 
 applied in that order, to validate a "stand-alone" MapML document.  Such a document 
-would be loaded into an HTML document by the <layer-> custom element, via a URL 
-reference in the src attribute:  `<layer- src="URL to MapML document goes here"></layer->`.
+would be loaded into an HTML document by the <map-layer> custom element, via a URL 
+reference in the src attribute:  `<map-layer src="URL to MapML document goes here"></map-layer>`.
 
 Another scenario that is conceptually supported is to have an (X)HTML document that
-contains a <mapml-viewer> element that contains one or more <layer-> elements that
+contains a <mapml-viewer> element that contains one or more <map-layer> elements that
 in turn contain 'inline' MapML content, i.e. MapML vocabulary elements contained
-within the <layer-></layer-> begin and end tags.
+within the <map-layer></map-layer> begin and end tags.
 
 I couldn't get a version of an rnc schema for xhtml to work, so I have to be satisfied
 with validating a document that contains only a `<mapml-viewer>` element, with the
