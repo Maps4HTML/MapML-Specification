@@ -305,7 +305,7 @@
               <li><time>2020-08-19</time>: Remove feature <code>type</code> property from IDL.</li>
               <li><time>2020-08-19</time>: Add <code>feature</code> element's <code>zoom</code> attribute.</li>
               <li><time>2020-08-19</time>: Update <a href="#the-feature-element"><code>feature</code></a> element's content model to reflect implementation.</li>
-              <li><time>2020-09-28</time>: Add <a href="#attr-mapml-viewer-controlslist"><code>controlslist</code></a> attribute to the <code>map</code> element.
+              <li><time>2020-09-28</time>: Add <a href="#attr-mapviewer-controlslist"><code>controlslist</code></a> attribute to the <code>map</code> element.
               <li><time>2021-03-01</time>: Update abstract to describe where MapML syntax and semantics fit into HTML.</li>
               <li><time>2021-03-01</time>: Update <a href="#implementation-experience">Implementation Experience</a>.</li>
               <li><time>2021-03-01</time>: Remove MicroXML references, update introduction to id MapML as an extension to HTML.</li>
@@ -319,8 +319,8 @@
               <li><time>2023-02-24</time>: Remove <code>datalist</code> element and associated input <code>shard</code> and <code>list</code> attributes.
               <li><time>2023-03-13</time>: Add <code>layer.zoomTo()</code> method.
               <li><time>2023-03-13</time>: Remove <code>nopan</code> from <code>controlslist</code> attribute. Add <code>label</code>, <label>opacity</label>, and <code>checked</code> attributes to <code>extent</code> element
-              <li><time>2023-05-26</time>: Remove <code>map</code> and <code>area</code> element discussion, to focus on <code>mapml-viewer</code>.
-              <li><time>2023-05-29</time>: Add <code>map-caption</code> element.  Add static attribute to <code>mapml-viewer</code> element. Add <code>noscale</code>, <code>geolocation</code> to controlslist values. Add HTMLMapmlViewerElement methods forward(), back(), reload(), geojson2mapml to WebIDL interface.  General edits up to line 928.
+              <li><time>2023-05-26</time>: Remove <code>map</code> and <code>area</code> element discussion, to focus on <code>mapviewer</code>.
+              <li><time>2023-05-29</time>: Add <code>mapcaption</code> element.  Add static attribute to <code>mapviewer</code> element. Add <code>noscale</code>, <code>geolocation</code> to controlslist values. Add HTMLMapmlViewerElement methods forward(), back(), reload(), geojson2mapml to WebIDL interface.  General edits up to line 928.
               <li><time>2023-05-30</time>: Remove discussion of WGS84 from projection attribute definition.  
               <li><time>2023-06-05</time>: Add initial draft spec for <code>mapml2geojson</code>().
               <li><time>2023-06-08</time>: Add initial draft WebIDL for <code>geojson2mapml</code>(). Add prose for <code>back</code>, <code>forward</code>, <code>reload</code>.
@@ -329,6 +329,7 @@
               <li><time>2023-11-05</time>: Correct error in contexts in which <code>extent</code> is found. Add opacity attribute to layer. Update editors.  Add WebIDL for <code>layer</code> <code>opacity</code>; Add or update <code>extent</code> attributes for <code>label</code>, <code>checked</code>, <code>hidden</code>, <code>opacity</code> and <code>disabled</code>. Update <code>extent</code> content model to add allowed metadata content for <code>zoom</code> and <code>extent</code>.
               <li><time>2024-08-21</time>: Rename Web-Map-Custom-Element repo to MapML.js polyfill
               <li><time>2024-10-18</time>: Rename &lt;layer-&gt; custom element to &lt;map-layer&gt;
+              <li><time>2025-07-19</time>: Replace normative use of <code>mapml-viewer</code> and <code>map-caption</code> with <code>mapviewer</code> and <code>mapcaption</code>respectively <a href="https://github.com/Maps4HTML/MapML-Specification/issues/262">issue</a>
             </ol>
           </details>
         </section>
@@ -350,9 +351,7 @@
         <p>This specification describes a proposed syntax and behavior for a new 
           HTML mapping widget element, the standard name of which is left undefined 
           at this time. The tag name of the polyfill custom element of the widget is 
-          <code>&lt;mapml-viewer&gt;</code>, so that it is not confused with the 
-          existing HTML <a href="https://html.spec.whatwg.org/multipage/image-maps.html#image-map"><code>map</code></a> 
-          element.  This naming follows <a href="https://w3ctag.github.io/design-principles/#polyfills">
+          <code>&lt;mapml-viewer&gt;</code>.  This naming follows <a href="https://w3ctag.github.io/design-principles/#polyfills">
           the recommendation of the W3C Technical Architecture Group</a> [[design-principles]]
           by using the custom elements 'namespace' mechanism (hyphenated element names) 
           to ensure that <a href="https://www.w3.org/2001/tag/doc/polyfills/#risks-of-premature-polyfilling">the 
@@ -382,8 +381,8 @@
         
         <p>
           A <dfn>Web map</dfn> is an embedded interactive content widget defined by
-          the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element,
-          in conjunction with any <a href="#the-map-caption-element"><code>map-caption</code></a> and
+          the <a href="#the-mapviewer-element"><code>mapviewer</code></a> element,
+          in conjunction with any <a href="#the-mapcaption-element"><code>mapcaption</code></a> and
           <a href="#the-layer-element"><code>layer</code></a> element descendants.
           A Web map normally represents a region of the earth's surface in two dimensions,
           and enables dynamic cartographic Web applications in [[HTML]] documents.
@@ -392,7 +391,7 @@
         <section>
         <h3 id="web-mapping-elements-and-api">Web mapping elements and API</h3>
         <section>
-        <h4>The <code>&lt;<dfn id="the-mapml-viewer-element">mapml-viewer</dfn>&gt;</code> element</h4>
+        <h4>The <code>&lt;<dfn id="the-mapviewer-element">mapviewer</dfn>&gt;</code> element</h4>
         <dl class="def"><dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#flow-content-2">Flow content</a>.</dd>
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
@@ -402,21 +401,21 @@
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
         <dd>In <a href="#dfn-local-content">local HTML content</a>, where <a href="https://html.spec.whatwg.org/multipage/dom.html#embedded-content-2">embedded content</a> is expected.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
-        <dd>Zero or more <a href="#the-layer-element"><code>layer</code></a> elements, preceded or followed by zero or one <a href="#the-map-caption-element"><code>map-caption</code></a> elements.</dd>
+        <dd>Zero or more <a href="#the-layer-element"><code>layer</code></a> elements, preceded or followed by zero or one <a href="#the-mapcaption-element"><code>mapcaption</code></a> elements.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes">Global attributes</a>.</dd>
-        <dd id="attr-mapml-viewer-zoom"><code>zoom</code> — A non-negative integer zoom value.</dd>
-        <dd id="attr-mapml-viewer-lat"><code>lat</code> — A decimal degrees latitude value for the map center.</dd>
-        <dd id="attr-mapml-viewer-lon"><code>lon</code> — A decimal degrees longitude value for the map center.</dd>
-        <dd id="attr-mapml-viewer-projection"><code>projection</code> — A case-sensitive string 
+        <dd id="attr-mapviewer-zoom"><code>zoom</code> — A non-negative integer zoom value.</dd>
+        <dd id="attr-mapviewer-lat"><code>lat</code> — A decimal degrees latitude value for the map center.</dd>
+        <dd id="attr-mapviewer-lon"><code>lon</code> — A decimal degrees longitude value for the map center.</dd>
+        <dd id="attr-mapviewer-projection"><code>projection</code> — A case-sensitive string 
           <a href="#tiled-coordinate-reference-systems-table">identifier</a> of 
           the MapML coordinate reference system used by the map. The default if
           not present is <a href="#tcrs-OSMTILE"><code>OSMTILE</code></a>.</dd>
-        <dd id="attr-mapml-viewer-controls"><code>controls</code> — Show user agent controls.</dd>
-        <dd id="attr-mapml-viewer-controlslist"><code>controlslist</code> — Show/hide specific user agent controls.</dd>
-        <dd id="attr-mapml-viewer-width"><code>width</code> — Horizontal dimension in pixels.</dd>
-        <dd id="attr-mapml-viewer-height"><code>height</code> — Vertical dimension in pixels.</dd>
-        <dd id="attr-mapml-viewer-static"><code>static</code> — Disable map interactivity.</dd>
+        <dd id="attr-mapviewer-controls"><code>controls</code> — Show user agent controls.</dd>
+        <dd id="attr-mapviewer-controlslist"><code>controlslist</code> — Show/hide specific user agent controls.</dd>
+        <dd id="attr-mapviewer-width"><code>width</code> — Horizontal dimension in pixels.</dd>
+        <dd id="attr-mapviewer-height"><code>height</code> — Vertical dimension in pixels.</dd>
+        <dd id="attr-mapviewer-static"><code>static</code> — Disable map interactivity.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-tag-omission">Tag omission in text/html</a>:</dt>
         <dd>Neither tag is omissible.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-accessibility-considerations">Accessibility considerations</a>:</dt>
@@ -510,24 +509,24 @@
         </dd>
         </dl>
         <div>
-        <p id="implementation">The <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> 
-          element, in conjunction with child <a href="#the-map-caption-element"><code>map-caption</code></a>
+        <p id="implementation">The <a href="#the-mapviewer-element"><code>mapviewer</code></a> 
+          element, in conjunction with child <a href="#the-mapcaption-element"><code>mapcaption</code></a>
           and <a href="#the-layer-element"><code>layer</code></a> elements, defines a map media element.</p>
           
-        <p>The <a href="#attr-mapml-viewer-zoom"><code>zoom</code></a> content attribute 
+        <p>The <a href="#attr-mapviewer-zoom"><code>zoom</code></a> content attribute 
           indirectly identifies an initial scale of the map.</p>
         <p>The <a href="#dom-htmlmapmlviewerelement-zoom"><code>zoom</code></a> 
           IDL attribute must 
           <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> 
           the content attribute of the same name.</p>
         
-        <p>The <a href="#attr-mapml-viewer-lat"><code>lat</code></a> and <a href="#attr-mapml-viewer-lon"><code>lon</code></a> content attributes locate the initial center of the map.</p>
+        <p>The <a href="#attr-mapviewer-lat"><code>lat</code></a> and <a href="#attr-mapviewer-lon"><code>lon</code></a> content attributes locate the initial center of the map.</p>
         <p>The <a href="#dom-htmlmapmlviewerelement-lat"><code>lat</code></a> and <a href="#dom-htmlmapmlviewerelement-lon"><code>lon</code></a> IDL attributes must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the content attribute of the same name.</p>
         <p class="note"><em>The <a href="#dom-htmlmapmlviewerelement-lat"><code>lat</code></a>, <a href="#dom-htmlmapmlviewerelement-lon"><code>lon</code></a> and <a href="#dom-htmlmapmlviewerelement-zoom"><code>zoom</code></a> attributes have no dynamic effect (they only control the default initial state of the element).</em></p>
 
-        <p>The location and zoom level of the map created with the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element can be dynamically changed via the <a href="#dom-htmlmapmlviewerelement-zoomto"><code>zoomTo()</code></a> API method, which will also change the <a href="#dom-htmlmapmlviewerelement-zoom"><code>zoom</code></a>, <a href="#dom-htmlmapmlviewerelement-lat"><code>lat</code></a> and <a href="#dom-htmlmapmlviewerelement-lon"><code>lon</code></a> attributes.</p>
+        <p>The location and zoom level of the map created with the <a href="#the-mapviewer-element"><code>mapviewer</code></a> element can be dynamically changed via the <a href="#dom-htmlmapmlviewerelement-zoomto"><code>zoomTo()</code></a> API method, which will also change the <a href="#dom-htmlmapmlviewerelement-zoom"><code>zoom</code></a>, <a href="#dom-htmlmapmlviewerelement-lat"><code>lat</code></a> and <a href="#dom-htmlmapmlviewerelement-lon"><code>lon</code></a> attributes.</p>
 
-        <p>The <a href="#attr-mapml-viewer-controls"><code>controls</code></a> attribute is a <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attribute">boolean attribute</a>. If present, it indicates that the author has not provided scripted controls and would like the user agent to provide its own set of controls.</p>
+        <p>The <a href="#attr-mapviewer-controls"><code>controls</code></a> attribute is a <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attribute">boolean attribute</a>. If present, it indicates that the author has not provided scripted controls and would like the user agent to provide its own set of controls.</p>
         <!-- https://html.spec.whatwg.org/multipage/media.html#user-interface -->
         <p>
           If the attribute is present,
@@ -545,26 +544,26 @@
         </p>
         <p>The <a href="#dom-htmlmapmlviewerelement-controls"><code>controls</code></a> IDL attribute must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the content attribute of the same name.</p>
         
-        <p>The <a href="#attr-mapml-viewer-controlslist"><code>controlslist</code></a> attribute, when specified, helps the user agent select what controls to show on the media element whenever the user agent shows its own set of controls.
+        <p>The <a href="#attr-mapviewer-controlslist"><code>controlslist</code></a> attribute, when specified, helps the user agent select what controls to show on the media element whenever the user agent shows its own set of controls.
           Its value must be an <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#unordered-set-of-unique-space-separated-tokens">unordered set of unique space-separated tokens</a> that are <a href="https://infra.spec.whatwg.org/#ascii-case-insensitive">ASCII case-insensitive</a>.
           
-<p>The <a href="#dom-htmlmapmlviewerelement-controlslist"><code>controlsList</code></a> IDL attribute must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the value of the <a href="#attr-mapml-viewer-controlslist"><code>controlslist</code></a> content attribute.</p>
+<p>The <a href="#dom-htmlmapmlviewerelement-controlslist"><code>controlsList</code></a> IDL attribute must <a href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflect">reflect</a> the value of the <a href="#attr-mapviewer-controlslist"><code>controlslist</code></a> content attribute.</p>
 
-<p>The <a href="https://dom.spec.whatwg.org/#concept-supported-tokens">supported tokens</a> for <a href="#dom-htmlmapmlviewerelement-controlslist"><code>controlsList</code></a>'s <a href="https://dom.spec.whatwg.org/#interface-domtokenlist">DOMTokenList</a> are the allowed values of the <a href="#attr-mapml-viewer-controlslist"><code>controlslist</code></a> attribute and supported by the user agent. The allowed values are
-          <a href="#attr-mapml-viewer-controlslist-nofullscreen"><code>nofullscreen</code></a>,
-          <a href="#attr-mapml-viewer-controlslist-nolayer"><code>nolayer</code></a>,
-          <a href="#attr-mapml-viewer-controlslist-noreload"><code>noreload</code></a>,
-          <a href="#attr-mapml-viewer-controlslist-nozoom"><code>nozoom</code></a>,
-          <a href="#attr-mapml-viewer-controlslist-noscale"><code>noscale</code></a>, and 
-          <a href="#attr-mapml-viewer-controlslist-geolocation"><code>geolocation</code></a>.
+<p>The <a href="https://dom.spec.whatwg.org/#concept-supported-tokens">supported tokens</a> for <a href="#dom-htmlmapmlviewerelement-controlslist"><code>controlsList</code></a>'s <a href="https://dom.spec.whatwg.org/#interface-domtokenlist">DOMTokenList</a> are the allowed values of the <a href="#attr-mapviewer-controlslist"><code>controlslist</code></a> attribute and supported by the user agent. The allowed values are
+          <a href="#attr-mapviewer-controlslist-nofullscreen"><code>nofullscreen</code></a>,
+          <a href="#attr-mapviewer-controlslist-nolayer"><code>nolayer</code></a>,
+          <a href="#attr-mapviewer-controlslist-noreload"><code>noreload</code></a>,
+          <a href="#attr-mapviewer-controlslist-nozoom"><code>nozoom</code></a>,
+          <a href="#attr-mapviewer-controlslist-noscale"><code>noscale</code></a>, and 
+          <a href="#attr-mapviewer-controlslist-geolocation"><code>geolocation</code></a>.
         </p>
           
-        <p>The <dfn id="attr-mapml-viewer-controlslist-nofullscreen"><code>nofullscreen</code></dfn> keyword hints that the fullscreen mode control should be hidden when using the user agent's own set of controls for the media element.</p>
-        <p>The <dfn id="attr-mapml-viewer-controlslist-nolayer"><code>nolayer</code></dfn> keyword hints that the layer control should be hidden when using the user agent's own set of controls for the media element.</p>
-        <p>The <dfn id="attr-mapml-viewer-controlslist-noreload"><code>noreload</code></dfn> keyword hints that the reload control should be hidden when using the user agent's own set of controls for the media element.</p>
-        <p>The <dfn id="attr-mapml-viewer-controlslist-nozoom"><code>nozoom</code></dfn> keyword hints that the zoom controls should be hidden when using the user agent's own set of controls for the media element.</p>
-        <p>The <dfn id="attr-mapml-viewer-controlslist-noscale"><code>noscale</code></dfn> keyword hints that the scalebar control should be hidden when using the user agent's own set of controls for the media element.</p>
-        <p>The <dfn id="attr-mapml-viewer-controlslist-geolocation"><code>geolocation</code></dfn> 
+        <p>The <dfn id="attr-mapviewer-controlslist-nofullscreen"><code>nofullscreen</code></dfn> keyword hints that the fullscreen mode control should be hidden when using the user agent's own set of controls for the media element.</p>
+        <p>The <dfn id="attr-mapviewer-controlslist-nolayer"><code>nolayer</code></dfn> keyword hints that the layer control should be hidden when using the user agent's own set of controls for the media element.</p>
+        <p>The <dfn id="attr-mapviewer-controlslist-noreload"><code>noreload</code></dfn> keyword hints that the reload control should be hidden when using the user agent's own set of controls for the media element.</p>
+        <p>The <dfn id="attr-mapviewer-controlslist-nozoom"><code>nozoom</code></dfn> keyword hints that the zoom controls should be hidden when using the user agent's own set of controls for the media element.</p>
+        <p>The <dfn id="attr-mapviewer-controlslist-noscale"><code>noscale</code></dfn> keyword hints that the scalebar control should be hidden when using the user agent's own set of controls for the media element.</p>
+        <p>The <dfn id="attr-mapviewer-controlslist-geolocation"><code>geolocation</code></dfn> 
         keyword hints that a control to allow the user to enable client-side representation 
         of the user agent's location should be presented.  Triggering the control 
         should invoke an interaction to obtain a time-limited 
@@ -577,36 +576,36 @@
         
         <p>A user agent MAY ignore the author's preference when it makes sense.</p>
         
-        <p class="note">A user agent might ignore the <a href="#attr-mapml-viewer-controlslist-nofullscreen"><code>nofullscreen</code></a> keyword if the content area containing the map is small, such as on a mobile device.</p>
+        <p class="note">A user agent might ignore the <a href="#attr-mapviewer-controlslist-nofullscreen"><code>nofullscreen</code></a> keyword if the content area containing the map is small, such as on a mobile device.</p>
         
-        <p>The <a href="#attr-mapml-viewer-projection" class="lint-ignore"><code>projection</code></a> 
+        <p>The <a href="#attr-mapviewer-projection" class="lint-ignore"><code>projection</code></a> 
           attribute value identifies the tiled coordinate reference system for 
-          the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a>
+          the <a href="#the-mapviewer-element"><code>mapviewer</code></a>
           and the fallback tiled coordinate reference system for its content 
           <a href="the-layer-element"><code>layer</code></a> elements. 
           Layers share the projection declared by their parent 
-          <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> 
-          either by using the fallback <a href="#attr-mapml-viewer-projection"><code>
+          <a href="#the-mapviewer-element"><code>mapviewer</code></a> 
+          either by using the fallback <a href="#attr-mapviewer-projection"><code>
           projection</code></a> value from the parent, or via an optional child 
           <a href="#the-meta-element"><code>meta</code></a>
           element specifying the <code>projection</code> via that element's 
           <code>name</code> and <code>content</code> attribute values. 
-          The default value of the <a href="#attr-mapml-viewer-projection"><code>
+          The default value of the <a href="#attr-mapviewer-projection"><code>
           projection</code></a>, if the content attribute is not present, is 
           <a href="#tcrs-OSMTILE"><code>OSMTILE</code></a>.
           The complete set of defined tiled coordinate reference systems can be found in the
         <a href="#tiled-coordinate-reference-systems-table">Tiled Coordinate Reference Systems</a> table.
         </p>
         
-        <p>The <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element supports the <a href="#attr-mapml-viewer-width"><code>width</code></a> and <a href="#attr-mapml-viewer-height"><code>height</code></a> <a href="https://html.spec.whatwg.org/multipage/embedded-content-other.html#dimension-attributes">dimension attributes</a>. [[HTML]]</p>
+        <p>The <a href="#the-mapviewer-element"><code>mapviewer</code></a> element supports the <a href="#attr-mapviewer-width"><code>width</code></a> and <a href="#attr-mapviewer-height"><code>height</code></a> <a href="https://html.spec.whatwg.org/multipage/embedded-content-other.html#dimension-attributes">dimension attributes</a>. [[HTML]]</p>
         <p>The <a href="https://drafts.csswg.org/css-images/#default-object-size">default object size</a> is a width of 300 <a href="https://drafts.csswg.org/css-values/#px">CSS pixels</a> and a height of 150 <a href="https://drafts.csswg.org/css-values/#px">CSS pixels</a>. [[css-images-3]]</p>
         
         <p>
           The <a href="#dom-htmlmapmlviewerelement-back"><code>back</code></a>, 
           <a href="#dom-htmlmapmlviewerelement-forward"><code>forward</code></a> 
           and <a href="#dom-htmlmapmlviewerelement-reload"><code>reload</code></a> 
-          operations allow the manipulation of the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a>'s
-          viewport history stack.  Each time the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a>'s viewport 
+          operations allow the manipulation of the <a href="#the-mapviewer-element"><code>mapviewer</code></a>'s
+          viewport history stack.  Each time the <a href="#the-mapviewer-element"><code>mapviewer</code></a>'s viewport 
           comes to rest, its location (center coordinates and zoom level) is pushed 
           onto the viewport history stack.  
           The <a href="#dom-htmlmapmlviewerelement-back"><code>back</code></a> 
@@ -636,7 +635,7 @@
           and an optional dictionary object of options. 
           <a href="#dom-htmlmapmlviewerelement-geojson2mapml"><code>geojson2mapml</code></a> 
           creates and adds a <a href="#the-layer-element"><code>layer</code></a> element as the last 
-          child of the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element on which
+          child of the <a href="#the-mapviewer-element"><code>mapviewer</code></a> element on which
           it is invoked. The created <a href="#the-layer-element"><code>layer</code></a> 
           element contains one <a href="#the-feature-element"><code>feature</code></a> 
           element for each GeoJSON [[rfc7946]] <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.2">Feature</a> from the input JSON object.
@@ -787,12 +786,12 @@ start =
         </div>
         </section>
         <section>
-        <h4>The <code>&lt;<dfn id="the-map-caption-element">map-caption</dfn>&gt;</code> element</h4>
+        <h4>The <code>&lt;<dfn id="the-mapcaption-element">mapcaption</dfn>&gt;</code> element</h4>
         <dl class="def">
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
         <dd>None.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
-        <dd>In <a href="#dfn-local-content">local HTML content</a>, as the first or last child of a <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element.</dd>
+        <dd>In <a href="#dfn-local-content">local HTML content</a>, as the first or last child of a <a href="#the-mapviewer-element"><code>mapviewer</code></a> element.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
         <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#phrasing-content-2">Phrasing content</a>.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
@@ -834,12 +833,12 @@ start =
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-dom">DOM interface</a>:</dt>
         <dd>Uses <a href="https://html.spec.whatwg.org/multipage/dom.html#htmlelement">HTMLElement</a>.</dd>
         </dl>
-        <p>The <a href="#the-map-caption-element"><code>map-caption</code></a> element
+        <p>The <a href="#the-mapcaption-element"><code>mapcaption</code></a> element
         allows the HTML author to assign an accessible name to a map viewer.  If the
         viewer is part of a generic mapping application that allows the user to 
-        navigate any location in the world, a location-specific <code>map-caption</code>
+        navigate any location in the world, a location-specific <code>mapcaption</code>
         may not be appropriate, and a more generic caption may be necessary.</p>
-        <p>In other situations, the <code>map-caption</code> element allows the 
+        <p>In other situations, the <code>mapcaption</code> element allows the 
         author to describe the central reason for the map. Often that reason is a
         combination of a location and a theme.</p>
       </section>
@@ -849,7 +848,7 @@ start =
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-categories">Categories</a>:</dt>
         <dd>None.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
-        <dd>In <a href="#dfn-local-content">local HTML content</a>, as a child of the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element.</dd>
+        <dd>In <a href="#dfn-local-content">local HTML content</a>, as a child of the <a href="#the-mapviewer-element"><code>mapviewer</code></a> element.</dd>
         <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
         <dd>If the <a href="#attr-layer-src"><code>src</code></a> attribute is present: <a href="https://html.spec.whatwg.org/multipage/dom.html#concept-content-nothing">Nothing</a>. 
         If no <a href="#attr-layer-src"><code>src</code></a> attribute is present: 
@@ -924,15 +923,15 @@ start =
           </pre>
         </dd>
         </dl>
-        <p>The <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element displays its child <a href="#the-layer-element"><code>layer</code></a> elements similarly to (partially) transparent "acetate" layers on a (paper) map.  The layers follow the <a href="https://www.w3.org/TR/SVG/render.html#PaintersModel">painters model</a>, whereby
+        <p>The <a href="#the-mapviewer-element"><code>mapviewer</code></a> element displays its child <a href="#the-layer-element"><code>layer</code></a> elements similarly to (partially) transparent "acetate" layers on a (paper) map.  The layers follow the <a href="https://www.w3.org/TR/SVG/render.html#PaintersModel">painters model</a>, whereby
           <a href="#the-layer-element"><code>layer</code></a> elements are displayed on top of previous siblings according to their document order.  <a href="#the-layer-element"><code>layer</code></a> transparency is controlled by the <a href="attr-layer-opacity">opacity</a> attribute.</p>
 
         <p>In contrast to the <a href="https://html.spec.whatwg.org/multipage/media.html#media-element">HTML media elements' <code>source</code></a> child element where a single 
-        <a href="https://html.spec.whatwg.org/multipage/media.html#media-element"><code>source</code></a> element is selected by the user agent for play, the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element's child <a href="#the-layer-element"><code>layer</code></a> elements are 
-        visually combined with sibling <a href="#the-layer-element"><code>layer</code></a> elements and presented by the parent <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element as a pan-able, zoom-able two-dimensional image. 
+        <a href="https://html.spec.whatwg.org/multipage/media.html#media-element"><code>source</code></a> element is selected by the user agent for play, the <a href="#the-mapviewer-element"><code>mapviewer</code></a> element's child <a href="#the-layer-element"><code>layer</code></a> elements are 
+        visually combined with sibling <a href="#the-layer-element"><code>layer</code></a> elements and presented by the parent <a href="#the-mapviewer-element"><code>mapviewer</code></a> element as a pan-able, zoom-able two-dimensional image. 
         The display state (on / off) of the content represented by the <a href="#the-layer-element"><code>layer</code></a> element is controlled by
         the <a href="#attr-layer-checked"><code>checked</code></a> boolean attribute and corresponding property.  If checked, the <a href="#the-layer-element"><code>layer</code></a> is drawn on the map in the sequence it is found in the parent element; if not <a href="#attr-layer-checked"><code>checked</code></a>
-        the <a href="#the-layer-element"><code>layer</code></a> is not drawn but should remain visible in the <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element's representation of <code>controls</code> in an "unchecked" state.</p>
+        the <a href="#the-layer-element"><code>layer</code></a> is not drawn but should remain visible in the <a href="#the-mapviewer-element"><code>mapviewer</code></a> element's representation of <code>controls</code> in an "unchecked" state.</p>
         <p>The <a href="#attr-layer-src"><code>src</code></a> attribute value is the URL of a web resource encoded in <a href="#structure">Map Markup Language</a>.</p>
         <p>The <a href="#attr-layer-hidden"><code>hidden</code></a> boolean attribute can be set to remove the <a href="#the-layer-element"><code>layer</code></a> from the <em>map layer control, but it will remain displayed on the map</em>.  In order to
         remove the <a href="#the-layer-element"><code>layer</code></a> from the map display, it can have its <a href="#attr-layer-checked"><code>checked</code></a> property toggled, or be removed from the DOM.</p>
@@ -940,7 +939,7 @@ start =
           a fallback value for the 
           <a href="https://www.w3.org/TR/accname/#dfn-accessible-name">accessible name</a>
           [[accname-1.1]] of the layer as represented in the user agent's representation of map 
-          viewer <a href="#the-mapml-viewer-element"><code>controls</code></a>. 
+          viewer <a href="#the-mapviewer-element"><code>controls</code></a>. 
           The fallback <a href="#attr-layer-label"><code>label</code></a> 
         value is used as the <a href="https://www.w3.org/TR/accname/#dfn-accessible-name">accessible name</a>
           [[accname-1.1]] of the layer if the map document author has not supplied 
@@ -1022,24 +1021,24 @@ start =
         <h3 id="authoring">Authoring</h3>
         
           <p>A <a href="#dfn-web-map">Web map</a> is a rectangular viewport on a page, established in HTML by the 
-          <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> element, with 
+          <a href="#the-mapviewer-element"><code>mapviewer</code></a> element, with 
           an optional accessible name for the rendered map, which is assigned by a child 
-          <a href="#the-map-caption-element"><code>map-caption</code></a> element.</p>  
+          <a href="#the-mapcaption-element"><code>mapcaption</code></a> element.</p>  
 
           <p>A map's initial location is defined by the 
-          <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> 
-          <a href="#attr-mapml-viewer-lat"><code>lat</code></a> and 
-          <a href="#attr-mapml-viewer-lon"><code>lon</code></a> attributes. A map's initial display 
+          <a href="#the-mapviewer-element"><code>mapviewer</code></a> 
+          <a href="#attr-mapviewer-lat"><code>lat</code></a> and 
+          <a href="#attr-mapviewer-lon"><code>lon</code></a> attributes. A map's initial display 
           scale is approximately defined by the 
-          <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a>'s 
-          <a href="#attr-mapml-viewer-zoom"><code>zoom</code></a> attribute, while the spatial extent 
-          of a map is defined by its <a href="#attr-mapml-viewer-lat"><code>lat</code></a>, 
-          <a href="#attr-mapml-viewer-lon"><code>lon</code></a> and 
-          <a href="#attr-mapml-viewer-zoom"><code>zoom</code></a> attributes, and its rendered 
+          <a href="#the-mapviewer-element"><code>mapviewer</code></a>'s 
+          <a href="#attr-mapviewer-zoom"><code>zoom</code></a> attribute, while the spatial extent 
+          of a map is defined by its <a href="#attr-mapviewer-lat"><code>lat</code></a>, 
+          <a href="#attr-mapviewer-lon"><code>lon</code></a> and 
+          <a href="#attr-mapviewer-zoom"><code>zoom</code></a> attributes, and its rendered 
           viewport size in defined in CSS pixels.</p>
 
-          <p>In addition to <a href="#the-map-caption-element"><code>map-caption</code></a>, 
-          a <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> also contains
+          <p>In addition to <a href="#the-mapcaption-element"><code>mapcaption</code></a>, 
+          a <a href="#the-mapviewer-element"><code>mapviewer</code></a> also contains
           a set of zero or more <a href="#the-layer-element"><code>layer</code></a> elements. 
           Map layers are drawn in document order of the <a href="#the-layer-element"><code>layer</code></a> 
           elements, following the SVG painters model. If the author enables more than one 
@@ -1047,9 +1046,9 @@ start =
           <a href="#the-layer-element"><code>layer</code></a>s' <code>checked</code> 
           attribute,  all the <code>checked</code> layers will be rendered, in document order.</p>  
 
-          <p>A <a href="#the-mapml-viewer-element"><code>mapml-viewer</code></a> optionally 
-            displays a set of user controls, based on the viewer's <a href="#attr-mapml-viewer-controls"><code>controls</code></a> and 
-            <a href="#attr-mapml-viewer-controlslist"><code>controlslist</code></a> attributes.  User controls may include a dialog for 
+          <p>A <a href="#the-mapviewer-element"><code>mapviewer</code></a> optionally 
+            displays a set of user controls, based on the viewer's <a href="#attr-mapviewer-controls"><code>controls</code></a> and 
+            <a href="#attr-mapviewer-controlslist"><code>controlslist</code></a> attributes.  User controls may include a dialog for 
           controlling the appearance and order of map layers.  The appearance of each map 
           <a href="#the-layer-element"><code>layer</code></a> in the layer control dialog 
           includes the accessible name of the <a href="#the-layer-element"><code>layer</code></a>, 
@@ -1108,15 +1107,15 @@ start =
             <pre>
               &lt;mapml-viewer zoom="11" lat="48.8566" lon="2.3522"&gt;
                 &lt;map-caption&gt;Paris, the City of Lights&lt;/map-caption&gt;
-                &lt;layer checked&gt;
+                &lt;map-layer checked&gt;
                   &lt;map-link rel="license" href="https://www.openstreetmap.org/copyright" title="© OpenStreetMap contributors CC BY-SA"/&gt;
-                  &lt;map-extent units="OSMTILE"  checked&gt;
+                  &lt;map-extent units="OSMTILE" checked hidden&gt;
                     &lt;map-input name="z" type="zoom"  value="18" min="0" max="18"&gt;&lt;/map-input&gt;
                     &lt;map-input name="x" type="location" units="tilematrix" axis="column"&gt;&lt;/map-input&gt;
                     &lt;map-input name="y" type="location" units="tilematrix" axis="row"&gt;&lt;/map-input&gt;
                     &lt;map-link rel="tile" tref="https://tile.openstreetmap.org/{z}/{x}/{y}.png" &gt;&lt;/map-link&gt;
                   &lt;/map-extent&gt;
-                &lt;/layer&gt;
+                &lt;/map-layer&gt;
               &lt;/mapml-viewer&gt;
             </pre>
           </aside>
@@ -1600,8 +1599,7 @@ start =
         <h4 id="the-document-object">The <code>Document</code> object</h4>
         <p>
           A MapML document is an XML document, with all elements assigned to the HTML namespace. As such, 
-          a MapML document MUST have a single root element named <a href="#the-mapml-element"><code>mapml
-          </code></a>, generally having a single attribute named "xmlns" with a value which MUST be equal 
+          a MapML document MUST have a single root element named <a href="#the-mapml-element"><code>mapml</code></a>, generally having a single attribute named "xmlns" with a value which MUST be equal 
           to "http://www.w3.org/1999/xhtml".  Assigning elements to namespaces using namepace prefixes 
           is NOT recommended. At this time, there is only an XML syntax variety of MapML document, and 
           documents conforming to this specification MUST NOT have a <code>DOCTYPE</code> declaration.
@@ -1989,7 +1987,7 @@ start =
         <p>
           The <code>projection</code> attribute value identifies the TCRS of the linked resource, with a value from the defined set of
           <a href="#tiled-coordinate-reference-systems-table">TCRS identifiers</a>. When <code>rel=alternate</code> is used together with the <code>projection</code> attribute, clients may be able to perform agent-driven content negotiation
-          to provide a better user experience. For example, if an HTML author mistakenly enters the URL of an OSMTILE resource in their HTML <a href="#the-layer-element"><code>layer@src</code></a> attribute, but the <code>mapml-viewer</code> in which the layer takes part is
+          to provide a better user experience. For example, if an HTML author mistakenly enters the URL of an OSMTILE resource in their HTML <a href="#the-layer-element"><code>layer@src</code></a> attribute, but the <code>mapviewer</code> in which the layer takes part is
           declared to be <code>CBMTILE</code>, the MapML author can ease the potential for resultant confusion by providing appropriate <code>rel=alternate</code> links to equivalent MapML resources in other projections.
         </p>
         <p>
@@ -2215,7 +2213,7 @@ start =
         
         <p>The <code>label</code> IDL attribute reflects the content attribute, if present.  If no content attribute is present, the IDL attribute returns an internationalized string for 'Sub-layer'.</p>
         
-        <p>The display state (on / off) of the content represented by the <code>extent</code> element is controlled by the <code>checked</code> boolean attribute. If <code>checked</code> is true, the <code>extent</code> is rendered on the map; if not <code>checked</code> the <code>extent</code> is not rendered but should remain visible in the <code>mapml-viewer</code> element's representation of controls, in an un-checked state.</p>
+        <p>The display state (on / off) of the content represented by the <code>extent</code> element is controlled by the <code>checked</code> boolean attribute. If <code>checked</code> is true, the <code>extent</code> is rendered on the map; if not <code>checked</code> the <code>extent</code> is not rendered but should remain visible in the <code>mapviewer</code> element's representation of controls, in an un-checked state.</p>
         
         <p>The <code>hidden</code> boolean attribute can be set to remove the <code>extent</code> from the map layer control, but it will remain displayed on the map. In order to remove the <code>extent</code> content from the map, it can have its <code>checked</code> property toggled, or the element can be removed from the DOM.</p>
         
@@ -2408,7 +2406,7 @@ start =
             </tr>
 
             <tr>
-              <td><code>mapml-viewer</code></td>
+              <td><code>map</code></td>
               <td>
                 The map coordinate system is defined by the state of the map system. At each pan and / or zoom, the map coordinate origin is reset within the Location is expressed in pixel coordinates with the origin starting at the upper
                 left corner of the extent increasing right and downwards, respectively.
