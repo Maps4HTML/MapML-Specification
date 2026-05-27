@@ -4,6 +4,8 @@
     <map-meta charset="utf-8" ></map-meta>
     <map-meta content="text/mapml" http-equiv="Content-Type" ></map-meta>
     <map-link rel="license" href="https://www.nrcan.gc.ca/earth-sciences/geography/topographic-information/free-data-geogratis/licence/17285" title="Canada Base Map © Natural Resources Canada"></map-link>
+    <map-link rel="search" tref="https://photon.komoot.io/api/?q={searchTerms}"></map-link>
+    <map-link rel="suggestions" tref="https://photon.komoot.io/api/?q={searchTerms}"></map-link>
   </map-head>
   <map-body>
     <map-extent units="CBMTILE" checked="">
