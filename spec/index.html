@@ -330,6 +330,7 @@
               <li><time>2024-08-21</time>: Rename Web-Map-Custom-Element repo to MapML.js polyfill
               <li><time>2024-10-18</time>: Rename &lt;layer-&gt; custom element to &lt;map-layer&gt;
               <li><time>2025-07-19</time>: Replace normative use of <code>mapml-viewer</code> and <code>map-caption</code> with <code>mapviewer</code> and <code>mapcaption</code>respectively <a href="https://github.com/Maps4HTML/MapML-Specification/issues/262">issue</a>
+              <li><time>2026-05-27</time>: Add <code>search</code> controlslist token, <code>rel=search</code>/<code>rel=suggestions</code> link relation values, <code>zoomToExtent()</code> API method, and <code>mapsearch</code>/<code>mapsuggestions</code> events.
             </ol>
           </details>
         </section>
@@ -475,6 +476,8 @@
             [CEReactions] attribute boolean _static; 
             undefined zoomTo( double latitude, double longitude, 
                               optional unsigned short zoom);
+            undefined zoomToExtent( double west, double south,
+                                    double east, double north);
             undefined back();
             undefined forward();
             undefined reload();
@@ -492,6 +495,25 @@
           callback GeometryCallback = HTMLGeometryChildElement ( 
                                           HTMLGeometryChildElement element, 
                                           object geojsonFeature );
+          dictionary MapSearchResponse {
+                            object data;
+                            HTMLLinkElement link;
+                            HTMLLayerElement layer;
+          };
+          dictionary MapSearchResult {
+                   required DOMString text;
+                            DOMString value;
+                            double lat;
+                            double lng;
+                            sequence&lt;double&gt; bbox;
+          };
+          callback MapSetResultsCallback = undefined (
+                            sequence&lt;MapSearchResult&gt; results);
+          dictionary MapSearchEventDetail {
+                            DOMString query;
+                            sequence&lt;MapSearchResponse&gt; responses;
+                            MapSetResultsCallback setResults;
+          };
           [Exposed=caption]
           interface FeatureCaptionOptionInterface {
                     stringifier;
@@ -525,6 +547,10 @@
         <p class="note"><em>The <a href="#dom-htmlmapmlviewerelement-lat"><code>lat</code></a>, <a href="#dom-htmlmapmlviewerelement-lon"><code>lon</code></a> and <a href="#dom-htmlmapmlviewerelement-zoom"><code>zoom</code></a> attributes have no dynamic effect (they only control the default initial state of the element).</em></p>
 
         <p>The location and zoom level of the map created with the <a href="#the-mapviewer-element"><code>mapviewer</code></a> element can be dynamically changed via the <a href="#dom-htmlmapmlviewerelement-zoomto"><code>zoomTo()</code></a> API method, which will also change the <a href="#dom-htmlmapmlviewerelement-zoom"><code>zoom</code></a>, <a href="#dom-htmlmapmlviewerelement-lat"><code>lat</code></a> and <a href="#dom-htmlmapmlviewerelement-lon"><code>lon</code></a> attributes.</p>
+        <p>The <a href="#dom-htmlmapmlviewerelement-zoomtoextent"><code>zoomToExtent()</code></a>
+          API method fits the viewport to a geographic extent expressed in
+          decimal degrees in west-south-east-north order; the user agent
+          selects the resulting zoom level automatically.</p>
 
         <p>The <a href="#attr-mapviewer-controls"><code>controls</code></a> attribute is a <a href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attribute">boolean attribute</a>. If present, it indicates that the author has not provided scripted controls and would like the user agent to provide its own set of controls.</p>
         <!-- https://html.spec.whatwg.org/multipage/media.html#user-interface -->
@@ -538,6 +564,8 @@
           zoom in,
           zoom out,
           toggle the "on/off" status of layers,
+          search for geographic places by name,
+          identify the user's location (subject to user permission),
           and show the media content in manners more suitable to the user
           (e.g. fullscreen map or in an independent resizable window).
           Other controls may also be made available.
@@ -555,7 +583,8 @@
           <a href="#attr-mapviewer-controlslist-noreload"><code>noreload</code></a>,
           <a href="#attr-mapviewer-controlslist-nozoom"><code>nozoom</code></a>,
           <a href="#attr-mapviewer-controlslist-noscale"><code>noscale</code></a>, and 
-          <a href="#attr-mapviewer-controlslist-geolocation"><code>geolocation</code></a>.
+          <a href="#attr-mapviewer-controlslist-geolocation"><code>geolocation</code></a>, and
+          <a href="#attr-mapviewer-controlslist-search"><code>search</code></a>.
         </p>
           
         <p>The <dfn id="attr-mapviewer-controlslist-nofullscreen"><code>nofullscreen</code></dfn> keyword hints that the fullscreen mode control should be hidden when using the user agent's own set of controls for the media element.</p>
@@ -563,13 +592,25 @@
         <p>The <dfn id="attr-mapviewer-controlslist-noreload"><code>noreload</code></dfn> keyword hints that the reload control should be hidden when using the user agent's own set of controls for the media element.</p>
         <p>The <dfn id="attr-mapviewer-controlslist-nozoom"><code>nozoom</code></dfn> keyword hints that the zoom controls should be hidden when using the user agent's own set of controls for the media element.</p>
         <p>The <dfn id="attr-mapviewer-controlslist-noscale"><code>noscale</code></dfn> keyword hints that the scalebar control should be hidden when using the user agent's own set of controls for the media element.</p>
+        <p>The <a href="#attr-mapviewer-controlslist-geolocation"><code>geolocation</code></a>
+        and <a href="#attr-mapviewer-controlslist-search"><code>search</code></a>
+        keywords are opt-in control tokens. Unlike the <code>no*</code>
+        <a href="#attr-mapviewer-controlslist"><code>controlslist</code></a> tokens,
+        they request that additional controls be shown.</p>
         <p>The <dfn id="attr-mapviewer-controlslist-geolocation"><code>geolocation</code></dfn> 
         keyword hints that a control to allow the user to enable client-side representation 
         of the user agent's location should be presented.  Triggering the control 
         should invoke an interaction to obtain a time-limited 
         <a href="https://www.w3.org/TR/permissions/#dfn-express-permission">express 
         permission</a> [[permissions]] to display the user agent's location on the viewer.</p>
-        
+        <p>The <dfn id="attr-mapviewer-controlslist-search"><code>search</code></dfn>
+        keyword hints that a control to search for places by name should be
+        presented. When at least one checked
+        <a href="#the-layer-element"><code>layer</code></a> provides a
+        <a href="#the-link-element"><code>link</code></a> with
+        <code>rel=search</code>, the control should be enabled; otherwise it
+        should be disabled (for example, <code>aria-disabled="true"</code>).</p>
+
         <p class="note"><em>Hiding these aspects of the user agent's own controls does not necessarily disable the related functionality. For example, the user agent might present the same functionality through a context menu or keyboard shortcut.</em></p>
         
         
@@ -577,6 +618,43 @@
         <p>A user agent MAY ignore the author's preference when it makes sense.</p>
         
         <p class="note">A user agent might ignore the <a href="#attr-mapviewer-controlslist-nofullscreen"><code>nofullscreen</code></a> keyword if the content area containing the map is small, such as on a mobile device.</p>
+        
+        <section>
+          <h5 id="search-events"><code>mapsearch</code> and <code>mapsuggestions</code> events</h5>
+          <p>The <dfn id="event-mapsearch"><code>mapsearch</code></dfn> and
+            <dfn id="event-mapsuggestions"><code>mapsuggestions</code></dfn>
+            events are dispatched by user agents and bubble and are cancelable.
+            In this specification they are exposed as
+            <a href="https://dom.spec.whatwg.org/#interface-customevent"><code>CustomEvent</code></a>
+            instances whose <code>detail</code> value is a
+            <a href="#dom-mapsearcheventdetail"><code>MapSearchEventDetail</code></a>
+            dictionary with:
+            <code>query</code> (the user text),
+            <code>responses</code> (a sequence of
+            <a href="#dom-mapsearchresponse"><code>MapSearchResponse</code></a>
+            items of the form <code>{ data, link, layer }</code>), and
+            <code>setResults</code> (a callback for supplying normalized result
+            items).
+          </p>
+          <p>User agents dispatch the
+            <a href="#event-mapsearch"><code>mapsearch</code></a> event for
+            search responses and the
+            <a href="#event-mapsuggestions"><code>mapsuggestions</code></a>
+            event for suggestion responses.</p>
+          <p>If either event is canceled by calling <code>preventDefault()</code>,
+            user agents MUST NOT perform default rendering or navigation.
+            Otherwise, the default handler expects GeoJSON
+            <a href="https://www.rfc-editor.org/rfc/rfc7946#section-3.3"><code>FeatureCollection</code></a>
+            responses and navigates to the first result's <code>bbox</code> or
+            <code>geometry.coordinates</code>.</p>
+          <p>The <code>setResults()</code> callback accepts a sequence of
+            <a href="#dom-mapsearchresult"><code>MapSearchResult</code></a>
+            items, where <code>text</code> is required, and optional fields are
+            <code>value</code> (trigger re-search), <code>lat</code>,
+            <code>lng</code>, and <code>bbox</code>. When present,
+            <code>bbox</code> MUST contain exactly four numbers in west-south-east-north
+            order.</p>
+        </section>
         
         <p>The <a href="#attr-mapviewer-projection" class="lint-ignore"><code>projection</code></a> 
           attribute value identifies the tiled coordinate reference system for 
@@ -1134,7 +1212,7 @@ start =
             </p>
             
             <pre>
-              &lt;mapml-viewer projection="CBMTILE" zoom="15" lat="45.4215" lon="-75.6972" width="600" height="350" controls controlslist="geolocation"&gt;
+              &lt;mapml-viewer projection="CBMTILE" zoom="15" lat="45.4215" lon="-75.6972" width="600" height="350" controls controlslist="geolocation search"&gt;
                 &lt;map-caption&gt;A map of downtown Ottawa, Canada&lt;/map-caption&gt;
                 &lt;map-layer label="Canada Base Map - Transportation (CBMT)" src="https://example.com/mapml/cbmt/" checked crossorigin&gt;&lt;/map-layer&gt;
               &lt;/mapml-viewer&gt;
@@ -1147,6 +1225,8 @@ start =
                   &lt;map-meta http-equiv="Content-Type" content="text/mapml;charset=UTF-8"&gt;&lt;/map-meta&gt;
                   &lt;map-meta charset="utf-8"&gt;&lt;/map-meta&gt;
                   &lt;map-link rel="license" href="https://www.nrcan.gc.ca/earth-sciences/geography/topographic-information/free-data-geogratis/licence/17285" title="Canada Base Map © Natural Resources Canada"&gt;&lt;/map-link&gt;
+                  &lt;map-link rel="search" tref="https://photon.komoot.io/api/?q={searchTerms}"&gt;&lt;/map-link&gt;
+                  &lt;map-link rel="suggestions" tref="https://photon.komoot.io/api/?q={searchTerms}"&gt;&lt;/map-link&gt;
                 &lt;/map-head&gt;
                 &lt;map-body&gt;
                   &lt;map-extent units="CBMTILE" checked="checked"&gt;
@@ -1906,7 +1986,8 @@ start =
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#metadata-content-2">Metadata content</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-contexts">Contexts in which this element can be used</a>:</dt>
           <dd>If the element represents a hyperlink (has a <code>href</code> attribute): In <a href="#dfn-local-content">local content</a>, as a child of the <a href="#the-layer-element"><code>layer</code></a> element; in <a href="#dfn-remote-content">remote content</a>, as a child of the <a href="#the-head-element"><code>head</code></a> or <a href="#the-body-element"><code>body</code></a> element.</dd>
-          <dd>If the element represents a link template (has a <code>tref</code> attribute): As a child of the <a href="#the-extent-element"><code>extent</code></a> element.</dd>
+          <dd>If the element represents a link template (has a <code>tref</code> attribute): When <code>rel</code> is in the <a href="#link-rel-tile"><code>tile</code></a>, <a href="#link-rel-image"><code>image</code></a>, <a href="#link-rel-features"><code>features</code></a>, or <a href="#link-rel-query"><code>query</code></a> state, as a child of the <a href="#the-extent-element"><code>extent</code></a> element.</dd>
+          <dd>If the element represents a link template (has a <code>tref</code> attribute): When <code>rel</code> is in the <a href="#link-rel-search"><code>search</code></a> or <a href="#link-rel-suggestions"><code>suggestions</code></a> state, in <a href="#dfn-local-content">local content</a> as a child of the <a href="#the-layer-element"><code>layer</code></a> element, and in <a href="#dfn-remote-content">remote content</a> as a child of the <a href="#the-head-element"><code>head</code></a> element.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-content-model">Content model</a>:</dt>
           <dd><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-content-nothing">Nothing</a>.</dd>
           <dt><a href="https://html.spec.whatwg.org/multipage/dom.html#concept-element-attributes">Content attributes</a>:</dt>
@@ -2007,6 +2088,22 @@ start =
           string which identifies the role of the resource(s) for which the <code>tref</code> attribute value represents a URL template, which may contain zero or more <code>input/@name</code> variable references. Such variable references
           must be a case-insensitive match of sibling <a href="#the-input-element"><code>input</code></a> elements' <code>name</code> attribute.
         </p>
+        <p>For <code>link</code> elements with <code>rel=search</code> or
+        <code>rel=suggestions</code>, the template MUST be provided by
+        <code>tref</code> (not <code>href</code>) and MUST contain
+        <code>{searchTerms}</code>, a predefined template variable whose value is
+        the current user search string. For each checked
+        <a href="#the-layer-element"><code>layer</code></a>, user agents MUST
+        use only the first <code>rel=search</code> link in document order;
+        subsequent <code>rel=search</code> links are ignored.</p>
+        <p>When the
+        <a href="#attr-mapviewer-controlslist-search"><code>search</code></a>
+        control is invoked, user agents SHOULD query all checked layers with
+        <code>rel=search</code> links in parallel. For
+        <code>rel=suggestions</code>, user agents SHOULD debounce requests and
+        apply a minimum query length. Non-GeoJSON or malformed responses SHOULD
+        be handled as empty results, and user agents MAY surface a console
+        warning.</p>
         <p>The content represented by <code>link[@tref]</code> elements should be painted in document order of the appearance of the <code>link[@tref]</code> elements.</p>
 
         <div class="table-responsive">
@@ -2077,6 +2174,14 @@ start =
             <tr id="link-rel-query">
               <td><code>query</code></td>
               <td>The templated resource reference identifies a query resource at a location</td>
+            </tr>
+            <tr id="link-rel-search">
+              <td><code>search</code></td>
+              <td>A place-name search URL template.</td>
+            </tr>
+            <tr id="link-rel-suggestions">
+              <td><code>suggestions</code></td>
+              <td>A typeahead/autocomplete URL template.</td>
             </tr>
           </tbody>
         </table>

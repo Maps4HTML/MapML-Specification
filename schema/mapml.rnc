@@ -8,7 +8,19 @@ map-link = element map-link {
         # can have a tref (when in extent) or an href (but not both)
         attribute tref { text }?,
         # @rel=alternate + @projection=tcrs-name is proposed as a way of negotiating the tcrs of the service: https://github.com/Maps4HTML/MapML/issues/11
-        attribute rel {  text },
+  attribute rel {
+    "alternate" |
+    "self" |
+    "style" |
+    "tile" |
+    "image" |
+    "features" |
+    "query" |
+    "search" |
+    "suggestions" |
+    "self style" |
+    "style self"
+  },
         attribute projection { "OSMTILE" | "CBMTILE" | "APSTILE" | "WGS84" }?,
         attribute title { text }?,
         attribute type { text }?,
