@@ -15,7 +15,8 @@ mapml-viewer = element mapml-viewer { map-layer*,
           "nozoom" |
           "nolocate" |
           "geolocation" |
-          "search"
+          "search" |
+          "static"
         )*
       }
     }?,
